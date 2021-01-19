@@ -1282,3 +1282,48 @@ def test_show_router_static_route_tag_ipv6():
     }
 ]"""
         assert result, routes
+
+def test_show_ravs_bof():
+
+    """
+    Test parsing show bof output from RAVS tool
+    """
+    example_output="tests/show_output/show_ravs_bof.txt"
+    parser = SrosParser(example_output)
+    result = parser.show_bof(ravs=True)
+    ravs_bof = """[
+    {
+        "address": [
+            {
+                "address": "10.202.16.53",
+                "prefix-length": "23"
+            },
+            {
+                "address": "2001:4888:2A1A:A03D:192:400::1",
+                "prefix-length": "64"
+            }
+        ],
+        "config": {
+            "cf-card": "cf3",
+            "primary-config": "PHLAPAbts0030.cfg",
+            "secondary-config": "PHLAPAbts0030.backup.cfg"
+        },
+        "image": {
+            "cf-card": "cf3",
+            "primary-image": "TiMOS-B-7.0.R5",
+            "secondary-image": "TiMOS-B-6.1.R4"
+        },
+        "static-route": [
+            {
+                "network": "10.134.221.0/24",
+                "next-hop": "10.202.16.52"
+            },
+            {
+                "network": "10.134.240.0/22",
+                "next-hop": "10.202.16.52"
+            }
+        ]
+    }
+]"""
+    assert result, ravs_bof
+    

@@ -1,0 +1,14 @@
+<group name="config">
+primary-config   {{cf-card}}:\{{primary-config}}
+secondary-config {{cf-card}}:\{{secondary-config}}
+</group>
+<group name="address">
+address          {{address}}/{{prefix-length}} active
+</group>
+<group name="static-route">
+static-route     {{network}} next-hop {{next-hop}}
+</group>
+<group name="image">
+primary-image    {{cf-card}}:/images/{{primary-image}}/
+secondary-image  {{cf-card}}:/images/{{secondary-image}}/
+</group>

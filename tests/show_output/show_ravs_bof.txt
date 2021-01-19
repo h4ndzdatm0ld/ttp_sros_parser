@@ -1,0 +1,21 @@
+# TiMOS-B-6.0.R2 both/hops ALCATEL-LUCENT SAR 7705 
+# Copyright (c) 2000-2013 Alcatel-Lucent.
+# All rights reserved. All use subject to applicable license agreements.
+# Built on Mon Apr 29 16:47:01 EDT 2013 by csabuild in /rel6.0/b1/R2/panos/main
+
+# Generated WED SEP 03 04:24:39 2014 UTC
+
+primary-config   cf3:\PHLAPAbts0030.cfg
+secondary-config cf3:\PHLAPAbts0030.backup.cfg
+address          10.202.16.53/23 active
+address          2001:4888:2A1A:A03D:192:400::1/64 active
+static-route     10.134.221.0/24 next-hop 10.202.16.52
+static-route     10.134.240.0/22 next-hop 10.202.16.52
+no autonegotiate
+duplex           full
+speed            100
+wait             3
+persist          on
+console-speed    9600
+primary-image cf3:/images/TiMOS-B-7.0.R5/
+secondary-image cf3:/images/TiMOS-B-6.1.R4/
