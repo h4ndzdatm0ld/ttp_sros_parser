@@ -1,0 +1,29 @@
+<macro>
+def set_dir(data):
+    if "DIR" in data:
+        return data, {'DIR': True}
+def find_slot(data):
+    if "slot A" in data:
+        return data, {"slot": "A"}
+    elif "slot B" in data:
+        return data, {"slot": "B"}
+</macro>
+
+<group name="cf-contents">
+<group name="volume">
+Volume {{volume | PHRASE | macro("find_slot")}}
+</group>
+<group name="directory">
+Directory {{cf-card | PHRASE | strip('of ')}}:\
+</group>
+<group name="directory.directories">
+{{date}}  {{time}}      {{DIR | re(r".DIR.") | macro("set_dir") }}          {{directory}}
+</group>
+<group name="directory.files">
+{{date}}  {{time}}      {{size | DIGIT}}          {{filename}}
+</group>
+<group name="directory.count">
+               {{total-files | DIGIT}} File(s)                 {{bytes-used}} bytes.
+               {{total-dirs | DIGIT}} Dir(s)               {{bytes-free | DIGIT}} bytes free.
+</group>
+</group>

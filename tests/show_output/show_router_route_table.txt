@@ -1,0 +1,2494 @@
+A:TCSNAZ7591A-P-AL-7750-02# environment no more 
+A:TCSNAZ7591A-P-AL-7750-02# show router static-route tag 1000
+
+===============================================================================
+Static Route Table (Router: Base)  Family: IPv4
+===============================================================================
+Prefix                                        Tag         Met    Pref Type Act
+   Next Hop                                    Interface                   
+-------------------------------------------------------------------------------
+10.115.5.0/24                                 1000        1      5    BH   Y
+   n/a                                         n/a                    
+10.115.46.0/24                                1000        1      5    BH   Y
+   n/a                                         n/a                    
+10.119.238.0/24                               1000        1      5    BH   Y
+   n/a                                         n/a                    
+-------------------------------------------------------------------------------
+No. of Static Routes: 3
+===============================================================================
+A:TCSNAZ7591A-P-AL-7750-02# show router static-route tag 1000 ipv6 
+
+===============================================================================
+Static Route Table (Router: Base)  Family: IPv6
+===============================================================================
+Prefix                                        Tag         Met    Pref Type Act
+   Next Hop                                    Interface                   
+-------------------------------------------------------------------------------
+2001:4888:26f:4500::/56                       1000        1      5    BH   Y
+   n/a                                         n/a                    
+2001:4888:2000:0:646:2a0::/112                1000        1      5    BH   Y
+   n/a                                         n/a                    
+2001:4888:2062::/52                           1000        1      5    BH   Y
+   n/a                                         n/a                    
+-------------------------------------------------------------------------------
+No. of Static Routes: 3
+===============================================================================
+A:TCSNAZ7591A-P-AL-7750-02# show router 3 static-route tag 100 
+
+===============================================================================
+Static Route Table (Service: 3)  Family: IPv4
+===============================================================================
+Prefix                                        Tag         Met    Pref Type Act
+   Next Hop                                    Interface                   
+-------------------------------------------------------------------------------
+10.122.38.0/23                                100         1      5    BH   Y
+   n/a                                         n/a                    
+10.122.74.0/23                                100         1      5    BH   Y
+   n/a                                         n/a                    
+10.204.204.0/24                               100         1      5    BH   Y
+   n/a                                         n/a                    
+10.205.83.128/26                              100         1      5    NH   Y
+   10.205.83.228                               L3-VLAN341             
+10.205.83.192/27                              100         1      5    NH   Y
+   10.205.83.244                               L3-VLAN347             
+10.221.148.0/23                               100         1      5    BH   Y
+   n/a                                         n/a                    
+10.221.178.0/23                               100         1      5    BH   Y
+   n/a                                         n/a                    
+10.221.180.0/23                               100         1      5    BH   Y
+   n/a                                         n/a                    
+10.224.154.0/23                               100         1      5    BH   Y
+   n/a                                         n/a                    
+10.248.252.128/26                             100         1      5    BH   Y
+   n/a                                         n/a                    
+151.144.46.128/26                             100         1      5    NH   N
+   151.144.246.4                               n/a                    
+151.144.46.192/26                             100         1      5    NH   N
+   151.144.246.5                               n/a                    
+-------------------------------------------------------------------------------
+No. of Static Routes: 12
+===============================================================================
+A:TCSNAZ7591A-P-AL-7750-02# show router 4 route-table 
+
+===============================================================================
+Route Table (Service: 4)
+===============================================================================
+Dest Prefix[Flags]                            Type    Proto     Age        Pref
+      Next Hop[Interface Name]                                    Metric   
+-------------------------------------------------------------------------------
+0.0.0.0/0                                     Remote  Static    0314d23h   5
+       10.141.37.1                                                  1
+10.90.164.0/29                                Remote  OSPF      0181d22h   150
+       10.203.13.252                                                1
+10.90.164.8/29                                Local   Local     0181d22h   0
+       L3-OAM-eNodeB0076                                            0
+10.90.164.16/29                               Local   Local     0159d08h   0
+       L3-OAM-eNodeB0078                                            0
+10.90.164.40/29                               Remote  OSPF      0217d12h   150
+       10.203.13.252                                                1
+10.90.164.64/29                               Local   Local     19d08h13m  0
+       L3-OAM-eNodeB0278                                            0
+10.90.164.72/29                               Remote  OSPF      33d19h54m  150
+       10.203.13.252                                                1
+10.90.164.80/29                               Local   Local     0202d12h   0
+       L3-OAM-eNodeB0286                                            0
+10.90.164.88/29                               Local   Local     19d08h12m  0
+       L3-OAM-eNodeB0262                                            0
+10.90.164.96/29                               Local   Local     33d19h55m  0
+       L3-OAM-eNodeB0290                                            0
+10.90.164.104/29                              Remote  OSPF      33d19h55m  150
+       10.203.13.252                                                1
+10.90.164.112/29                              Remote  OSPF      33d19h54m  150
+       10.203.13.252                                                1
+10.90.164.120/29                              Remote  OSPF      33d19h56m  150
+       10.203.13.252                                                1
+10.90.164.128/29                              Local   Local     10h41m16s  0
+       L3-OAM-eNodeB0268                                            0
+10.90.164.136/29                              Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.90.164.152/29                              Remote  OSPF      0271d22h   150
+       10.203.13.252                                                1
+10.90.164.160/29                              Remote  OSPF      93d08h25m  150
+       10.203.13.252                                                1
+10.90.164.168/29                              Remote  OSPF      0271d22h   150
+       10.203.13.252                                                1
+10.90.164.176/29                              Local   Local     20d21h49m  0
+       L3-OAM-eNodeB0288                                            0
+10.90.164.192/29                              Local   Local     0203d22h   0
+       L3-OAM-eNodeB0292                                            0
+10.90.164.200/29                              Local   Local     19d08h06m  0
+       L3-OAM-eNodeB0270                                            0
+10.90.164.208/29                              Local   Local     33d19h57m  0
+       L3-OAM-eNodeB0130                                            0
+10.90.164.216/29                              Local   Local     33d19h57m  0
+       L3-OAM-eNodeB0152                                            0
+10.90.164.224/29                              Local   Local     33d18h13m  0
+       L3-OAM-eNodeB0134                                            0
+10.90.164.232/29                              Remote  OSPF      27d13h24m  150
+       10.203.13.252                                                1
+10.90.164.240/29                              Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.90.164.248/29                              Local   Local     0131d22h   0
+       L3-OAM-eNodeB0004                                            0
+10.90.165.16/29                               Remote  OSPF      33d19h55m  150
+       10.203.13.252                                                1
+10.90.165.24/29                               Local   Local     11d14h24m  0
+       L3-OAM-eNodeB0026                                            0
+10.90.165.40/29                               Local   Local     0104d23h   0
+       L3-OAM-eNodeB0010                                            0
+10.90.165.48/29                               Local   Local     55d09h26m  0
+       L3-OAM-eNodeB0132                                            0
+10.90.165.88/29                               Local   Local     12d14h10m  0
+       L3-OAM-eNodeB0560-W1                                         0
+10.90.165.112/29                              Local   Local     06d13h29m  0
+       L3-OAM-eNodeB0520-W1                                         0
+10.90.165.120/29                              Remote  OSPF      47d18h51m  150
+       10.203.13.252                                                1
+10.90.165.128/29                              Local   Local     33d19h52m  0
+       L3-OAM-eNodeB0256                                            0
+10.90.165.184/29                              Remote  OSPF      33d19h51m  150
+       10.203.13.252                                                1
+10.90.165.192/29                              Local   Local     33d19h53m  0
+       L3-OAM-eNodeB0128                                            0
+10.90.165.200/29                              Remote  OSPF      33d19h54m  150
+       10.203.13.252                                                1
+10.90.165.208/29                              Remote  OSPF      17d21h47m  150
+       10.203.13.252                                                1
+10.90.165.216/29                              Local   Local     0203d22h   0
+       L3-OAM-eNodeB0272                                            0
+10.90.165.240/28                              Remote  OSPF      0104d23h   150
+       10.203.13.252                                                1
+10.90.203.0/29                                Local   Local     12d14h13m  0
+       L3-OAM-eNodeB0148                                            0
+10.93.68.2/31                                 Local   Local     06d13h29m  0
+       L3-EDN-BTS0520-W1                                            0
+10.93.68.4/31                                 Remote  OSPF      47d18h51m  150
+       10.203.13.252                                                1
+10.93.68.6/31                                 Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.93.68.8/31                                 Local   Local     0140d10h   0
+       L3-EDN-BTS0256                                               0
+10.93.68.12/31                                Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.93.68.14/31                                Remote  OSPF      0143d23h   150
+       10.203.13.252                                                1
+10.93.68.16/31                                Remote  OSPF      12d14h09m  150
+       10.203.13.252                                                1
+10.93.68.20/31                                Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.93.68.22/31                                Remote  OSPF      67d18h13m  150
+       10.203.13.252                                                1
+10.93.68.24/31                                Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.93.68.26/31                                Local   Local     19d08h06m  0
+       L3-EDN-BTS0280                                               0
+10.93.68.30/31                                Remote  OSPF      0314d23h   150
+       10.203.13.252                                                1
+10.93.68.32/31                                Local   Local     0203d22h   0
+       L3-EDN-BTS0330                                               0
+10.93.68.34/31                                Local   Local     0203d22h   0
+       L3-EDN-BTS0612                                               0
+10.93.68.38/31                                Local   Local     01d14h18m  0
+       L3-EDN-BTS0602                                               0
+10.93.68.42/31                                Local   Local     19d08h07m  0
+       L3-EDN-BTS0298                                               0
+10.93.68.50/31                                Local   Local     0137d07h   0
+       L3-EDN-BTS0282                                               0
+10.141.37.0/27                                Local   Local     0314d23h   0
+       L3-EDN-INTERFACE                                             0
+10.197.2.0/29                                 Local   Local     0104d23h   0
+       L3-OAM-eNodeB0170                                            0
+10.197.2.8/29                                 Remote  OSPF      0104d23h   150
+       10.203.13.252                                                1
+10.197.2.16/29                                Local   Local     33d19h56m  0
+       L3-OAM-eNodeB0172                                            0
+10.197.2.24/29                                Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.197.2.32/29                                Local   Local     0104d23h   0
+       L3-OAM-eNodeB0180                                            0
+10.197.2.40/29                                Remote  OSPF      33d19h51m  150
+       10.203.13.252                                                1
+10.197.2.48/29                                Remote  OSPF      33d19h53m  150
+       10.203.13.252                                                1
+10.197.2.56/29                                Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.197.2.64/29                                Remote  OSPF      33d19h51m  150
+       10.203.13.252                                                1
+10.197.2.72/29                                Local   Local     97d10h34m  0
+       L3-OAM-eNodeB0124                                            0
+10.197.2.80/29                                Local   Local     33d19h54m  0
+       L3-OAM-eNodeB0086                                            0
+10.197.2.88/29                                Remote  OSPF      0104d23h   150
+       10.203.13.252                                                1
+10.197.2.96/29                                Local   Local     0203d22h   0
+       L3-OAM-eNodeB0188                                            0
+10.197.2.104/29                               Remote  OSPF      33d19h54m  150
+       10.203.13.252                                                1
+10.197.2.112/29                               Local   Local     33d19h56m  0
+       L3-OAM-eNodeB0186                                            0
+10.197.2.120/29                               Local   Local     33d19h56m  0
+       L3-OAM-eNodeB0122                                            0
+10.197.2.128/29                               Remote  OSPF      33d19h56m  150
+       10.203.13.252                                                1
+10.197.2.136/29                               Local   Local     33d19h54m  0
+       L3-OAM-eNodeB0196                                            0
+10.197.2.144/29                               Remote  OSPF      0104d23h   150
+       10.203.13.252                                                1
+10.197.2.152/29                               Remote  OSPF      33d19h55m  150
+       10.203.13.252                                                1
+10.197.2.160/29                               Local   Local     33d19h56m  0
+       L3-OAM-eNodeB0234                                            0
+10.197.2.168/29                               Local   Local     33d19h56m  0
+       L3-OAM-eNodeB0236                                            0
+10.197.2.176/29                               Local   Local     0203d22h   0
+       L3-OAM-eNodeB0202                                            0
+10.197.2.184/29                               Remote  OSPF      33d19h55m  150
+       10.203.13.252                                                1
+10.197.2.192/29                               Local   Local     0203d22h   0
+       L3-OAM-eNodeB0204                                            0
+10.197.2.200/29                               Remote  OSPF      33d19h55m  150
+       10.203.13.252                                                1
+10.197.2.208/29                               Remote  OSPF      0314d23h   150
+       10.203.13.252                                                1
+10.197.2.216/29                               Local   Local     33d18h09m  0
+       L3-OAM-eNodeB0120                                            0
+10.197.2.224/29                               Remote  OSPF      33d19h51m  150
+       10.203.13.252                                                1
+10.197.2.232/29                               Local   Local     33d19h54m  0
+       L3-OAM-eNodeB0212                                            0
+10.197.2.240/29                               Local   Local     0152d06h   0
+       L3-OAM-eNodeB0214                                            0
+10.197.2.248/29                               Local   Local     33d19h55m  0
+       L3-OAM-eNodeB0062                                            0
+10.197.3.0/29                                 Local   Local     33d19h55m  0
+       L3-OAM-eNodeB0008                                            0
+10.197.3.8/29                                 Local   Local     0203d22h   0
+       L3-OAM-eNodeB0012                                            0
+10.197.3.16/29                                Remote  OSPF      33d19h55m  150
+       10.203.13.252                                                1
+10.197.3.24/29                                Local   Local     06d10h25m  0
+       L3-OAM-eNodeB0050                                            0
+10.197.3.32/29                                Local   Local     0203d22h   0
+       L3-OAM-eNodeB0024                                            0
+10.197.3.40/29                                Local   Local     0104d23h   0
+       L3-OAM-eNodeB0106                                            0
+10.197.3.48/29                                Remote  OSPF      24d11h50m  150
+       10.203.13.252                                                1
+10.197.3.56/29                                Remote  OSPF      33d19h55m  150
+       10.203.13.252                                                1
+10.197.3.64/29                                Remote  OSPF      0104d23h   150
+       10.203.13.252                                                1
+10.197.3.72/29                                Remote  OSPF      56d14h15m  150
+       10.203.13.252                                                1
+10.197.3.80/29                                Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.197.3.88/29                                Local   Local     33d19h55m  0
+       L3-OAM-eNodeB0226                                            0
+10.197.3.96/29                                Remote  OSPF      33d19h52m  150
+       10.203.13.252                                                1
+10.197.3.104/29                               Local   Local     33d19h56m  0
+       L3-OAM-eNodeB0228                                            0
+10.197.3.112/29                               Local   Local     33d19h55m  0
+       L3-OAM-eNodeB0112                                            0
+10.197.3.120/29                               Remote  OSPF      0314d23h   150
+       10.203.13.252                                                1
+10.197.3.128/29                               Remote  OSPF      33d19h57m  150
+       10.203.13.252                                                1
+10.197.3.136/29                               Remote  OSPF      0199d23h   150
+       10.203.13.252                                                1
+10.197.3.144/29                               Remote  OSPF      33d19h57m  150
+       10.203.13.252                                                1
+10.197.3.152/29                               Local   Local     33d19h54m  0
+       L3-OAM-eNodeB0032                                            0
+10.197.3.160/29                               Remote  OSPF      33d19h54m  150
+       10.203.13.252                                                1
+10.197.3.168/29                               Remote  OSPF      33d19h54m  150
+       10.203.13.252                                                1
+10.197.3.176/29                               Remote  OSPF      33d19h55m  150
+       10.203.13.252                                                1
+10.197.3.184/29                               Local   Local     0137d17h   0
+       L3-OAM-eNodeB0040                                            0
+10.197.3.200/29                               Local   Local     0104d23h   0
+       L3-OAM-eNodeB0043                                            0
+10.197.3.208/29                               Local   Local     33d19h57m  0
+       L3-OAM-eNodeB0046                                            0
+10.197.3.216/29                               Remote  OSPF      73d10h50m  150
+       10.203.13.252                                                1
+10.197.3.224/29                               Local   Local     33d19h55m  0
+       L3-OAM-eNodeB0048                                            0
+10.197.3.232/29                               Local   Local     33d19h55m  0
+       L3-OAM-eNodeB0054                                            0
+10.197.3.240/29                               Remote  OSPF      33d19h54m  150
+       10.203.13.252                                                1
+10.197.3.248/29                               Remote  OSPF      33d19h51m  150
+       10.203.13.252                                                1
+10.197.46.0/29                                Remote  OSPF      09d08h05m  150
+       10.203.13.252                                                1
+10.197.46.8/29                                Remote  OSPF      0104d23h   150
+       10.203.13.252                                                1
+10.197.46.16/29                               Local   Local     0104d23h   0
+       L3-OAM-eNodeB0068                                            0
+10.197.46.24/29                               Local   Local     33d19h52m  0
+       L3-OAM-eNodeB0070                                            0
+10.197.46.32/29                               Local   Local     0203d22h   0
+       L3-OAM-eNodeB0074                                            0
+10.197.46.40/29                               Remote  OSPF      33d19h55m  150
+       10.203.13.252                                                1
+10.197.46.48/29                               Remote  OSPF      33d19h53m  150
+       10.203.13.252                                                1
+10.197.46.56/29                               Remote  OSPF      33d19h54m  150
+       10.203.13.252                                                1
+10.197.46.64/29                               Remote  OSPF      33d19h55m  150
+       10.203.13.252                                                1
+10.197.46.72/29                               Local   Local     0104d23h   0
+       L3-OAM-eNodeB0098                                            0
+10.197.46.80/29                               Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.197.46.88/29                               Local   Local     33d19h54m  0
+       L3-OAM-eNodeB0100                                            0
+10.197.46.96/29                               Remote  OSPF      0104d23h   150
+       10.203.13.252                                                1
+10.197.46.104/29                              Remote  OSPF      33d19h56m  150
+       10.203.13.252                                                1
+10.197.46.112/29                              Local   Local     33d19h55m  0
+       L3-OAM-eNodeB0104                                            0
+10.197.46.120/29                              Remote  OSPF      0104d23h   150
+       10.203.13.252                                                1
+10.197.46.128/29                              Local   Local     33d19h54m  0
+       L3-OAM-eNodeB0108                                            0
+10.197.46.136/29                              Local   Local     0203d22h   0
+       L3-OAM-eNodeB0110                                            0
+10.197.46.144/29                              Remote  OSPF      0102d22h   150
+       10.203.13.252                                                1
+10.197.46.152/29                              Local   Local     25d05h47m  0
+       L3-OAM-eNodeB0114                                            0
+10.197.46.160/29                              Remote  OSPF      33d19h56m  150
+       10.203.13.252                                                1
+10.197.46.168/29                              Local   Local     33d19h58m  0
+       L3-OAM-eNodeB0118                                            0
+10.197.46.176/29                              Remote  OSPF      33d19h56m  150
+       10.203.13.252                                                1
+10.197.46.184/29                              Local   Local     12d14h14m  0
+       L3-OAM-eNodeB0136                                            0
+10.197.46.192/29                              Local   Local     17d03h32m  0
+       L3-OAM-eNodeB0138                                            0
+10.197.46.200/29                              Local   Local     12d14h14m  0
+       L3-OAM-eNodeB0142                                            0
+10.197.46.208/29                              Remote  OSPF      12d14h13m  150
+       10.203.13.252                                                1
+10.197.46.216/29                              Local   Local     55d09h26m  0
+       L3-OAM-eNodeB0144                                            0
+10.197.46.224/29                              Remote  OSPF      12d14h09m  150
+       10.203.13.252                                                1
+10.197.46.232/29                              Local   Local     0143d23h   0
+       L3-OAM-eNodeB0146                                            0
+10.197.46.240/29                              Remote  OSPF      17d14h06m  150
+       10.203.13.252                                                1
+10.197.46.248/29                              Remote  OSPF      17d21h47m  150
+       10.203.13.252                                                1
+10.197.47.0/29                                Local   Local     33d19h52m  0
+       L3-OAM-eNodeB0156                                            0
+10.197.47.8/29                                Remote  OSPF      0141d12h   150
+       10.203.13.252                                                1
+10.197.47.16/29                               Local   Local     0141d12h   0
+       L3-OAM-eNodeB0158                                            0
+10.197.47.24/29                               Local   Local     13d14h45m  0
+       L3-OAM-eNodeB0166                                            0
+10.197.47.32/29                               Local   Local     33d19h57m  0
+       L3-OAM-eNodeB0174                                            0
+10.197.47.40/29                               Remote  OSPF      33d19h55m  150
+       10.203.13.252                                                1
+10.197.47.48/29                               Local   Local     0203d22h   0
+       L3-OAM-eNodeB0178                                            0
+10.197.47.56/29                               Local   Local     13d11h44m  0
+       L3-OAM-eNodeB0184                                            0
+10.197.47.64/29                               Remote  OSPF      0104d23h   150
+       10.203.13.252                                                1
+10.197.47.72/29                               Local   Local     33d19h52m  0
+       L3-OAM-eNodeB0190                                            0
+10.197.47.80/29                               Remote  OSPF      33d19h55m  150
+       10.203.13.252                                                1
+10.197.47.88/29                               Local   Local     33d19h51m  0
+       L3-OAM-eNodeB0192                                            0
+10.197.47.96/29                               Remote  OSPF      0104d23h   150
+       10.203.13.252                                                1
+10.197.47.104/29                              Remote  OSPF      33d19h55m  150
+       10.203.13.252                                                1
+10.197.47.112/29                              Local   Local     0100d03h   0
+       L3-OAM-eNodeB0198                                            0
+10.197.47.120/29                              Remote  OSPF      33d19h56m  150
+       10.203.13.252                                                1
+10.197.47.128/29                              Local   Local     0104d23h   0
+       L3-OAM-eNodeB0200                                            0
+10.197.47.136/29                              Remote  OSPF      05d06h04m  150
+       10.203.13.252                                                1
+10.197.47.144/29                              Remote  OSPF      33d19h54m  150
+       10.203.13.252                                                1
+10.197.47.152/29                              Local   Local     0203d22h   0
+       L3-OAM-eNodeB0206                                            0
+10.197.47.160/29                              Local   Local     33d19h54m  0
+       L3-OAM-eNodeB0208                                            0
+10.197.47.168/29                              Remote  OSPF      12d14h09m  150
+       10.203.13.252                                                1
+10.197.47.176/29                              Remote  OSPF      33d19h52m  150
+       10.203.13.252                                                1
+10.197.47.184/29                              Remote  OSPF      0104d23h   150
+       10.203.13.252                                                1
+10.197.47.192/29                              Local   Local     33d19h52m  0
+       L3-OAM-eNodeB0218                                            0
+10.197.47.200/29                              Remote  OSPF      33d02h52m  150
+       10.203.13.252                                                1
+10.197.47.208/29                              Local   Local     33d19h52m  0
+       L3-OAM-eNodeB0222                                            0
+10.197.47.216/29                              Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.197.47.232/29                              Local   Local     33d19h57m  0
+       L3-OAM-eNodeB0230                                            0
+10.197.47.240/29                              Remote  OSPF      33d18h25m  150
+       10.203.13.252                                                1
+10.197.47.248/29                              Remote  OSPF      0104d23h   150
+       10.203.13.252                                                1
+10.200.218.0/29                               Local   Local     19d08h12m  0
+       L3-OAM-eNodeB0240                                            0
+10.200.218.8/29                               Remote  OSPF      33d19h57m  150
+       10.203.13.252                                                1
+10.200.218.16/29                              Remote  OSPF      0271d22h   150
+       10.203.13.252                                                1
+10.200.218.24/29                              Local   Local     33d19h58m  0
+       L3-OAM-eNodeB0244                                            0
+10.200.218.32/29                              Local   Local     19d08h12m  0
+       L3-OAM-eNodeB0246                                            0
+10.200.218.40/29                              Remote  OSPF      33d19h57m  150
+       10.203.13.252                                                1
+10.200.218.48/29                              Local   Local     33d19h56m  0
+       L3-OAM-eNodeB0250                                            0
+10.200.218.56/29                              Remote  OSPF      0159d22h   150
+       10.203.13.252                                                1
+10.200.218.64/29                              Remote  OSPF      68d09h38m  150
+       10.203.13.252                                                1
+10.200.218.72/29                              Local   Local     33d19h54m  0
+       L3-OAM-eNodeB0260                                            0
+10.200.218.80/29                              Remote  OSPF      10h41m14s  150
+       10.203.13.252                                                1
+10.200.218.88/29                              Local   Local     08d22h18m  0
+       L3-OAM-eNodeB0274                                            0
+10.200.218.96/29                              Remote  OSPF      19d08h06m  150
+       10.203.13.252                                                1
+10.200.218.104/29                             Local   Local     10h47m08s  0
+       L3-OAM-eNodeB0276                                            0
+10.200.218.112/29                             Remote  OSPF      19d09h56m  150
+       10.203.13.252                                                1
+10.200.218.120/29                             Remote  OSPF      19d08h11m  150
+       10.203.13.252                                                1
+10.200.218.128/29                             Remote  OSPF      19d08h11m  150
+       10.203.13.252                                                1
+10.200.218.136/29                             Remote  OSPF      33d19h57m  150
+       10.203.13.252                                                1
+10.200.218.144/29                             Local   Local     15d06h08m  0
+       L3-OAM-eNodeB0294                                            0
+10.200.218.152/29                             Remote  OSPF      0149d08h   150
+       10.203.13.252                                                1
+10.200.218.160/29                             Local   Local     33d19h55m  0
+       L3-OAM-eNodeB0296                                            0
+10.200.218.168/29                             Remote  OSPF      0188d09h   150
+       10.203.13.252                                                1
+10.200.218.176/29                             Remote  OSPF      33d19h57m  150
+       10.203.13.252                                                1
+10.200.218.184/29                             Remote  OSPF      33d19h57m  150
+       10.203.13.252                                                1
+10.200.218.192/29                             Remote  OSPF      33d19h57m  150
+       10.203.13.252                                                1
+10.200.218.200/29                             Local   Local     33d19h54m  0
+       L3-OAM-eNodeB0096                                            0
+10.200.218.208/29                             Local   Local     19d08h13m  0
+       L3-OAM-eNodeB0248                                            0
+10.200.218.216/29                             Remote  OSPF      33d19h53m  150
+       10.203.13.252                                                1
+10.200.218.224/29                             Remote  OSPF      33d19h52m  150
+       10.203.13.252                                                1
+10.200.218.232/29                             Local   Local     89d09h39m  0
+       L3-OAM-eNodeB0802                                            0
+10.200.218.248/29                             Local   Local     33d19h54m  0
+       L3-OAM-eNodeB0102                                            0
+10.200.219.8/29                               Remote  OSPF      0202d07h   150
+       10.203.13.252                                                1
+10.200.219.16/29                              Remote  OSPF      17d21h53m  150
+       10.203.13.252                                                1
+10.200.219.24/29                              Remote  OSPF      0159d04h   150
+       10.203.13.252                                                1
+10.200.219.32/29                              Remote  OSPF      12d14h09m  150
+       10.203.13.252                                                1
+10.200.219.40/29                              Remote  OSPF      14d19h49m  150
+       10.203.13.252                                                1
+10.200.219.48/29                              Local   Local     33d19h57m  0
+       L3-OAM-eNodeB0150                                            0
+10.200.219.56/29                              Local   Local     0125d06h   0
+       L3-OAM-eNodeB0162                                            0
+10.200.219.64/29                              Remote  OSPF      0112d04h   150
+       10.203.13.252                                                1
+10.200.219.72/29                              Local   Local     0112d05h   0
+       L3-OAM-eNodeB0164                                            0
+10.200.219.80/29                              Remote  OSPF      53d03h22m  150
+       10.203.13.252                                                1
+10.200.219.88/29                              Remote  OSPF      03d08h14m  150
+       10.203.13.252                                                1
+10.200.219.96/29                              Local   Local     33d19h54m  0
+       L3-OAM-eNodeB0168                                            0
+10.200.219.112/29                             Local   Local     33d19h56m  0
+       L3-OAM-eNodeB0252                                            0
+10.200.219.128/29                             Local   Local     0141d05h   0
+       L3-OAM-eNodeB0014                                            0
+10.200.219.136/29                             Remote  OSPF      0137d17h   150
+       10.203.13.252                                                1
+10.200.219.144/29                             Local   Local     33d19h54m  0
+       L3-OAM-eNodeB0060                                            0
+10.200.219.152/29                             Local   Local     0181d22h   0
+       L3-OAM-eNodeB0066                                            0
+10.200.219.160/29                             Remote  OSPF      97d13h49m  150
+       10.203.13.252                                                1
+10.200.219.176/29                             Local   Local     25d11h07m  0
+       L3-OAM-eNodeB0080                                            0
+10.200.219.184/29                             Local   Local     0203d22h   0
+       L3-OAM-eNodeB0116                                            0
+10.200.219.192/29                             Remote  OSPF      33d19h57m  150
+       10.203.13.252                                                1
+10.200.219.200/29                             Local   Local     0203d22h   0
+       L3-OAM-eNodeB0210                                            0
+10.200.219.216/29                             Remote  OSPF      28d20h44m  150
+       10.203.13.252                                                1
+10.200.219.224/29                             Remote  OSPF      75d22h00m  150
+       10.203.13.252                                                1
+10.200.219.232/29                             Local   Local     0181d22h   0
+       L3-OAM-eNodeB0064                                            0
+10.200.219.240/29                             Remote  OSPF      0131d07h   150
+       10.203.13.252                                                1
+10.200.219.248/29                             Local   Local     0181d22h   0
+       L3-OAM-eNodeB0072                                            0
+10.203.12.2/31                                Local   Local     0203d22h   0
+       L3-EDN-BTS0024                                               0
+10.203.12.4/31                                Local   Local     0203d22h   0
+       L3-EDN-BTS0032                                               0
+10.203.12.6/31                                Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.8/31                                Local   Local     06d10h26m  0
+       L3-EDN-BTS0050                                               0
+10.203.12.10/31                               Local   Local     0103d11h   0
+       L3-EDN-BTS0062                                               0
+10.203.12.14/31                               Local   Local     0164d16h   0
+       L3-EDN-BTS0086                                               0
+10.203.12.16/31                               Local   Local     0203d22h   0
+       L3-EDN-BTS0098                                               0
+10.203.12.18/31                               Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.20/31                               Local   Local     0203d22h   0
+       L3-EDN-BTS0106                                               0
+10.203.12.22/31                               Local   Local     0203d22h   0
+       L3-EDN-BTS0110                                               0
+10.203.12.24/31                               Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.26/31                               Local   Local     0203d22h   0
+       L3-EDN-BTS0112                                               0
+10.203.12.28/31                               Local   Local     25d05h47m  0
+       L3-EDN-BTS0114                                               0
+10.203.12.30/31                               Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.32/31                               Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.34/31                               Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.36/31                               Local   Local     0203d22h   0
+       L3-EDN-BTS0120                                               0
+10.203.12.38/31                               Local   Local     0188d04h   0
+       L3-EDN-BTS0122                                               0
+10.203.12.40/31                               Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.42/31                               Local   Local     97d10h34m  0
+       L3-EDN-BTS0124                                               0
+10.203.12.44/31                               Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.46/31                               Local   Local     0203d22h   0
+       L3-EDN-BTS0170                                               0
+10.203.12.48/31                               Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.50/31                               Local   Local     0203d22h   0
+       L3-EDN-BTS0172                                               0
+10.203.12.52/31                               Local   Local     44d22h22m  0
+       L3-EDN-BTS0174                                               0
+10.203.12.54/31                               Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.56/31                               Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.58/31                               Local   Local     0203d22h   0
+       L3-EDN-BTS0180                                               0
+10.203.12.60/31                               Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.62/31                               Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.64/31                               Local   Local     13d11h44m  0
+       L3-EDN-BTS0184                                               0
+10.203.12.66/31                               Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.68/31                               Local   Local     0203d22h   0
+       L3-EDN-BTS0186                                               0
+10.203.12.72/31                               Local   Local     0203d22h   0
+       L3-EDN-BTS0188                                               0
+10.203.12.74/31                               Local   Local     0203d22h   0
+       L3-EDN-BTS0190                                               0
+10.203.12.76/31                               Local   Local     88d13h45m  0
+       L3-EDN-BTS0192                                               0
+10.203.12.78/31                               Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.80/31                               Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.82/31                               Local   Local     0203d22h   0
+       L3-EDN-BTS0196                                               0
+10.203.12.84/31                               Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.86/31                               Local   Local     0100d03h   0
+       L3-EDN-BTS0198                                               0
+10.203.12.90/31                               Remote  OSPF      05d06h04m  150
+       10.203.13.252                                                1
+10.203.12.92/31                               Local   Local     0203d22h   0
+       L3-EDN-BTS0202                                               0
+10.203.12.94/31                               Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.96/31                               Local   Local     0203d22h   0
+       L3-EDN-BTS0204                                               0
+10.203.12.98/31                               Remote  OSPF      0314d23h   150
+       10.203.13.252                                                1
+10.203.12.100/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0206                                               0
+10.203.12.102/31                              Remote  OSPF      0314d23h   150
+       10.203.13.252                                                1
+10.203.12.104/31                              Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.106/31                              Remote  OSPF      0314d23h   150
+       10.203.13.252                                                1
+10.203.12.110/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0012                                               0
+10.203.12.112/31                              Remote  OSPF      33d02h52m  150
+       10.203.13.252                                                1
+10.203.12.114/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0222                                               0
+10.203.12.116/31                              Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.118/31                              Remote  OSPF      24d11h50m  150
+       10.203.13.252                                                1
+10.203.12.120/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0226                                               0
+10.203.12.122/31                              Local   Local     0194d12h   0
+       L3-EDN-BTS0228                                               0
+10.203.12.124/31                              Remote  OSPF      0314d23h   150
+       10.203.13.252                                                1
+10.203.12.126/31                              Remote  OSPF      0314d23h   150
+       10.203.13.252                                                1
+10.203.12.128/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0234                                               0
+10.203.12.130/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0236                                               0
+10.203.12.132/31                              Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.134/31                              Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.136/31                              Remote  OSPF      09d08h05m  150
+       10.203.13.252                                                1
+10.203.12.138/31                              Local   Local     55d09h26m  0
+       L3-EDN-BTS0144                                               0
+10.203.12.140/31                              Local   Local     12d14h13m  0
+       L3-EDN-BTS0148                                               0
+10.203.12.142/31                              Remote  OSPF      0314d23h   150
+       10.203.13.252                                                1
+10.203.12.144/31                              Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.146/31                              Remote  OSPF      73d10h50m  150
+       10.203.13.252                                                1
+10.203.12.148/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0218                                               0
+10.203.12.150/31                              Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.152/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0046                                               0
+10.203.12.154/31                              Local   Local     0112d06h   0
+       L3-EDN-BTS0260                                               0
+10.203.12.156/31                              Remote  OSPF      12d14h09m  150
+       10.203.13.252                                                1
+10.203.12.158/31                              Local   Local     0130d03h   0
+       L3-EDN-BTS0104                                               0
+10.203.12.160/31                              Remote  OSPF      0314d23h   150
+       10.203.13.252                                                1
+10.203.12.162/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0008                                               0
+10.203.12.164/31                              Remote  OSPF      0149d11h   150
+       10.203.13.252                                                1
+10.203.12.166/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0108                                               0
+10.203.12.168/31                              Local   Local     0102d20h   0
+       L3-EDN-BTS0100                                               0
+10.203.12.170/31                              Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.172/31                              Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.174/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0054                                               0
+10.203.12.176/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0187                                               0
+10.203.12.182/31                              Remote  OSPF      0314d23h   150
+       10.203.13.252                                                1
+10.203.12.184/31                              Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.186/31                              Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.188/31                              Local   Local     0137d17h   0
+       L3-EDN-BTS0040                                               0
+10.203.12.192/31                              Local   Local     77d18h28m  0
+       L3-EDN-BTS0048                                               0
+10.203.12.194/31                              Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.196/31                              Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.198/31                              Remote  OSPF      0314d23h   150
+       10.203.13.252                                                1
+10.203.12.200/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0068                                               0
+10.203.12.202/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0070                                               0
+10.203.12.204/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0074                                               0
+10.203.12.206/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0212                                               0
+10.203.12.208/31                              Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.210/31                              Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.212/31                              Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.214/31                              Remote  OSPF      0102d22h   150
+       10.203.13.252                                                1
+10.203.12.216/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0118                                               0
+10.203.12.218/31                              Local   Local     12d14h14m  0
+       L3-EDN-BTS0136                                               0
+10.203.12.220/31                              Local   Local     17d03h32m  0
+       L3-EDN-BTS0138                                               0
+10.203.12.222/31                              Local   Local     12d14h14m  0
+       L3-EDN-BTS0142                                               0
+10.203.12.224/31                              Remote  OSPF      12d14h13m  150
+       10.203.13.252                                                1
+10.203.12.226/31                              Remote  OSPF      12d14h09m  150
+       10.203.13.252                                                1
+10.203.12.228/31                              Local   Local     0143d23h   0
+       L3-EDN-BTS0146                                               0
+10.203.12.230/31                              Remote  OSPF      0143d23h   150
+       10.203.13.252                                                1
+10.203.12.232/31                              Remote  OSPF      17d21h47m  150
+       10.203.13.252                                                1
+10.203.12.234/31                              Local   Local     0143d23h   0
+       L3-EDN-BTS0156                                               0
+10.203.12.236/31                              Remote  OSPF      0141d12h   150
+       10.203.13.252                                                1
+10.203.12.238/31                              Local   Local     0141d12h   0
+       L3-EDN-BTS0158                                               0
+10.203.12.240/31                              Local   Local     17d03h31m  0
+       L3-EDN-BTS0166                                               0
+10.203.12.242/31                              Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.244/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0178                                               0
+10.203.12.246/31                              Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.12.248/31                              Remote  OSPF      0137d17h   150
+       10.203.13.252                                                1
+10.203.12.250/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0200                                               0
+10.203.12.252/31                              Local   Local     0159d04h   0
+       L3-EDN-BTS0208                                               0
+10.203.12.254/31                              Remote  OSPF      12d14h09m  150
+       10.203.13.252                                                1
+10.203.13.0/31                                Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.13.2/31                                Remote  OSPF      0137d17h   150
+       10.203.13.252                                                1
+10.203.13.4/31                                Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.13.8/31                                Local   Local     0203d22h   0
+       L3-EDN-BTS0230                                               0
+10.203.13.10/31                               Remote  OSPF      0137d17h   150
+       10.203.13.252                                                1
+10.203.13.12/31                               Local   Local     19d08h12m  0
+       L3-EDN-BTS0240                                               0
+10.203.13.14/31                               Remote  OSPF      0159d22h   150
+       10.203.13.252                                                1
+10.203.13.16/31                               Remote  OSPF      0271d22h   150
+       10.203.13.252                                                1
+10.203.13.18/31                               Local   Local     0203d22h   0
+       L3-EDN-BTS0244                                               0
+10.203.13.20/31                               Local   Local     19d08h12m  0
+       L3-EDN-BTS0246                                               0
+10.203.13.22/31                               Remote  OSPF      49d18h55m  150
+       10.203.13.252                                                1
+10.203.13.24/31                               Local   Local     0203d22h   0
+       L3-EDN-BTS0250                                               0
+10.203.13.26/31                               Remote  OSPF      0159d22h   150
+       10.203.13.252                                                1
+10.203.13.28/31                               Remote  OSPF      68d09h38m  150
+       10.203.13.252                                                1
+10.203.13.30/31                               Remote  OSPF      10h41m14s  150
+       10.203.13.252                                                1
+10.203.13.32/31                               Local   Local     08d22h18m  0
+       L3-EDN-BTS0274                                               0
+10.203.13.34/31                               Remote  OSPF      19d08h06m  150
+       10.203.13.252                                                1
+10.203.13.36/31                               Local   Local     10h47m08s  0
+       L3-EDN-BTS0276                                               0
+10.203.13.38/31                               Remote  OSPF      49d19h02m  150
+       10.203.13.252                                                1
+10.203.13.40/31                               Remote  OSPF      19d08h11m  150
+       10.203.13.252                                                1
+10.203.13.42/31                               Remote  OSPF      19d08h11m  150
+       10.203.13.252                                                1
+10.203.13.44/31                               Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.13.46/31                               Local   Local     15d06h08m  0
+       L3-EDN-BTS0294                                               0
+10.203.13.48/31                               Remote  OSPF      0149d08h   150
+       10.203.13.252                                                1
+10.203.13.50/31                               Local   Local     0203d22h   0
+       L3-EDN-BTS0296                                               0
+10.203.13.54/31                               Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.13.56/31                               Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.13.58/31                               Remote  OSPF      0314d23h   150
+       10.203.13.252                                                1
+10.203.13.60/31                               Local   Local     0203d22h   0
+       L3-EDN-BTS0096                                               0
+10.203.13.62/31                               Local   Local     19d08h13m  0
+       L3-EDN-BTS0248                                               0
+10.203.13.64/31                               Remote  OSPF      0123d21h   150
+       10.203.13.252                                                1
+10.203.13.68/31                               Remote  OSPF      0202d07h   150
+       10.203.13.252                                                1
+10.203.13.70/31                               Remote  OSPF      0137d17h   150
+       10.203.13.252                                                1
+10.203.13.72/31                               Local   Local     19d08h12m  0
+       L3-EDN-BTS0262                                               0
+10.203.13.74/31                               Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.13.76/31                               Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.13.78/31                               Local   Local     19d08h13m  0
+       L3-EDN-BTS0278                                               0
+10.203.13.80/31                               Local   Local     0145d01h   0
+       L3-EDN-BTS0102                                               0
+10.203.13.84/31                               Remote  OSPF      0112d04h   150
+       10.203.13.252                                                1
+10.203.13.86/31                               Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.13.88/31                               Remote  OSPF      0159d04h   150
+       10.203.13.252                                                1
+10.203.13.90/31                               Remote  OSPF      17d21h53m  150
+       10.203.13.252                                                1
+10.203.13.92/31                               Remote  OSPF      14d19h49m  150
+       10.203.13.252                                                1
+10.203.13.94/31                               Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.13.96/31                               Local   Local     0202d12h   0
+       L3-EDN-BTS0286                                               0
+10.203.13.102/31                              Remote  OSPF      0200d22h   150
+       10.203.13.252                                                1
+10.203.13.104/31                              Remote  OSPF      0271d22h   150
+       10.203.13.252                                                1
+10.203.13.106/31                              Remote  OSPF      0200d22h   150
+       10.203.13.252                                                1
+10.203.13.108/31                              Local   Local     0123d21h   0
+       L3-EDN-BTS0290                                               0
+10.203.13.112/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0060                                               0
+10.203.13.114/31                              Local   Local     0181d22h   0
+       L3-EDN-BTS0066                                               0
+10.203.13.116/31                              Remote  OSPF      97d13h49m  150
+       10.203.13.252                                                1
+10.203.13.120/31                              Local   Local     25d11h07m  0
+       L3-EDN-BTS0080                                               0
+10.203.13.122/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0116                                               0
+10.203.13.124/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0210                                               0
+10.203.13.126/31                              Remote  OSPF      0192d20h   150
+       10.203.13.252                                                1
+10.203.13.128/31                              Remote  OSPF      0160d10h   150
+       10.203.13.252                                                1
+10.203.13.130/31                              Remote  OSPF      17d21h47m  150
+       10.203.13.252                                                1
+10.203.13.132/31                              Remote  OSPF      0131d07h   150
+       10.203.13.252                                                1
+10.203.13.134/31                              Local   Local     0181d22h   0
+       L3-EDN-BTS0072                                               0
+10.203.13.136/31                              Remote  OSPF      0181d22h   150
+       10.203.13.252                                                1
+10.203.13.138/31                              Local   Local     0181d22h   0
+       L3-EDN-BTS0076                                               0
+10.203.13.140/31                              Local   Local     0159d08h   0
+       L3-EDN-BTS0078                                               0
+10.203.13.142/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0084                                               0
+10.203.13.146/31                              Remote  OSPF      0217d12h   150
+       10.203.13.252                                                1
+10.203.13.154/31                              Local   Local     0131d22h   0
+       L3-EDN-BTS0004                                               0
+10.203.13.156/31                              Local   Local     0125d06h   0
+       L3-EDN-BTS0162                                               0
+10.203.13.158/31                              Local   Local     0112d05h   0
+       L3-EDN-BTS0164                                               0
+10.203.13.162/31                              Remote  OSPF      03d08h14m  150
+       10.203.13.252                                                1
+10.203.13.164/31                              Local   Local     0112d04h   0
+       L3-EDN-BTS0168                                               0
+10.203.13.168/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0252                                               0
+10.203.13.174/31                              Remote  OSPF      0271d22h   150
+       10.203.13.252                                                1
+10.203.13.176/31                              Remote  OSPF      93d08h25m  150
+       10.203.13.252                                                1
+10.203.13.178/31                              Remote  OSPF      0271d22h   150
+       10.203.13.252                                                1
+10.203.13.180/31                              Local   Local     20d21h49m  0
+       L3-EDN-BTS0288                                               0
+10.203.13.184/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0292                                               0
+10.203.13.186/31                              Local   Local     0141d05h   0
+       L3-EDN-BTS0014                                               0
+10.203.13.188/31                              Remote  OSPF      0188d09h   150
+       10.203.13.252                                                1
+10.203.13.190/31                              Remote  OSPF      53d03h22m  150
+       10.203.13.252                                                1
+10.203.13.192/31                              Local   Local     89d09h39m  0
+       L3-EDN-BTS0802                                               0
+10.203.13.194/31                              Local   Local     0143d23h   0
+       L3-EDN-BTS0152                                               0
+10.203.13.196/31                              Local   Local     0151d08h   0
+       L3-EDN-BTS0134                                               0
+10.203.13.198/31                              Remote  OSPF      27d13h24m  150
+       10.203.13.252                                                1
+10.203.13.200/31                              Local   Local     10h41m16s  0
+       L3-EDN-BTS0268                                               0
+10.203.13.202/31                              Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.13.204/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0128                                               0
+10.203.13.206/31                              Remote  OSPF      75d22h00m  150
+       10.203.13.252                                                1
+10.203.13.210/31                              Local   Local     75d09h59m  0
+       L3-EDN-BTS0026                                               0
+10.203.13.212/31                              Local   Local     0181d22h   0
+       L3-EDN-BTS0064                                               0
+10.203.13.214/31                              Local   Local     35d21h56m  0
+       L3-EDN-BTS0150                                               0
+10.203.13.216/31                              Remote  OSPF      0203d22h   150
+       10.203.13.252                                                1
+10.203.13.220/31                              Local   Local     15d06h05m  0
+       L3-EDN-BTS0500                                               0
+10.203.13.222/31                              Remote  OSPF      0314d23h   150
+       10.203.13.252                                                1
+10.203.13.224/31                              Local   Local     55d09h26m  0
+       L3-EDN-BTS0132                                               0
+10.203.13.226/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0010                                               0
+10.203.13.228/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS023516-W1                                          0
+10.203.13.236/31                              Local   Local     12d14h10m  0
+       L3-EDN-BTS0560-W1                                            0
+10.203.13.240/31                              Remote  OSPF      56d13h59m  150
+       10.203.13.252                                                1
+10.203.13.242/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0130                                               0
+10.203.13.244/31                              Local   Local     19d08h06m  0
+       L3-EDN-BTS0270                                               0
+10.203.13.246/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0272                                               0
+10.203.13.252/31                              Local   Local     0314d23h   0
+       L3-VLAN460                                                   0
+10.249.204.190/32                             Remote  OSPF      0314d23h   10
+       10.203.13.252                                                25
+10.249.204.191/32                             Local   Local     0314d23h   0
+       loopback                                                     0
+-------------------------------------------------------------------------------
+No. of Routes: 468
+Flags: n = Number of times nexthop is repeated
+       B = BGP backup route available
+       L = LFA nexthop available
+       S = Sticky ECMP requested
+===============================================================================
+A:TCSNAZ7591A-P-AL-7750-02# 
+A:TCSNAZ7591A-P-AL-7750-02# show router 4 route-table ipv6 
+
+===============================================================================
+IPv6 Route Table (Service: 4)
+===============================================================================
+Dest Prefix[Flags]                            Type    Proto     Age        Pref
+      Next Hop[Interface Name]                                    Metric   
+-------------------------------------------------------------------------------
+::/0                                          Remote  Static    0314d23h   5
+       2001:4888:a6f:4525:646:22::                                  1
+2001:4888:a6f:4525::/64                       Local   Local     0314d23h   0
+       L3-EDN-INTERFACE                                             0
+2001:4888:2a62:0:646:2a0::/128                Remote  OSPF3     0314d23h   10
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        25
+2001:4888:2a62:0:646:2a0:0:1/128              Local   Local     0314d23h   0
+       loopback                                                     0
+2001:4888:2a62:10::/64                        Local   Local     0314d23h   0
+       L3-VLAN460                                                   0
+2001:4888:2a62:20::/64                        Remote  OSPF3     0314d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:22::/64                        Remote  OSPF3     33d20h25m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:23::/64                        Local   Local     0131d22h   0
+       L3-OAM-eNodeB0004                                            0
+2001:4888:2a62:24::/64                        Remote  OSPF3     0188d10h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:26::/64                        Remote  OSPF3     0104d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:27::/64                        Local   Local     33d20h24m  0
+       L3-OAM-eNodeB0008                                            0
+2001:4888:2a62:28::/64                        Remote  OSPF3     33d20h26m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:29::/64                        Local   Local     0104d23h   0
+       L3-OAM-eNodeB0010                                            0
+2001:4888:2a62:2a::/64                        Remote  OSPF3     0199d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:2b::/64                        Local   Local     0203d23h   0
+       L3-OAM-eNodeB0012                                            0
+2001:4888:2a62:2c::/64                        Remote  OSPF3     33d20h24m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:2d::/64                        Local   Local     0141d06h   0
+       L3-OAM-eNodeB0014                                            0
+2001:4888:2a62:2e::/64                        Remote  OSPF3     0104d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:31::/64                        Local   Local     33d20h25m  0
+       L3-OAM-eNodeB0018                                            0
+2001:4888:2a62:33::/64                        Local   Local     27d11h37m  0
+       L3-OAM-eNodeB0020                                            0
+2001:4888:2a62:34::/64                        Remote  OSPF3     33d20h21m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:35::/64                        Local   Local     33d20h24m  0
+       L3-OAM-eNodeB0022                                            0
+2001:4888:2a62:36::/64                        Remote  OSPF3     33d20h25m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:37::/64                        Local   Local     0203d23h   0
+       L3-OAM-eNodeB0024                                            0
+2001:4888:2a62:38::/64                        Remote  OSPF3     28d21h13m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:39::/64                        Local   Local     11d14h53m  0
+       L3-OAM-eNodeB0026                                            0
+2001:4888:2a62:3a::/64                        Remote  OSPF3     33d20h21m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:3b::/64                        Local   Local     33d20h26m  0
+       L3-OAM-eNodeB0028                                            0
+2001:4888:2a62:3c::/64                        Remote  OSPF3     33d20h26m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:3d::/64                        Local   Local     0105d00h   0
+       L3-OAM-eNodeB0030                                            0
+2001:4888:2a62:3e::/64                        Remote  OSPF3     33d20h26m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:3f::/64                        Local   Local     33d20h23m  0
+       L3-OAM-eNodeB0032                                            0
+2001:4888:2a62:40::/64                        Remote  OSPF3     33d20h23m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:41::/64                        Local   Local     0105d00h   0
+       L3-OAM-eNodeB0034                                            0
+2001:4888:2a62:42::/64                        Remote  OSPF3     33d20h23m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:44::/64                        Remote  OSPF3     33d20h24m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:46::/64                        Remote  OSPF3     33d20h25m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:47::/64                        Local   Local     0137d17h   0
+       L3-OAM-eNodeB0040                                            0
+2001:4888:2a62:4a::/64                        Local   Local     0105d00h   0
+       L3-OAM-eNodeB0043                                            0
+2001:4888:2a62:4c::/64                        Remote  OSPF3     33d20h26m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:4d::/64                        Local   Local     33d20h26m  0
+       L3-OAM-eNodeB0046                                            0
+2001:4888:2a62:4e::/64                        Remote  OSPF3     73d11h19m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:4f::/64                        Local   Local     33d20h24m  0
+       L3-OAM-eNodeB0048                                            0
+2001:4888:2a62:50::/64                        Remote  OSPF3     0137d18h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:51::/64                        Local   Local     06d10h55m  0
+       L3-OAM-eNodeB0050                                            0
+2001:4888:2a62:52::/64                        Remote  OSPF3     33d20h26m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:53::/64                        Local   Local     33d20h23m  0
+       L3-OAM-eNodeB0052                                            0
+2001:4888:2a62:55::/64                        Local   Local     33d20h24m  0
+       L3-OAM-eNodeB0054                                            0
+2001:4888:2a62:56::/64                        Remote  OSPF3     33d20h23m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:58::/64                        Remote  OSPF3     33d20h23m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:5a::/64                        Remote  OSPF3     33d20h20m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:5b::/64                        Local   Local     33d20h23m  0
+       L3-OAM-eNodeB0060                                            0
+2001:4888:2a62:5c::/64                        Remote  OSPF3     09d08h34m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:5d::/64                        Local   Local     33d20h24m  0
+       L3-OAM-eNodeB0062                                            0
+2001:4888:2a62:5e::/64                        Remote  OSPF3     75d22h29m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:5f::/64                        Local   Local     0181d22h   0
+       L3-OAM-eNodeB0064                                            0
+2001:4888:2a62:60::/64                        Remote  OSPF3     0104d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:61::/64                        Local   Local     0181d22h   0
+       L3-OAM-eNodeB0066                                            0
+2001:4888:2a62:62::/64                        Remote  OSPF3     56d14h44m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:63::/64                        Local   Local     0105d00h   0
+       L3-OAM-eNodeB0068                                            0
+2001:4888:2a62:64::/64                        Remote  OSPF3     97d14h18m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:65::/64                        Local   Local     33d20h21m  0
+       L3-OAM-eNodeB0070                                            0
+2001:4888:2a62:66::/64                        Remote  OSPF3     0131d08h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:67::/64                        Local   Local     0181d22h   0
+       L3-OAM-eNodeB0072                                            0
+2001:4888:2a62:68::/64                        Remote  OSPF3     24d12h19m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:69::/64                        Local   Local     0203d23h   0
+       L3-OAM-eNodeB0074                                            0
+2001:4888:2a62:6a::/64                        Remote  OSPF3     0181d22h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:6b::/64                        Local   Local     0181d22h   0
+       L3-OAM-eNodeB0076                                            0
+2001:4888:2a62:6d::/64                        Local   Local     0159d08h   0
+       L3-OAM-eNodeB0078                                            0
+2001:4888:2a62:6f::/64                        Local   Local     25d11h36m  0
+       L3-OAM-eNodeB0080                                            0
+2001:4888:2a62:70::/64                        Remote  OSPF3     33d20h24m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:72::/64                        Remote  OSPF3     33d20h22m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:73::/64                        Local   Local     33d20h26m  0
+       L3-OAM-eNodeB0084                                            0
+2001:4888:2a62:74::/64                        Remote  OSPF3     33d20h23m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:75::/64                        Local   Local     33d20h23m  0
+       L3-OAM-eNodeB0086                                            0
+2001:4888:2a62:76::/64                        Remote  OSPF3     33d20h23m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:7c::/64                        Remote  OSPF3     0217d12h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:7f::/64                        Local   Local     33d20h23m  0
+       L3-OAM-eNodeB0096                                            0
+2001:4888:2a62:80::/64                        Remote  OSPF3     33d20h24m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:81::/64                        Local   Local     0105d00h   0
+       L3-OAM-eNodeB0098                                            0
+2001:4888:2a62:82::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:83::/64                        Local   Local     33d20h23m  0
+       L3-OAM-eNodeB0100                                            0
+2001:4888:2a62:84::/64                        Remote  OSPF3     0104d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:85::/64                        Local   Local     33d20h23m  0
+       L3-OAM-eNodeB0102                                            0
+2001:4888:2a62:86::/64                        Remote  OSPF3     33d20h25m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:87::/64                        Local   Local     33d20h24m  0
+       L3-OAM-eNodeB0104                                            0
+2001:4888:2a62:88::/64                        Remote  OSPF3     0104d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:89::/64                        Local   Local     0104d23h   0
+       L3-OAM-eNodeB0106                                            0
+2001:4888:2a62:8a::/64                        Remote  OSPF3     33d20h23m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:8b::/64                        Local   Local     33d20h23m  0
+       L3-OAM-eNodeB0108                                            0
+2001:4888:2a62:8c::/64                        Remote  OSPF3     00h08m50s  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:8d::/64                        Local   Local     0203d23h   0
+       L3-OAM-eNodeB0110                                            0
+2001:4888:2a62:8e::/64                        Remote  OSPF3     33d20h24m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:8f::/64                        Local   Local     33d20h24m  0
+       L3-OAM-eNodeB0112                                            0
+2001:4888:2a62:90::/64                        Remote  OSPF3     0102d22h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:91::/64                        Local   Local     25d06h16m  0
+       L3-OAM-eNodeB0114                                            0
+2001:4888:2a62:92::/64                        Remote  OSPF3     33d20h25m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:93::/64                        Local   Local     0203d23h   0
+       L3-OAM-eNodeB0116                                            0
+2001:4888:2a62:94::/64                        Remote  OSPF3     0105d00h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:95::/64                        Local   Local     33d20h27m  0
+       L3-OAM-eNodeB0118                                            0
+2001:4888:2a62:96::/64                        Remote  OSPF3     33d20h25m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:97::/64                        Local   Local     33d18h38m  0
+       L3-OAM-eNodeB0120                                            0
+2001:4888:2a62:98::/64                        Remote  OSPF3     33d20h24m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:99::/64                        Local   Local     33d20h25m  0
+       L3-OAM-eNodeB0122                                            0
+2001:4888:2a62:9a::/64                        Remote  OSPF3     33d20h24m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:9b::/64                        Local   Local     97d11h03m  0
+       L3-OAM-eNodeB0124                                            0
+2001:4888:2a62:9c::/64                        Remote  OSPF3     33d20h26m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:9d::/64                        Local   Local     33d20h24m  0
+       L3-OAM-eNodeB0126                                            0
+2001:4888:2a62:9e::/64                        Remote  OSPF3     33d20h20m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:9f::/64                        Local   Local     33d20h22m  0
+       L3-OAM-eNodeB0128                                            0
+2001:4888:2a62:a0::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:a1::/64                        Local   Local     33d20h26m  0
+       L3-OAM-eNodeB0130                                            0
+2001:4888:2a62:a2::/64                        Remote  OSPF3     17d22h22m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:a3::/64                        Local   Local     55d09h55m  0
+       L3-OAM-eNodeB0132                                            0
+2001:4888:2a62:a4::/64                        Remote  OSPF3     0159d04h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:a5::/64                        Local   Local     33d18h42m  0
+       L3-OAM-eNodeB0134                                            0
+2001:4888:2a62:a6::/64                        Remote  OSPF3     12d14h38m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:a7::/64                        Local   Local     12d14h43m  0
+       L3-OAM-eNodeB0136                                            0
+2001:4888:2a62:a8::/64                        Remote  OSPF3     14d20h18m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:a9::/64                        Local   Local     17d04h01m  0
+       L3-OAM-eNodeB0138                                            0
+2001:4888:2a62:ac::/64                        Remote  OSPF3     27d13h53m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:ad::/64                        Local   Local     12d14h43m  0
+       L3-OAM-eNodeB0142                                            0
+2001:4888:2a62:ae::/64                        Remote  OSPF3     12d14h42m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:af::/64                        Local   Local     55d09h55m  0
+       L3-OAM-eNodeB0144                                            0
+2001:4888:2a62:b0::/64                        Remote  OSPF3     12d14h38m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:b1::/64                        Local   Local     0144d00h   0
+       L3-OAM-eNodeB0146                                            0
+2001:4888:2a62:b2::/64                        Remote  OSPF3     17d14h35m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:b3::/64                        Local   Local     12d14h42m  0
+       L3-OAM-eNodeB0148                                            0
+2001:4888:2a62:b4::/64                        Remote  OSPF3     17d22h16m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:b5::/64                        Local   Local     33d20h26m  0
+       L3-OAM-eNodeB0150                                            0
+2001:4888:2a62:b6::/64                        Remote  OSPF3     33d20h26m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:b7::/64                        Local   Local     33d20h26m  0
+       L3-OAM-eNodeB0152                                            0
+2001:4888:2a62:ba::/64                        Remote  OSPF3     33d20h21m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:bb::/64                        Local   Local     33d20h21m  0
+       L3-OAM-eNodeB0156                                            0
+2001:4888:2a62:bc::/64                        Remote  OSPF3     0141d12h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:bd::/64                        Local   Local     0141d12h   0
+       L3-OAM-eNodeB0158                                            0
+2001:4888:2a62:be::/64                        Remote  OSPF3     25d07h47m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:c1::/64                        Local   Local     0125d07h   0
+       L3-OAM-eNodeB0162                                            0
+2001:4888:2a62:c2::/64                        Remote  OSPF3     0112d05h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:c3::/64                        Local   Local     0112d05h   0
+       L3-OAM-eNodeB0164                                            0
+2001:4888:2a62:c4::/64                        Remote  OSPF3     53d03h51m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:c5::/64                        Local   Local     13d15h14m  0
+       L3-OAM-eNodeB0166                                            0
+2001:4888:2a62:c6::/64                        Remote  OSPF3     03d08h43m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:c7::/64                        Local   Local     33d20h23m  0
+       L3-OAM-eNodeB0168                                            0
+2001:4888:2a62:c8::/64                        Remote  OSPF3     17d22h16m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:c9::/64                        Local   Local     0104d23h   0
+       L3-OAM-eNodeB0170                                            0
+2001:4888:2a62:ca::/64                        Remote  OSPF3     0104d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:cb::/64                        Local   Local     33d20h25m  0
+       L3-OAM-eNodeB0172                                            0
+2001:4888:2a62:cd::/64                        Local   Local     33d20h26m  0
+       L3-OAM-eNodeB0174                                            0
+2001:4888:2a62:ce::/64                        Remote  OSPF3     33d20h24m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:d0::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:d1::/64                        Local   Local     0203d23h   0
+       L3-OAM-eNodeB0178                                            0
+2001:4888:2a62:d2::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:d3::/64                        Local   Local     0105d00h   0
+       L3-OAM-eNodeB0180                                            0
+2001:4888:2a62:d4::/64                        Remote  OSPF3     33d20h22m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:d6::/64                        Remote  OSPF3     33d20h24m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:d7::/64                        Local   Local     13d12h13m  0
+       L3-OAM-eNodeB0184                                            0
+2001:4888:2a62:d8::/64                        Remote  OSPF3     33d20h20m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:d9::/64                        Local   Local     33d20h25m  0
+       L3-OAM-eNodeB0186                                            0
+2001:4888:2a62:da::/64                        Remote  OSPF3     0104d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:db::/64                        Local   Local     0203d23h   0
+       L3-OAM-eNodeB0188                                            0
+2001:4888:2a62:dc::/64                        Remote  OSPF3     0104d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:dd::/64                        Local   Local     33d20h21m  0
+       L3-OAM-eNodeB0190                                            0
+2001:4888:2a62:de::/64                        Remote  OSPF3     33d20h24m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:df::/64                        Local   Local     33d20h20m  0
+       L3-OAM-eNodeB0192                                            0
+2001:4888:2a62:e0::/64                        Remote  OSPF3     0104d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:e2::/64                        Remote  OSPF3     33d20h24m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:e3::/64                        Local   Local     33d20h23m  0
+       L3-OAM-eNodeB0196                                            0
+2001:4888:2a62:e4::/64                        Remote  OSPF3     33d20h24m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:e5::/64                        Local   Local     0100d03h   0
+       L3-OAM-eNodeB0198                                            0
+2001:4888:2a62:e6::/64                        Remote  OSPF3     33d20h25m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:e7::/64                        Local   Local     0104d23h   0
+       L3-OAM-eNodeB0200                                            0
+2001:4888:2a62:e8::/64                        Remote  OSPF3     05d06h33m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:e9::/64                        Local   Local     0203d23h   0
+       L3-OAM-eNodeB0202                                            0
+2001:4888:2a62:ea::/64                        Remote  OSPF3     33d20h24m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:eb::/64                        Local   Local     0203d23h   0
+       L3-OAM-eNodeB0204                                            0
+2001:4888:2a62:ec::/64                        Remote  OSPF3     33d20h23m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:ed::/64                        Local   Local     0203d23h   0
+       L3-OAM-eNodeB0206                                            0
+2001:4888:2a62:ee::/64                        Remote  OSPF3     0314d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:ef::/64                        Local   Local     33d20h23m  0
+       L3-OAM-eNodeB0208                                            0
+2001:4888:2a62:f0::/64                        Remote  OSPF3     33d20h20m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:f1::/64                        Local   Local     0203d23h   0
+       L3-OAM-eNodeB0210                                            0
+2001:4888:2a62:f3::/64                        Local   Local     33d20h23m  0
+       L3-OAM-eNodeB0212                                            0
+2001:4888:2a62:f4::/64                        Remote  OSPF3     12d14h38m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:f5::/64                        Local   Local     0152d06h   0
+       L3-OAM-eNodeB0214                                            0
+2001:4888:2a62:f6::/64                        Remote  OSPF3     33d20h21m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:f8::/64                        Remote  OSPF3     0104d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:f9::/64                        Local   Local     33d20h21m  0
+       L3-OAM-eNodeB0218                                            0
+2001:4888:2a62:fc::/64                        Remote  OSPF3     33d03h21m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:fd::/64                        Local   Local     33d20h21m  0
+       L3-OAM-eNodeB0222                                            0
+2001:4888:2a62:fe::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:100::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:101::/64                       Local   Local     33d20h24m  0
+       L3-OAM-eNodeB0226                                            0
+2001:4888:2a62:102::/64                       Remote  OSPF3     07d03h18m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:103::/64                       Local   Local     33d20h25m  0
+       L3-OAM-eNodeB0228                                            0
+2001:4888:2a62:104::/64                       Remote  OSPF3     0105d00h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:105::/64                       Local   Local     33d20h26m  0
+       L3-OAM-eNodeB0230                                            0
+2001:4888:2a62:106::/64                       Remote  OSPF3     33d18h54m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:108::/64                       Remote  OSPF3     33d20h21m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:109::/64                       Local   Local     33d20h25m  0
+       L3-OAM-eNodeB0234                                            0
+2001:4888:2a62:10a::/64                       Remote  OSPF3     0105d00h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:10b::/64                       Local   Local     33d20h25m  0
+       L3-OAM-eNodeB0236                                            0
+2001:4888:2a62:10c::/64                       Remote  OSPF3     33d20h21m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:10f::/64                       Local   Local     19d08h41m  0
+       L3-OAM-eNodeB0240                                            0
+2001:4888:2a62:110::/64                       Remote  OSPF3     33d20h26m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:111::/64                       Local   Local     11d05h35m  0
+       L3-OAM-eNodeB0242                                            0
+2001:4888:2a62:112::/64                       Remote  OSPF3     0271d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:113::/64                       Local   Local     33d20h27m  0
+       L3-OAM-eNodeB0244                                            0
+2001:4888:2a62:115::/64                       Local   Local     19d08h41m  0
+       L3-OAM-eNodeB0246                                            0
+2001:4888:2a62:116::/64                       Remote  OSPF3     33d20h26m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:117::/64                       Local   Local     19d08h42m  0
+       L3-OAM-eNodeB0248                                            0
+2001:4888:2a62:118::/64                       Remote  OSPF3     33d20h23m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:119::/64                       Local   Local     33d20h25m  0
+       L3-OAM-eNodeB0250                                            0
+2001:4888:2a62:11a::/64                       Remote  OSPF3     0159d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:11b::/64                       Local   Local     33d20h25m  0
+       L3-OAM-eNodeB0252                                            0
+2001:4888:2a62:11c::/64                       Remote  OSPF3     68d10h07m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:11e::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:11f::/64                       Local   Local     33d20h21m  0
+       L3-OAM-eNodeB0256                                            0
+2001:4888:2a62:120::/64                       Remote  OSPF3     33d20h20m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:122::/64                       Remote  OSPF3     0271d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:123::/64                       Local   Local     33d20h23m  0
+       L3-OAM-eNodeB0260                                            0
+2001:4888:2a62:124::/64                       Remote  OSPF3     93d08h54m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:125::/64                       Local   Local     19d08h41m  0
+       L3-OAM-eNodeB0262                                            0
+2001:4888:2a62:126::/64                       Remote  OSPF3     33d20h24m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:128::/64                       Remote  OSPF3     33d20h24m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:12a::/64                       Remote  OSPF3     33d20h25m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:12b::/64                       Local   Local     11h10m16s  0
+       L3-OAM-eNodeB0268                                            0
+2001:4888:2a62:12c::/64                       Remote  OSPF3     11h10m15s  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:12d::/64                       Local   Local     19d08h35m  0
+       L3-OAM-eNodeB0270                                            0
+2001:4888:2a62:12e::/64                       Remote  OSPF3     0271d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:12f::/64                       Local   Local     0203d23h   0
+       L3-OAM-eNodeB0272                                            0
+2001:4888:2a62:130::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:131::/64                       Local   Local     08d22h47m  0
+       L3-OAM-eNodeB0274                                            0
+2001:4888:2a62:132::/64                       Remote  OSPF3     19d08h35m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:133::/64                       Local   Local     11h16m08s  0
+       L3-OAM-eNodeB0276                                            0
+2001:4888:2a62:134::/64                       Remote  OSPF3     19d10h25m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:135::/64                       Local   Local     19d08h42m  0
+       L3-OAM-eNodeB0278                                            0
+2001:4888:2a62:137::/64                       Local   Local     19d08h35m  0
+       L3-OAM-eNodeB0280                                            0
+2001:4888:2a62:138::/64                       Remote  OSPF3     19d08h35m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:139::/64                       Local   Local     0137d08h   0
+       L3-OAM-eNodeB0282                                            0
+2001:4888:2a62:13b::/64                       Local   Local     33d20h23m  0
+       L3-OAM-eNodeB0284                                            0
+2001:4888:2a62:13c::/64                       Remote  OSPF3     33d20h22m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:13d::/64                       Local   Local     0202d13h   0
+       L3-OAM-eNodeB0286                                            0
+2001:4888:2a62:13e::/64                       Remote  OSPF3     19d08h40m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:13f::/64                       Local   Local     20d22h18m  0
+       L3-OAM-eNodeB0288                                            0
+2001:4888:2a62:141::/64                       Local   Local     33d20h24m  0
+       L3-OAM-eNodeB0290                                            0
+2001:4888:2a62:142::/64                       Remote  OSPF3     19d08h40m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:143::/64                       Local   Local     0203d23h   0
+       L3-OAM-eNodeB0292                                            0
+2001:4888:2a62:144::/64                       Remote  OSPF3     33d20h26m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:145::/64                       Local   Local     15d06h37m  0
+       L3-OAM-eNodeB0294                                            0
+2001:4888:2a62:146::/64                       Remote  OSPF3     0149d09h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:147::/64                       Local   Local     33d20h24m  0
+       L3-OAM-eNodeB0296                                            0
+2001:4888:2a62:148::/64                       Remote  OSPF3     18d13h34m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:149::/64                       Local   Local     19d08h36m  0
+       L3-OAM-eNodeB0298                                            0
+2001:4888:2a62:14a::/64                       Remote  OSPF3     33d20h26m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:14b::/64                       Local   Local     25d01h57m  0
+       L3-OAM-eNodeB0300                                            0
+2001:4888:2a62:14c::/64                       Remote  OSPF3     93d08h53m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:14d::/64                       Local   Local     33d20h21m  0
+       L3-OAM-eNodeB0302                                            0
+2001:4888:2a62:14e::/64                       Remote  OSPF3     28d20h05m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:14f::/64                       Local   Local     33d20h25m  0
+       L3-OAM-eNodeB0304                                            0
+2001:4888:2a62:150::/64                       Remote  OSPF3     33d20h25m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:151::/64                       Local   Local     33d20h23m  0
+       L3-OAM-eNodeB0306                                            0
+2001:4888:2a62:152::/64                       Remote  OSPF3     33d20h21m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:153::/64                       Local   Local     19d08h41m  0
+       L3-OAM-eNodeB0308                                            0
+2001:4888:2a62:155::/64                       Local   Local     06d14h07m  0
+       L3-OAM-eNodeB0310                                            0
+2001:4888:2a62:15a::/64                       Remote  OSPF3     93d08h54m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:169::/64                       Local   Local     33d20h21m  0
+       L3-OAM-eNodeB0330                                            0
+2001:4888:2a62:16a::/64                       Remote  OSPF3     33d20h25m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:16b::/64                       Local   Local     33d20h26m  0
+       L3-OAM-eNodeB0332                                            0
+2001:4888:2a62:16c::/64                       Remote  OSPF3     33d20h25m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:16d::/64                       Local   Local     33d20h26m  0
+       L3-OAM-eNodeB0334                                            0
+2001:4888:2a62:16e::/64                       Remote  OSPF3     33d20h24m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:16f::/64                       Local   Local     33d20h21m  0
+       L3-OAM-eNodeB0336                                            0
+2001:4888:2a62:170::/64                       Remote  OSPF3     33d20h21m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:171::/64                       Local   Local     33d20h26m  0
+       L3-OAM-eNodeB0338                                            0
+2001:4888:2a62:172::/64                       Remote  OSPF3     33d20h25m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:173::/64                       Local   Local     12d14h43m  0
+       L3-OAM-eNodeB0340                                            0
+2001:4888:2a62:174::/64                       Remote  OSPF3     33d20h24m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:175::/64                       Local   Local     01h02m33s  0
+       L3-OAM-eNodeB0342                                            0
+2001:4888:2a62:177::/64                       Local   Local     14d20h18m  0
+       L3-OAM-eNodeB0344                                            0
+2001:4888:2a62:17a::/64                       Remote  OSPF3     33d20h25m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:17b::/64                       Local   Local     33d20h24m  0
+       L3-OAM-eNodeB0348                                            0
+2001:4888:2a62:17c::/64                       Remote  OSPF3     33d20h26m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:17d::/64                       Local   Local     07d14h34m  0
+       L3-OAM-eNodeB0350                                            0
+2001:4888:2a62:17e::/64                       Remote  OSPF3     08h23m00s  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:183::/64                       Local   Local     12d09h30m  0
+       L3-OAM-eNodeB0356                                            0
+2001:4888:2a62:185::/64                       Local   Local     09h51m28s  0
+       L3-OAM-eNodeB0358                                            0
+2001:4888:2a62:186::/64                       Remote  OSPF3     13d14h42m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:188::/64                       Remote  OSPF3     12d14h36m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:1ff::/64                       Local   Local     77d21h13m  0
+       L3-OAM-CSR023480-IXR01-1                                     0
+2001:4888:2a62:216::/64                       Remote  OSPF3     12d14h38m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:227::/64                       Local   Local     06d13h58m  0
+       L3-OAM-eNodeB0520-W1                                         0
+2001:4888:2a62:22b::/64                       Local   Local     33d20h25m  0
+       L3-OAM-eNodeB0524                                            0
+2001:4888:2a62:23b::/64                       Local   Local     33d20h24m  0
+       L3-OAM-eNodeB0540                                            0
+2001:4888:2a62:24f::/64                       Local   Local     12d14h39m  0
+       L3-OAM-eNodeB0560-W1                                         0
+2001:4888:2a62:25c::/64                       Remote  OSPF3     33d20h21m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:264::/64                       Remote  OSPF3     47d19h20m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:26a::/64                       Remote  OSPF3     33d20h26m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:277::/64                       Local   Local     33d20h24m  0
+       L3-OAM-eNodeB0600                                            0
+2001:4888:2a62:278::/64                       Remote  OSPF3     33d20h24m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:279::/64                       Local   Local     01d14h47m  0
+       L3-OAM-eNodeB0602                                            0
+2001:4888:2a62:27a::/64                       Remote  OSPF3     0104d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:27b::/64                       Local   Local     33d20h26m  0
+       L3-OAM-eNodeB0604                                            0
+2001:4888:2a62:27d::/64                       Local   Local     0104d23h   0
+       L3-OAM-eNodeB0606                                            0
+2001:4888:2a62:27e::/64                       Remote  OSPF3     33d20h26m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:27f::/64                       Local   Local     33d20h23m  0
+       L3-OAM-eNodeB0608                                            0
+2001:4888:2a62:280::/64                       Remote  OSPF3     0105d00h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:281::/64                       Local   Local     33d20h26m  0
+       L3-OAM-eNodeB0610                                            0
+2001:4888:2a62:282::/64                       Remote  OSPF3     33d20h25m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:283::/64                       Local   Local     0104d23h   0
+       L3-OAM-eNodeB0612                                            0
+2001:4888:2a62:284::/64                       Remote  OSPF3     26d05h29m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:286::/64                       Remote  OSPF3     33d20h21m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:288::/64                       Remote  OSPF3     33d20h26m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:289::/64                       Local   Local     06d08h46m  0
+       L3-OAM-eNodeB0618                                            0
+2001:4888:2a62:28a::/64                       Remote  OSPF3     10d18h25m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:28b::/64                       Local   Local     33d20h24m  0
+       L3-OAM-eNodeB0620                                            0
+2001:4888:2a62:28c::/64                       Remote  OSPF3     33d20h21m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:28d::/64                       Local   Local     33d20h26m  0
+       L3-OAM-eNodeB0622                                            0
+2001:4888:2a62:28f::/64                       Local   Local     33d20h25m  0
+       L3-OAM-eNodeB0624                                            0
+2001:4888:2a62:290::/64                       Remote  OSPF3     33d20h23m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:291::/64                       Local   Local     11d14h12m  0
+       L3-OAM-eNodeB0626                                            0
+2001:4888:2a62:292::/64                       Remote  OSPF3     33d20h25m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:293::/64                       Local   Local     33d20h24m  0
+       L3-OAM-eNodeB0628                                            0
+2001:4888:2a62:294::/64                       Remote  OSPF3     33d20h23m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:295::/64                       Local   Local     0104d23h   0
+       L3-OAM-eNodeB0630                                            0
+2001:4888:2a62:296::/64                       Remote  OSPF3     33d20h23m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:297::/64                       Local   Local     33d20h23m  0
+       L3-OAM-eNodeB0632                                            0
+2001:4888:2a62:298::/64                       Remote  OSPF3     33d20h23m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:299::/64                       Local   Local     33d20h24m  0
+       L3-OAM-eNodeB0634                                            0
+2001:4888:2a62:29a::/64                       Remote  OSPF3     0104d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:29b::/64                       Local   Local     33d20h23m  0
+       L3-OAM-eNodeB0636                                            0
+2001:4888:2a62:29c::/64                       Remote  OSPF3     33d20h25m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:29d::/64                       Local   Local     33d20h23m  0
+       L3-OAM-eNodeB0638                                            0
+2001:4888:2a62:29e::/64                       Remote  OSPF3     33d20h24m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:29f::/64                       Local   Local     33d19h00m  0
+       L3-OAM-eNodeB0640                                            0
+2001:4888:2a62:2a0::/64                       Remote  OSPF3     34d14h07m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:2a1::/64                       Local   Local     33d20h25m  0
+       L3-OAM-eNodeB0642                                            0
+2001:4888:2a62:2a2::/64                       Remote  OSPF3     33d20h20m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:2a3::/64                       Local   Local     33d20h21m  0
+       L3-OAM-eNodeB0644                                            0
+2001:4888:2a62:2a4::/64                       Remote  OSPF3     33d20h24m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:2a5::/64                       Local   Local     33d20h25m  0
+       L3-OAM-eNodeB0646                                            0
+2001:4888:2a62:2a6::/64                       Remote  OSPF3     33d20h21m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:2a8::/64                       Remote  OSPF3     33d20h26m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:2a9::/64                       Local   Local     33d20h21m  0
+       L3-OAM-eNodeB0650                                            0
+2001:4888:2a62:2ac::/64                       Remote  OSPF3     05d06h33m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:2ad::/64                       Local   Local     0105d00h   0
+       L3-OAM-eNodeB0654                                            0
+2001:4888:2a62:2ae::/64                       Remote  OSPF3     98d12h14m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:2b0::/64                       Remote  OSPF3     11d13h50m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:2b1::/64                       Local   Local     33d20h25m  0
+       L3-OAM-eNodeB0658                                            0
+2001:4888:2a62:2b5::/64                       Local   Local     33d20h21m  0
+       L3-OAM-eNodeB0662                                            0
+2001:4888:2a62:2b7::/64                       Local   Local     33d20h26m  0
+       L3-OAM-eNodeB0664                                            0
+2001:4888:2a62:2b8::/64                       Remote  OSPF3     33d20h23m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:2b9::/64                       Local   Local     33d20h23m  0
+       L3-OAM-eNodeB0666                                            0
+2001:4888:2a62:2ba::/64                       Remote  OSPF3     33d20h19m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:2bc::/64                       Remote  OSPF3     17d03h54m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:2c2::/64                       Remote  OSPF3     33d20h24m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:2c3::/64                       Local   Local     26d22h45m  0
+       L3-OAM-eNodeB0676                                            0
+2001:4888:2a62:341::/64                       Local   Local     89d10h08m  0
+       L3-OAM-eNodeB0802                                            0
+2001:4888:2a62:7f0::/64                       Local   Local     56d00h03m  0
+       L3-OAM-CSR023001-WBX05-1                                     0
+2001:4888:2a62:7f1::/64                       Local   Local     77d20h43m  0
+       L3-OAM-CSR023480-IXR05-1                                     0
+2001:4888:2a62:7f2::/64                       Local   Local     77d20h44m  0
+       L3-OAM-CSR023480-IXR04-1                                     0
+2001:4888:2a62:7f3::/64                       Local   Local     25d20h32m  0
+       L3-OAM-CSR023011-IXR02-1                                     0
+2001:4888:2a62:7f4::/64                       Remote  OSPF3     0149d12h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a62:7f8::/64                       Local   Local     77d20h43m  0
+       L3-OAM-CSR023480-IXR03-1                                     0
+2001:4888:2a62:7f9::/64                       Local   Local     77d21h13m  0
+       L3-OAM-CSR023011-IXR01-1                                     0
+2001:4888:2a62:7fa::/64                       Local   Local     77d21h13m  0
+       L3-OAM-CSR023480-IXR02-1                                     0
+2001:4888:2a62:7fb::/64                       Local   Local     56d00h03m  0
+       L3-OAM-CSR023001-WBX04-1                                     0
+2001:4888:2a62:7fc::/64                       Local   Local     49d12h06m  0
+       L3-OAM-CSR023067-WBX01-1                                     0
+2001:4888:2a62:7fd::/64                       Local   Local     56d00h03m  0
+       L3-OAM-CSR023001-WBX03-1                                     0
+2001:4888:2a62:7fe::/64                       Local   Local     56d00h03m  0
+       L3-OAM-CSR023001-WBX02-1                                     0
+2001:4888:2a62:7ff::/64                       Local   Local     56d00h03m  0
+       L3-OAM-CSR023001-WBX01-1                                     0
+2001:4888:2a6a:20::/64                        Local   Local     55d23h57m  0
+       L3-EDN-BTS0001-HUB                                           0
+2001:4888:2a6a:22::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:23::/64                        Local   Local     0131d22h   0
+       L3-EDN-BTS0004                                               0
+2001:4888:2a6a:24::/64                        Remote  OSPF3     0188d10h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:26::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:27::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0008                                               0
+2001:4888:2a6a:28::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:29::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0010                                               0
+2001:4888:2a6a:2a::/64                        Remote  OSPF3     0314d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:2b::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0012                                               0
+2001:4888:2a6a:2c::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:2d::/64                        Local   Local     0141d06h   0
+       L3-EDN-BTS0014                                               0
+2001:4888:2a6a:2e::/64                        Remote  OSPF3     0192d21h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:31::/64                        Local   Local     0137d17h   0
+       L3-EDN-BTS0018                                               0
+2001:4888:2a6a:33::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0020                                               0
+2001:4888:2a6a:34::/64                        Remote  OSPF3     0314d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:35::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0022                                               0
+2001:4888:2a6a:36::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:37::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0024                                               0
+2001:4888:2a6a:38::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:39::/64                        Local   Local     75d10h28m  0
+       L3-EDN-BTS0026                                               0
+2001:4888:2a6a:3a::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:3b::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0028                                               0
+2001:4888:2a6a:3c::/64                        Remote  OSPF3     0314d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:3d::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0030                                               0
+2001:4888:2a6a:3e::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:3f::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0032                                               0
+2001:4888:2a6a:40::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:41::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0034                                               0
+2001:4888:2a6a:42::/64                        Remote  OSPF3     0314d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:44::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:46::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:47::/64                        Local   Local     0137d17h   0
+       L3-EDN-BTS0040                                               0
+2001:4888:2a6a:4a::/64                        Remote  OSPF3     0149d12h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:4c::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:4d::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0046                                               0
+2001:4888:2a6a:4e::/64                        Remote  OSPF3     73d11h19m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:4f::/64                        Local   Local     77d18h57m  0
+       L3-EDN-BTS0048                                               0
+2001:4888:2a6a:50::/64                        Remote  OSPF3     0137d18h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:51::/64                        Local   Local     06d10h55m  0
+       L3-EDN-BTS0050                                               0
+2001:4888:2a6a:52::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:53::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0052                                               0
+2001:4888:2a6a:55::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0054                                               0
+2001:4888:2a6a:56::/64                        Remote  OSPF3     0314d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:58::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:5a::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:5b::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0060                                               0
+2001:4888:2a6a:5c::/64                        Remote  OSPF3     09d08h34m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:5d::/64                        Local   Local     0103d12h   0
+       L3-EDN-BTS0062                                               0
+2001:4888:2a6a:5e::/64                        Remote  OSPF3     75d22h29m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:5f::/64                        Local   Local     0181d22h   0
+       L3-EDN-BTS0064                                               0
+2001:4888:2a6a:60::/64                        Remote  OSPF3     0314d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:61::/64                        Local   Local     0181d22h   0
+       L3-EDN-BTS0066                                               0
+2001:4888:2a6a:62::/64                        Remote  OSPF3     0314d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:63::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0068                                               0
+2001:4888:2a6a:64::/64                        Remote  OSPF3     97d14h18m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:65::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0070                                               0
+2001:4888:2a6a:66::/64                        Remote  OSPF3     0131d08h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:67::/64                        Local   Local     0181d22h   0
+       L3-EDN-BTS0072                                               0
+2001:4888:2a6a:68::/64                        Remote  OSPF3     24d12h19m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:69::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0074                                               0
+2001:4888:2a6a:6a::/64                        Remote  OSPF3     0181d22h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:6b::/64                        Local   Local     0181d22h   0
+       L3-EDN-BTS0076                                               0
+2001:4888:2a6a:6d::/64                        Local   Local     0159d08h   0
+       L3-EDN-BTS0078                                               0
+2001:4888:2a6a:6f::/64                        Local   Local     25d11h36m  0
+       L3-EDN-BTS0080                                               0
+2001:4888:2a6a:70::/64                        Remote  OSPF3     0314d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:72::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:73::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0084                                               0
+2001:4888:2a6a:74::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:75::/64                        Local   Local     0164d16h   0
+       L3-EDN-BTS0086                                               0
+2001:4888:2a6a:76::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:7c::/64                        Remote  OSPF3     0217d12h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:7f::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0096                                               0
+2001:4888:2a6a:80::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:81::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0098                                               0
+2001:4888:2a6a:82::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:83::/64                        Local   Local     0102d21h   0
+       L3-EDN-BTS0100                                               0
+2001:4888:2a6a:84::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:85::/64                        Local   Local     0145d02h   0
+       L3-EDN-BTS0102                                               0
+2001:4888:2a6a:86::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:87::/64                        Local   Local     0130d03h   0
+       L3-EDN-BTS0104                                               0
+2001:4888:2a6a:88::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:89::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0106                                               0
+2001:4888:2a6a:8a::/64                        Remote  OSPF3     0160d10h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:8b::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0108                                               0
+2001:4888:2a6a:8c::/64                        Remote  OSPF3     00h08m50s  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:8d::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0110                                               0
+2001:4888:2a6a:8e::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:8f::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0112                                               0
+2001:4888:2a6a:90::/64                        Remote  OSPF3     0102d22h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:91::/64                        Local   Local     25d06h16m  0
+       L3-EDN-BTS0114                                               0
+2001:4888:2a6a:92::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:93::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0116                                               0
+2001:4888:2a6a:94::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:95::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0118                                               0
+2001:4888:2a6a:96::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:97::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0120                                               0
+2001:4888:2a6a:98::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:99::/64                        Local   Local     0188d04h   0
+       L3-EDN-BTS0122                                               0
+2001:4888:2a6a:9a::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:9b::/64                        Local   Local     97d11h03m  0
+       L3-EDN-BTS0124                                               0
+2001:4888:2a6a:9c::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:9d::/64                        Local   Local     0167d14h   0
+       L3-EDN-BTS0126                                               0
+2001:4888:2a6a:9e::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:9f::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0128                                               0
+2001:4888:2a6a:a0::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:a1::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0130                                               0
+2001:4888:2a6a:a2::/64                        Remote  OSPF3     17d22h22m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:a3::/64                        Local   Local     55d09h55m  0
+       L3-EDN-BTS0132                                               0
+2001:4888:2a6a:a4::/64                        Remote  OSPF3     0159d04h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:a5::/64                        Local   Local     0151d09h   0
+       L3-EDN-BTS0134                                               0
+2001:4888:2a6a:a6::/64                        Remote  OSPF3     12d14h38m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:a7::/64                        Local   Local     12d14h43m  0
+       L3-EDN-BTS0136                                               0
+2001:4888:2a6a:a8::/64                        Remote  OSPF3     14d20h18m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:a9::/64                        Local   Local     17d04h01m  0
+       L3-EDN-BTS0138                                               0
+2001:4888:2a6a:ac::/64                        Remote  OSPF3     27d13h53m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:ad::/64                        Local   Local     12d14h43m  0
+       L3-EDN-BTS0142                                               0
+2001:4888:2a6a:ae::/64                        Remote  OSPF3     12d14h42m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:af::/64                        Local   Local     55d09h55m  0
+       L3-EDN-BTS0144                                               0
+2001:4888:2a6a:b0::/64                        Remote  OSPF3     12d14h38m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:b1::/64                        Local   Local     0144d00h   0
+       L3-EDN-BTS0146                                               0
+2001:4888:2a6a:b2::/64                        Remote  OSPF3     0144d00h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:b3::/64                        Local   Local     12d14h42m  0
+       L3-EDN-BTS0148                                               0
+2001:4888:2a6a:b4::/64                        Remote  OSPF3     17d22h17m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:b5::/64                        Local   Local     35d22h25m  0
+       L3-EDN-BTS0150                                               0
+2001:4888:2a6a:b6::/64                        Remote  OSPF3     0144d00h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:b7::/64                        Local   Local     0144d00h   0
+       L3-EDN-BTS0152                                               0
+2001:4888:2a6a:ba::/64                        Remote  OSPF3     0102d21h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:bb::/64                        Local   Local     0144d00h   0
+       L3-EDN-BTS0156                                               0
+2001:4888:2a6a:bc::/64                        Remote  OSPF3     0141d12h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:bd::/64                        Local   Local     0141d12h   0
+       L3-EDN-BTS0158                                               0
+2001:4888:2a6a:be::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:c1::/64                        Local   Local     0125d07h   0
+       L3-EDN-BTS0162                                               0
+2001:4888:2a6a:c2::/64                        Remote  OSPF3     0112d05h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:c3::/64                        Local   Local     0112d05h   0
+       L3-EDN-BTS0164                                               0
+2001:4888:2a6a:c4::/64                        Remote  OSPF3     53d03h51m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:c5::/64                        Local   Local     17d04h00m  0
+       L3-EDN-BTS0166                                               0
+2001:4888:2a6a:c6::/64                        Remote  OSPF3     03d08h43m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:c7::/64                        Local   Local     0112d05h   0
+       L3-EDN-BTS0168                                               0
+2001:4888:2a6a:c8::/64                        Remote  OSPF3     17d22h17m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:c9::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0170                                               0
+2001:4888:2a6a:ca::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:cb::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0172                                               0
+2001:4888:2a6a:cd::/64                        Local   Local     44d22h51m  0
+       L3-EDN-BTS0174                                               0
+2001:4888:2a6a:ce::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:d0::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:d1::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0178                                               0
+2001:4888:2a6a:d2::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:d3::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0180                                               0
+2001:4888:2a6a:d4::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:d6::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:d7::/64                        Local   Local     13d12h13m  0
+       L3-EDN-BTS0184                                               0
+2001:4888:2a6a:d8::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:d9::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0186                                               0
+2001:4888:2a6a:da::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0187                                               0
+2001:4888:2a6a:db::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0188                                               0
+2001:4888:2a6a:dc::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:dd::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0190                                               0
+2001:4888:2a6a:de::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:df::/64                        Local   Local     88d14h14m  0
+       L3-EDN-BTS0192                                               0
+2001:4888:2a6a:e0::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:e2::/64                        Remote  OSPF3     0137d17h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:e3::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0196                                               0
+2001:4888:2a6a:e4::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:e5::/64                        Local   Local     0100d03h   0
+       L3-EDN-BTS0198                                               0
+2001:4888:2a6a:e6::/64                        Local   Local     0117d21h   0
+       L3-EDN-BTS0199-HUB                                           0
+2001:4888:2a6a:e7::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0200                                               0
+2001:4888:2a6a:e8::/64                        Remote  OSPF3     05d06h33m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:e9::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0202                                               0
+2001:4888:2a6a:ea::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:eb::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0204                                               0
+2001:4888:2a6a:ec::/64                        Remote  OSPF3     0314d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:ed::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0206                                               0
+2001:4888:2a6a:ee::/64                        Remote  OSPF3     0314d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:ef::/64                        Local   Local     0159d04h   0
+       L3-EDN-BTS0208                                               0
+2001:4888:2a6a:f0::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:f1::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0210                                               0
+2001:4888:2a6a:f3::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0212                                               0
+2001:4888:2a6a:f4::/64                        Remote  OSPF3     12d14h38m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:f5::/64                        Local   Local     0152d12h   0
+       L3-EDN-BTS0214-HUB                                           0
+2001:4888:2a6a:f6::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:f8::/64                        Remote  OSPF3     0137d17h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:f9::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0218                                               0
+2001:4888:2a6a:fc::/64                        Remote  OSPF3     33d03h21m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:fd::/64                        Local   Local     0203d23h   0
+       L3-EDN-BTS0222                                               0
+2001:4888:2a6a:fe::/64                        Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:100::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:101::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0226                                               0
+2001:4888:2a6a:102::/64                       Remote  OSPF3     07d03h18m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:103::/64                       Local   Local     0194d12h   0
+       L3-EDN-BTS0228                                               0
+2001:4888:2a6a:104::/64                       Remote  OSPF3     0314d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:105::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0230                                               0
+2001:4888:2a6a:106::/64                       Remote  OSPF3     0314d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:108::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:109::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0234                                               0
+2001:4888:2a6a:10a::/64                       Remote  OSPF3     0137d17h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:10b::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0236                                               0
+2001:4888:2a6a:10c::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:10f::/64                       Local   Local     19d08h41m  0
+       L3-EDN-BTS0240                                               0
+2001:4888:2a6a:110::/64                       Remote  OSPF3     0159d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:111::/64                       Local   Local     11d05h35m  0
+       L3-EDN-BTS0242                                               0
+2001:4888:2a6a:112::/64                       Remote  OSPF3     0271d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:113::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0244                                               0
+2001:4888:2a6a:115::/64                       Local   Local     19d08h41m  0
+       L3-EDN-BTS0246                                               0
+2001:4888:2a6a:116::/64                       Remote  OSPF3     49d19h24m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:117::/64                       Local   Local     19d08h42m  0
+       L3-EDN-BTS0248                                               0
+2001:4888:2a6a:118::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:119::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0250                                               0
+2001:4888:2a6a:11a::/64                       Remote  OSPF3     0159d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:11b::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0252                                               0
+2001:4888:2a6a:11c::/64                       Remote  OSPF3     68d10h07m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:11e::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:11f::/64                       Local   Local     0140d11h   0
+       L3-EDN-BTS0256                                               0
+2001:4888:2a6a:120::/64                       Remote  OSPF3     0314d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:122::/64                       Remote  OSPF3     0271d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:123::/64                       Local   Local     0112d07h   0
+       L3-EDN-BTS0260                                               0
+2001:4888:2a6a:124::/64                       Remote  OSPF3     93d08h54m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:125::/64                       Local   Local     19d08h41m  0
+       L3-EDN-BTS0262                                               0
+2001:4888:2a6a:126::/64                       Remote  OSPF3     0200d22h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:128::/64                       Remote  OSPF3     0271d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:12a::/64                       Remote  OSPF3     0200d22h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:12b::/64                       Local   Local     11h10m16s  0
+       L3-EDN-BTS0268                                               0
+2001:4888:2a6a:12c::/64                       Remote  OSPF3     11h10m15s  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:12d::/64                       Local   Local     19d08h35m  0
+       L3-EDN-BTS0270                                               0
+2001:4888:2a6a:12e::/64                       Remote  OSPF3     0271d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:12f::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0272                                               0
+2001:4888:2a6a:130::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:131::/64                       Local   Local     08d22h47m  0
+       L3-EDN-BTS0274                                               0
+2001:4888:2a6a:132::/64                       Remote  OSPF3     19d08h35m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:133::/64                       Local   Local     11h16m08s  0
+       L3-EDN-BTS0276                                               0
+2001:4888:2a6a:134::/64                       Remote  OSPF3     49d19h31m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:135::/64                       Local   Local     19d08h42m  0
+       L3-EDN-BTS0278                                               0
+2001:4888:2a6a:137::/64                       Local   Local     19d08h35m  0
+       L3-EDN-BTS0280                                               0
+2001:4888:2a6a:138::/64                       Remote  OSPF3     19d08h35m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:139::/64                       Local   Local     0137d08h   0
+       L3-EDN-BTS0282                                               0
+2001:4888:2a6a:13b::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0284                                               0
+2001:4888:2a6a:13c::/64                       Remote  OSPF3     0123d22h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:13d::/64                       Local   Local     0202d13h   0
+       L3-EDN-BTS0286                                               0
+2001:4888:2a6a:13e::/64                       Remote  OSPF3     19d08h41m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:13f::/64                       Local   Local     20d22h18m  0
+       L3-EDN-BTS0288                                               0
+2001:4888:2a6a:141::/64                       Local   Local     0123d22h   0
+       L3-EDN-BTS0290                                               0
+2001:4888:2a6a:142::/64                       Remote  OSPF3     19d08h41m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:143::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0292                                               0
+2001:4888:2a6a:144::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:145::/64                       Local   Local     15d06h37m  0
+       L3-EDN-BTS0294                                               0
+2001:4888:2a6a:146::/64                       Remote  OSPF3     0149d09h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:147::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0296                                               0
+2001:4888:2a6a:148::/64                       Remote  OSPF3     19d08h40m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:149::/64                       Local   Local     19d08h36m  0
+       L3-EDN-BTS0298                                               0
+2001:4888:2a6a:14a::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:14b::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0300                                               0
+2001:4888:2a6a:14c::/64                       Remote  OSPF3     93d08h53m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:14d::/64                       Local   Local     62d12h12m  0
+       L3-EDN-BTS0302                                               0
+2001:4888:2a6a:14e::/64                       Remote  OSPF3     28d20h05m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:14f::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0304                                               0
+2001:4888:2a6a:150::/64                       Remote  OSPF3     0123d22h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:151::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0306                                               0
+2001:4888:2a6a:152::/64                       Remote  OSPF3     0112d07h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:153::/64                       Local   Local     19d08h41m  0
+       L3-EDN-BTS0308                                               0
+2001:4888:2a6a:155::/64                       Local   Local     06d14h07m  0
+       L3-EDN-BTS0310                                               0
+2001:4888:2a6a:15a::/64                       Remote  OSPF3     93d08h54m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:169::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0330                                               0
+2001:4888:2a6a:16a::/64                       Remote  OSPF3     0197d04h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:16b::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0332                                               0
+2001:4888:2a6a:16c::/64                       Remote  OSPF3     02d12h25m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:16d::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0334                                               0
+2001:4888:2a6a:16e::/64                       Remote  OSPF3     67d18h42m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:16f::/64                       Local   Local     97d22h15m  0
+       L3-EDN-BTS0336                                               0
+2001:4888:2a6a:170::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:171::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0338                                               0
+2001:4888:2a6a:172::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:173::/64                       Local   Local     12d14h43m  0
+       L3-EDN-BTS0340                                               0
+2001:4888:2a6a:174::/64                       Remote  OSPF3     98d11h02m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:175::/64                       Local   Local     01h02m34s  0
+       L3-EDN-BTS0342                                               0
+2001:4888:2a6a:177::/64                       Local   Local     14d20h18m  0
+       L3-EDN-BTS0344                                               0
+2001:4888:2a6a:17a::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:17b::/64                       Local   Local     0144d00h   0
+       L3-EDN-BTS0348                                               0
+2001:4888:2a6a:17c::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:17d::/64                       Local   Local     0141d12h   0
+       L3-EDN-BTS0350                                               0
+2001:4888:2a6a:17e::/64                       Remote  OSPF3     14d07h23m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:183::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0356                                               0
+2001:4888:2a6a:185::/64                       Local   Local     09h51m28s  0
+       L3-EDN-BTS0358                                               0
+2001:4888:2a6a:186::/64                       Remote  OSPF3     27d13h46m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:188::/64                       Remote  OSPF3     12d14h36m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:1ff::/64                       Local   Local     0234d12h   0
+       L3-EDN-BTS0480-HUB                                           0
+2001:4888:2a6a:213::/64                       Local   Local     15d06h34m  0
+       L3-EDN-BTS0500                                               0
+2001:4888:2a6a:216::/64                       Remote  OSPF3     12d14h38m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:223::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS023516-W1                                          0
+2001:4888:2a6a:224::/64                       Remote  OSPF3     56d14h28m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:227::/64                       Local   Local     06d13h58m  0
+       L3-EDN-BTS0520-W1                                            0
+2001:4888:2a6a:22b::/64                       Local   Local     0182d13h   0
+       L3-EDN-BTS0524                                               0
+2001:4888:2a6a:23b::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0540                                               0
+2001:4888:2a6a:24f::/64                       Local   Local     12d14h39m  0
+       L3-EDN-BTS0560-W1                                            0
+2001:4888:2a6a:25c::/64                       Remote  OSPF3     0119d04h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:264::/64                       Remote  OSPF3     47d19h20m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:26a::/64                       Remote  OSPF3     0173d04h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:277::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0600                                               0
+2001:4888:2a6a:278::/64                       Remote  OSPF3     0270d21h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:279::/64                       Local   Local     01d14h47m  0
+       L3-EDN-BTS0602                                               0
+2001:4888:2a6a:27a::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:27b::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0604                                               0
+2001:4888:2a6a:27d::/64                       Local   Local     0120d10h   0
+       L3-EDN-BTS0606                                               0
+2001:4888:2a6a:27e::/64                       Remote  OSPF3     0132d14h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:27f::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0608                                               0
+2001:4888:2a6a:280::/64                       Remote  OSPF3     0314d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:281::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0610                                               0
+2001:4888:2a6a:282::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:283::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0612                                               0
+2001:4888:2a6a:284::/64                       Remote  OSPF3     10d18h31m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:286::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:288::/64                       Remote  OSPF3     0314d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:289::/64                       Local   Local     06d08h46m  0
+       L3-EDN-BTS0618                                               0
+2001:4888:2a6a:28a::/64                       Remote  OSPF3     10d18h25m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:28b::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0620                                               0
+2001:4888:2a6a:28c::/64                       Remote  OSPF3     69d06h46m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:28d::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0622                                               0
+2001:4888:2a6a:28f::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0624                                               0
+2001:4888:2a6a:290::/64                       Remote  OSPF3     0314d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:291::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0626                                               0
+2001:4888:2a6a:292::/64                       Remote  OSPF3     81d00h14m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:293::/64                       Local   Local     97d20h34m  0
+       L3-EDN-BTS0628                                               0
+2001:4888:2a6a:294::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:295::/64                       Local   Local     0165d19h   0
+       L3-EDN-BTS0630                                               0
+2001:4888:2a6a:296::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:297::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0632                                               0
+2001:4888:2a6a:298::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:299::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0634                                               0
+2001:4888:2a6a:29a::/64                       Remote  OSPF3     0130d03h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:29b::/64                       Local   Local     0165d13h   0
+       L3-EDN-BTS0636                                               0
+2001:4888:2a6a:29c::/64                       Remote  OSPF3     0104d18h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:29d::/64                       Local   Local     86d04h25m  0
+       L3-EDN-BTS0638                                               0
+2001:4888:2a6a:29e::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:29f::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0640                                               0
+2001:4888:2a6a:2a0::/64                       Remote  OSPF3     0192d21h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:2a1::/64                       Local   Local     0111d11h   0
+       L3-EDN-BTS0642                                               0
+2001:4888:2a6a:2a2::/64                       Remote  OSPF3     0192d21h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:2a3::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0644                                               0
+2001:4888:2a6a:2a4::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:2a5::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0646                                               0
+2001:4888:2a6a:2a6::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:2a8::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:2a9::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0650                                               0
+2001:4888:2a6a:2ac::/64                       Remote  OSPF3     05d06h33m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:2ad::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0654                                               0
+2001:4888:2a6a:2ae::/64                       Remote  OSPF3     0102d12h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:2b0::/64                       Remote  OSPF3     0159d04h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:2b1::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0658                                               0
+2001:4888:2a6a:2b5::/64                       Local   Local     0145d02h   0
+       L3-EDN-BTS0662                                               0
+2001:4888:2a6a:2b7::/64                       Local   Local     89d23h33m  0
+       L3-EDN-BTS0664                                               0
+2001:4888:2a6a:2b8::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:2b9::/64                       Local   Local     0203d23h   0
+       L3-EDN-BTS0666                                               0
+2001:4888:2a6a:2ba::/64                       Remote  OSPF3     0154d09h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:2bc::/64                       Remote  OSPF3     17d03h54m  150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:2c2::/64                       Remote  OSPF3     0272d13h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:2c3::/64                       Local   Local     26d13h18m  0
+       L3-EDN-BTS0676                                               0
+2001:4888:2a6a:340::/64                       Remote  OSPF3     0203d23h   150
+       fe80::225:baff:fe58:47d0-"L3-VLAN460"                        1
+2001:4888:2a6a:341::/64                       Local   Local     89d10h08m  0
+       L3-EDN-BTS0802                                               0
+-------------------------------------------------------------------------------
+No. of Routes: 728
+Flags: n = Number of times nexthop is repeated
+       B = BGP backup route available
+       L = LFA nexthop available
+       S = Sticky ECMP requested
+===============================================================================
+A:TCSNAZ7591A-P-AL-7750-02# 

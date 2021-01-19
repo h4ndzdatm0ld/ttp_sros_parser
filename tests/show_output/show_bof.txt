@@ -1,0 +1,25 @@
+*A:R1-SANDBOX# show bof 
+===============================================================================
+BOF (Memory)
+===============================================================================
+    primary-image    cf3:\7705-TiMOS-9.0.R9\
+    primary-config   cf3:\EXAMPLEPHX-P-AL-7705-01.txt.cfg
+    address          192.168.1.1/23 active
+    address          1001:1000:2a65:2000:0FA:413::6/64 active
+    primary-dns      192.168.1.1
+    secondary-dns    8.8.8.8
+    dns-domain       admin-save.com
+    static-route     0.0.0.0/1 next-hop 192.168.100.1
+    static-route     128.0.0.0/1 next-hop 192.168.100.1
+    static-route     1001:1000:0A00::/40 next-hop 1001:1000:2a69:2000:0FA:420::FFFF
+    static-route     1001:1000:2A00::/40 next-hop 1001:1000:2a69:2000:0FA:420::FFFF
+    autonegotiate
+    duplex           full
+    speed            100
+    wait             3
+    persist          off
+    no li-local-save
+    no li-separate
+    no fips-140-2
+    console-speed    115200
+===============================================================================

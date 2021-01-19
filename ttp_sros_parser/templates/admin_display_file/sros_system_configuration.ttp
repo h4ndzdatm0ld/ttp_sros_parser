@@ -1,0 +1,25 @@
+    system {{_start_}}
+        <group name="system">
+        name {{ name | strip('"') }}
+        contact {{ contact | re(r"\W.*") | strip('"')}}
+        location {{location | re(r"\W.*") | strip('"')}}
+        <group name="rollback">
+        rollback {{rollback | set(true)}}
+            rollback-location {{cf_slot | strip('"') | to_str}}:\{{ directory | to_str | strip('"')}}
+        </group>
+        <group name="snmp">
+            packet-size {{packet_size}}
+        </group>
+        time {{ignore}}
+                <group name="ntp.servers" itemize="server">
+                server {{server | _start_}}
+                </group>
+        </group>
+#-------------------------------------------------- {{_end_}}
+
+<group name="system.ntp">
+                no authentication-check {{auth_check | set(false)}}
+                no shutdown {{admin_state | set(true)}}
+            zone {{time_zone}}
+</group>
+#-------------------------------------------------- {{_end_}}

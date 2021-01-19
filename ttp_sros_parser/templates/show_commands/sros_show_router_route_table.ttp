@@ -1,0 +1,52 @@
+<group name="route-table">
+=============================================================================== {{ignore}}
+Route Table (Router: Base) {{_start_}}{{_exact_}}
+<group name="ipv4">
+=============================================================================== {{ignore}}
+Dest Prefix[Flags]                            Type    Proto     Age        Pref {{ignore}}
+      Next Hop[Interface Name]                                    Metric {{ignore}}
+------------------------------------------------------------------------------- {{ignore}}
+<group name="entry" method="table">
+{{ipaddress | PREFIX}} {{type}} {{protocol}} {{age}} {{pref}} 
+    <group name="next-hop" method="table">
+       {{next-hop | re(r'.+') | strip()}} {{metric | DIGIT}}
+    </group>
+</group>     
+------------------------------------------------------------------------------- {{ignore}}
+<group name="count">
+No. of Routes: {{total-routes | DIGIT}}
+</group>
+Flags: n = Number of times nexthop is repeated {{ignore}}
+       B = BGP backup route available {{ignore}}
+       L = LFA nexthop available {{ignore}}
+       S = Sticky ECMP requested {{ignore}}
+=============================================================================== {{_end_}}{{exact}}
+</group>
+IPv6 Route Table (Router: Base) {{_end_}}
+</group>
+
+<group name="route-table">
+=============================================================================== {{ignore}}
+IPv6 Route Table (Router: Base) {{_start_}}{{_exact_}}
+<group name="ipv6">
+=============================================================================== {{ignore}}
+Dest Prefix[Flags]                            Type    Proto     Age        Pref {{ignore}}
+      Next Hop[Interface Name]                                    Metric {{ignore}}
+------------------------------------------------------------------------------- {{ignore}}
+<group name="entry" method="table">
+{{ipaddress | PREFIXV6}} {{type}} {{protocol}} {{age}} {{pref}} 
+    <group name="next-hop" method="table">
+       {{next-hop | re(r'.+')|strip()|resub('"','')|strip('"')}} {{metric | DIGIT}}
+    </group>
+</group>     
+------------------------------------------------------------------------------- {{ignore}}
+<group name="count">
+No. of Routes: {{total-routes | DIGIT}}
+</group>
+Flags: n = Number of times nexthop is repeated {{ignore}}
+       B = BGP backup route available {{ignore}}
+       L = LFA nexthop available {{ignore}}
+       S = Sticky ECMP requested {{ignore}}
+=============================================================================== {{_end_}}{{exact}}
+</group>
+</group>

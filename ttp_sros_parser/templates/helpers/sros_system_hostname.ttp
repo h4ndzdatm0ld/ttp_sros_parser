@@ -1,0 +1,5 @@
+    system {{_start_}}
+    <group name="system">
+        name {{hostname | strip('"')}}
+    </group>
+#-------------------------------------------------- {{_end_}}

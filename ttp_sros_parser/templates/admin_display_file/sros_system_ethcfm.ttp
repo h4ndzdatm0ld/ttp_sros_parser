@@ -1,0 +1,13 @@
+<group name="system.eth-cfm">
+    eth-cfm {{_start_}}
+    <group name="domain">
+        domain {{domain-id}} format {{format}} level {{level}}
+            <group name="assosciations">
+            association {{assosciation-id}} format {{format}} name {{name | strip('"')}}
+                bridge-identifier {{bridge-id}}
+                exit {{ignore}}
+                remote-mepid {{remote-mepid}}
+            </group>
+    </group>
+    #-------------------------------------------------- {{_end_}}
+</group>

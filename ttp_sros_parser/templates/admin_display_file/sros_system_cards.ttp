@@ -1,0 +1,25 @@
+<group name="system">
+    <group name="card">
+    card {{slot-number}}
+        card-type {{card-type}}
+        fail-on-error {{fail-on-error | set(true)}}
+        <group name="mda">
+        mda {{mda-slot}}
+            shutdown {{admin-state | set(false)}}
+            mda-type {{mda-type}}
+            <group name="ingress-xpl">
+            ingress-xpl {{_start_}}
+                window {{window}}
+            exit {{_end_}}
+            </group>
+            <group name="egress-xpl">
+            egress-xpl {{_start_}}
+                window {{window}}
+            exit {{_end_}}
+            </group>
+            fail-on-error {{fail-on-error | set(true)}}
+            no shutdown {{admin-state | set(true)}}
+        </group>
+        exit {{ignore}}
+    </group>
+</group>

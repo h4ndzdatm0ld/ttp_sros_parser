@@ -1,0 +1,35 @@
+*A:R1-SANDBOX# show bof 
+<group name="bof">
+===============================================================================
+BOF (Memory) {{_start_}}
+===============================================================================
+    <group name="image">
+    primary-image    {{cf-card}}:\{{primary-image}}\
+    secondary-image  {{cf-card}}:\{{secondary-image}}\
+    </group>
+    <group name="primary-config">
+    primary-config   {{cf-card}}:\{{primary-config}}
+    secondary-config {{cf-card}}:\{{secondary-config}}
+    </group>
+    <group name="address">
+    address          {{address}}/{{prefix-length}} active
+    address          {{address}}/{{prefix-length}} active
+    </group>
+    primary-dns      {{primary-dns}}
+    secondary-dns    {{secondary-dns}}
+    dns-domain       {{dns-domain}}
+    <group name="static-route">
+    static-route     {{network}} next-hop {{next-hop}}
+    </group>
+    autonegotiate    {{autonegotiate | set(true)}}
+    no autonegotiate {{autonegotiate | set(false)}}
+    duplex           {{duplex}}
+    speed            {{speed}}
+    wait             {{wait}}
+    persist          {{persist}}
+    no li-local-save
+    no li-separate
+    no fips-140-2
+    console-speed    {{console-speed}}
+</group>
+=============================================================================== {{_end_}}

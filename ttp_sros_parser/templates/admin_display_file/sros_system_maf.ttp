@@ -1,0 +1,47 @@
+<group name="system.management-access-filter">
+            management-access-filter {{_start_}}
+                <group name="ip-filter-params">
+                ip-filter {{ipv4-filter | set(true)}}
+                    shutdown {{ admin-state | set(false)}}
+                    default-action {{default-action}}
+                    no shutdown {{ admin-state | set(true)}}
+                </group>
+                <group name="ipv6-filter-params">
+                ipv6-filter {{ipv6-filter | set(true)}}
+                    shutdown {{ admin-state | set(false)}}
+                    default-action {{default-action}}
+                    no shutdown {{ admin-state | set(true)}}
+                </group>
+</group>
+<group name="system.management-access-filter">
+            management-access-filter {{_start_}}
+                ip-filter {{_exact_}}
+                <group name="ip-filter">
+                <group name="entry">
+                    entry {{entry-id | DIGIT }}
+                        description {{description | re(r"\W.*") | strip('"')}}
+                        src-ip {{src-ip}}
+                        protocol {{protocol}}
+                        dst-port {{dst-port | re(r"\d.*")}}
+                        router {{router-instance | strip('"')}}
+                        action {{action | strip('"')}}
+                    exit {{ignore}}
+                ipv6-filter {{_end_}}
+                </group>
+                </group>
+</group>
+<group name="system.management-access-filter">
+                ipv6-filter {{_start_}}
+                <group name="ipv6-filter">
+                <group name="entry">
+                    entry {{entry-id}}
+                        description {{description | re(r"\W.*") | strip('"')}}
+                        src-ip {{src-ip }}
+                        protocol {{protocol}}
+                        dst-port {{dst-port | re(r"\d.*")}}
+                        router {{router-instance | strip('"')}}
+                        action {{action-instance | strip('"')}}
+                    exit {{ignore}}
+                </group>
+                </group>
+</group>

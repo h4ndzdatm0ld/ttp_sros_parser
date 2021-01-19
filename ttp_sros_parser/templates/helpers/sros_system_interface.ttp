@@ -1,0 +1,31 @@
+<group name="router">
+    router {{ignore}}
+    <group name="interface">
+        interface {{interface_name | re('"system"') | strip('"')}}
+            shutdown {{admin_state | set(false)}}
+            description {{description | strip('"')}}
+            enable-ingress-stats {{ingress_stats | set(true)}}
+            <group name="ipv4">
+            <group name="primary">
+            address {{address}}/{{prefix_length}}
+            </group>
+            </group>
+            port {{port}}
+            <group name="ipv6">
+            ipv6 {{_start_}}
+                <group name="address">
+                address {{ipv6_address}}/{{prefix-length>}}
+                </group>
+                <group name="address">
+                </group>
+            exit {{ignore}}
+            </group>
+            exit {{ignore}}
+            <group name="qos">
+            qos {{network-policy}}
+            </group>
+            no shutdown {{admin_state | set(true)}}
+        exit {{_end_}}
+    </group>
+    #-------------------------------------------------- {{_end_}}
+</group>

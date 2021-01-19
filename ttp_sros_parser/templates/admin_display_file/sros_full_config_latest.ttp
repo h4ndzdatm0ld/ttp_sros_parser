@@ -1,0 +1,286 @@
+           <group name="system.profile">
+            profile {{user-profile-name | re(r".+") | strip('"')}}
+                default-action {{default-action}}
+                <group name="entry">
+                entry {{entry-id}} {{_start_}}
+                    match {{match | re(r"\W.*") | strip('"')}}
+                    action {{action}}
+                exit
+                </group>
+            exit {{_end_}}
+            </group><group name="router">
+    router {{ignore}}
+    <group name="interfaces">
+        interface {{interface_name | strip('"')}}
+            shutdown {{admin_state | set(false)}}
+            description {{description | strip('"')}}
+            description {{description | strip('"')}}
+            enable-ingress-stats {{ingress_stats | set(true)}}
+            <group name="ipv4">
+            <group name="primary">
+            address {{address}}/{{prefix_length}}
+            </group>
+            <group name="bfd">
+            bfd {{ipv4_bfd | re(r"\d.*")}}
+            </group>
+            </group>
+            ldp_sync_timer {{ldp_sync_timer}}
+            cpu_protection {{cpu_protection}}
+            port {{port}}
+            <group name="ipv6">
+            ipv6 {{_start_}}
+                <group name="address">
+                address {{ipv6_address}}/{{prefix-length}}
+                </group>
+                <group name="address">
+                bfd {{ipv6_bfd | re(r"\d.*")}}
+                </group>
+            exit {{ignore}}
+            </group>
+            exit {{ignore}}
+            <group name="qos">
+            qos {{network-policy}}
+            </group>
+            bfd {{ipv4_bfd | re(r"\d.*")}}
+            no shutdown {{admin_state | set(true)}}
+        exit {{_end_}}
+    </group>
+    #-------------------------------------------------- {{_end_}}
+</group>
+        <group name="router">
+        autonomous-system {{autonomous-system}}
+        </group><group name="system.management-access-filter">
+            management-access-filter {{_start_}}
+                <group name="ip-filter-params">
+                ip-filter {{ipv4-filter | set(true)}}
+                    shutdown {{ admin-state | set(false)}}
+                    default-action {{default-action}}
+                    no shutdown {{ admin-state | set(true)}}
+                </group>
+                <group name="ipv6-filter-params">
+                ipv6-filter {{ipv6-filter | set(true)}}
+                    shutdown {{ admin-state | set(false)}}
+                    default-action {{default-action}}
+                    no shutdown {{ admin-state | set(true)}}
+                </group>
+</group>
+<group name="system.management-access-filter">
+            management-access-filter {{_start_}}
+                ip-filter {{_exact_}}
+                <group name="ip-filter">
+                <group name="entry">
+                    entry {{entry-id | DIGIT }}
+                        description {{description | re(r"\W.*") | strip('"')}}
+                        src-ip {{src-ip}}
+                        protocol {{protocol}}
+                        dst-port {{dst-port | re(r"\d.*")}}
+                        router {{router-instance | strip('"')}}
+                        action {{action | strip('"')}}
+                    exit {{ignore}}
+                ipv6-filter {{_end_}}
+                </group>
+                </group>
+</group>
+<group name="system.management-access-filter">
+                ipv6-filter {{_start_}}
+                <group name="ipv6-filter">
+                <group name="entry">
+                    entry {{entry-id}}
+                        description {{description | re(r"\W.*") | strip('"')}}
+                        src-ip {{src-ip }}
+                        protocol {{protocol}}
+                        dst-port {{dst-port | re(r"\d.*")}}
+                        router {{router-instance | strip('"')}}
+                        action {{action-instance | strip('"')}}
+                    exit {{ignore}}
+                </group>
+                </group>
+</group>
+<group name="system.eth-cfm">
+    eth-cfm {{_start_}}
+    <group name="domain">
+        domain {{domain-id}} format {{format}} level {{level}}
+            <group name="assosciations">
+            association {{assosciation-id}} format {{format}} name {{name | strip('"')}}
+                bridge-identifier {{bridge-id}}
+                exit {{ignore}}
+                remote-mepid {{remote-mepid}}
+            </group>
+    </group>
+    #-------------------------------------------------- {{_end_}}
+</group><group name="system">
+    <group name="card">
+    card {{slot-number}}
+        card-type {{card-type}}
+        fail-on-error {{fail-on-error | set(true)}}
+        <group name="mda">
+        mda {{mda-slot}}
+            shutdown {{admin-state | set(false)}}
+            mda-type {{mda-type}}
+            <group name="ingress-xpl">
+            ingress-xpl {{_start_}}
+                window {{window}}
+            exit {{_end_}}
+            </group>
+            <group name="egress-xpl">
+            egress-xpl {{_start_}}
+                window {{window}}
+            exit {{_end_}}
+            </group>
+            fail-on-error {{fail-on-error | set(true)}}
+            no shutdown {{admin-state | set(true)}}
+        </group>
+        exit {{ignore}}
+    </group>
+</group><macro>
+def macro_bfd(data):
+	if 'bfd-enable' in data:
+		return  data, {"bfd-enable": True}
+
+def def_route(data):
+	items = data.split()
+	data = {}
+	
+	data['next-hop'] = items[2]
+	try:
+		if 'bfd' in items[3]:
+			data['bfd-enable'] = True	
+		elif 'preference' in items[3]:
+			data['preference'] = items[4]
+	except Exception as e:
+		pass
+
+	return data		
+		
+</macro>
+
+<group name="router.static-route.ipv4">
+#--------------------------------------------------
+echo "Static Route Configuration" {{_start_}}
+#--------------------------------------------------
+        <group name="entry">
+        static-route {{prefix}}/{{prefix-length}} next-hop {{next-hop | IP}} {{bfd-enable | re(r"bfd-enable") | macro("macro_bfd")}} {{ldp-sync | re(r"ldp-sync")}}
+#-------------------------------------------------- {{_end_}}
+        </group>
+#--------------------------------------------------
+echo "Static Route Configuration" {{_start_}}
+#--------------------------------------------------
+        <group name="entry">
+        static-route {{prefix}}/{{prefix-length | re(r"[1-3][0-9]") }} next-hop {{next-hop | IP}} preference {{preference | DIGIT}}
+#-------------------------------------------------- {{_end_}}
+        </group>
+#--------------------------------------------------
+echo "Static Route Configuration" {{_start_}}
+#--------------------------------------------------
+        <group name="entry">
+        static-route {{prefix}}/{{prefix-length  | re(r"[1-3][0-9]") }} next-hop {{next-hop | IP}} {{bfd-enable | re(r"bfd-enable") | macro("macro_bfd")}}
+#-------------------------------------------------- {{_end_}}
+        </group>
+#--------------------------------------------------
+echo "Static Route Configuration" {{_start_}}
+#--------------------------------------------------
+        <group name="default-route">
+        static-route {{default-route | _line_ | contains("0.0.0.0/0") | macro("def_route")}}
+#-------------------------------------------------- {{_end_}}
+        </group>
+</group>
+        <group name="router.static-route.ipv4">
+
+#--------------------------------------------------
+echo "Static Route Configuration" {{_start_}}
+#--------------------------------------------------
+        <group name="black-hole">
+        static-route {{prefix | PREFIX}} {{black-hole | re(r"black-hole")}}
+#-------------------------------------------------- {{_end_}}
+</group>
+</group>
+
+
+
+
+
+
+
+
+
+
+
+<group name="router.static-route.ipv6">
+#--------------------------------------------------
+echo "Static IPv6 Route Configuration" {{_start_}}
+#--------------------------------------------------
+        <group name="entry">
+        static-route {{prefix}}/{{prefix-length | DIGIT}} next-hop {{next-hop | IPV6 }} {{bfd-enable | re(r"bfd-enable") | macro("macro_bfd")}}
+#-------------------------------------------------- {{_end_}}
+</group>
+#--------------------------------------------------
+echo "Static IPv6 Route Configuration" {{_start_}}
+#--------------------------------------------------
+        <group name="entry">
+        static-route {{prefix}}/{{prefix-length | DIGIT}} next-hop {{next-hop | IPV6 }} preference {{preference | DIGIT}}
+#-------------------------------------------------- {{_end_}}
+</group>
+#--------------------------------------------------
+echo "Static IPv6 Route Configuration" {{_start_}}
+#--------------------------------------------------
+        <group name="default-route">
+        static-route {{default-route | re(r".*") | _line_ | contains("::/0")}}
+#-------------------------------------------------- {{_end_}}
+</group>
+</group>
+
+<group name="router.static-route.ipv6">
+#--------------------------------------------------
+echo "Static IPv6 Route Configuration" {{_start_}}
+#--------------------------------------------------
+        <group name="black-hole">
+        static-route {{prefix | PREFIXV6}} {{black-hole | re(r"black-hole")}}
+#-------------------------------------------------- {{_end_}}
+</group>
+</group>
+
+#--------------------------------------------------
+echo "Service Configuration"
+#--------------------------------------------------
+    service {{_start_}}
+        <group name="system.service.sdp">
+        sdp {{sdp-id | re(r"\d.*") | replaceall("","create","mpls") | strip()}}
+            description {{description | strip('"')}}
+            far-end {{far-end | IP}}
+            ldp {{ldp | set(true)}}
+            lsp {{lsp | strip('"')}}
+            path-mtu {{path-mtu}}
+            adv-mtu-override {{adv-mtu-override | set(true)}}
+            <group name="keep-alive">
+            keep-alive {{_start_}}
+                shutdown {{admin-state | set(false)}}
+            </group>
+            exit
+            no shutdown {{admin-state | set(true)}}
+        exit {{_end_}}
+        </group>
+#-------------------------------------------------- {{_end_}}    system {{_start_}}
+        <group name="system">
+        name {{ name | strip('"') }}
+        contact {{ contact | re(r"\W.*") | strip('"')}}
+        location {{location | re(r"\W.*") | strip('"')}}
+        <group name="rollback">
+        rollback {{rollback | set(true)}}
+            rollback-location {{cf_slot | strip('"') | to_str}}:\{{ directory | to_str | strip('"')}}
+        </group>
+        <group name="snmp">
+            packet-size {{packet_size}}
+        </group>
+        time {{ignore}}
+                <group name="ntp.servers" itemize="server">
+                server {{server | _start_}}
+                </group>
+        </group>
+#-------------------------------------------------- {{_end_}}
+
+<group name="system.ntp">
+                no authentication-check {{auth_check | set(false)}}
+                no shutdown {{admin_state | set(true)}}
+            zone {{time_zone}}
+</group>
+#-------------------------------------------------- {{_end_}}

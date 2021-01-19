@@ -1,0 +1,42 @@
+<group name="router">
+    router {{ignore}}
+    <group name="interfaces">
+        interface {{interface_name | strip('"')}}
+            shutdown {{admin_state | set(false)}}
+            description {{description | strip('"')}}
+            description {{description | strip('"')}}
+            enable-ingress-stats {{ingress_stats | set(true)}}
+            <group name="ipv4">
+            <group name="primary">
+            address {{address}}/{{prefix_length}}
+            </group>
+            <group name="bfd">
+            bfd {{ipv4_bfd | re(r"\d.*")}}
+            </group>
+            </group>
+            ldp_sync_timer {{ldp_sync_timer}}
+            cpu_protection {{cpu_protection}}
+            port {{port}}
+            <group name="ipv6">
+            ipv6 {{_start_}}
+                <group name="address">
+                address {{ipv6_address}}/{{prefix-length}}
+                </group>
+                <group name="address">
+                bfd {{ipv6_bfd | re(r"\d.*")}}
+                </group>
+            exit {{ignore}}
+            </group>
+            exit {{ignore}}
+            <group name="qos">
+            qos {{network-policy}}
+            </group>
+            bfd {{ipv4_bfd | re(r"\d.*")}}
+            no shutdown {{admin_state | set(true)}}
+        exit {{_end_}}
+    </group>
+    #-------------------------------------------------- {{_end_}}
+</group>
+        <group name="router">
+        autonomous-system {{autonomous-system}}
+        </group>

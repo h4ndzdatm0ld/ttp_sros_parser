@@ -1,0 +1,11 @@
+           <group name="system.profile">
+            profile {{user-profile-name | re(r".+") | strip('"')}}
+                default-action {{default-action}}
+                <group name="entry">
+                entry {{entry-id}} {{_start_}}
+                    match {{match | re(r"\W.*") | strip('"')}}
+                    action {{action}}
+                exit
+                </group>
+            exit {{_end_}}
+            </group>

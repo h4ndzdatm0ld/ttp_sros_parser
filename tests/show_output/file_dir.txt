@@ -1,0 +1,22 @@
+A:vSIM# file dir 
+
+Volume in drive cf3 on slot A is SROS VM.
+
+Volume in drive cf3 on slot A is formatted as FAT32
+
+Directory of cf3:\
+
+11/06/2020  06:52a      <DIR>          .ssh/
+06/17/2020  02:06p                   0 CONFIG.CFG
+06/17/2020  02:06p                 101 NVRAM.DAT
+06/17/2020  02:06p      <DIR>          SYSLINUX/
+06/17/2020  02:06p      <DIR>          TIMOS/
+11/14/2020  02:53a                 682 bof.cfg
+12/26/2020  02:39p                6614 bootlog.txt
+12/26/2020  02:35p                6614 bootlog_prev.txt
+12/30/2020  06:32p      <DIR>          certs/
+12/26/2020  02:38p                 317 nvsys.info
+12/26/2020  02:38p                   2 restcntr.txt
+11/13/2020  02:17a      <DIR>          system-pki/
+               7 File(s)                  14330 bytes.
+               5 Dir(s)               789516288 bytes free.

@@ -1,0 +1,21 @@
+#--------------------------------------------------
+echo "Service Configuration"
+#--------------------------------------------------
+    service {{_start_}}
+        <group name="system.service.sdp">
+        sdp {{sdp-id | re(r"\d.*") | replaceall("","create","mpls") | strip()}}
+            description {{description | strip('"')}}
+            far-end {{far-end | IP}}
+            ldp {{ldp | set(true)}}
+            lsp {{lsp | strip('"')}}
+            path-mtu {{path-mtu}}
+            adv-mtu-override {{adv-mtu-override | set(true)}}
+            <group name="keep-alive">
+            keep-alive {{_start_}}
+                shutdown {{admin-state | set(false)}}
+            </group>
+            exit
+            no shutdown {{admin-state | set(true)}}
+        exit {{_end_}}
+        </group>
+#-------------------------------------------------- {{_end_}}

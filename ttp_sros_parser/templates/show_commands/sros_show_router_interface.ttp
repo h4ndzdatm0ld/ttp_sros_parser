@@ -1,0 +1,17 @@
+
+<group name="router">
+=============================================================================== {{ignore}}
+Interface Table (Router: Base) {{ignore}}
+=============================================================================== {{ignore}}
+------------------------------------------------------------------------------- {{_start_}}
+<group name="interfaces.{{interface-name}}" method="table">
+{{interface-name}}               {{admin-state}}       {{ipv4}}/{{ipv6}}  {{mode}}    {{port-sap-id}}
+    <group name="address" method="table">
+   {{prefix}}/{{prefix-length}}                                                  {{pfx-state}}
+    </group>
+------------------------------------------------------------------------------- {{_end_}}
+</group> 
+<group name="count">
+Interfaces : {{total | DIGIT}}
+</group> 
+</group> 
