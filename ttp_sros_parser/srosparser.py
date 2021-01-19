@@ -301,6 +301,8 @@ class SrosParser:
         hostname = name[0]["system"]["hostname"]
         logging.info(f"Extracted hostname: {hostname}")
 
+        TODO: "Make this a file that gets returned to the user to do as they please with it."
+        
         folder = f"Parsed-Configs/{self.date.upper()}"
         createFolder(folder)
         file = f"{folder}/{hostname}.cfg"
