@@ -10,7 +10,7 @@ configure
 echo "System Configuration"
 #--------------------------------------------------
     system
-        name "PHLAPAMPT1A-P-AL-0030-01"
+        name "PHLAPAMPT1A-P-AL-0032-01"
         contact "Philadelphia-MSC-(215)-870-1001"
         dns
         exit
@@ -460,7 +460,7 @@ echo "System Security Configuration"
                 exit
             exit
             user "PAMadmin"
-                password "$2y$10$p3mqMAl0f4UlPOHFjiauU.1s.H2eppX5AfwewuL6Sdp4mjeGOHg06"
+                password "$2y$10$siLX7.NNzUjxBVTjQrPI6.Pxxa9I9G1YaBgEqJUW14MloKsbjHrHK"
                 access console snmp 
                 console
                     member "default"
@@ -472,7 +472,7 @@ echo "System Security Configuration"
                 exit
             exit
             user "PAMadmingrp"
-                password "$2y$10$xOhXt6U57mFHZhheo4SII.rQV6lCqHwCdJj963R8mYzpNJPqQzfha"
+                password "$2y$10$.p2WRSXKd933lgnAC8L.U.9ToaZRioJfi4vy/CY25T/7zvEc7owve"
                 access console snmp 
                 console
                     member "default"
@@ -484,7 +484,7 @@ echo "System Security Configuration"
                 exit
             exit
             user "PAMronlygrp"
-                password "$2y$10$enPOCpzemgc1YZuJUmK5g.zyvnRQRoZAPsyS9Fj4w.87Ts.daCn92"
+                password "$2y$10$StOFqO6GmgAjpa2JUa68s.9UXYJh1iGqs89FeRYLqX90RUY6RYIg2"
                 access console snmp 
                 console
                     no member "default"
@@ -496,7 +496,7 @@ echo "System Security Configuration"
                 exit
             exit
             user "admin"
-                password "$2y$10$n6.0hmj3kkiPM1ls.VNxk.QWnAGapEXzXqq6A99ErH8KrJaWqOgRa"
+                password "$2y$10$rb9qB2swvChsFT.Po1xfQ.75i8WBqt/dDn9WJa8cRsPkbQi1fKvxu"
                 access console snmp 
                 console
                     login-exec "cf3:\DoNotDelete.alias"
@@ -555,7 +555,7 @@ echo "System Security Configuration"
                 password "$2y$10$svkVwKrb.3sCwkTC5XZuM.9GSWmod0IAO7DBFh0zxutiw0EVvVYX6"
                 access snmp 
                 snmp
-                    authentication hash md5 bae99fb9d7b472406b71445770dcf713 privacy des-key bae99fb9d7b472406b71445770dcf713
+                    authentication hash md5 ad22f48db5f2138407a0e31a4bf8535c privacy des-key ad22f48db5f2138407a0e31a4bf8535c
                     group "snmpV3Access"
                 exit
             exit
@@ -679,14 +679,14 @@ echo "Eth-CFM Configuration"
     eth-cfm
         domain 1 format none level 1
             association 1 format icc-based name "epipe-7750-01"
-                bridge-identifier 45030001
+                bridge-identifier 45032001
                 exit
-                remote-mepid 30
+                remote-mepid 32
             exit
             association 2 format icc-based name "epipe-7750-02"
-                bridge-identifier 45030002
+                bridge-identifier 45032002
                 exit
-                remote-mepid 130
+                remote-mepid 132
             exit
         exit
     exit
@@ -761,21 +761,9 @@ echo "QoS Policy Configuration"
                 queue 8
             exit
         exit
-        fabric-profile 2 aggregate-mode create
-            description "Fabric Profile for 150M-200M"
-            aggregate-rate 400000 unshaped-sap-cir 0
-        exit
         fabric-profile 3 aggregate-mode create
             description "Fabric Profile for 250M-300M"
             aggregate-rate 600000 unshaped-sap-cir 0
-        exit
-        fabric-profile 4 aggregate-mode create
-            description "Fabric Profile for 350M-400M"
-            aggregate-rate 800000 unshaped-sap-cir 0
-        exit
-        fabric-profile 5 aggregate-mode create
-            description "Fabric Profile for 450M-1000M"
-            aggregate-rate 1000000 unshaped-sap-cir 0
         exit
     exit
 #--------------------------------------------------
@@ -1064,34 +1052,6 @@ echo "Card Configuration"
 #--------------------------------------------------
     card 1
         card-type iom-sar
-        mda 3
-            mda-type a8-ethv2
-            network
-                ingress
-                    fabric-policy 3
-                exit
-            exit
-            access
-                ingress
-                    fabric-policy 3
-                exit
-            exit
-            no shutdown
-        exit
-        mda 4
-            mda-type a8-ethv2
-            network
-                ingress
-                    fabric-policy 3
-                exit
-            exit
-            access
-                ingress
-                    fabric-policy 3
-                exit
-            exit
-            no shutdown
-        exit
         mda 5
             mda-type a8-ethv2
             network
@@ -1125,102 +1085,6 @@ echo "Card Configuration"
 #--------------------------------------------------
 echo "Port Configuration"
 #--------------------------------------------------
-    port 1/3/1
-        shutdown
-        ethernet
-        exit
-    exit
-    port 1/3/2
-        description "BTS0074-1X-URC01"
-        ethernet
-            encap-type dot1q
-            no autonegotiate
-        exit
-        no shutdown
-    exit
-    port 1/3/3
-        shutdown
-        ethernet
-        exit
-    exit
-    port 1/3/4
-        shutdown
-        ethernet
-        exit
-    exit
-    port 1/3/5
-        shutdown
-        ethernet
-        exit
-    exit
-    port 1/3/6
-        description "BTS0074-DO-URC03"
-        ethernet
-            encap-type dot1q
-            no autonegotiate
-        exit
-        no shutdown
-    exit
-    port 1/3/7
-        description "eNodeB0074-LTE-eCCM01-1"
-        ethernet
-            encap-type dot1q
-            mtu 2106
-            hold-time down 50
-            autonegotiate limited
-        exit
-        no shutdown
-    exit
-    port 1/3/8
-        description "gNB-989030"
-        ethernet
-            encap-type dot1q
-            mtu 2106
-            hold-time down 50
-            autonegotiate limited
-        exit
-        no shutdown
-    exit
-    port 1/4/1
-        shutdown
-        ethernet
-        exit
-    exit
-    port 1/4/2
-        shutdown
-        ethernet
-        exit
-    exit
-    port 1/4/3
-        shutdown
-        ethernet
-        exit
-    exit
-    port 1/4/4
-        shutdown
-        ethernet
-        exit
-    exit
-    port 1/4/5
-        shutdown
-        ethernet
-        exit
-    exit
-    port 1/4/6
-        shutdown
-        ethernet
-        exit
-    exit
-    port 1/4/7
-        shutdown
-        ethernet
-        exit
-    exit
-    port 1/4/8
-        shutdown
-        ethernet
-        exit
-    exit
     port 1/5/1
         description "7705-MGMT-CSMA"
         ethernet
@@ -1228,7 +1092,7 @@ echo "Port Configuration"
         no shutdown
     exit
     port 1/5/2
-        description "BTS0030-1X-URC01"
+        description "BTS0032-1X-URC01"
         ethernet
             encap-type dot1q
             no autonegotiate
@@ -1243,30 +1107,27 @@ echo "Port Configuration"
         exit
     exit
     port 1/5/4
+        description "SiteBoss-ETH-PORT"
+        ethernet
+            mtu 2100
+            no autonegotiate
+        exit
+        no shutdown
+    exit
+    port 1/5/5
         shutdown
         ethernet
             encap-type dot1q
             no autonegotiate
         exit
     exit
-    port 1/5/5
-        description "BTS0030-DO-URC07"
-        ethernet
-            encap-type dot1q
-            no autonegotiate
-        exit
-        no shutdown
-    exit
     port 1/5/6
-        description "BTS0030-DO-URC03"
+        shutdown
         ethernet
-            encap-type dot1q
-            no autonegotiate
         exit
-        no shutdown
     exit
     port 1/5/7
-        description "eNodeB0030-LTE-eCCM01-1"
+        description "eNodeB0032-LTE-eCCM01-1"
         ethernet
             encap-type dot1q
             mtu 2106
@@ -1322,7 +1183,7 @@ echo "Port Configuration"
         exit
     exit
     port 1/6/6
-        description "BTS0030-DO-URC05"
+        description "BTS0032-DO-URC03"
         ethernet
             encap-type dot1q
             no autonegotiate
@@ -1330,19 +1191,18 @@ echo "Port Configuration"
         no shutdown
     exit
     port 1/6/7
-        shutdown
+        description "gNB-989032"
         ethernet
+            encap-type dot1q
+            mtu 2106
+            hold-time down 50
+            autonegotiate limited
         exit
+        no shutdown
     exit
     port 1/6/8
         shutdown
         ethernet
-            mode network
-            network
-                queue-policy "20110"
-            exit
-            hold-time down 100
-            cfm-loopback priority high
         exit
     exit
 #--------------------------------------------------
@@ -1369,34 +1229,34 @@ echo "Network Security Configuration"
 echo "Management Router Configuration"
 #--------------------------------------------------
     router management
-        static-route 10.132.192.0/20 next-hop 10.202.16.52
-        static-route 10.132.208.0/22 next-hop 10.202.16.52
-        static-route 10.133.48.0/20 next-hop 10.202.16.52
-        static-route 10.133.64.0/22 next-hop 10.202.16.52
-        static-route 10.133.83.112/28 next-hop 10.202.16.52
-        static-route 10.133.165.80/28 next-hop 10.202.16.52
-        static-route 10.133.168.104/29 next-hop 10.202.16.52
-        static-route 10.133.168.160/28 next-hop 10.202.16.52
-        static-route 10.133.179.0/25 next-hop 10.202.16.52
-        static-route 10.134.0.0/20 next-hop 10.202.16.52
-        static-route 10.134.16.0/22 next-hop 10.202.16.52
-        static-route 10.134.47.112/28 next-hop 10.202.16.52
-        static-route 10.134.161.192/28 next-hop 10.202.16.52
-        static-route 10.134.161.224/29 next-hop 10.202.16.52
-        static-route 10.134.171.0/25 next-hop 10.202.16.52
-        static-route 10.134.176.208/28 next-hop 10.202.16.52
-        static-route 10.134.180.117/32 next-hop 10.202.16.52
-        static-route 10.134.213.92/32 next-hop 10.202.16.52
-        static-route 10.139.84.0/25 next-hop 10.202.16.52
-        static-route 10.194.84.168/32 next-hop 10.202.16.52
-        static-route 10.194.94.64/26 next-hop 10.202.16.52
-        static-route 10.215.138.155/32 next-hop 10.202.16.52
-        static-route 10.215.141.24/32 next-hop 10.202.16.52
-        static-route 10.215.166.80/29 next-hop 10.202.16.52
-        static-route 10.215.221.39/32 next-hop 10.202.16.52
-        static-route 10.215.221.90/32 next-hop 10.202.16.52
-        static-route 2001:4888:a00::/40 next-hop 2001:4888:2a1a:a03d:192:2a0::
-        static-route 2001:4888:2a00::/40 next-hop 2001:4888:2a1a:a03d:192:2a0::
+        static-route 10.132.192.0/20 next-hop 10.202.16.54
+        static-route 10.132.208.0/22 next-hop 10.202.16.54
+        static-route 10.133.48.0/20 next-hop 10.202.16.54
+        static-route 10.133.64.0/22 next-hop 10.202.16.54
+        static-route 10.133.83.112/28 next-hop 10.202.16.54
+        static-route 10.133.165.80/28 next-hop 10.202.16.54
+        static-route 10.133.168.104/29 next-hop 10.202.16.54
+        static-route 10.133.168.160/28 next-hop 10.202.16.54
+        static-route 10.133.179.0/25 next-hop 10.202.16.54
+        static-route 10.134.0.0/20 next-hop 10.202.16.54
+        static-route 10.134.16.0/22 next-hop 10.202.16.54
+        static-route 10.134.47.112/28 next-hop 10.202.16.54
+        static-route 10.134.161.192/28 next-hop 10.202.16.54
+        static-route 10.134.161.224/29 next-hop 10.202.16.54
+        static-route 10.134.171.0/25 next-hop 10.202.16.54
+        static-route 10.134.176.208/28 next-hop 10.202.16.54
+        static-route 10.134.180.117/32 next-hop 10.202.16.54
+        static-route 10.134.213.92/32 next-hop 10.202.16.54
+        static-route 10.139.84.0/25 next-hop 10.202.16.54
+        static-route 10.194.84.168/32 next-hop 10.202.16.54
+        static-route 10.194.94.64/26 next-hop 10.202.16.54
+        static-route 10.215.138.155/32 next-hop 10.202.16.54
+        static-route 10.215.141.24/32 next-hop 10.202.16.54
+        static-route 10.215.166.80/29 next-hop 10.202.16.54
+        static-route 10.215.221.39/32 next-hop 10.202.16.54
+        static-route 10.215.221.90/32 next-hop 10.202.16.54
+        static-route 2001:4888:a00::/40 next-hop 2001:4888:2a1a:a03f:192:2a0::
+        static-route 2001:4888:2a00::/40 next-hop 2001:4888:2a1a:a03f:192:2a0::
     exit
 
 #--------------------------------------------------
@@ -1404,12 +1264,12 @@ echo "Router (Network Side) Configuration"
 #--------------------------------------------------
     router 
         interface "TO-7750-01"
-            address 172.25.192.117/31
+            address 172.25.192.125/31
             description "LINK-TO-PHLAPAMP91R-A-AL-7750-01"
             ldp-sync-timer 45
-            port 1/5/8:3030
+            port 1/5/8:3032
             ipv6
-                address 2001:4888:201a:a05b:192:400:0:1/64 
+                address 2001:4888:201a:a05f:192:400:0:1/64 
                 bfd 500 receive 500 multiplier 3
             exit
             qos 20120
@@ -1417,12 +1277,12 @@ echo "Router (Network Side) Configuration"
             no shutdown
         exit
         interface "TO-7750-02"
-            address 172.25.208.117/31
+            address 172.25.208.125/31
             description "LINK-TO-PHLAPAMP92R-A-AL-7750-02"
             ldp-sync-timer 45
-            port 1/5/8:2030
+            port 1/5/8:2032
             ipv6
-                address 2001:4888:201a:a05a:192:400:0:1/64 
+                address 2001:4888:201a:a05e:192:400:0:1/64 
                 bfd 500 receive 500 multiplier 3
             exit
             qos 20120
@@ -1430,30 +1290,29 @@ echo "Router (Network Side) Configuration"
             no shutdown
         exit
         interface "system"
-            address 10.114.16.27/32
+            address 10.114.16.28/32
             ipv6
-                address 2001:4888:2012:a000:192:400:0:1e/128 
+                address 2001:4888:2012:a000:192:400:0:20/128 
             exit
             no shutdown
         exit
 #--------------------------------------------------
 echo "Static Route Configuration"
 #--------------------------------------------------
-        static-route 10.114.16.0/32 next-hop 172.25.208.116 preference 10
-        static-route 10.114.16.0/32 next-hop 172.25.192.116 bfd-enable ldp-sync
-        static-route 10.114.16.1/32 next-hop 172.25.208.116 bfd-enable ldp-sync
-        static-route 10.114.16.1/32 next-hop 172.25.192.116 preference 10
+        static-route 10.114.16.0/32 next-hop 172.25.192.124 bfd-enable ldp-sync
+        static-route 10.114.16.0/32 next-hop 172.25.208.124 preference 10
+        static-route 10.114.16.1/32 next-hop 172.25.208.124 bfd-enable ldp-sync
+        static-route 10.114.16.1/32 next-hop 172.25.192.124 preference 10
 #--------------------------------------------------
 echo "Static IPv6 Route Configuration"
 #--------------------------------------------------
-        static-route ::/0 next-hop 2001:4888:201a:a05a:192:2a0:: bfd-enable
-        static-route ::/0 next-hop 2001:4888:201a:a05b:192:2a0:: preference 10
-        static-route 2001:4888:2000:0:192:2a0::/128 next-hop 2001:4888:201a:a05b:192:2a0:: bfd-enable
-        static-route 2001:4888:2000:0:192:2a0::/128 next-hop 2001:4888:201a:a05a:192:2a0:: preference 10
-        static-route 2001:4888:2000:0:192:2a0:0:1/128 next-hop 2001:4888:201a:a05a:192:2a0:: bfd-enable
-        static-route 2001:4888:2000:0:192:2a0:0:1/128 next-hop 2001:4888:201a:a05b:192:2a0:: preference 10
-        static-route 2001:4888:2012:a03d::/64 black-hole
-        static-route 2001:4888:2012:a425::/64 black-hole
+        static-route ::/0 next-hop 2001:4888:201a:a05e:192:2a0:: bfd-enable
+        static-route ::/0 next-hop 2001:4888:201a:a05f:192:2a0:: preference 10
+        static-route 2001:4888:2000:0:192:2a0::/128 next-hop 2001:4888:201a:a05f:192:2a0:: bfd-enable
+        static-route 2001:4888:2000:0:192:2a0::/128 next-hop 2001:4888:201a:a05e:192:2a0:: preference 10
+        static-route 2001:4888:2000:0:192:2a0:0:1/128 next-hop 2001:4888:201a:a05e:192:2a0:: bfd-enable
+        static-route 2001:4888:2000:0:192:2a0:0:1/128 next-hop 2001:4888:201a:a05f:192:2a0:: preference 10
+        static-route 2001:4888:2012:a03f::/64 black-hole
 #--------------------------------------------------
 echo "MLD Configuration"
 #--------------------------------------------------
@@ -1537,7 +1396,7 @@ echo "LDP Configuration"
 echo "Service Configuration"
 #--------------------------------------------------
     service
-        sdp 30 create
+        sdp 32 create
             description "MPLS-LABEL-TO-7750-01"
             far-end 10.114.16.0
             ldp
@@ -1547,7 +1406,7 @@ echo "Service Configuration"
             exit
             no shutdown
         exit
-        sdp 130 create
+        sdp 132 create
             description "MPLS-LABEL-TO-7750-02"
             far-end 10.114.16.1
             ldp
@@ -1570,20 +1429,20 @@ echo "Service Configuration"
             description "EDN customer"
         exit
         ies 1 customer 1 create
-            interface "L3-Telecom-CSR0030" create
+            interface "L3-Telecom-CSR0032" create
             exit
         exit
         ies 1 customer 1 create
             description "LTE-IES"
-            interface "L3-Telecom-CSR0030" create
-                description "CSR0030-Telecom-rVPLS100"
+            interface "L3-Telecom-CSR0032" create
+                description "CSR0032-Telecom-rVPLS100"
                 ipv6
-                    address 2001:4888:2012:a03d:192:400::/64 
+                    address 2001:4888:2012:a03f:192:400::/64 
                 exit
                 vpls "vpls100"
                 exit
             exit
-            service-name "IES service-3 PHLAPAMPT1A-P-AL-0030-01 (10.114.16.27)"
+            service-name "IES service-3 PHLAPAMPT1A-P-AL-0032-01 (10.114.16.28)"
             no shutdown
         exit
         vpls 100 customer 1 create
@@ -1599,26 +1458,17 @@ echo "Service Configuration"
                 no shutdown
             exit
             service-name "vpls100"
-            sap 1/3/7:302 create
-                description "eNodeB0074-Telecom-Port-1/3/7-DUL-01"
-                ingress
-                    qos 21130
-                exit
-                egress
-                    qos 21140
-                exit
-            exit
-            sap 1/3/8:310 create
-                description "gNodeB989030-Telecom-Port-1/3/8"
-                ingress
-                    qos 21130
-                exit
-                egress
-                    qos 21140
-                exit
-            exit
             sap 1/5/7:302 create
-                description "eNodeB0030-Telecom-Port-1/5/7-DUL-01"
+                description "eNodeB0032-Telecom-Port-1/5/7-DUL-01"
+                ingress
+                    qos 21130
+                exit
+                egress
+                    qos 21140
+                exit
+            exit
+            sap 1/6/7:310 create
+                description "gNodeB989032-Telecom-Port-1/6/7"
                 ingress
                     qos 21130
                 exit
@@ -1628,10 +1478,10 @@ echo "Service Configuration"
             exit
             no shutdown
         exit
-        epipe 1203001 customer 2 create
-            description "CELL0030-1X-URC01-EPIPE-OVER-SDP-130"
-            service-name "epipe service-9589 PHLAPAMPT1A-P-AL-0030-01 (10.114.16.27)"
-            endpoint "Epipe_30_1" create
+        epipe 1203201 customer 2 create
+            description "CELL0032-1X-URC01-EPIPE-OVER-SDP-132"
+            service-name "epipe service-1686 PHLAPAMPT1A-P-AL-0032-01 (10.114.16.28)"
+            endpoint "Epipe_32_1" create
                 revert-time 350
                 standby-signaling-master
             exit
@@ -1640,61 +1490,18 @@ echo "Service Configuration"
                     qos 22130
                 exit
             exit
-            spoke-sdp 30:1203001 endpoint "Epipe_30_1" create
+            spoke-sdp 32:1203201 endpoint "Epipe_32_1" create
                 no shutdown
             exit
-            spoke-sdp 130:1203001 endpoint "Epipe_30_1" create
+            spoke-sdp 132:1203201 endpoint "Epipe_32_1" create
                 precedence primary
                 no shutdown
             exit
             no shutdown
         exit
-        epipe 1207401 customer 2 create
-            description "CELL0074-1X-URC01-EPIPE-OVER-SDP-130"
-            service-name "epipe service-8380 PHLAPAMPT1A-P-AL-0030-01 (10.114.16.27)"
-            endpoint "Epipe_74_1" create
-                revert-time 350
-                standby-signaling-master
-            exit
-            sap 1/3/2:102 create
-                ingress
-                    qos 22130
-                exit
-            exit
-            spoke-sdp 30:1207401 endpoint "Epipe_74_1" create
-                no shutdown
-            exit
-            spoke-sdp 130:1207401 endpoint "Epipe_74_1" create
-                precedence primary
-                no shutdown
-            exit
-            no shutdown
-        exit
-        epipe 2203003 customer 3 create
-            description "CELL0030-DO-URC03-EPIPE-OVER-SDP-130"
-            service-name "epipe service-10604 PHLAPAMPT1A-P-AL-0030-01 (10.114.16.27)"
-            endpoint "Epipe_30_3" create
-                revert-time 350
-                standby-signaling-master
-            exit
-            sap 1/5/6:202 create
-                ingress
-                    qos 23130
-                exit
-            exit
-            spoke-sdp 30:2203003 endpoint "Epipe_30_3" create
-                no shutdown
-            exit
-            spoke-sdp 130:2203003 endpoint "Epipe_30_3" create
-                precedence primary
-                no shutdown
-            exit
-            no shutdown
-        exit
-        epipe 2203005 customer 3 create
-            description "CELL0030-DO-URC05-EPIPE-OVER-SDP-130"
-            service-name "epipe service-10706 PHLAPAMPT1A-P-AL-0030-01 (10.114.16.27)"
-            endpoint "Epipe_30_5" create
+        epipe 2203203 customer 3 create
+            description "CELL0032-DO-URC03-EPIPE-OVER-SDP-132"
+            endpoint "Epipe_32_3" create
                 revert-time 350
                 standby-signaling-master
             exit
@@ -1703,60 +1510,19 @@ echo "Service Configuration"
                     qos 23130
                 exit
             exit
-            spoke-sdp 30:2203005 endpoint "Epipe_30_5" create
+            spoke-sdp 32:2203203 endpoint "Epipe_32_3" create
                 no shutdown
             exit
-            spoke-sdp 130:2203005 endpoint "Epipe_30_5" create
+            spoke-sdp 132:2203203 endpoint "Epipe_32_3" create
                 precedence primary
                 no shutdown
             exit
             no shutdown
         exit
-        epipe 2203007 customer 3 create
-            description "CELL0030-DO-URC07-EPIPE-OVER-SDP-130"
-            service-name "epipe service-10605 PHLAPAMPT1A-P-AL-0030-01 (10.114.16.27)"
-            endpoint "Epipe_30_7" create
-                revert-time 350
-                standby-signaling-master
-            exit
-            sap 1/5/5:202 create
-                ingress
-                    qos 23130
-                exit
-            exit
-            spoke-sdp 30:2203007 endpoint "Epipe_30_7" create
-                no shutdown
-            exit
-            spoke-sdp 130:2203007 endpoint "Epipe_30_7" create
-                precedence primary
-                no shutdown
-            exit
-            no shutdown
-        exit
-        epipe 2207403 customer 3 create
-            description "CELL0074-DO-URC03-EPIPE-OVER-SDP-174"
-            endpoint "Epipe_74_3" create
-                revert-time 350
-                standby-signaling-master
-            exit
-            sap 1/3/6:202 create
-                ingress
-                    qos 23130
-                exit
-            exit
-            spoke-sdp 30:2207403 endpoint "Epipe_74_3" create
-                no shutdown
-            exit
-            spoke-sdp 130:2207403 endpoint "Epipe_74_3" create
-                precedence primary
-                no shutdown
-            exit
-            no shutdown
-        exit
-        epipe 42030001 customer 4 create
-            description "CELL0030-CSM-A-EPIPE-OVER-SDP-130"
-            service-name "epipe service-7161 PHLAPAMPT1A-P-AL-0030-01 (10.114.16.27)"
-            endpoint "Epipe_30_A" create
+        epipe 42032001 customer 4 create
+            description "CELL0032-CSM-A-EPIPE-OVER-SDP-132"
+            service-name "epipe service-1691 PHLAPAMPT1A-P-AL-0032-01 (10.114.16.28)"
+            endpoint "Epipe_32_A" create
                 revert-time 350
                 standby-signaling-master
             exit
@@ -1765,59 +1531,61 @@ echo "Service Configuration"
                     qos 10
                 exit
             exit
-            spoke-sdp 30:42030001 endpoint "Epipe_30_A" create
+            spoke-sdp 32:42032001 endpoint "Epipe_32_A" create
                 no shutdown
             exit
-            spoke-sdp 130:42030001 endpoint "Epipe_30_A" create
+            spoke-sdp 132:42032001 endpoint "Epipe_32_A" create
                 precedence primary
                 no shutdown
             exit
             no shutdown
         exit
-        epipe 44030157 customer 4 create
-            description "eNodeB0030-OAM-Port157"
-            service-name "epipe service-7162 PHLAPAMPT1A-P-AL-0030-01 (10.114.16.27)"
-            endpoint "Epipe 44030157" create
+        epipe 44032154 customer 4 create
+            description "Cell0032-SiteBoss-EPIPE"
+            endpoint "Epipe_44032154" create
+                revert-time 350
+                standby-signaling-master
+            exit
+            sap 1/5/4 create
+                ingress
+                    qos 10
+                exit
+            exit
+            spoke-sdp 32:44032154 endpoint "Epipe_44032154" create
+                no shutdown
+            exit
+            spoke-sdp 132:44032154 endpoint "Epipe_44032154" create
+                precedence primary
+                no shutdown
+            exit
+            no shutdown
+        exit
+        epipe 44032157 customer 4 create
+            description "eNodeB0032-OAM-Port157"
+            service-name "epipe service-7165 PHLAPAMPT1A-P-AL-0032-01 (10.114.16.28)"
+            endpoint "Epipe 44032157" create
                 revert-time 350
                 standby-signaling-master
             exit
             sap 1/5/7:402 create
             exit
-            spoke-sdp 30:44030157 endpoint "Epipe 44030157" create
+            spoke-sdp 32:44032157 endpoint "Epipe 44032157" create
                 no shutdown
             exit
-            spoke-sdp 130:44030157 endpoint "Epipe 44030157" create
+            spoke-sdp 132:44032157 endpoint "Epipe 44032157" create
                 precedence primary
                 no shutdown
             exit
             no shutdown
         exit
-        epipe 44074137 customer 4 create
-            description "eNodeB0074-OAM-Port137"
-            service-name "epipe service-14401 PHLAPAMPT1A-P-AL-0030-01 (10.114.16.27)"
-            endpoint "Epipe 44074137" create
-                revert-time 350
-                standby-signaling-master
-            exit
-            sap 1/3/7:402 create
-            exit
-            spoke-sdp 30:44074137 endpoint "Epipe 44074137" create
-                no shutdown
-            exit
-            spoke-sdp 130:44074137 endpoint "Epipe 44074137" create
-                precedence primary
-                no shutdown
-            exit
-            no shutdown
-        exit
-        epipe 45030001 customer 4 create
-            description "CELL0030-EXFO-TEST-EPIPE-OVER-SDP-30"
+        epipe 45032001 customer 4 create
+            description "CELL0032-EXFO-TEST-EPIPE-OVER-SDP-32"
             service-mtu 1970
-            service-name "epipe service-16430 PHLAPAMPT1A-P-AL-0030-01 (10.114.16.27)"
-            sap 1/6/4:1030 create
+            service-name "epipe service-16432 PHLAPAMPT1A-P-AL-0032-01 (10.114.16.28)"
+            sap 1/6/4:1032 create
                 eth-cfm
                     hold-mep-up-on-failure
-                    mep 30 domain 1 association 1 direction up
+                    mep 32 domain 1 association 1 direction up
                         ccm-enable
                         no shutdown
                     exit
@@ -1826,19 +1594,19 @@ echo "Service Configuration"
                     qos 20030
                 exit
             exit
-            spoke-sdp 30:45030001 vc-type vlan create
+            spoke-sdp 32:45032001 vc-type vlan create
                 no shutdown
             exit
             no shutdown
         exit
-        epipe 45030002 customer 4 create
-            description "CELL0030-EXFO-TEST-EPIPE-OVER-SDP-130"
+        epipe 45032002 customer 4 create
+            description "CELL0032-EXFO-TEST-EPIPE-OVER-SDP-132"
             service-mtu 1970
-            service-name "epipe service-16431 PHLAPAMPT1A-P-AL-0030-01 (10.114.16.27)"
-            sap 1/6/4:2030 create
+            service-name "epipe service-16433 PHLAPAMPT1A-P-AL-0032-01 (10.114.16.28)"
+            sap 1/6/4:2032 create
                 eth-cfm
                     hold-mep-up-on-failure
-                    mep 130 domain 1 association 2 direction up
+                    mep 132 domain 1 association 2 direction up
                         ccm-enable
                         no shutdown
                     exit
@@ -1847,27 +1615,27 @@ echo "Service Configuration"
                     qos 20030
                 exit
             exit
-            spoke-sdp 130:45030002 vc-type vlan create
+            spoke-sdp 132:45032002 vc-type vlan create
                 no shutdown
             exit
             no shutdown
         exit
-        epipe 1098030308 customer 4 create
-            description "gNodeB0030-OAM-Port138"
-            service-name "epipe:80356:1098030308:PHLAPAMPT1A-P-AL-0030-01(10.114.16.27)"
-            endpoint "Epipe 1098030308" create
+        epipe 1098032607 customer 4 create
+            description "gNodeB0032-OAM-Port167"
+            service-name "epipe:80375:1098032607:PHLAPAMPT1A-P-AL-0032-01(10.114.16.28)"
+            endpoint "Epipe 1098032607" create
                 revert-time 350
                 standby-signaling-master
             exit
-            sap 1/3/8:410 create
+            sap 1/6/7:410 create
                 ingress
                     qos 10
                 exit
             exit
-            spoke-sdp 30:1098030308 endpoint "Epipe 1098030308" create
+            spoke-sdp 32:1098032607 endpoint "Epipe 1098032607" create
                 no shutdown
             exit
-            spoke-sdp 130:1098030308 endpoint "Epipe 1098030308" create
+            spoke-sdp 132:1098032607 endpoint "Epipe 1098032607" create
                 precedence primary
                 no shutdown
             exit
@@ -1882,7 +1650,7 @@ echo "Router (Service Side) Configuration"
 echo "MLD Configuration"
 #--------------------------------------------------
         mld
-            interface "L3-Telecom-CSR0030"
+            interface "L3-Telecom-CSR0032"
                 no shutdown
             exit
             no shutdown
@@ -1921,24 +1689,24 @@ exit all
 
 # Finished MON JAN 18 07:34:24 2021 UTC
 
+
 # TiMOS-B-6.0.R2 both/hops ALCATEL-LUCENT SAR 7705 
 # Copyright (c) 2000-2013 Alcatel-Lucent.
 # All rights reserved. All use subject to applicable license agreements.
 # Built on Mon Apr 29 16:47:01 EDT 2013 by csabuild in /rel6.0/b1/R2/panos/main
 
-# Generated WED SEP 03 04:24:39 2014 UTC
+# Generated WED SEP 03 04:29:18 2014 UTC
 
-primary-config   cf3:\PHLAPAbts0030.cfg
-secondary-config cf3:\PHLAPAbts0030.backup.cfg
-address          10.202.16.53/23 active
-address          2001:4888:2A1A:A03D:192:400::1/64 active
-static-route     10.134.221.0/24 next-hop 10.202.16.52
-static-route     10.134.240.0/22 next-hop 10.202.16.52
-static-route     10.193.0.0/16 next-hop 10.202.16.52
-static-route     10.194.0.0/16 next-hop 10.202.16.52
-static-route     10.215.128.0/17 next-hop 10.202.16.52
-static-route     198.226.102.0/24 next-hop 10.202.16.52
-static-route     199.74.154.0/23 next-hop 10.202.16.52
+primary-config   cf3:\PHLAPAbts0032.cfg
+address          10.202.16.55/23 active
+address          2001:4888:2A1A:A03F:192:400::1/64 active
+static-route     10.134.221.0/24 next-hop 10.202.16.54
+static-route     10.134.240.0/22 next-hop 10.202.16.54
+static-route     10.193.0.0/16 next-hop 10.202.16.54
+static-route     10.194.0.0/16 next-hop 10.202.16.54
+static-route     10.215.128.0/17 next-hop 10.202.16.54
+static-route     198.226.102.0/24 next-hop 10.202.16.54
+static-route     199.74.154.0/23 next-hop 10.202.16.54
 no autonegotiate
 duplex           full
 speed            100

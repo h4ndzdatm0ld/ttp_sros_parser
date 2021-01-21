@@ -160,6 +160,8 @@ class SrosParser:
         the same text as the full config file. Most likely, appended
         to the end of a file after running, 'admin display-config'
         """
+        TODO: "Had to add a conditional to retry the parser. Sometimes returns as list and other as str..?"
+
         if file_path != "file":
             data = file_path
         else:
@@ -174,7 +176,12 @@ class SrosParser:
         parser.parse()
         results = parser.result(format="json")[0]
 
-        return results
+        if type(results) == list:        
+            results = parser.result(format="json")[0]
+            return results
+        else:
+            return results
+
 
     def get_system_service_sdp(self, file_path="file"):
 
