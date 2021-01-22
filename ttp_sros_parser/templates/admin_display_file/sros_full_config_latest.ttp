@@ -1,14 +1,28 @@
-           <group name="system.profile">
-            profile {{user-profile-name | re(r".+") | strip('"')}}
-                default-action {{default-action}}
-                <group name="entry">
-                entry {{entry-id}} {{_start_}}
-                    match {{match | re(r"\W.*") | strip('"')}}
-                    action {{action}}
-                exit
-                </group>
+<group name="system">
+    <group name="card">
+    card {{slot-number}}
+        card-type {{card-type}}
+        fail-on-error {{fail-on-error | set(true)}}
+        <group name="mda">
+        mda {{mda-slot}}
+            shutdown {{admin-state | set(false)}}
+            mda-type {{mda-type}}
+            <group name="ingress-xpl">
+            ingress-xpl {{_start_}}
+                window {{window}}
             exit {{_end_}}
-            </group><group name="router">
+            </group>
+            <group name="egress-xpl">
+            egress-xpl {{_start_}}
+                window {{window}}
+            exit {{_end_}}
+            </group>
+            fail-on-error {{fail-on-error | set(true)}}
+            no shutdown {{admin-state | set(true)}}
+        </group>
+        exit {{ignore}}
+    </group>
+</group><group name="router">
     router {{ignore}}
     <group name="interfaces">
         interface {{interface_name | strip('"')}}
@@ -49,90 +63,51 @@
 </group>
         <group name="router">
         autonomous-system {{autonomous-system}}
-        </group><group name="system.management-access-filter">
-            management-access-filter {{_start_}}
-                <group name="ip-filter-params">
-                ip-filter {{ipv4-filter | set(true)}}
-                    shutdown {{ admin-state | set(false)}}
-                    default-action {{default-action}}
-                    no shutdown {{ admin-state | set(true)}}
-                </group>
-                <group name="ipv6-filter-params">
-                ipv6-filter {{ipv6-filter | set(true)}}
-                    shutdown {{ admin-state | set(false)}}
-                    default-action {{default-action}}
-                    no shutdown {{ admin-state | set(true)}}
-                </group>
-</group>
-<group name="system.management-access-filter">
-            management-access-filter {{_start_}}
-                ip-filter {{_exact_}}
-                <group name="ip-filter">
-                <group name="entry">
-                    entry {{entry-id | DIGIT }}
-                        description {{description | re(r"\W.*") | strip('"')}}
-                        src-ip {{src-ip}}
-                        protocol {{protocol}}
-                        dst-port {{dst-port | re(r"\d.*")}}
-                        router {{router-instance | strip('"')}}
-                        action {{action | strip('"')}}
-                    exit {{ignore}}
-                ipv6-filter {{_end_}}
-                </group>
-                </group>
-</group>
-<group name="system.management-access-filter">
-                ipv6-filter {{_start_}}
-                <group name="ipv6-filter">
-                <group name="entry">
-                    entry {{entry-id}}
-                        description {{description | re(r"\W.*") | strip('"')}}
-                        src-ip {{src-ip }}
-                        protocol {{protocol}}
-                        dst-port {{dst-port | re(r"\d.*")}}
-                        router {{router-instance | strip('"')}}
-                        action {{action-instance | strip('"')}}
-                    exit {{ignore}}
-                </group>
-                </group>
-</group>
-<group name="system.eth-cfm">
-    eth-cfm {{_start_}}
-    <group name="domain">
-        domain {{domain-id}} format {{format}} level {{level}}
-            <group name="assosciations">
-            association {{assosciation-id}} format {{format}} name {{name | strip('"')}}
-                bridge-identifier {{bridge-id}}
-                exit {{ignore}}
-                remote-mepid {{remote-mepid}}
+        </group>#--------------------------------------------------
+echo "Service Configuration"
+#--------------------------------------------------
+    service {{_start_}}
+        <group name="system.service.sdp">
+        sdp {{sdp-id | re(r"\d.*") | replaceall("","create","mpls") | strip()}}
+            description {{description | strip('"')}}
+            far-end {{far-end | IP}}
+            ldp {{ldp | set(true)}}
+            lsp {{lsp | strip('"')}}
+            path-mtu {{path-mtu}}
+            adv-mtu-override {{adv-mtu-override | set(true)}}
+            <group name="keep-alive">
+            keep-alive {{_start_}}
+                shutdown {{admin-state | set(false)}}
             </group>
-    </group>
-    #-------------------------------------------------- {{_end_}}
-</group><group name="system">
-    <group name="card">
-    card {{slot-number}}
-        card-type {{card-type}}
-        fail-on-error {{fail-on-error | set(true)}}
-        <group name="mda">
-        mda {{mda-slot}}
-            shutdown {{admin-state | set(false)}}
-            mda-type {{mda-type}}
-            <group name="ingress-xpl">
-            ingress-xpl {{_start_}}
-                window {{window}}
-            exit {{_end_}}
-            </group>
-            <group name="egress-xpl">
-            egress-xpl {{_start_}}
-                window {{window}}
-            exit {{_end_}}
-            </group>
-            fail-on-error {{fail-on-error | set(true)}}
+            exit
             no shutdown {{admin-state | set(true)}}
+        exit {{_end_}}
         </group>
-        exit {{ignore}}
-    </group>
-</group><macro>
+#-------------------------------------------------- {{_end_}}    system {{_start_}}
+        <group name="system">
+        name {{ name | strip('"') }}
+        contact {{ contact | re(r"\W.*") | strip('"')}}
+        location {{location | re(r"\W.*") | strip('"')}}
+        <group name="rollback">
+        rollback {{rollback | set(true)}}
+            rollback-location {{cf_slot | strip('"') | to_str}}:\{{ directory | to_str | strip('"')}}
+        </group>
+        <group name="snmp">
+            packet-size {{packet_size}}
+        </group>
+        time {{ignore}}
+                <group name="ntp.servers" itemize="server">
+                server {{server | _start_}}
+                </group>
+        </group>
+#-------------------------------------------------- {{_end_}}
+
+<group name="system.ntp">
+                no authentication-check {{auth_check | set(false)}}
+                no shutdown {{admin_state | set(true)}}
+            zone {{time_zone}}
+</group>
+#-------------------------------------------------- {{_end_}}<macro>
 def macro_bfd(data):
 	if 'bfd-enable' in data:
 		return  data, {"bfd-enable": True}
@@ -239,48 +214,73 @@ echo "Static IPv6 Route Configuration" {{_start_}}
 </group>
 </group>
 
-#--------------------------------------------------
-echo "Service Configuration"
-#--------------------------------------------------
-    service {{_start_}}
-        <group name="system.service.sdp">
-        sdp {{sdp-id | re(r"\d.*") | replaceall("","create","mpls") | strip()}}
-            description {{description | strip('"')}}
-            far-end {{far-end | IP}}
-            ldp {{ldp | set(true)}}
-            lsp {{lsp | strip('"')}}
-            path-mtu {{path-mtu}}
-            adv-mtu-override {{adv-mtu-override | set(true)}}
-            <group name="keep-alive">
-            keep-alive {{_start_}}
-                shutdown {{admin-state | set(false)}}
-            </group>
-            exit
-            no shutdown {{admin-state | set(true)}}
-        exit {{_end_}}
-        </group>
-#-------------------------------------------------- {{_end_}}    system {{_start_}}
-        <group name="system">
-        name {{ name | strip('"') }}
-        contact {{ contact | re(r"\W.*") | strip('"')}}
-        location {{location | re(r"\W.*") | strip('"')}}
-        <group name="rollback">
-        rollback {{rollback | set(true)}}
-            rollback-location {{cf_slot | strip('"') | to_str}}:\{{ directory | to_str | strip('"')}}
-        </group>
-        <group name="snmp">
-            packet-size {{packet_size}}
-        </group>
-        time {{ignore}}
-                <group name="ntp.servers" itemize="server">
-                server {{server | _start_}}
+<group name="system.management-access-filter">
+            management-access-filter {{_start_}}
+                <group name="ip-filter-params">
+                ip-filter {{ipv4-filter | set(true)}}
+                    shutdown {{ admin-state | set(false)}}
+                    default-action {{default-action}}
+                    no shutdown {{ admin-state | set(true)}}
                 </group>
-        </group>
-#-------------------------------------------------- {{_end_}}
-
-<group name="system.ntp">
-                no authentication-check {{auth_check | set(false)}}
-                no shutdown {{admin_state | set(true)}}
-            zone {{time_zone}}
+                <group name="ipv6-filter-params">
+                ipv6-filter {{ipv6-filter | set(true)}}
+                    shutdown {{ admin-state | set(false)}}
+                    default-action {{default-action}}
+                    no shutdown {{ admin-state | set(true)}}
+                </group>
 </group>
-#-------------------------------------------------- {{_end_}}
+<group name="system.management-access-filter">
+            management-access-filter {{_start_}}
+                ip-filter {{_exact_}}
+                <group name="ip-filter">
+                <group name="entry">
+                    entry {{entry-id | DIGIT }}
+                        description {{description | re(r"\W.*") | strip('"')}}
+                        src-ip {{src-ip}}
+                        protocol {{protocol}}
+                        dst-port {{dst-port | re(r"\d.*")}}
+                        router {{router-instance | strip('"')}}
+                        action {{action | strip('"')}}
+                    exit {{ignore}}
+                ipv6-filter {{_end_}}
+                </group>
+                </group>
+</group>
+<group name="system.management-access-filter">
+                ipv6-filter {{_start_}}
+                <group name="ipv6-filter">
+                <group name="entry">
+                    entry {{entry-id}}
+                        description {{description | re(r"\W.*") | strip('"')}}
+                        src-ip {{src-ip }}
+                        protocol {{protocol}}
+                        dst-port {{dst-port | re(r"\d.*")}}
+                        router {{router-instance | strip('"')}}
+                        action {{action-instance | strip('"')}}
+                    exit {{ignore}}
+                </group>
+                </group>
+</group>
+           <group name="system.profile">
+            profile {{user-profile-name | re(r".+") | strip('"')}}
+                default-action {{default-action}}
+                <group name="entry">
+                entry {{entry-id}} {{_start_}}
+                    match {{match | re(r"\W.*") | strip('"')}}
+                    action {{action}}
+                exit
+                </group>
+            exit {{_end_}}
+            </group><group name="system.eth-cfm">
+    eth-cfm {{_start_}}
+    <group name="domain">
+        domain {{domain-id}} format {{format}} level {{level}}
+            <group name="assosciations">
+            association {{assosciation-id}} format {{format}} name {{name | strip('"')}}
+                bridge-identifier {{bridge-id}}
+                exit {{ignore}}
+                remote-mepid {{remote-mepid}}
+            </group>
+    </group>
+    #-------------------------------------------------- {{_end_}}
+</group>

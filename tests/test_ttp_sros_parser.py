@@ -1306,15 +1306,9 @@ def test_show_ravs_bof():
             ],
             "config": {
                 "cf-card": "cf3",
-                "primary-config": "PHLAPAbts0030.cfg",
-                "secondary-config": "PHLAPAbts0030.backup.cfg"
+                "primary-config": "PHLAPAbts0030.cfg"
             },
-            "image": {
-                "cf-card": "cf3",
-                "primary-image": "TiMOS-B-7.0.R5",
-                "secondary-image": "TiMOS-B-6.1.R4"
-            },
-            "route": [
+            "static_route": [
                 {
                     "network": "10.134.221.0/24",
                     "next-hop": "10.202.16.52"
@@ -1374,12 +1368,7 @@ def test_show_ravs_bof2():
                 "cf-card": "cf3",
                 "primary-config": "PHLAPAbts0032.cfg"
             },
-            "image": {
-                "cf-card": "cf3",
-                "primary-image": "TiMOS-B-7.0.R5",
-                "secondary-image": "TiMOS-B-6.1.R4"
-            },
-            "route": [
+            "static_route": [
                 {
                     "network": "10.134.221.0/24",
                     "next-hop": "10.202.16.54"
