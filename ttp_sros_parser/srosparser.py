@@ -236,6 +236,19 @@ class SrosParser:
 
         return results
 
+    def get_ports(self):
+
+        """Extract Port Configuration"""
+
+        template = (
+            f"{self.templates_path}/admin_display_file/sros_port_config.ttp"
+        )
+        parser = ttp(data=self.config_file, template=template)
+        parser.parse()
+        results = parser.result(format="json")[0]
+
+        return results
+
     def show_file_dir(self):
 
         """Extract file dir contents"""

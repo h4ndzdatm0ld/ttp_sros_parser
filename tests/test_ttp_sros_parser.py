@@ -1423,3 +1423,13 @@ def test_show_ravs_bof1_type():
     parser = SrosParser(example_output)
     result = parser.show_bof(ravs=True)
     assert type(result) == str
+
+def test_get_ports():
+    
+    """
+    Test parsing get ports config
+    """
+    example_output="tests/show_output/show_ravs_bof1.txt"
+    parser = SrosParser(example_config)
+    result = parser.get_ports()
+    print(result)

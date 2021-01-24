@@ -667,7 +667,6 @@ echo "Port Configuration"
         ethernet
             encap-type dot1q
             mtu 2106
-            hold-time down 50
             autonegotiate limited
         exit
         no shutdown
@@ -681,7 +680,6 @@ echo "Port Configuration"
             network
                 queue-policy "20110"
             exit
-            hold-time up 50 down 25
             no autonegotiate
             egress-rate 96260 
         exit
