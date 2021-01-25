@@ -1,6 +1,6 @@
-#--------------------------------------------------
+#-------------------------------------------------- {{ignore}}
 echo "Service Configuration"
-#--------------------------------------------------
+#-------------------------------------------------- {{ignore}}
     service {{_start_}}
         <group name="system.service.sdp">
         sdp {{sdp-id | re(r"\d.*") | replaceall("","create","mpls") | strip()}}
@@ -14,7 +14,7 @@ echo "Service Configuration"
             keep-alive {{_start_}}
                 shutdown {{admin-state | set(false)}}
             </group>
-            exit
+            exit {{ignore}}
             no shutdown {{admin-state | set(true)}}
         exit {{_end_}}
         </group>

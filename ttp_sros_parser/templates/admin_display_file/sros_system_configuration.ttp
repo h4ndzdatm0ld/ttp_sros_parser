@@ -1,5 +1,5 @@
     system {{_start_}}
-        <group name="system">
+        <group name="configure.system">
         name {{ name | strip('"') }}
         contact {{ contact | re(r"\W.*") | strip('"')}}
         location {{location | re(r"\W.*") | strip('"')}}
@@ -17,7 +17,7 @@
         </group>
 #-------------------------------------------------- {{_end_}}
 
-<group name="system.ntp">
+<group name="configure.system.ntp">
                 no authentication-check {{auth_check | set(false)}}
                 no shutdown {{admin_state | set(true)}}
             zone {{time_zone}}

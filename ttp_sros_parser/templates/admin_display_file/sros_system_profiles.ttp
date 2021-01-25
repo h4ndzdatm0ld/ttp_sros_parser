@@ -5,7 +5,7 @@
                 entry {{entry-id}} {{_start_}}
                     match {{match | re(r"\W.*") | strip('"')}}
                     action {{action}}
-                exit
+                exit {{ignore}}
                 </group>
             exit {{_end_}}
             </group>

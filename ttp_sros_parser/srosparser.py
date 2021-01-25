@@ -160,7 +160,6 @@ class SrosParser:
         the same text as the full config file. Most likely, appended
         to the end of a file after running, 'admin display-config'
         """
-        TODO: "Had to add a conditional to retry the parser. Sometimes returns as list and other as str..?"
 
         if file_path != "file":
             data = file_path
@@ -300,8 +299,7 @@ class SrosParser:
         """Compile all templates and return a fully parsed config in json.
         Loop through and open all templates and create 1 large ttp parsing
         template. Once compiled, apply compiled template and generate full config.
-        We skipp multiple templates that are redundant. A log file is created
-        to include a list of templates used to generate compiled template."""
+        We skipp multiple templates that are redundant."""
 
         templates = globfindfile(f"{self.templates_path}/admin_display_file/*.ttp")
 
@@ -309,6 +307,7 @@ class SrosParser:
             f"{self.templates_path}/admin_display_file/sros_full_config_latest.ttp"
         )
 
+        # Create one large template.
         with open(sros_fullconfig, "w+") as all_templates:
             lst_temps = []
             for template in templates:
@@ -318,7 +317,6 @@ class SrosParser:
                     or "full_config" in template
                     or "custom" in template
                 ):  # Redundant, skipping.
-                    logging.info(f"Dropping Template.. {template}")
                     pass
                 else:
                     lst_temps.append(template)
@@ -326,32 +324,16 @@ class SrosParser:
                         some_template = file.read()
                         all_templates.write(some_template)
 
-            logging.info(f"Compiling List of Templates Used: {lst_temps}")
-
-        logging.info("Extracting hostname from configuration for filename.")
+        # All templates are compiled into a single full config template.
         parser = ttp(
             data=self.config_file,
             template=f"{self.templates_path}/helpers/sros_system_hostname.ttp",
         )
+
+        # Begin parsing using the full config template that's been generated.
+        parser = ttp(data=self.config_file, template=sros_fullconfig)
         parser.parse()
-        results = parser.result(format="json")[0]
-        name = json.loads(results)
-        hostname = name[0]["system"]["hostname"]
-        logging.info(f"Extracted hostname: {hostname}")
 
-        #TODO: "Make this a file that gets returned to the user to do as they please with it."
-
-        folder = f"Parsed-Configs/{self.date.upper()}"
-        createFolder(folder)
-        file = f"{folder}/{hostname}.cfg"
-        logging.info(f"Generated File: {file}")
-
-        with open(file, "w+") as data:
-            parser = ttp(data=self.config_file, template=sros_fullconfig)
-            parser.parse()
-
-            results = parser.result(format="json")[0]
-
-            data.write(f"{results}\n")
-
-        return file
+        # Return the entire config as a str
+        result = parser.result(format="json")[0]
+        return result
