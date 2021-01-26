@@ -175,12 +175,11 @@ class SrosParser:
         parser.parse()
         results = parser.result(format="json")[0]
 
-        if type(results) == list:        
+        if type(results) == list:
             results = parser.result(format="json")[0]
             return results
         else:
             return results
-
 
     def get_system_service_sdp(self, file_path="file"):
 
@@ -199,9 +198,7 @@ class SrosParser:
 
         """Parse show router interface command"""
 
-        template = (
-            f"{self.templates_path}/show_commands/sros_show_router_interface.ttp"
-        )
+        template = f"{self.templates_path}/show_commands/sros_show_router_interface.ttp"
         parser = ttp(data=self.config_file, template=template)
         parser.parse()
         results = parser.result(format="json")[0]
@@ -239,9 +236,7 @@ class SrosParser:
 
         """Extract Port Configuration"""
 
-        template = (
-            f"{self.templates_path}/admin_display_file/sros_port_config.ttp"
-        )
+        template = f"{self.templates_path}/admin_display_file/sros_port_config.ttp"
         parser = ttp(data=self.config_file, template=template)
         parser.parse()
         results = parser.result(format="json")[0]
