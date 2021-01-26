@@ -157,21 +157,12 @@ def test_get_system_configuration():
 
 def test_get_full_config():
     """
-    Ensure system_int, hostname and full_config isn't in compiled list.
+    A full config str should be returned.
     """
-    import datetime
-
-    x = datetime.datetime.now()
-    date = x.strftime("%b-%d-%Y")
-
     parser = SrosParser(example_config)
     result = parser.get_full_config()
 
-    print(result)
-
-    file = f"Parsed-Configs/{date.upper()}/EXAMPLEPHX-P-AL-7750-01.cfg"
-
-    assert result == file
+    assert type(result) == str
 
 def test_get_system_hostname():
     """
@@ -1433,157 +1424,153 @@ def test_get_ports():
     result = parser.get_ports()
     output = """[
     {
-        "ports": [
-            {
-                "admin_state": true,
-                "description": "7705-MGMT-CSMA",
-                "ethernet": {
-                    "autonegotiate": false
-                },
-                "port-id": "1/5/1"
-            },
-            {
-                "admin_state": true,
-                "description": "BTS0215-1X-URC01",
-                "ethernet": {
-                    "autonegotiate": false,
-                    "encap-type": "dot1q"
-                },
-                "port-id": "1/5/2"
-            },
-            {
-                "admin_state": false,
-                "ethernet": {},
-                "port-id": "1/5/3"
-            },
-            {
-                "admin_state": false,
-                "ethernet": {},
-                "port-id": "1/5/4"
-            },
-            {
-                "admin_state": true,
-                "description": "LINK-TO-LOOPBACK-7705PORT",
-                "ethernet": {
-                    "encap-type": "dot1q",
-                    "loopback": true,
-                    "mtu": "2106"
-                },
-                "port-id": "1/5/5"
-            },
-            {
-                "admin_state": false,
-                "ethernet": {
-                    "autonegotiate": false,
-                    "encap-type": "dot1q"
-                },
-                "port-id": "1/5/6"
-            },
-            {
-                "admin_state": true,
-                "description": "eNodeB0215-LTE-eCCM01-1",
-                "ethernet": {
-                    "autonegotiate": "limited",
-                    "encap-type": "dot1q",
-                    "hold-time": {
-                        "down": "50"
+        "configure": {
+            "ports": [
+                {
+                    "admin_state": true,
+                    "description": "7705-MGMT-CSMA",
+                    "ethernet": {
+                        "autonegotiate": false
                     },
-                    "mtu": "2106"
+                    "port-id": "1/5/1"
                 },
-                "port-id": "1/5/7"
-            },
-            {
-                "admin_state": true,
-                "description": "Link-to-TEMPE-AZ-EXAMPLE-P-AL-0415-H1-1/2/8",
-                "ethernet": {
-                    "autonegotiate": false,
-                    "egress-rate": "96260",
-                    "encap-type": "dot1q",
-                    "hold-time": {
-                        "down": "25",
-                        "up": "50"
+                {
+                    "admin_state": true,
+                    "description": "BTS0215-1X-URC01",
+                    "ethernet": {
+                        "autonegotiate": false,
+                        "encap-type": "dot1q"
                     },
-                    "mode": "network",
-                    "mtu": "2106",
-                    "network": {
-                        "queue-policy": "20110"
-                    }
+                    "port-id": "1/5/2"
                 },
-                "port-id": "1/5/8"
-            },
-            {
-                "admin_state": true,
-                "description": "7705-MGMT-CSMB",
-                "ethernet": {
-                    "autonegotiate": false
+                {
+                    "admin_state": false,
+                    "ethernet": {},
+                    "port-id": "1/5/3"
                 },
-                "port-id": "1/6/1"
-            },
-            {
-                "admin_state": true,
-                "description": "BTS0215-1X-URC02",
-                "ethernet": {
-                    "autonegotiate": false,
-                    "encap-type": "dot1q"
+                {
+                    "admin_state": false,
+                    "ethernet": {},
+                    "port-id": "1/5/4"
                 },
-                "port-id": "1/6/2"
-            },
-            {
-                "admin_state": false,
-                "ethernet": {
-                    "autonegotiate": false,
-                    "encap-type": "dot1q"
-                },
-                "port-id": "1/6/3"
-            },
-            {
-                "admin_state": false,
-                "ethernet": {},
-                "port-id": "1/6/4"
-            },
-            {
-                "admin_state": false,
-                "ethernet": {},
-                "port-id": "1/6/5"
-            },
-            {
-                "admin_state": true,
-                "description": "BTS0215-DO-URC03",
-                "ethernet": {
-                    "autonegotiate": false,
-                    "encap-type": "dot1q"
-                },
-                "port-id": "1/6/6"
-            },
-            {
-                "admin_state": true,
-                "description": "eNodeB324215-LTE-eCCM01-1",
-                "ethernet": {
-                    "autonegotiate": "limited",
-                    "encap-type": "dot1q",
-                    "hold-time": {
-                        "down": "50"
+                {
+                    "admin_state": true,
+                    "description": "LINK-TO-LOOPBACK-7705PORT",
+                    "ethernet": {
+                        "encap-type": "dot1q",
+                        "loopback": true,
+                        "mtu": "2106"
                     },
-                    "mtu": "2106"
+                    "port-id": "1/5/5"
                 },
-                "port-id": "1/6/7"
-            },
-            {
-                "admin_state": true,
-                "description": "Link-to-TEMPE-AZ-EXAMPLE-P-AL-0415-H2-1/2/8",
-                "ethernet": {
-                    "autonegotiate": false,
-                    "egress-rate": "96260",
-                    "encap-type": "dot1q",
-                    "mode": "network",
-                    "mtu": "2106",
-                    "network": {
-                        "queue-policy": "20110"
-                    }
+                {
+                    "admin_state": false,
+                    "ethernet": {
+                        "autonegotiate": false,
+                        "encap-type": "dot1q"
+                    },
+                    "port-id": "1/5/6"
                 },
-                "port-id": "1/6/8"
-            }
-        ]
+                {
+                    "admin_state": true,
+                    "description": "eNodeB0215-LTE-eCCM01-1",
+                    "ethernet": {
+                        "autonegotiate": "limited",
+                        "encap-type": "dot1q",
+                        "hold-time": {
+                            "down": "50"
+                        },
+                        "mtu": "2106"
+                    },
+                    "port-id": "1/5/7"
+                },
+                {
+                    "admin_state": true,
+                    "description": "Link-to-TEMPE-AZ-EXAMPLE-P-AL-0415-H1-1/2/8",
+                    "ethernet": {
+                        "autonegotiate": false,
+                        "egress-rate": "96260",
+                        "encap-type": "dot1q",
+                        "hold-time": {
+                            "down": "25",
+                            "up": "50"
+                        },
+                        "mode": "network",
+                        "mtu": "2106"
+                    },
+                    "port-id": "1/5/8"
+                },
+                {
+                    "admin_state": true,
+                    "description": "7705-MGMT-CSMB",
+                    "ethernet": {
+                        "autonegotiate": false
+                    },
+                    "port-id": "1/6/1"
+                },
+                {
+                    "admin_state": true,
+                    "description": "BTS0215-1X-URC02",
+                    "ethernet": {
+                        "autonegotiate": false,
+                        "encap-type": "dot1q"
+                    },
+                    "port-id": "1/6/2"
+                },
+                {
+                    "admin_state": false,
+                    "ethernet": {
+                        "autonegotiate": false,
+                        "encap-type": "dot1q"
+                    },
+                    "port-id": "1/6/3"
+                },
+                {
+                    "admin_state": false,
+                    "ethernet": {},
+                    "port-id": "1/6/4"
+                },
+                {
+                    "admin_state": false,
+                    "ethernet": {},
+                    "port-id": "1/6/5"
+                },
+                {
+                    "admin_state": true,
+                    "description": "BTS0215-DO-URC03",
+                    "ethernet": {
+                        "autonegotiate": false,
+                        "encap-type": "dot1q"
+                    },
+                    "port-id": "1/6/6"
+                },
+                {
+                    "admin_state": true,
+                    "description": "eNodeB324215-LTE-eCCM01-1",
+                    "ethernet": {
+                        "autonegotiate": "limited",
+                        "encap-type": "dot1q",
+                        "hold-time": {
+                            "down": "50"
+                        },
+                        "mtu": "2106"
+                    },
+                    "port-id": "1/6/7"
+                },
+                {
+                    "admin_state": true,
+                    "description": "Link-to-TEMPE-AZ-EXAMPLE-P-AL-0415-H2-1/2/8",
+                    "ethernet": {
+                        "autonegotiate": false,
+                        "egress-rate": "96260",
+                        "encap-type": "dot1q",
+                        "mode": "network",
+                        "mtu": "2106"
+                    },
+                    "port-id": "1/6/8"
+                }
+            ]
+        }
     }
 ]"""
     assert output == result

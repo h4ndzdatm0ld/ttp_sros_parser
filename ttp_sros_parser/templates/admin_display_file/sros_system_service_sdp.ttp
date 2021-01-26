@@ -1,5 +1,5 @@
 #-------------------------------------------------- {{ignore}}
-echo "Service Configuration"
+echo "Service Configuration" {{ignore}}
 #-------------------------------------------------- {{ignore}}
     service {{_start_}}
         <group name="system.service.sdp">

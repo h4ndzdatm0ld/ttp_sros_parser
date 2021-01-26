@@ -1,8 +1,8 @@
 *A:R1-SANDBOX# show bof 
 <group name="bof">
-===============================================================================
+=============================================================================== {{ignore}}
 BOF (Memory) {{_start_}}
-===============================================================================
+=============================================================================== {{ignore}}
     <group name="image">
     primary-image    {{cf-card}}:\{{primary-image}}\
     secondary-image  {{cf-card}}:\{{secondary-image}}\
@@ -27,9 +27,9 @@ BOF (Memory) {{_start_}}
     speed            {{speed}}
     wait             {{wait}}
     persist          {{persist}}
-    no li-local-save
-    no li-separate
-    no fips-140-2
+    no li-local-save {{ignore}}
+    no li-separate {{ignore}}
+    no fips-140-2 {{ignore}}
     console-speed    {{console-speed}}
 </group>
 =============================================================================== {{_end_}}
