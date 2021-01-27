@@ -1,60 +1,58 @@
-#--------------------------------------------------
-echo "Log Configuration"
-#--------------------------------------------------
-    log 
-        file-id 10 
-        exit 
-        file-id 20 
-            description "Syslog-storage"
-            location cf3: 
-            rollover 1440 retention 350 
-        exit 
-        file-id 30 
-            description "Change-storage"
-            location cf3: 
-            rollover 1440 retention 350 
-        exit 
-        event-control "system" 2103 generate
-        event-control "system" 2104 generate
-        event-control "vrtr" 2034 generate
-        syslog 5
-            description "Syslog Server"
-            address 10.215.141.147
-        exit 
-        snmp-trap-group 10
-        exit 
-        snmp-trap-group 7
-            trap-target "SW_INC" address 10.141.128.78 snmpv2c notify-community "2Y2LHTZP31"
-        exit 
-        snmp-trap-group 98
-            description "5620sam"
-            trap-target "0017A4770C06:main1" address 99.194.69.164 snmpv3 notify-community "snmpuser3" security-level privacy
-            trap-target "0017A4770C06:main2" address 99.215.238.164 snmpv3 notify-community "snmpuser3" security-level privacy
-            trap-target "99.194.69.164:162" address 99.194.69.164 snmpv3 notify-community "snmpuser3" security-level privacy
-            trap-target "99.215.238.164:162" address 99.215.238.164 snmpv3 notify-community "snmpuser3" security-level privacy
-        exit 
-        log-id 5 
-            description "Syslog Server"
-            from main security change 
-            to syslog 5
-        exit 
-        log-id 7 
-            description "SW_INC"
-            from main security 
-            to snmp
-        exit 
-        log-id 20 
-            description "Syslog storage on CF3"
-            from main security 
-            to file 20
-        exit 
-        log-id 30 
-            description "Change storage on CF3"
-            from change 
-            to file 30
-        exit 
-        log-id 98 
-            from main security 
-            to snmp 1024
-        exit 
-    exit 
+<macro>
+def macro_gen(data):
+	if 'generate' in data:
+		return data, {"generate": True}
+
+def macro_source(data):
+    if 'main' in data:
+        return data, {"main": True}
+    elif 'change' in data:
+        return data, {"change": True}
+    elif 'security' in data:
+        return data, {"security": True}   
+</macro>
+
+#-------------------------------------------------- {{ignore}}
+echo "Log Configuration" <group name="log"> {{_start_}}
+#-------------------------------------------------- {{ignore}}
+    log {{ignore}}
+    <group name="file">
+        file-id {{file-id}} 
+            description "{{description}}"
+            <group name="compact-flash-location">
+            location {{primary}}: 
+            </group>
+            rollover {{rollover}} retention {{retention}} 
+        exit {{ignore}}
+    </group>
+        <group name="log-events.chassis">
+        event-control "{{event}}" {{event-id}} {{generate | re(r'generate') | macro('macro_gen')}}
+        </group>
+        <group name="syslog">
+        syslog {{syslog-id | DIGIT}}
+            description "{{description | PHRASE}}"
+            address {{address}}
+        </group>
+        exit {{_end_}}
+        <group name="snmp-trap-group">
+        snmp-trap-group {{log-id | DIGIT | _start_ }}
+            description "{{description}}"
+            <group name="trap-target">
+            trap-target "{{name | _start_ }}" address {{address}} {{snmp-version}} notify-community "{{notify-community}}" security-level {{security-level}}
+            trap-target "{{name | _start_ }}" address {{address}} {{snmp-version}} notify-community "{{notify-community}}"
+            </group>
+        </group>
+        exit {{_end_}}
+        <group>
+        log-id {{log-id}} 
+            description "{{description}}"
+            <group name="source">
+            from {{source | _start_ | macro('macro_source')}}
+            from {{source | _start_ | macro('macro_source')}} {{security | macro('macro_source')}}
+            from {{source | _start_ | macro('macro_source')}} {{security | macro('macro_source')}} {{change | macro('macro_source')}}
+            </group>
+            to {{destination}}
+        exit {{_end_}}
+        </group>
+    exit {{_end_}}
+</group>
