@@ -30,13 +30,17 @@ echo "System Configuration"
         time
             ntp
                 ntp-server
-                server 8.8.8.8
+                server 8.8.8.8 prefer
                 server 8.8.4.4
                 no authentication-check
                 no shutdown
             exit
             sntp
                 shutdown
+            exit
+            dst-zone MDT
+                start second sunday march 02:00
+                end first sunday november 02:00
             exit
             zone MST 
         exit

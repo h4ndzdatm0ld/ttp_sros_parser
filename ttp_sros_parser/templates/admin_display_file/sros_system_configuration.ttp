@@ -1,3 +1,8 @@
+<macro>
+def macro_true(data):
+	if 'prefer' in data:
+		return  data, {"prefer": True}
+</macro>
     system {{_start_}}
         <group name="configure.system">
         name {{ name | strip('"') }}
@@ -10,16 +15,30 @@
         <group name="snmp">
             packet-size {{packet_size}}
         </group>
+        <group name="time">
         time {{ignore}}
-                <group name="ntp.servers" itemize="server">
-                server {{server | _start_}}
+                <group name="ntp">
+                    <group name="server">
+                server {{ip-address | _start_}}
+                server {{ip-address | _start_}} {{prefer | macro('macro_true')}}
+                    </group>
+        <group name="dst-zone">
+            dst-zone {{summer-time-zone | _start_}}
+                <group name="start">
+                start {{week | _start_}} {{day}} {{month}} {{hours-minute}}
+                </group> 
+                <group name="end">
+                end {{week | _start_ }} {{day}} {{month}} {{hours-minute}}
                 </group>
+        </group> 
+        <group name="zone.standard">
+            zone {{name}}
+        </group>
+        </group>
         </group>
 #-------------------------------------------------- {{_end_}}
-
-<group name="configure.system.ntp">
-                no authentication-check {{auth_check | set(false)}}
-                no shutdown {{admin_state | set(true)}}
-            zone {{time_zone}}
-</group>
-#-------------------------------------------------- {{_end_}}
+                <group name="configure.system.time.ntp">
+                no authentication-check {{authentication-check | set(false)}}
+                no shutdown {{admin-state | set(true)}}
+                </group> 
+                </group>
