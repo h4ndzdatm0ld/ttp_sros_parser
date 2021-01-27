@@ -266,6 +266,19 @@ class SrosParser:
         results = parser.result(format="json")[0]
 
         return results
+        
+    def get_log_configuraiton(self):
+
+        """Parse Log COnfiguration"""
+
+        template = (
+            f"{self.templates_path}/admin_display_file/sros_log_configuration.ttp"
+        )
+        parser = ttp(data=self.config_file, template=template)
+        parser.parse()
+        results = parser.result(format="json")[0]
+
+        return results
 
     def show_router_static_route(self, protocol="protocol"):
 
