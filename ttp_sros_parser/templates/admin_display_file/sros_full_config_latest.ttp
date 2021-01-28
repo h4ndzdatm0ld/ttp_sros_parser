@@ -355,7 +355,7 @@ def macro_true(data):
 		return  data, {"prefer": True}
 </macro>
     system {{_start_}}
-        <group name="configure.system">
+        <group name="system">
         name {{ name | strip('"') }}
         contact {{ contact | re(r"\W.*") | strip('"')}}
         location {{location | re(r"\W.*") | strip('"')}}
@@ -372,7 +372,11 @@ def macro_true(data):
                     <group name="server">
                 server {{ip-address | _start_}}
                 server {{ip-address | _start_}} {{prefer | macro('macro_true')}}
-                    </group>
+                <group>
+                no authentication-check {{authentication-check | set(false)}}
+                no shutdown {{admin-state | set(true)}}
+                </group> 
+                </group>
         <group name="dst-zone">
             dst-zone {{summer-time-zone | _start_}}
                 <group name="start">
@@ -385,11 +389,8 @@ def macro_true(data):
         <group name="zone.standard">
             zone {{name}}
         </group>
-        </group>
-        </group>
+                </group>       
+                </group>
 #-------------------------------------------------- {{_end_}}
-                <group name="configure.system.time.ntp">
-                no authentication-check {{authentication-check | set(false)}}
-                no shutdown {{admin-state | set(true)}}
-                </group> 
+
                 </group>
