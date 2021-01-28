@@ -1,14 +1,28 @@
-           <group name="system.profile">
-            profile {{user-profile-name | re(r".+") | strip('"')}}
-                default-action {{default-action}}
-                <group name="entry">
-                entry {{entry-id}} {{_start_}}
-                    match {{match | re(r"\W.*") | strip('"')}}
-                    action {{action}}
-                exit {{ignore}}
-                </group>
+<group name="system">
+    <group name="card">
+    card {{slot-number}}
+        card-type {{card-type}}
+        fail-on-error {{fail-on-error | set(true)}}
+        <group name="mda">
+        mda {{mda-slot}}
+            shutdown {{admin-state | set(false)}}
+            mda-type {{mda-type}}
+            <group name="ingress-xpl">
+            ingress-xpl {{_start_}}
+                window {{window}}
             exit {{_end_}}
-            </group><group name="router">
+            </group>
+            <group name="egress-xpl">
+            egress-xpl {{_start_}}
+                window {{window}}
+            exit {{_end_}}
+            </group>
+            fail-on-error {{fail-on-error | set(true)}}
+            no shutdown {{admin-state | set(true)}}
+        </group>
+        exit {{ignore}}
+    </group>
+</group><group name="router">
     router {{ignore}}
     <group name="interfaces">
         interface {{interface_name | strip('"')}}
@@ -50,86 +64,70 @@
         <group name="router">
         autonomous-system {{autonomous-system}}
         </group>#-------------------------------------------------- {{ignore}}
-echo "Port Configuration" {{_start_}}
+echo "Service Configuration" {{ignore}}
 #-------------------------------------------------- {{ignore}}
-<group name="configure.ports">
-    port {{port-id}}
-        shutdown {{admin_state | set(false)}}
-        description "{{description}}"
-        <group name="ethernet">
-        ethernet {{_start_}}
-            mode {{mode}}
-            encap-type {{encap-type}}
-            mtu {{mtu | DIGIT}}
-            loopback internal persistent {{loopback | set(true)}}
-            <group name="network">
-            network {{ignore}}
-                queue-policy "{{queue-policy | DIGIT}}"
-            exit {{_end_}}
+    service {{_start_}}
+        <group name="system.service.sdp">
+        sdp {{sdp-id | re(r"\d.*") | replaceall("","create","mpls") | strip()}}
+            description {{description | strip('"')}}
+            far-end {{far-end | IP}}
+            ldp {{ldp | set(true)}}
+            lsp {{lsp | strip('"')}}
+            path-mtu {{path-mtu}}
+            adv-mtu-override {{adv-mtu-override | set(true)}}
+            <group name="keep-alive">
+            keep-alive {{_start_}}
+                shutdown {{admin-state | set(false)}}
             </group>
-            <group name="hold-time">
-            hold-time down {{down}}
-            </group>
-            <group name="hold-time">
-            hold-time up {{up| DIGIT}} down {{down | DIGIT}}
-            </group>
-            no autonegotiate {{autonegotiate | set(false)}}
-            autonegotiate {{autonegotiate}}
-            egress-rate {{egress-rate | DIGIT}} 
+            exit {{ignore}}
+            no shutdown {{admin-state | set(true)}}
         exit {{_end_}}
         </group>
-        no shutdown {{admin_state | set(true)}}
-    exit {{_end_}}
-    </group>
+#-------------------------------------------------- {{_end_}}<macro>
+def macro_true(data):
+	if 'prefer' in data:
+		return  data, {"prefer": True}
+</macro>
+    system {{_start_}}
+        <group name="system">
+        name {{ name | strip('"') }}
+        contact {{ contact | re(r"\W.*") | strip('"')}}
+        location {{location | re(r"\W.*") | strip('"')}}
+        <group name="rollback">
+        rollback {{rollback | set(true)}}
+            rollback-location {{cf_slot | strip('"') | to_str}}:\{{ directory | to_str | strip('"')}}
+        </group>
+        <group name="snmp">
+            packet-size {{packet_size}}
+        </group>
+        <group name="time">
+        time {{ignore}}
+                <group name="ntp">
+                    <group name="server">
+                server {{ip-address | _start_}}
+                server {{ip-address | _start_}} {{prefer | macro('macro_true')}}
+                <group>
+                no authentication-check {{authentication-check | set(false)}}
+                no shutdown {{admin-state | set(true)}}
+                </group> 
+                </group>
+        <group name="dst-zone">
+            dst-zone {{summer-time-zone | _start_}}
+                <group name="start">
+                start {{week | _start_}} {{day}} {{month}} {{hours-minute}}
+                </group> 
+                <group name="end">
+                end {{week | _start_ }} {{day}} {{month}} {{hours-minute}}
+                </group>
+        </group> 
+        <group name="zone.standard">
+            zone {{name}}
+        </group>
+                </group>       
+                </group>
 #-------------------------------------------------- {{_end_}}
-<group name="system.management-access-filter">
-            management-access-filter {{_start_}}
-                <group name="ip-filter-params">
-                ip-filter {{ipv4-filter | set(true)}}
-                    shutdown {{ admin-state | set(false)}}
-                    default-action {{default-action}}
-                    no shutdown {{ admin-state | set(true)}}
-                </group>
-                <group name="ipv6-filter-params">
-                ipv6-filter {{ipv6-filter | set(true)}}
-                    shutdown {{ admin-state | set(false)}}
-                    default-action {{default-action}}
-                    no shutdown {{ admin-state | set(true)}}
-                </group>
-</group>
-<group name="system.management-access-filter">
-            management-access-filter {{_start_}}
-                ip-filter {{_exact_}}
-                <group name="ip-filter">
-                <group name="entry">
-                    entry {{entry-id | DIGIT }}
-                        description {{description | re(r"\W.*") | strip('"')}}
-                        src-ip {{src-ip}}
-                        protocol {{protocol}}
-                        dst-port {{dst-port | re(r"\d.*")}}
-                        router {{router-instance | strip('"')}}
-                        action {{action | strip('"')}}
-                    exit {{ignore}}
-                ipv6-filter {{_end_}}
-                </group>
-                </group>
-</group>
-<group name="system.management-access-filter">
-                ipv6-filter {{_start_}}
-                <group name="ipv6-filter">
-                <group name="entry">
-                    entry {{entry-id}}
-                        description {{description | re(r"\W.*") | strip('"')}}
-                        src-ip {{src-ip }}
-                        protocol {{protocol}}
-                        dst-port {{dst-port | re(r"\d.*")}}
-                        router {{router-instance | strip('"')}}
-                        action {{action-instance | strip('"')}}
-                    exit {{ignore}}
-                </group>
-                </group>
-</group>
-<macro>
+
+                </group><macro>
 def macro_gen(data):
 	if 'generate' in data:
 		return data, {"generate": True}
@@ -186,42 +184,6 @@ echo "Log Configuration" <group name="log"> {{_start_}}
         exit {{_end_}}
         </group>
     exit {{_end_}}
-</group><group name="system.eth-cfm">
-    eth-cfm {{_start_}}
-    <group name="domain">
-        domain {{domain-id}} format {{format}} level {{level}}
-            <group name="assosciations">
-            association {{assosciation-id}} format {{format}} name {{name | strip('"')}}
-                bridge-identifier {{bridge-id}}
-                exit {{ignore}}
-                remote-mepid {{remote-mepid}}
-            </group>
-    </group>
-    #-------------------------------------------------- {{_end_}}
-</group><group name="system">
-    <group name="card">
-    card {{slot-number}}
-        card-type {{card-type}}
-        fail-on-error {{fail-on-error | set(true)}}
-        <group name="mda">
-        mda {{mda-slot}}
-            shutdown {{admin-state | set(false)}}
-            mda-type {{mda-type}}
-            <group name="ingress-xpl">
-            ingress-xpl {{_start_}}
-                window {{window}}
-            exit {{_end_}}
-            </group>
-            <group name="egress-xpl">
-            egress-xpl {{_start_}}
-                window {{window}}
-            exit {{_end_}}
-            </group>
-            fail-on-error {{fail-on-error | set(true)}}
-            no shutdown {{admin-state | set(true)}}
-        </group>
-        exit {{ignore}}
-    </group>
 </group><macro>
 def macro_bfd(data):
 	if 'bfd-enable' in data:
@@ -330,67 +292,105 @@ echo "Static IPv6 Route Configuration" {{_start_}}
 </group>
 
 #-------------------------------------------------- {{ignore}}
-echo "Service Configuration" {{ignore}}
+echo "Port Configuration" {{_start_}}
 #-------------------------------------------------- {{ignore}}
-    service {{_start_}}
-        <group name="system.service.sdp">
-        sdp {{sdp-id | re(r"\d.*") | replaceall("","create","mpls") | strip()}}
-            description {{description | strip('"')}}
-            far-end {{far-end | IP}}
-            ldp {{ldp | set(true)}}
-            lsp {{lsp | strip('"')}}
-            path-mtu {{path-mtu}}
-            adv-mtu-override {{adv-mtu-override | set(true)}}
-            <group name="keep-alive">
-            keep-alive {{_start_}}
-                shutdown {{admin-state | set(false)}}
+<group name="configure.port">
+    port {{port-id}}
+        shutdown {{admin_state | set(false)}}
+        description "{{description}}"
+        <group name="ethernet">
+        ethernet {{_start_}}
+            mode {{mode}}
+            encap-type {{encap-type}}
+            mtu {{mtu | DIGIT}}
+            loopback internal persistent {{loopback | set(true)}}
+            <group name="network">
+            network {{ignore}}
+                queue-policy "{{queue-policy | DIGIT}}"
+            exit {{_end_}}
             </group>
-            exit {{ignore}}
-            no shutdown {{admin-state | set(true)}}
+            <group name="hold-time">
+            hold-time down {{down}}
+            </group>
+            <group name="hold-time">
+            hold-time up {{up| DIGIT}} down {{down | DIGIT}}
+            </group>
+            no autonegotiate {{autonegotiate | set(false)}}
+            autonegotiate {{autonegotiate}}
+            egress-rate {{egress-rate | DIGIT}} 
         exit {{_end_}}
         </group>
-#-------------------------------------------------- {{_end_}}<macro>
-def macro_true(data):
-	if 'prefer' in data:
-		return  data, {"prefer": True}
-</macro>
-    system {{_start_}}
-        <group name="system">
-        name {{ name | strip('"') }}
-        contact {{ contact | re(r"\W.*") | strip('"')}}
-        location {{location | re(r"\W.*") | strip('"')}}
-        <group name="rollback">
-        rollback {{rollback | set(true)}}
-            rollback-location {{cf_slot | strip('"') | to_str}}:\{{ directory | to_str | strip('"')}}
-        </group>
-        <group name="snmp">
-            packet-size {{packet_size}}
-        </group>
-        <group name="time">
-        time {{ignore}}
-                <group name="ntp">
-                    <group name="server">
-                server {{ip-address | _start_}}
-                server {{ip-address | _start_}} {{prefer | macro('macro_true')}}
-                <group>
-                no authentication-check {{authentication-check | set(false)}}
-                no shutdown {{admin-state | set(true)}}
-                </group> 
-                </group>
-        <group name="dst-zone">
-            dst-zone {{summer-time-zone | _start_}}
-                <group name="start">
-                start {{week | _start_}} {{day}} {{month}} {{hours-minute}}
-                </group> 
-                <group name="end">
-                end {{week | _start_ }} {{day}} {{month}} {{hours-minute}}
-                </group>
-        </group> 
-        <group name="zone.standard">
-            zone {{name}}
-        </group>
-                </group>       
-                </group>
+        no shutdown {{admin_state | set(true)}}
+    exit {{_end_}}
+    </group>
 #-------------------------------------------------- {{_end_}}
-
+<group name="system.management-access-filter">
+            management-access-filter {{_start_}}
+                <group name="ip-filter-params">
+                ip-filter {{ipv4-filter | set(true)}}
+                    shutdown {{ admin-state | set(false)}}
+                    default-action {{default-action}}
+                    no shutdown {{ admin-state | set(true)}}
                 </group>
+                <group name="ipv6-filter-params">
+                ipv6-filter {{ipv6-filter | set(true)}}
+                    shutdown {{ admin-state | set(false)}}
+                    default-action {{default-action}}
+                    no shutdown {{ admin-state | set(true)}}
+                </group>
+</group>
+<group name="system.management-access-filter">
+            management-access-filter {{_start_}}
+                ip-filter {{_exact_}}
+                <group name="ip-filter">
+                <group name="entry">
+                    entry {{entry-id | DIGIT }}
+                        description {{description | re(r"\W.*") | strip('"')}}
+                        src-ip {{src-ip}}
+                        protocol {{protocol}}
+                        dst-port {{dst-port | re(r"\d.*")}}
+                        router {{router-instance | strip('"')}}
+                        action {{action | strip('"')}}
+                    exit {{ignore}}
+                ipv6-filter {{_end_}}
+                </group>
+                </group>
+</group>
+<group name="system.management-access-filter">
+                ipv6-filter {{_start_}}
+                <group name="ipv6-filter">
+                <group name="entry">
+                    entry {{entry-id}}
+                        description {{description | re(r"\W.*") | strip('"')}}
+                        src-ip {{src-ip }}
+                        protocol {{protocol}}
+                        dst-port {{dst-port | re(r"\d.*")}}
+                        router {{router-instance | strip('"')}}
+                        action {{action-instance | strip('"')}}
+                    exit {{ignore}}
+                </group>
+                </group>
+</group>
+           <group name="system.profile">
+            profile {{user-profile-name | re(r".+") | strip('"')}}
+                default-action {{default-action}}
+                <group name="entry">
+                entry {{entry-id}} {{_start_}}
+                    match {{match | re(r"\W.*") | strip('"')}}
+                    action {{action}}
+                exit {{ignore}}
+                </group>
+            exit {{_end_}}
+            </group><group name="system.eth-cfm">
+    eth-cfm {{_start_}}
+    <group name="domain">
+        domain {{domain-id}} format {{format}} level {{level}}
+            <group name="assosciations">
+            association {{assosciation-id}} format {{format}} name {{name | strip('"')}}
+                bridge-identifier {{bridge-id}}
+                exit {{ignore}}
+                remote-mepid {{remote-mepid}}
+            </group>
+    </group>
+    #-------------------------------------------------- {{_end_}}
+</group>

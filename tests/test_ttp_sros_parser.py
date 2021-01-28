@@ -7,6 +7,7 @@ def test_version():
 
 # This is the config file used to test.
 example_config = f"{os.path.dirname(os.path.realpath(__file__))}/configs/example-config.txt"
+example_json = f"{os.path.dirname(os.path.realpath(__file__))}/configs/example-json.json"
 
 def test_templates_as_list():
     """
@@ -88,7 +89,6 @@ def test_get_system_interfaces():
     """
     Test to retrieve the system interface only.
     """
-    # this aint working
     parser = SrosParser(example_config)
     result = parser.get_system_interface()
     system_interface = """[
@@ -120,21 +120,80 @@ def test_get_system_configuration():
     """
     Test to retrieve the system configuration.
     """
-    # this aint working
     parser = SrosParser(example_config)
     result = parser.get_system_configuration()
-    print(result)
-    # assert result, system_configuration
+    system_configuration = """[
+    {
+        "system": {
+            "contact": "Hugo Tinoco",
+            "location": "Phoenix, AZ",
+            "name": "EXAMPLEPHX-P-AL-7750-01",
+            "rollback": {
+                "cf_slot": "cf2",
+                "directory": "Rollback",
+                "rollback": true
+            },
+            "snmp": {
+                "packet_size": "9216"
+            },
+            "time": {
+                "ntp": {
+                    "dst-zone": {
+                        "end": {
+                            "day": "sunday",
+                            "hours-minute": "02:00",
+                            "month": "november",
+                            "week": "first"
+                        },
+                        "start": {
+                            "day": "sunday",
+                            "hours-minute": "02:00",
+                            "month": "march",
+                            "week": "second"
+                        },
+                        "summer-time-zone": "MDT"
+                    },
+                    "server": [
+                        {
+                            "ip-address": "8.8.8.8",
+                            "prefer": true
+                        },
+                        {
+                            "ip-address": "8.8.4.4"
+                        },
+                        {
+                            "admin-state": true,
+                            "authentication-check": false
+                        }
+                    ],
+                    "zone": {
+                        "standard": {
+                            "name": "MST"
+                        }
+                    }
+                }
+            }
+        }
+    }
+]"""
+
+    assert result, system_configuration
 
 def test_get_full_config():
     """
     A full config str should be returned.
     """
+    import json
     parser = SrosParser(example_config)
     result = parser.get_full_config()
 
-    assert type(result) == str
+    data = json.loads(result)
 
+    with open(example_json, 'w+') as f:
+        json.dump(data, f)
+
+    assert type(result) == str
+    
 def test_get_system_hostname():
     """
     Test extracting hostname only.
@@ -1396,7 +1455,7 @@ def test_get_ports():
     output = """[
     {
         "configure": {
-            "ports": [
+            "port": [
                 {
                     "admin_state": true,
                     "description": "7705-MGMT-CSMA",

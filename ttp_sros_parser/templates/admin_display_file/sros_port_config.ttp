@@ -1,7 +1,7 @@
 #-------------------------------------------------- {{ignore}}
 echo "Port Configuration" {{_start_}}
 #-------------------------------------------------- {{ignore}}
-<group name="ports">
+<group name="configure.port">
     port {{port-id}}
         shutdown {{admin_state | set(false)}}
         description "{{description}}"
