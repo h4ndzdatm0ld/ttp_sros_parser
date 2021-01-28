@@ -124,60 +124,63 @@ def test_get_system_configuration():
     result = parser.get_system_configuration()
     system_configuration = """[
     {
-        "system": {
-            "contact": "Hugo Tinoco",
-            "location": "Phoenix, AZ",
-            "name": "EXAMPLEPHX-P-AL-7750-01",
-            "rollback": {
-                "cf_slot": "cf2",
-                "directory": "Rollback",
-                "rollback": true
-            },
-            "snmp": {
-                "packet_size": "9216"
-            },
-            "time": {
-                "ntp": {
-                    "dst-zone": {
-                        "end": {
-                            "day": "sunday",
-                            "hours-minute": "02:00",
-                            "month": "november",
-                            "week": "first"
-                        },
-                        "start": {
-                            "day": "sunday",
-                            "hours-minute": "02:00",
-                            "month": "march",
-                            "week": "second"
-                        },
-                        "summer-time-zone": "MDT"
-                    },
-                    "server": [
+        "configure": {
+            "system": {
+                "contact": "Hugo Tinoco",
+                "location": "Phoenix, AZ",
+                "name": "EXAMPLEPHX-P-AL-7750-01",
+                "rollback": {
+                    "cf_slot": "cf2",
+                    "directory": "Rollback",
+                    "rollback": true
+                },
+                "snmp": {
+                    "packet_size": "9216"
+                },
+                "time": {
+                    "ntp": [
                         {
-                            "ip-address": "8.8.8.8",
-                            "prefer": true
-                        },
-                        {
-                            "ip-address": "8.8.4.4"
+                            "server": [
+                                {
+                                    "ip-address": "8.8.8.8",
+                                    "prefer": true
+                                },
+                                {
+                                    "ip-address": "8.8.4.4"
+                                }
+                            ]
                         },
                         {
                             "admin-state": true,
-                            "authentication-check": false
+                            "authentication-check": false,
+                            "dst-zone": {
+                                "end": {
+                                    "day": "sunday",
+                                    "hours-minute": "02:00",
+                                    "month": "november",
+                                    "week": "first"
+                                },
+                                "start": {
+                                    "day": "sunday",
+                                    "hours-minute": "02:00",
+                                    "month": "march",
+                                    "week": "second"
+                                },
+                                "summer-time-zone": "MDT"
+                            },
+                            "zone": {
+                                "standard": {
+                                    "name": "MST"
+                                }
+                            }
                         }
-                    ],
-                    "zone": {
-                        "standard": {
-                            "name": "MST"
-                        }
-                    }
+                    ]
                 }
             }
         }
     }
 ]"""
-
-    assert result, system_configuration
+    assert result == system_configuration
 
 def test_get_full_config():
     """
@@ -270,41 +273,41 @@ def test_get_system_cards():
     parser = SrosParser(example_config)
     result = parser.get_system_cards()
     cards = """[
-{
-    "system": {
-        "card": [
-            {
-                "card-type": "imm-2pac-fp3",
-                "fail-on-error": true,
-                "mda": {
-                    "admin-state": true,
-                    "egress-xpl": {
-                        "window": "10"
-                    },
+    {
+        "configure": {
+            "card": [
+                {
+                    "card-type": "imm-2pac-fp3",
                     "fail-on-error": true,
-                    "ingress-xpl": {
-                        "window": "10"
+                    "mda": {
+                        "admin-state": true,
+                        "egress-xpl": {
+                            "window": "10"
+                        },
+                        "fail-on-error": true,
+                        "ingress-xpl": {
+                            "window": "10"
+                        },
+                        "mda-slot": "1",
+                        "mda-type": "p10-10g-sfp"
                     },
-                    "mda-slot": "1",
-                    "mda-type": "p10-10g-sfp"
+                    "slot-number": "2"
                 },
-                "slot-number": "2"
-            },
-            {
-                "card-type": "imm5-10gb-xfp",
-                "fail-on-error": true,
-                "mda": {
-                    "admin-state": false,
+                {
+                    "card-type": "imm5-10gb-xfp",
                     "fail-on-error": true,
-                    "mda-slot": "1"
-                },
-                "slot-number": "4"
-            }
-        ]
+                    "mda": {
+                        "admin-state": false,
+                        "fail-on-error": true,
+                        "mda-slot": "1"
+                    },
+                    "slot-number": "4"
+                }
+            ]
+        }
     }
-}
 ]"""
-    assert result, cards
+    assert result == cards
 
 def test_get_system_maf():
     """
@@ -313,66 +316,66 @@ def test_get_system_maf():
     parser = SrosParser(example_config)
     result = parser.get_system_maf()
     maf = """[
-{
-    "system": {
-        "management-access-filter": [
-            {
-                "ip-filter-params": {
-                    "admin-state": true,
-                    "default-action": "deny",
-                    "ipv4-filter": true
+    {
+        "system": {
+            "management-access-filter": [
+                {
+                    "ip-filter-params": {
+                        "admin-state": true,
+                        "default-action": "deny",
+                        "ipv4-filter": true
+                    },
+                    "ipv6-filter-params": {
+                        "admin-state": false,
+                        "default-action": "permit",
+                        "ipv6-filter": true
+                    }
                 },
-                "ipv6-filter-params": {
-                    "admin-state": false,
-                    "default-action": "permit",
-                    "ipv6-filter": true
+                {
+                    "ip-filter": {
+                        "entry": [
+                            {
+                                "action": "permit",
+                                "description": "SSH Traffic",
+                                "dst-port": "22 22",
+                                "entry-id": "10",
+                                "protocol": "tcp",
+                                "router-instance": "management"
+                            },
+                            {
+                                "action": "permit",
+                                "description": "Some Syslog Server",
+                                "entry-id": "25",
+                                "router-instance": "management"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "ipv6-filter": {
+                        "entry": [
+                            {
+                                "action-instance": "permit",
+                                "description": "SSH Traffic",
+                                "dst-port": "22 22",
+                                "entry-id": "10",
+                                "router-instance": "management"
+                            },
+                            {
+                                "action-instance": "permit",
+                                "description": "Something Something Something",
+                                "entry-id": "25",
+                                "router-instance": "management",
+                                "src-ip": "1001:2000:a06:2130:f0:fef:0:147/128"
+                            }
+                        ]
+                    }
                 }
-            },
-            {
-                "ip-filter": {
-                    "entry": [
-                        {
-                            "action": "permit",
-                            "description": "SSH Traffic",
-                            "dst-port": "22 22",
-                            "entry-id": "10",
-                            "protocol": "tcp",
-                            "router-instance": "management"
-                        },
-                        {
-                            "action": "permit",
-                            "description": "Some Syslog Server",
-                            "entry-id": "25",
-                            "router-instance": "management"
-                        }
-                    ]
-                }
-            },
-            {
-                "ipv6-filter": {
-                    "entry": [
-                        {
-                            "action-instance": "permit",
-                            "description": "SSH Traffic",
-                            "dst-port": "22 22",
-                            "entry-id": "10",
-                            "router-instance": "management"
-                        },
-                        {
-                            "action-instance": "permit",
-                            "description": "Something Something Something",
-                            "entry-id": "25",
-                            "router-instance": "management",
-                            "src-ip": "1001:2000:a06:2130:f0:fef:0:147/128"
-                        }
-                    ]
-                }
-            }
-        ]
+            ]
+        }
     }
-}
 ]"""
-    assert result, maf
+    assert result == maf
 
 def test_get_system_ethcfm():
     """
@@ -381,58 +384,58 @@ def test_get_system_ethcfm():
     parser = SrosParser(example_config)
     result = parser.get_system_ethcfm()
     ethcfm = """[
-{
-    "system": {
-        "eth-cfm": {
-            "domain": [
-                {
-                    "assosciations": [
-                        {
-                            "assosciation-id": "1",
-                            "bridge-id": "420691",
-                            "format": "icc-based",
-                            "name": "epipe-7750-01",
-                            "remote-mepid": "420"
-                        },
-                        {
-                            "assosciation-id": "2",
-                            "bridge-id": "420692",
-                            "format": "icc-based",
-                            "name": "epipe-7750-02",
-                            "remote-mepid": "1420"
-                        }
-                    ],
-                    "domain-id": "1",
-                    "format": "none",
-                    "level": "1"
-                },
-                {
-                    "assosciations": [
-                        {
-                            "assosciation-id": "1",
-                            "bridge-id": "11111",
-                            "format": "icc-based",
-                            "name": "epipe-7750-01",
-                            "remote-mepid": "4201"
-                        },
-                        {
-                            "assosciation-id": "2",
-                            "bridge-id": "2222",
-                            "format": "icc-based",
-                            "name": "epipe-7750-02",
-                            "remote-mepid": "14202"
-                        }
-                    ],
-                    "domain-id": "2",
-                    "format": "none",
-                    "level": "1"
-                }
-            ]
+    {
+        "system": {
+            "eth-cfm": {
+                "domain": [
+                    {
+                        "assosciations": [
+                            {
+                                "assosciation-id": "1",
+                                "bridge-id": "420691",
+                                "format": "icc-based",
+                                "name": "epipe-7750-01",
+                                "remote-mepid": "420"
+                            },
+                            {
+                                "assosciation-id": "2",
+                                "bridge-id": "420692",
+                                "format": "icc-based",
+                                "name": "epipe-7750-02",
+                                "remote-mepid": "1420"
+                            }
+                        ],
+                        "domain-id": "1",
+                        "format": "none",
+                        "level": "1"
+                    },
+                    {
+                        "assosciations": [
+                            {
+                                "assosciation-id": "1",
+                                "bridge-id": "11111",
+                                "format": "icc-based",
+                                "name": "epipe-7750-01",
+                                "remote-mepid": "4201"
+                            },
+                            {
+                                "assosciation-id": "2",
+                                "bridge-id": "2222",
+                                "format": "icc-based",
+                                "name": "epipe-7750-02",
+                                "remote-mepid": "14202"
+                            }
+                        ],
+                        "domain-id": "2",
+                        "format": "none",
+                        "level": "1"
+                    }
+                ]
+            }
         }
     }
-}
 ]"""
-    assert result, ethcfm
+    assert result == ethcfm
 
 def test_get_system_asn():
     """
@@ -441,7 +444,7 @@ def test_get_system_asn():
     parser = SrosParser(example_config)
     result = parser.get_system_asn()
     asn = "64500"
-    assert result, asn
+    assert result == asn
 
 def test_get_custom_template():
     """
@@ -1605,156 +1608,158 @@ def test_get_ports():
 ]"""
     assert output == result
 
-def test_get_lag_configuration():
+def test_get_log_configuration():
     
     """
-    Test parsing lag configuration
+    Test parsing log configuration
     """
     parser = SrosParser(example_config)
     result = parser.get_log_configuraiton()
     log = """[
     {
-        "log": [
-            {
-                "file": [
-                    {
-                        "file-id": "10"
-                    },
-                    {
-                        "compact-flash-location": {
-                            "primary": "cf3"
-                        },
-                        "description": "Syslog-storage",
-                        "file-id": "20",
-                        "retention": "350",
-                        "rollover": "1440"
-                    },
-                    {
-                        "compact-flash-location": {
-                            "primary": "cf3"
-                        },
-                        "description": "Change-storage",
-                        "file-id": "30",
-                        "retention": "350",
-                        "rollover": "1440"
-                    }
-                ],
-                "log-events": {
-                    "chassis": [
+        "configure": {
+            "log": [
+                {
+                    "file": [
                         {
-                            "event": "system",
-                            "event-id": "2103",
-                            "generate": true
+                            "file-id": "10"
                         },
                         {
-                            "event": "system",
-                            "event-id": "2104",
-                            "generate": true
+                            "compact-flash-location": {
+                                "primary": "cf3"
+                            },
+                            "description": "Syslog-storage",
+                            "file-id": "20",
+                            "retention": "350",
+                            "rollover": "1440"
                         },
                         {
-                            "event": "vrtr",
-                            "event-id": "2034",
-                            "generate": true
+                            "compact-flash-location": {
+                                "primary": "cf3"
+                            },
+                            "description": "Change-storage",
+                            "file-id": "30",
+                            "retention": "350",
+                            "rollover": "1440"
                         }
-                    ]
-                },
-                "snmp-trap-group": [
-                    {
-                        "log-id": "10"
-                    },
-                    {
-                        "log-id": "7",
-                        "trap-target": {
-                            "address": "10.141.128.78",
-                            "name": "SW_INC",
-                            "notify-community": "2Y2LHTZP31",
-                            "snmp-version": "snmpv2c"
-                        }
-                    },
-                    {
-                        "description": "5620sam",
-                        "log-id": "98",
-                        "trap-target": [
+                    ],
+                    "log-events": {
+                        "chassis": [
                             {
-                                "address": "99.194.69.164",
-                                "name": "0017A4770C06:main1",
-                                "notify-community": "snmpuser3",
-                                "security-level": "privacy",
-                                "snmp-version": "snmpv3"
+                                "event": "system",
+                                "event-id": "2103",
+                                "generate": true
                             },
                             {
-                                "address": "99.215.238.164",
-                                "name": "0017A4770C06:main2",
-                                "notify-community": "snmpuser3",
-                                "security-level": "privacy",
-                                "snmp-version": "snmpv3"
+                                "event": "system",
+                                "event-id": "2104",
+                                "generate": true
                             },
                             {
-                                "address": "99.194.69.164",
-                                "name": "99.194.69.164:162",
-                                "notify-community": "snmpuser3",
-                                "security-level": "privacy",
-                                "snmp-version": "snmpv3"
-                            },
-                            {
-                                "address": "99.215.238.164",
-                                "name": "99.215.238.164:162",
-                                "notify-community": "snmpuser3",
-                                "security-level": "privacy",
-                                "snmp-version": "snmpv3"
+                                "event": "vrtr",
+                                "event-id": "2034",
+                                "generate": true
                             }
                         ]
+                    },
+                    "snmp-trap-group": [
+                        {
+                            "log-id": "10"
+                        },
+                        {
+                            "log-id": "7",
+                            "trap-target": {
+                                "address": "10.141.128.78",
+                                "name": "SW_INC",
+                                "notify-community": "2Y2LHTZP31",
+                                "snmp-version": "snmpv2c"
+                            }
+                        },
+                        {
+                            "description": "5620sam",
+                            "log-id": "98",
+                            "trap-target": [
+                                {
+                                    "address": "99.194.69.164",
+                                    "name": "0017A4770C06:main1",
+                                    "notify-community": "snmpuser3",
+                                    "security-level": "privacy",
+                                    "snmp-version": "snmpv3"
+                                },
+                                {
+                                    "address": "99.215.238.164",
+                                    "name": "0017A4770C06:main2",
+                                    "notify-community": "snmpuser3",
+                                    "security-level": "privacy",
+                                    "snmp-version": "snmpv3"
+                                },
+                                {
+                                    "address": "99.194.69.164",
+                                    "name": "99.194.69.164:162",
+                                    "notify-community": "snmpuser3",
+                                    "security-level": "privacy",
+                                    "snmp-version": "snmpv3"
+                                },
+                                {
+                                    "address": "99.215.238.164",
+                                    "name": "99.215.238.164:162",
+                                    "notify-community": "snmpuser3",
+                                    "security-level": "privacy",
+                                    "snmp-version": "snmpv3"
+                                }
+                            ]
+                        }
+                    ],
+                    "syslog": {
+                        "address": "10.215.141.147",
+                        "description": "Syslog Server",
+                        "syslog-id": "5"
                     }
-                ],
-                "syslog": {
-                    "address": "10.215.141.147",
-                    "description": "Syslog Server",
-                    "syslog-id": "5"
+                },
+                {
+                    "log-id": "5",
+                    "source": {
+                        "change": true,
+                        "main": true,
+                        "security": true,
+                        "source": "main"
+                    }
+                },
+                {
+                    "description": "SW_INC",
+                    "destination": "snmp",
+                    "log-id": "7",
+                    "source": {
+                        "main": true,
+                        "security": true,
+                        "source": "main"
+                    }
+                },
+                {
+                    "log-id": "20",
+                    "source": {
+                        "main": true,
+                        "security": true,
+                        "source": "main"
+                    }
+                },
+                {
+                    "log-id": "30",
+                    "source": {
+                        "change": true,
+                        "source": "change"
+                    }
+                },
+                {
+                    "log-id": "98",
+                    "source": {
+                        "main": true,
+                        "security": true,
+                        "source": "main"
+                    }
                 }
-            },
-            {
-                "log-id": "5",
-                "source": {
-                    "change": true,
-                    "main": true,
-                    "security": true,
-                    "source": "main"
-                }
-            },
-            {
-                "description": "SW_INC",
-                "destination": "snmp",
-                "log-id": "7",
-                "source": {
-                    "main": true,
-                    "security": true,
-                    "source": "main"
-                }
-            },
-            {
-                "log-id": "20",
-                "source": {
-                    "main": true,
-                    "security": true,
-                    "source": "main"
-                }
-            },
-            {
-                "log-id": "30",
-                "source": {
-                    "change": true,
-                    "source": "change"
-                }
-            },
-            {
-                "log-id": "98",
-                "source": {
-                    "main": true,
-                    "security": true,
-                    "source": "main"
-                }
-            }
-        ]
+            ]
+        }
     }
 ]"""
     assert log == result

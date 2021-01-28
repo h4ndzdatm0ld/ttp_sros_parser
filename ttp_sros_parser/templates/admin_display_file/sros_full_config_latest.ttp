@@ -1,5 +1,4 @@
-<group name="system">
-    <group name="card">
+    <group name="configure.card">
     card {{slot-number}}
         card-type {{card-type}}
         fail-on-error {{fail-on-error | set(true)}}
@@ -21,8 +20,7 @@
             no shutdown {{admin-state | set(true)}}
         </group>
         exit {{ignore}}
-    </group>
-</group><group name="router">
+    </group><group name="router">
     router {{ignore}}
     <group name="interfaces">
         interface {{interface_name | strip('"')}}
@@ -89,7 +87,7 @@ def macro_true(data):
 		return  data, {"prefer": True}
 </macro>
     system {{_start_}}
-        <group name="system">
+        <group name="configure.system">
         name {{ name | strip('"') }}
         contact {{ contact | re(r"\W.*") | strip('"')}}
         location {{location | re(r"\W.*") | strip('"')}}
@@ -103,13 +101,19 @@ def macro_true(data):
         <group name="time">
         time {{ignore}}
                 <group name="ntp">
-                    <group name="server">
-                server {{ip-address | _start_}}
-                server {{ip-address | _start_}} {{prefer | macro('macro_true')}}
+                <group>
+                no authentication-check {{authentication-check | set(false)}}
+                shutdown {{admin-state | set(false)}}
                 <group>
                 no authentication-check {{authentication-check | set(false)}}
                 no shutdown {{admin-state | set(true)}}
                 </group> 
+                </group>
+                    <group name="server">
+                <group>
+                server {{ip-address | _start_}}
+                server {{ip-address | _start_}} {{prefer | macro('macro_true')}}
+                </group>
                 </group>
         <group name="dst-zone">
             dst-zone {{summer-time-zone | _start_}}
@@ -142,7 +146,7 @@ def macro_source(data):
 </macro>
 
 #-------------------------------------------------- {{ignore}}
-echo "Log Configuration" <group name="log"> {{_start_}}
+echo "Log Configuration" <group name="configure.log"> {{_start_}}
 #-------------------------------------------------- {{ignore}}
     log {{ignore}}
     <group name="file">

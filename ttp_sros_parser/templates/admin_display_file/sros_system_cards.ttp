@@ -1,5 +1,4 @@
-<group name="system">
-    <group name="card">
+    <group name="configure.card">
     card {{slot-number}}
         card-type {{card-type}}
         fail-on-error {{fail-on-error | set(true)}}
@@ -22,4 +21,3 @@
         </group>
         exit {{ignore}}
     </group>
-</group>

@@ -4,7 +4,7 @@ def macro_true(data):
 		return  data, {"prefer": True}
 </macro>
     system {{_start_}}
-        <group name="system">
+        <group name="configure.system">
         name {{ name | strip('"') }}
         contact {{ contact | re(r"\W.*") | strip('"')}}
         location {{location | re(r"\W.*") | strip('"')}}
@@ -18,13 +18,19 @@ def macro_true(data):
         <group name="time">
         time {{ignore}}
                 <group name="ntp">
-                    <group name="server">
-                server {{ip-address | _start_}}
-                server {{ip-address | _start_}} {{prefer | macro('macro_true')}}
+                <group>
+                no authentication-check {{authentication-check | set(false)}}
+                shutdown {{admin-state | set(false)}}
                 <group>
                 no authentication-check {{authentication-check | set(false)}}
                 no shutdown {{admin-state | set(true)}}
                 </group> 
+                </group>
+                    <group name="server">
+                <group>
+                server {{ip-address | _start_}}
+                server {{ip-address | _start_}} {{prefer | macro('macro_true')}}
+                </group>
                 </group>
         <group name="dst-zone">
             dst-zone {{summer-time-zone | _start_}}
