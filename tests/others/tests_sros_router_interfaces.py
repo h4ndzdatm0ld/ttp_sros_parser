@@ -42,8 +42,6 @@ echo "Static Route Configuration"
 """
 
 result = parse_output(
-    data=data,
-    platform="sros",
-    command="admin display router interfaces"
+    data=data, platform="sros", command="admin display router interfaces"
 )
 pprint.pprint(result)

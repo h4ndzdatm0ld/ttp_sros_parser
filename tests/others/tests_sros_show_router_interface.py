@@ -37,9 +37,5 @@ Interfaces : 6
 ===============================================================================
 """
 
-result = parse_output(
-    data=data,
-    platform="sros",
-    command="show_router_interface"
-)
+result = parse_output(data=data, platform="sros", command="show_router_interface")
 pprint.pprint(result)

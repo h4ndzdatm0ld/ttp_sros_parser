@@ -55,8 +55,6 @@ echo "System Configuration"
 """
 
 result = parse_output(
-    data=data,
-    platform="sros",
-    command="admin display system configuration"
+    data=data, platform="sros", command="admin display system configuration"
 )
 pprint.pprint(result)

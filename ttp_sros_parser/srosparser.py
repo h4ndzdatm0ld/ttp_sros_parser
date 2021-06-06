@@ -266,7 +266,7 @@ class SrosParser:
         results = parser.result(format="json")[0]
 
         return results
-        
+
     def get_log_configuraiton(self):
 
         """Parse Log COnfiguration"""

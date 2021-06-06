@@ -2,12 +2,19 @@ from ttp_sros_parser import __version__
 from ttp_sros_parser.srosparser import SrosParser
 import os
 
+
 def test_version():
-    assert __version__ == '0.1.0'
+    assert __version__ == "0.1.0"
+
 
 # This is the config file used to test.
-example_config = f"{os.path.dirname(os.path.realpath(__file__))}/configs/example-config.txt"
-example_json = f"{os.path.dirname(os.path.realpath(__file__))}/configs/example-json.json"
+example_config = (
+    f"{os.path.dirname(os.path.realpath(__file__))}/configs/example-config.txt"
+)
+example_json = (
+    f"{os.path.dirname(os.path.realpath(__file__))}/configs/example-json.json"
+)
+
 
 def test_templates_as_list():
     """
@@ -85,6 +92,7 @@ def test_get_router_interfaces():
 ]"""
     assert result == interfaces
 
+
 def test_get_system_interfaces():
     """
     Test to retrieve the system interface only.
@@ -115,6 +123,7 @@ def test_get_system_interfaces():
     }
 ]"""
     assert result == system_interface
+
 
 def test_get_system_configuration():
     """
@@ -182,21 +191,24 @@ def test_get_system_configuration():
 ]"""
     assert result == system_configuration
 
+
 def test_get_full_config():
     """
     A full config str should be returned.
     """
     import json
+
     parser = SrosParser(example_config)
     result = parser.get_full_config()
 
     data = json.loads(result)
 
-    with open(example_json, 'w+') as f:
+    with open(example_json, "w+") as f:
         json.dump(data, f)
 
     assert type(result) == str
-    
+
+
 def test_get_system_hostname():
     """
     Test extracting hostname only.
@@ -204,6 +216,7 @@ def test_get_system_hostname():
     parser = SrosParser(example_config)
     result = parser.get_system_hostname()
     assert result == "EXAMPLEPHX-P-AL-7750-01"
+
 
 def test_get_show_bof():
     """
@@ -266,6 +279,7 @@ def test_get_show_bof():
 ]"""
     assert result, bof
 
+
 def test_get_system_cards():
     """
     Test extracting hostname only.
@@ -308,6 +322,7 @@ def test_get_system_cards():
     }
 ]"""
     assert result == cards
+
 
 def test_get_system_maf():
     """
@@ -377,6 +392,7 @@ def test_get_system_maf():
 ]"""
     assert result == maf
 
+
 def test_get_system_ethcfm():
     """
     Test extracting eth-cfm information
@@ -437,6 +453,7 @@ def test_get_system_ethcfm():
 ]"""
     assert result == ethcfm
 
+
 def test_get_system_asn():
     """
     Test extracting system asn
@@ -445,6 +462,7 @@ def test_get_system_asn():
     result = parser.get_system_asn()
     asn = "64500"
     assert result == asn
+
 
 def test_get_custom_template():
     """
@@ -466,6 +484,7 @@ def test_get_custom_template():
 }
 ]"""
     assert result, custom
+
 
 def test_get_system_service_sdp():
     """
@@ -516,6 +535,7 @@ def test_get_system_service_sdp():
 }
 ]"""
     assert result, sdp
+
 
 def test_get_router_static_routes():
     """
@@ -611,6 +631,7 @@ def test_get_router_static_routes():
 }
 ]"""
     assert result, routes
+
 
 def test_show_router_interface():
     """
@@ -771,6 +792,7 @@ def test_show_router_interface():
 ]"""
     assert result, interfaces
 
+
 def test_get_system_profiles():
     """
     Test extracting system profiles
@@ -830,12 +852,13 @@ def test_get_system_profiles():
 ]"""
     assert result, profiles
 
+
 def test_file_dir_output():
 
     """
     Test parsing file dir output
     """
-    example_file_dir="tests/show_output/file_dir.txt"
+    example_file_dir = "tests/show_output/file_dir.txt"
     parser = SrosParser(example_file_dir)
     result = parser.show_file_dir()
     filedir = """[
@@ -940,13 +963,14 @@ def test_file_dir_output():
 }
 ]"""
     assert result, filedir
-    
+
+
 def test_show_service_service_using():
 
     """
     Test parsing show service service using show command
     """
-    example_output="tests/show_output/show_service_service_using.txt"
+    example_output = "tests/show_output/show_service_service_using.txt"
     parser = SrosParser(example_output)
     result = parser.show_service_service_using()
     services = """[
@@ -984,16 +1008,17 @@ def test_show_service_service_using():
     }
 }
 ]"""
-    assert result,services
+    assert result, services
+
 
 def test_show_router_static_route_tag_ipv4():
 
     """
     Test parsing show router static-route with ipv4 flag
     """
-    example_output="tests/show_output/show_router_static_route.txt"
+    example_output = "tests/show_output/show_router_static_route.txt"
     parser = SrosParser(example_output)
-    result = parser.show_router_static_route(protocol='IPV4')
+    result = parser.show_router_static_route(protocol="IPV4")
     ipv4_routes = """[
 {
     "static_route": {
@@ -1081,14 +1106,15 @@ def test_show_router_static_route_tag_ipv4():
 ]"""
     assert result, ipv4_routes
 
+
 def test_show_router_static_route_tag_ipv6():
 
     """
     Test parsing show router static-route with ipv6 flag
     """
-    example_output="tests/show_output/show_router_static_route.txt"
+    example_output = "tests/show_output/show_router_static_route.txt"
     parser = SrosParser(example_output)
-    result = parser.show_router_static_route(protocol='IPV6')
+    result = parser.show_router_static_route(protocol="IPV6")
     ipv6_result = """[
 {
     "static_route": {
@@ -1157,7 +1183,7 @@ def test_show_router_static_route_tag_ipv6():
         """
         Test parsing show router route table
         """
-        example_output="tests/show_output/show_router_route_table.txt"
+        example_output = "tests/show_output/show_router_route_table.txt"
         parser = SrosParser(example_output)
         result = parser.show_router_route_table()
         routes = """[
@@ -1307,12 +1333,13 @@ def test_show_router_static_route_tag_ipv6():
 ]"""
         assert result == routes
 
+
 def test_show_ravs_bof():
 
     """
     Test parsing show bof output from RAVS tool
     """
-    example_output="tests/show_output/show_ravs_bof.txt"
+    example_output = "tests/show_output/show_ravs_bof.txt"
     parser = SrosParser(example_output)
     result = parser.show_bof(ravs=True)
     ravs_bof1 = """[
@@ -1367,12 +1394,13 @@ def test_show_ravs_bof():
 ]"""
     assert result == ravs_bof1
 
+
 def test_show_ravs_bof2():
-    
+
     """
     Test parsing show bof output from RAVS tool
     """
-    example_output="tests/show_output/show_ravs_bof2.txt"
+    example_output = "tests/show_output/show_ravs_bof2.txt"
     parser = SrosParser(example_output)
     result = parser.show_bof(ravs=True)
     ravs_bof2 = """[
@@ -1426,30 +1454,32 @@ def test_show_ravs_bof2():
     }
 ]"""
     assert result == ravs_bof2
-    
+
 
 def test_show_ravs_bof2_type():
-    
+
     """
     Test parsing show bof output  1 from RAVS tool -> str
     """
-    example_output="tests/show_output/show_ravs_bof2.txt"
+    example_output = "tests/show_output/show_ravs_bof2.txt"
     parser = SrosParser(example_output)
     result = parser.show_bof(ravs=True)
     assert type(result) == str
 
+
 def test_show_ravs_bof1_type():
-    
+
     """
     Test parsing show bof output 2 from RAVS tool -> str
     """
-    example_output="tests/show_output/show_ravs_bof1.txt"
+    example_output = "tests/show_output/show_ravs_bof1.txt"
     parser = SrosParser(example_output)
     result = parser.show_bof(ravs=True)
     assert type(result) == str
 
+
 def test_get_ports():
-    
+
     """
     Test parsing get ports config
     """
@@ -1608,8 +1638,9 @@ def test_get_ports():
 ]"""
     assert output == result
 
+
 def test_get_log_configuration():
-    
+
     """
     Test parsing log configuration
     """

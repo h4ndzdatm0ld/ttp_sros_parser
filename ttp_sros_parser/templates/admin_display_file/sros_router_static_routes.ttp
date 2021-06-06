@@ -1,107 +1,64 @@
-<macro>
-def macro_bfd(data):
-	if 'bfd-enable' in data:
-		return  data, {"bfd-enable": True}
-
-def def_route(data):
-	items = data.split()
-	data = {}
-	
-	data['next-hop'] = items[2]
-	try:
-		if 'bfd' in items[3]:
-			data['bfd-enable'] = True	
-		elif 'preference' in items[3]:
-			data['preference'] = items[4]
-	except Exception as e:
-		pass
-
-	return data		
-		
-</macro>
-
-<group name="router.static-route.ipv4">
+<group name="router">
 #-------------------------------------------------- {{ignore}}
-echo "Static Route Configuration" {{_start_}}
-#-------------------------------------------------- {{ignore}}
-        <group name="entry">
-        static-route {{prefix}}/{{prefix-length}} next-hop {{next-hop | IP}} {{bfd-enable | re(r"bfd-enable") | macro("macro_bfd")}} {{ldp-sync | re(r"ldp-sync")}}
+echo "Management Router Configuration"
+#-------------------------------------------------- {{ ignore }}
+    router management
+        static-route 10.132.8.144/28 next-hop 10.203.3.174
+        static-route 10.132.192.0/20 next-hop 10.203.3.174
+        static-route 10.132.208.0/22 next-hop 10.203.3.174
+        static-route 10.133.48.0/20 next-hop 10.203.3.174
+        static-route 10.133.64.0/22 next-hop 10.203.3.174
+        static-route 10.133.83.112/28 next-hop 10.203.3.174
+        static-route 10.133.165.80/28 next-hop 10.203.3.174
+        static-route 10.133.168.104/29 next-hop 10.203.3.174
+        static-route 10.133.168.160/28 next-hop 10.203.3.174
+        static-route 10.133.179.0/25 next-hop 10.203.3.174
+        static-route 10.134.0.0/20 next-hop 10.203.3.174
+        static-route 10.134.16.0/22 next-hop 10.203.3.174
+        static-route 10.134.47.112/28 next-hop 10.203.3.174
+        static-route 10.134.161.192/28 next-hop 10.203.3.174
+        static-route 10.134.161.224/29 next-hop 10.203.3.174
+        static-route 10.134.171.0/25 next-hop 10.203.3.174
+        static-route 10.134.176.208/28 next-hop 10.203.3.174
+        static-route 10.134.179.0/24 next-hop 10.203.3.174
+        static-route 10.134.180.117/32 next-hop 10.203.3.174
+        static-route 10.134.213.92/32 next-hop 10.203.3.174
+        static-route 10.139.84.0/25 next-hop 10.203.3.174
+        static-route 10.194.94.64/26 next-hop 10.203.3.174
+        static-route 10.215.137.0/24 next-hop 10.203.3.174
+        static-route 10.215.138.155/32 next-hop 10.203.3.174
+        static-route 10.215.141.24/32 next-hop 10.203.3.174
+        static-route 10.215.141.147/32 next-hop 10.203.3.174
+        static-route 10.215.166.80/29 next-hop 10.203.3.174
+        static-route 10.215.221.39/32 next-hop 10.203.3.174
+        static-route 10.215.221.90/32 next-hop 10.203.3.174
+        static-route 1001:1000:a00::/40 next-hop 1001:1000:2a6a:30f6:645:2a0::
+        static-route 1001:1000:a02:1d10::/64 next-hop 1001:1000:2a6a:30f6:645:2a0::
+        static-route 1001:1000:a02:1d11::/64 next-hop 1001:1000:2a6a:30f6:645:2a0::
+        static-route 1001:1000:a03:1d10::/64 next-hop 1001:1000:2a6a:30f6:645:2a0::
+        static-route 1001:1000:a03:1d11::/64 next-hop 1001:1000:2a6a:30f6:645:2a0::
+        static-route 1001:1000:a06:1d50::/64 next-hop 1001:1000:2a6a:30f6:645:2a0::
+        static-route 1001:1000:a06:1d51::/64 next-hop 1001:1000:2a6a:30f6:645:2a0::
+        static-route 1001:1000:2a00::/40 next-hop 1001:1000:2a6a:30f6:645:2a0::
+        static-route 1001:1000:a600::/40 next-hop 1001:1000:2a6a:30f6:645:2a0::
+    exit
+#-------------------------------------------------- {{ _end_ }}
+#-------------------------------------------------- {{ ignore }}
+echo "Static Route Configuration"
+#--------------------------------------------------{{ ignore }}
+        static-route 0.0.0.0/0 next-hop 192.168.0.1 bfd-enable
+        static-route 0.0.0.0/0 next-hop 192.168.10.1 preference 10
+        static-route 10.115.69.65/32 next-hop 172.25.69.88 bfd-enable
+        static-route 10.115.69.65/32 next-hop 172.25.69.88 preference 10
+        static-route 10.115.69.101/32 black-hole
 #-------------------------------------------------- {{_end_}}
-        </group>
-#-------------------------------------------------- {{ignore}}
-echo "Static Route Configuration" {{_start_}}
-#-------------------------------------------------- {{ignore}}
-        <group name="entry">
-        static-route {{prefix}}/{{prefix-length | re(r"[1-3][0-9]") }} next-hop {{next-hop | IP}} preference {{preference | DIGIT}}
-#-------------------------------------------------- {{_end_}}
-        </group>
-#-------------------------------------------------- {{ignore}}
-echo "Static Route Configuration" {{_start_}}
-#-------------------------------------------------- {{ignore}}
-        <group name="entry">
-        static-route {{prefix}}/{{prefix-length  | re(r"[1-3][0-9]") }} next-hop {{next-hop | IP}} {{bfd-enable | re(r"bfd-enable") | macro("macro_bfd")}}
-#-------------------------------------------------- {{_end_}}
-        </group>
-#-------------------------------------------------- {{ignore}}
-echo "Static Route Configuration" {{_start_}}
-#-------------------------------------------------- {{ignore}}
-        <group name="default-route">
-        static-route {{default-route | _line_ | contains("0.0.0.0/0") | macro("def_route")}}
-#-------------------------------------------------- {{_end_}}
-        </group>
+echo "Static IPv6 Route Configuration"
+#--------------------------------------------------{{ ignore }}
+        static-route ::/0 next-hop 1001:1000:206a:31cd:645:400::/64 bfd-enable
+        static-route ::/0 next-hop 1001:1000:206a:31cc:645:400::/64 preference 10
+        static-route 1001:1000:2000:0:645:2a0::/128 next-hop 1001:1000:206a:31cd:645:400:: bfd-enable
+        static-route 1001:1000:2000:0:645:2a0:0:1/128 next-hop 1001:1000:206a:31cd:645:400:: preference 10
+        static-route 1001:1000:2062:30cf::/64 black-hole
+        static-route 1001:1000:2062:3634::/64 black-hole
+#-------------------------------------------------- {{ _end_ }}
 </group>
-        <group name="router.static-route.ipv4">
-
-#-------------------------------------------------- {{ignore}}
-echo "Static Route Configuration" {{_start_}}
-#-------------------------------------------------- {{ignore}}
-        <group name="black-hole">
-        static-route {{prefix | PREFIX}} {{black-hole | re(r"black-hole")}}
-#-------------------------------------------------- {{_end_}}
-</group>
-</group>
-
-
-
-
-
-
-
-
-
-
-
-<group name="router.static-route.ipv6">
-#-------------------------------------------------- {{ignore}}
-echo "Static IPv6 Route Configuration" {{_start_}}
-#-------------------------------------------------- {{ignore}}
-        <group name="entry">
-        static-route {{prefix}}/{{prefix-length | DIGIT}} next-hop {{next-hop | IPV6 }} {{bfd-enable | re(r"bfd-enable") | macro("macro_bfd")}}
-#-------------------------------------------------- {{_end_}}
-</group>
-#-------------------------------------------------- {{ignore}}
-echo "Static IPv6 Route Configuration" {{_start_}}
-#-------------------------------------------------- {{ignore}}
-        <group name="entry">
-        static-route {{prefix}}/{{prefix-length | DIGIT}} next-hop {{next-hop | IPV6 }} preference {{preference | DIGIT}}
-#-------------------------------------------------- {{_end_}}
-</group>
-#-------------------------------------------------- {{ignore}}
-echo "Static IPv6 Route Configuration" {{_start_}}
-#-------------------------------------------------- {{ignore}}
-        <group name="default-route">
-        static-route {{default-route | re(r".*") | _line_ | contains("::/0")}}
-#-------------------------------------------------- {{_end_}}
-</group>
-</group>
-
-<group name="router.static-route.ipv6">
-#-------------------------------------------------- {{ignore}}
-echo "Static IPv6 Route Configuration" {{_start_}}
-#-------------------------------------------------- {{ignore}}
-        <group name="black-hole">
-        static-route {{prefix | PREFIXV6}} {{black-hole | re(r"black-hole")}}
-#-------------------------------------------------- {{_end_}}
-</group>
-</group>
-
