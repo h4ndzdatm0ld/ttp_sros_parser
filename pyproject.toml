@@ -71,6 +71,7 @@ typing-extensions = "3.7.4.3"
 urllib3 = "1.26.2"
 virtualenv = "20.2.2"
 webencodings = "0.5.1"
+flake8 = "^3.9.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
