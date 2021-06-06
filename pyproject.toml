@@ -72,9 +72,9 @@ urllib3 = "1.26.2"
 virtualenv = "20.2.2"
 webencodings = "0.5.1"
 flake8 = "^3.9.2"
+pytest = "^6.2.4"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
