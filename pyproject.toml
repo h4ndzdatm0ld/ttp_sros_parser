@@ -74,6 +74,7 @@ pytest = "^6.2.4"
 urllib3 = "^1.26.5"
 ttp-templates = "^0.1.1"
 ttp = "^0.7.2"
+pylint = "^2.9.6"
 
 [tool.poetry.dev-dependencies]
 

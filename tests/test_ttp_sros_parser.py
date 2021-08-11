@@ -22,7 +22,7 @@ def test_templates_as_list():
     """
     data = "simple text to instantiate class."
     parser = SrosParser(data)
-    assert type(parser.get_all_templates()), list
+    assert type(parser._get_all_templates()), list
 
 
 def test_get_router_interfaces():
@@ -455,8 +455,7 @@ def test_get_system_asn():
     """
     parser = SrosParser(example_config)
     result = parser.get_system_asn()
-    asn = "64500"
-    assert result == asn
+    assert result == "64500"
 
 
 def test_get_custom_template():
@@ -1176,6 +1175,7 @@ def test_show_router_static_route_tag_ipv6():
 
 def test_show_router_route_table():
     """Test parsing show router route table."""
+    # TODO: Convert to fixture
     example_output = "tests/show_output/show_router_route_table.txt"
     parser = SrosParser(example_output)
     result = parser.show_router_route_table()

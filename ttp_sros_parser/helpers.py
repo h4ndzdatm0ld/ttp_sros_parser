@@ -20,8 +20,6 @@ def globfindfile(regex):
         if len(glob.glob(regex)) == 0:
             sys.exit(f"No {regex} file found.")
         else:
-            # for file in glob.glob(regex):
-            #     files.append(file)
             files = [file for file in glob.glob(regex)]
         return files
 
