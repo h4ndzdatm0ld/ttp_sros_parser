@@ -33,61 +33,56 @@ def test_get_router_interfaces():
     result = parser.get_router_interfaces()
     interfaces = """[
     {
-        "router": [
-            {
-                "interfaces": [
-                    {
-                        "admin_state": true,
-                        "ingress_stats": true,
-                        "interface_name": "system",
-                        "ipv4": {
-                            "primary": {
-                                "address": "199.199.9.1",
-                                "prefix_length": "32"
-                            }
-                        },
-                        "ipv6": {
-                            "address": {
-                                "ipv6_address": "2001:1111:3333:0:420:2a0::",
-                                "prefix-length": "128"
-                            }
+        "router": {
+            "interfaces": [
+                {
+                    "admin_state": true,
+                    "ingress_stats": true,
+                    "interface_name": "system",
+                    "ipv4": {
+                        "primary": {
+                            "address": "199.199.9.1",
+                            "prefix_length": "32"
                         }
                     },
-                    {
-                        "admin_state": true,
-                        "description": "LINK-TO-EXAMPLEPHX-P-AL-0420-01",
-                        "interface_name": "TO-42069-7705",
-                        "ipv4": {
-                            "bfd": {
-                                "ipv4_bfd": "500 receive 500 multiplier 3"
-                            },
-                            "primary": {
-                                "address": "172.25.199.132",
-                                "prefix_length": "31"
-                            }
-                        },
-                        "ipv6": {
-                            "address": [
-                                {
-                                    "ipv6_address": "2001:2222:3333:33e3:645:4a0::",
-                                    "prefix-length": "64"
-                                },
-                                {
-                                    "ipv6_bfd": "500 receive 500 multiplier 3 type cpm-np"
-                                }
-                            ]
-                        },
-                        "port": "lag-92:3482",
-                        "qos": {
-                            "network-policy": "10120"
+                    "ipv6": {
+                        "address": {
+                            "ipv6_address": "2001:1111:3333:0:420:2a0::",
+                            "prefix-length": "128"
                         }
                     }
-                ]
-            },
-            {
-                "autonomous-system": "64500"
-            }
-        ]
+                },
+                {
+                    "admin_state": true,
+                    "description": "LINK-TO-EXAMPLEPHX-P-AL-0420-01",
+                    "interface_name": "TO-42069-7705",
+                    "ipv4": {
+                        "bfd": {
+                            "ipv4_bfd": "500 receive 500 multiplier 3"
+                        },
+                        "primary": {
+                            "address": "172.25.199.132",
+                            "prefix_length": "31"
+                        }
+                    },
+                    "ipv6": {
+                        "address": [
+                            {
+                                "ipv6_address": "2001:2222:3333:33e3:645:4a0::",
+                                "prefix-length": "64"
+                            },
+                            {
+                                "ipv6_bfd": "500 receive 500 multiplier 3 type cpm-np"
+                            }
+                        ]
+                    },
+                    "port": "lag-92:3482",
+                    "qos": {
+                        "network-policy": "10120"
+                    }
+                }
+            ]
+        }
     }
 ]"""
     assert result == interfaces
@@ -1176,162 +1171,160 @@ def test_show_router_static_route_tag_ipv6():
     }
 }
 ]"""
-    # assert result == ipv6_result
+    assert result == ipv6_result
 
-    def test_show_router_route_table():
 
-        """
-        Test parsing show router route table
-        """
-        example_output = "tests/show_output/show_router_route_table.txt"
-        parser = SrosParser(example_output)
-        result = parser.show_router_route_table()
-        routes = """[
-    {
-        "route-table": [
-            {
-                "ipv4": {
-                    "count": {
-                        "total-routes": "7"
+def test_show_router_route_table():
+    """Test parsing show router route table."""
+    example_output = "tests/show_output/show_router_route_table.txt"
+    parser = SrosParser(example_output)
+    result = parser.show_router_route_table()
+    routes = """[
+{
+    "route-table": [
+        {
+            "ipv4": {
+                "count": {
+                    "total-routes": "7"
+                },
+                "entry": [
+                    {
+                        "age": "09h15m13s",
+                        "ipaddress": "10.115.30.0/24",
+                        "next-hop": {
+                            "metric": "1",
+                            "next-hop": "Black Hole"
+                        },
+                        "pref": "5",
+                        "protocol": "Static",
+                        "type": "Blackh*"
                     },
-                    "entry": [
-                        {
-                            "age": "09h15m13s",
-                            "ipaddress": "10.115.30.0/24",
-                            "next-hop": {
-                                "metric": "1",
-                                "next-hop": "Black Hole"
-                            },
-                            "pref": "5",
-                            "protocol": "Static",
-                            "type": "Blackh*"
+                    {
+                        "age": "09h15m13s",
+                        "ipaddress": "10.115.43.0/24",
+                        "next-hop": {
+                            "metric": "1",
+                            "next-hop": "Black Hole"
                         },
-                        {
-                            "age": "09h15m13s",
-                            "ipaddress": "10.115.43.0/24",
-                            "next-hop": {
-                                "metric": "1",
-                                "next-hop": "Black Hole"
-                            },
-                            "pref": "5",
-                            "protocol": "Static",
-                            "type": "Blackh*"
-                        },
-                        {
-                            "age": "09h15m13s",
-                            "ipaddress": "10.115.56.0/24",
-                            "next-hop": {
-                                "metric": "1",
-                                "next-hop": "Black Hole"
-                            },
-                            "pref": "5",
-                            "protocol": "Static",
-                            "type": "Blackh*"
-                        },
-                        {
-                            "age": "09h15m14s",
-                            "ipaddress": "10.115.56.0/32",
-                            "next-hop": {
-                                "metric": "0",
-                                "next-hop": "system"
-                            },
-                            "pref": "0",
-                            "protocol": "Local",
-                            "type": "Local"
-                        },
-                        {
-                            "age": "09h15m13s",
-                            "ipaddress": "10.119.228.0/23",
-                            "next-hop": {
-                                "metric": "1",
-                                "next-hop": "Black Hole"
-                            },
-                            "pref": "5",
-                            "protocol": "Static",
-                            "type": "Blackh*"
-                        },
-                        {
-                            "age": "09h15m13s",
-                            "ipaddress": "10.119.228.16/28",
-                            "next-hop": {
-                                "metric": "1",
-                                "next-hop": "Black Hole"
-                            },
-                            "pref": "5",
-                            "protocol": "Static",
-                            "type": "Blackh*"
-                        },
-                        {
-                            "age": "09h15m13s",
-                            "ipaddress": "10.253.236.0/23",
-                            "next-hop": {
-                                "metric": "1",
-                                "next-hop": "Black Hole"
-                            },
-                            "pref": "5",
-                            "protocol": "Static",
-                            "type": "Blackh*"
-                        }
-                    ]
-                }
-            },
-            {
-                "ipv6": {
-                    "count": {
-                        "total-routes": "4"
+                        "pref": "5",
+                        "protocol": "Static",
+                        "type": "Blackh*"
                     },
-                    "entry": [
-                        {
-                            "age": "09h18m31s",
-                            "ipaddress": "2001:4888:26f:3100::/56",
-                            "next-hop": {
-                                "metric": "1",
-                                "next-hop": "Black Hole"
-                            },
-                            "pref": "5",
-                            "protocol": "Static",
-                            "type": "Blackh*"
+                    {
+                        "age": "09h15m13s",
+                        "ipaddress": "10.115.56.0/24",
+                        "next-hop": {
+                            "metric": "1",
+                            "next-hop": "Black Hole"
                         },
-                        {
-                            "age": "09h18m31s",
-                            "ipaddress": "2001:4888:2000:0:645:1a0::/112",
-                            "next-hop": {
-                                "metric": "1",
-                                "next-hop": "Black Hole"
-                            },
-                            "pref": "5",
-                            "protocol": "Static",
-                            "type": "Blackh*"
+                        "pref": "5",
+                        "protocol": "Static",
+                        "type": "Blackh*"
+                    },
+                    {
+                        "age": "09h15m14s",
+                        "ipaddress": "10.115.56.0/32",
+                        "next-hop": {
+                            "metric": "0",
+                            "next-hop": "system"
                         },
-                        {
-                            "age": "09h18m32s",
-                            "ipaddress": "2001:4888:2000:0:645:1a0::/128",
-                            "next-hop": {
-                                "metric": "0",
-                                "next-hop": "system"
-                            },
-                            "pref": "0",
-                            "protocol": "Local",
-                            "type": "Local"
+                        "pref": "0",
+                        "protocol": "Local",
+                        "type": "Local"
+                    },
+                    {
+                        "age": "09h15m13s",
+                        "ipaddress": "10.119.228.0/23",
+                        "next-hop": {
+                            "metric": "1",
+                            "next-hop": "Black Hole"
                         },
-                        {
-                            "age": "09h18m31s",
-                            "ipaddress": "2001:4888:2062:2000::/52",
-                            "next-hop": {
-                                "metric": "1",
-                                "next-hop": "Black Hole"
-                            },
-                            "pref": "5",
-                            "protocol": "Static",
-                            "type": "Blackh*"
-                        }
-                    ]
-                }
+                        "pref": "5",
+                        "protocol": "Static",
+                        "type": "Blackh*"
+                    },
+                    {
+                        "age": "09h15m13s",
+                        "ipaddress": "10.119.228.16/28",
+                        "next-hop": {
+                            "metric": "1",
+                            "next-hop": "Black Hole"
+                        },
+                        "pref": "5",
+                        "protocol": "Static",
+                        "type": "Blackh*"
+                    },
+                    {
+                        "age": "09h15m13s",
+                        "ipaddress": "10.253.236.0/23",
+                        "next-hop": {
+                            "metric": "1",
+                            "next-hop": "Black Hole"
+                        },
+                        "pref": "5",
+                        "protocol": "Static",
+                        "type": "Blackh*"
+                    }
+                ]
             }
-        ]
-    }
+        },
+        {
+            "ipv6": {
+                "count": {
+                    "total-routes": "4"
+                },
+                "entry": [
+                    {
+                        "age": "09h18m31s",
+                        "ipaddress": "2001:4888:26f:3100::/56",
+                        "next-hop": {
+                            "metric": "1",
+                            "next-hop": "Black Hole"
+                        },
+                        "pref": "5",
+                        "protocol": "Static",
+                        "type": "Blackh*"
+                    },
+                    {
+                        "age": "09h18m31s",
+                        "ipaddress": "2001:4888:2000:0:645:1a0::/112",
+                        "next-hop": {
+                            "metric": "1",
+                            "next-hop": "Black Hole"
+                        },
+                        "pref": "5",
+                        "protocol": "Static",
+                        "type": "Blackh*"
+                    },
+                    {
+                        "age": "09h18m32s",
+                        "ipaddress": "2001:4888:2000:0:645:1a0::/128",
+                        "next-hop": {
+                            "metric": "0",
+                            "next-hop": "system"
+                        },
+                        "pref": "0",
+                        "protocol": "Local",
+                        "type": "Local"
+                    },
+                    {
+                        "age": "09h18m31s",
+                        "ipaddress": "2001:4888:2062:2000::/52",
+                        "next-hop": {
+                            "metric": "1",
+                            "next-hop": "Black Hole"
+                        },
+                        "pref": "5",
+                        "protocol": "Static",
+                        "type": "Blackh*"
+                    }
+                ]
+            }
+        }
+    ]
+}
 ]"""
-        assert result == routes
+    assert result == routes
 
 
 def test_show_ravs_bof():

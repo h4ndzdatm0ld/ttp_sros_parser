@@ -5,10 +5,8 @@
             shutdown {{admin_state | set(false)}}
             description {{description | strip('"')}}
             enable-ingress-stats {{ingress_stats | set(true)}}
-            <group name="ipv4">
-            <group name="primary">
+            <group name="ipv4.primary">
             address {{address}}/{{prefix_length}}
-            </group>
             </group>
             port {{port}}
             <group name="ipv6">

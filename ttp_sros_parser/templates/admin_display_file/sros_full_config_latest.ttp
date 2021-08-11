@@ -12,17 +12,14 @@
     router {{ignore}}
     <group name="interfaces">
         interface {{interface_name | strip('"')}}
-            shutdown {{admin_state | set(false)}}
-            description {{description | strip('"')}}
+            shutdown {{admin_state | set(false) }}
             description {{description | strip('"')}}
             enable-ingress-stats {{ingress_stats | set(true)}}
-            <group name="ipv4">
-            <group name="primary">
+            <group name="ipv4.primary">
             address {{address}}/{{prefix_length}}
             </group>
-            <group name="bfd">
+            <group name="ipv4.bfd">
             bfd {{ipv4_bfd | re(r"\d.*")}}
-            </group>
             </group>
             ldp_sync_timer {{ldp_sync_timer}}
             cpu_protection {{cpu_protection}}
@@ -45,11 +42,8 @@
             no shutdown {{admin_state | set(true)}}
         exit {{_end_}}
     </group>
-    #-------------------------------------------------- {{_end_}}
 </group>
-        <group name="router">
-        autonomous-system {{autonomous-system}}
-        </group>#-------------------------------------------------- {{ignore}}
+    #-------------------------------------------------- {{_end_}}#-------------------------------------------------- {{ignore}}
 echo "Port Configuration" {{_start_}}
 #-------------------------------------------------- {{ignore}}
 <group name="configure.port">

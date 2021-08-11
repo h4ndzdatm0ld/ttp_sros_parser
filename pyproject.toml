@@ -65,7 +65,6 @@ tenacity = "6.3.1"
 textfsm = "1.1.0"
 toml = "0.10.2"
 tomlkit = "0.7.0"
-ttp = "0.6.0"
 typed-ast = "1.4.1"
 typing-extensions = "3.7.4.3"
 virtualenv = "20.2.2"
@@ -73,6 +72,8 @@ webencodings = "0.5.1"
 flake8 = "^3.9.2"
 pytest = "^6.2.4"
 urllib3 = "^1.26.5"
+ttp-templates = "^0.1.1"
+ttp = "^0.7.2"
 
 [tool.poetry.dev-dependencies]
 

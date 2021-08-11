@@ -1,31 +1,9 @@
 from ttp import ttp
-import glob, sys, json, os, datetime, logging
-
-
-def createFolder(directory):
-    try:
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-    except OSError:
-        print("Error: Creating directory. " + directory)
-
-
-def globfindfile(regex):
-    """This function will simply locate a file in the DIR by passing the regex value (ie:(*.log))
-    The returned value by calling the function is the file. If the path is passed in, the full path is returned back -
-    not just the filename.
-    """
-    try:
-        files = []
-        if len(glob.glob(regex)) == 0:
-            sys.exit(f"No {regex} file found.")
-        else:
-            for file in glob.glob(regex):
-                files.append(file)
-        return files
-
-    except Exception as e:
-        print(f"Something went wrong, {e}")
+import json
+import datetime
+import logging
+from .helpers import createFolder, globfindfile
+import os
 
 
 class SrosParser:
@@ -43,6 +21,13 @@ class SrosParser:
         logging.info("Loading all templates from 'templates/admin_display_file'")
         self.date = SrosParser.date
 
+    def _parse(self, template):
+        """General Parser Private Method."""
+        parser = ttp(data=self.config_file, template=template)
+        parser.parse()
+        results = parser.result(format="json")[0]
+        return results
+
     def get_all_templates(self):
         """ Find all templates and return a complete list """
         templates = globfindfile(f"{self.templates_path}/admin_display_file/*.ttp")
@@ -53,19 +38,14 @@ class SrosParser:
         Results are returned in JSON"""
 
         template = f"{self.templates_path}/admin_display_file/sros_router_interface.ttp"
-        parser = ttp(data=self.config_file, template=template)
-        parser.parse()
-        results = parser.result(format="json")[0]
-        return results
+        return self._parse(template)
 
     def get_system_interface(self):
         """Extract the system interface out of the host."""
 
         template = f"{self.templates_path}/helpers/sros_system_interface.ttp"
-        parser = ttp(data=self.config_file, template=template)
-        parser.parse()
-        results = parser.result(format="json")[0]
-        return results
+        return self._parse(template)
+
 
     def get_system_configuration(self):
         """Extract system configuration"""
@@ -73,10 +53,8 @@ class SrosParser:
         template = (
             f"{self.templates_path}/admin_display_file/sros_system_configuration.ttp"
         )
-        parser = ttp(data=self.config_file, template=template)
-        parser.parse()
-        results = parser.result(format="json")[0]
-        return results
+        return self._parse(template)
+
 
     def get_system_hostname(self):
         """Extract system hostname"""
@@ -95,41 +73,28 @@ class SrosParser:
         """Extract system card information, including MDAs"""
 
         template = f"{self.templates_path}/admin_display_file/sros_system_cards.ttp"
-        parser = ttp(data=self.config_file, template=template)
-        parser.parse()
-        results = parser.result(format="json")[0]
+        return self._parse(template)
 
-        return results
 
     def get_system_ethcfm(self):
         """Extract system eth cfm information"""
 
         template = f"{self.templates_path}/admin_display_file/sros_system_ethcfm.ttp"
-        parser = ttp(data=self.config_file, template=template)
-        parser.parse()
-        results = parser.result(format="json")[0]
+        return self._parse(template)
 
-        return results
 
     def get_system_profiles(self):
         """Extract system profiles"""
 
         template = f"{self.templates_path}/admin_display_file/sros_system_profiles.ttp"
-        parser = ttp(data=self.config_file, template=template)
-        parser.parse()
-        results = parser.result(format="json")[0]
+        return self._parse(template)
 
-        return results
 
     def get_system_maf(self):
         """Extract system MAF IP Filters, IPv4/6."""
 
         template = f"{self.templates_path}/admin_display_file/sros_system_maf.ttp"
-        parser = ttp(data=self.config_file, template=template)
-        parser.parse()
-        results = parser.result(format="json")[0]
-
-        return results
+        return self._parse(template)
 
     def get_system_asn(self):
         """Extract system ASN """
@@ -147,12 +112,8 @@ class SrosParser:
         Custom templates should be stored in 'templates/custom_templates'"""
 
         logging.info(f"Loading custom template, {template_path}")
-        template = template_path
-        parser = ttp(data=self.config_file, template=template)
-        parser.parse()
-        results = parser.result(format="json")[0]
+        return self._parse(template_path)
 
-        return results
 
     def show_bof(self, file_path="file", ravs=False):
 
@@ -188,22 +149,16 @@ class SrosParser:
         template = (
             f"{self.templates_path}/admin_display_file/sros_system_service_sdp.ttp"
         )
-        parser = ttp(data=self.config_file, template=template)
-        parser.parse()
-        results = parser.result(format="json")[0]
+        return self._parse(template)
 
-        return results
 
     def show_router_interface(self):
 
         """Parse show router interface command"""
 
         template = f"{self.templates_path}/show_commands/sros_show_router_interface.ttp"
-        parser = ttp(data=self.config_file, template=template)
-        parser.parse()
-        results = parser.result(format="json")[0]
+        return self._parse(template)
 
-        return results
 
     def show_router_route_table(self):
 
@@ -212,12 +167,8 @@ class SrosParser:
         template = (
             f"{self.templates_path}/show_commands/sros_show_router_route_table.ttp"
         )
-        parser = ttp(data=self.config_file, template=template)
-        parser.parse()
-        results = parser.result(format="json")[0]
-        print(results)
+        return self._parse(template)
 
-        return results
 
     def get_router_static_routes(self, file_path="file"):
 
@@ -226,59 +177,38 @@ class SrosParser:
         template = (
             f"{self.templates_path}/admin_display_file/sros_router_static_routes.ttp"
         )
-        parser = ttp(data=self.config_file, template=template)
-        parser.parse()
-        results = parser.result(format="json")[0]
+        return self._parse(template)
 
-        return results
 
     def get_ports(self):
 
         """Extract Port Configuration"""
 
         template = f"{self.templates_path}/admin_display_file/sros_port_config.ttp"
-        parser = ttp(data=self.config_file, template=template)
-        parser.parse()
-        results = parser.result(format="json")[0]
+        return self._parse(template)
 
-        return results
 
     def show_file_dir(self):
-
         """Extract file dir contents"""
-
         template = f"{self.templates_path}/show_commands/sros_file_dir.ttp"
-        parser = ttp(data=self.config_file, template=template)
-        parser.parse()
-        results = parser.result(format="json")[0]
+        return self._parse(template)
 
-        return results
 
     def show_service_service_using(self):
-
         """Parse Service Service Using"""
-
         template = (
             f"{self.templates_path}/show_commands/sros_show_service_service_using.ttp"
         )
-        parser = ttp(data=self.config_file, template=template)
-        parser.parse()
-        results = parser.result(format="json")[0]
+        return self._parse(template)
 
-        return results
 
     def get_log_configuraiton(self):
-
         """Parse Log COnfiguration"""
-
         template = (
             f"{self.templates_path}/admin_display_file/sros_log_configuration.ttp"
         )
-        parser = ttp(data=self.config_file, template=template)
-        parser.parse()
-        results = parser.result(format="json")[0]
+        return self._parse(template)
 
-        return results
 
     def show_router_static_route(self, protocol="protocol"):
 
@@ -292,11 +222,8 @@ class SrosParser:
         elif protocol == "protocol":
             print("Please specify IPV4 or IPV6.")
 
-        parser = ttp(data=self.config_file, template=template)
-        parser.parse()
-        results = parser.result(format="json")[0]
+        return self._parse(template)
 
-        return results
 
     def get_full_7705_config(self):
         """Recreate 'get_full_config', but round up new set of templates with filenames
@@ -332,16 +259,11 @@ class SrosParser:
                         some_template = file.read()
                         all_templates.write(some_template)
 
-        # All templates are compiled into a single full config template.
-        parser = ttp(
-            data=self.config_file,
-            template=f"{self.templates_path}/helpers/sros_system_hostname.ttp",
-        )
+        # # All templates are compiled into a single full config template.
+        # parser = ttp(
+        #     data=self.config_file,
+        #     template=f"{self.templates_path}/helpers/sros_system_hostname.ttp",
+        # )
 
-        # Begin parsing using the full config template that's been generated.
-        parser = ttp(data=self.config_file, template=sros_fullconfig)
-        parser.parse()
+        return self._parse(template=sros_fullconfig)
 
-        # Return the entire config as a str
-        result = parser.result(format="json")[0]
-        return result
