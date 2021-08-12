@@ -16,5 +16,6 @@
         "titleBar.inactiveBackground": "#59979099",
         "titleBar.inactiveForeground": "#15202b99"
     },
-    "peacock.remoteColor": "#599790"
+    "peacock.remoteColor": "#599790",
+    "python.linting.pylintEnabled": true
 }

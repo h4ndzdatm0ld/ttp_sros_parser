@@ -1,8 +1,15 @@
 """Helper Functions."""
-import glob, sys, os
+import glob
+import sys
+import os
 
 
-def createFolder(directory):
+def create_folder(directory: str):
+    """Create a folder.
+
+    Args:
+        directory (str): directory to create.
+    """
     try:
         if not os.path.exists(directory):
             os.makedirs(directory)
@@ -11,17 +18,18 @@ def createFolder(directory):
 
 
 def globfindfile(regex):
-    """This function will simply locate a file in the DIR by passing the regex value (ie:(*.log))
+    """Locate a file in the DIR by passing the regex value (ie:(*.log)).
+
     The returned value by calling the function is the file. If the path is passed in, the full path is returned back -
     not just the filename.
+
+    Args:
+        regex (str): Some regex pattern
     """
     try:
-        files = []
-        if len(glob.glob(regex)) == 0:
+        files = list(glob.glob(regex))
+        if len(files) == 0:
             sys.exit(f"No {regex} file found.")
-        else:
-            files = [file for file in glob.glob(regex)]
         return files
-
-    except Exception as e:
-        print(f"Something went wrong, {e}")
+    except Exception as err_mssg:
+        print(f"Something went wrong, {err_mssg}")

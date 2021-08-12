@@ -1,15 +1,61 @@
-FROM ubuntu:20.04
-# [Option] Install zsh
-ARG INSTALL_ZSH="true"
-# [Option] Upgrade OS packages to their latest versions
-ARG UPGRADE_PACKAGES="true"
+#############
+# Dependencies
+#
+#  This base stage just installs the dependencies required for production
+#  without any development deps.
+ARG PYTHON_VER=3.8
+FROM python:${PYTHON_VER} AS base
 
-RUN apt-get install -y \
-    python3.9 \
-    python3-pip
+WORKDIR /usr/src/app
 
-# Requires SSH Key to be uploaded to GitHub
-RUN git clone git@github.com:h4ndzdatm0ld/ttp_sros_parser.git
+# Install poetry for dep management
+RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+ENV PATH="$PATH:/root/.poetry/bin"
+RUN poetry config virtualenvs.create false
 
-RUN pip3 install -r requirements.txt
+# Install project manifest
+COPY pyproject.toml poetry.lock ./
 
+RUN poetry install --no-dev
+
+############
+# Unit Tests
+#
+# This test stage runs true unit tests (no outside services) at build time, as
+# well as enforcing codestyle and performing fast syntax checks. It is built
+# into an image with docker-compose for running the full test suite.
+FROM base AS test
+
+RUN poetry install
+
+COPY . .
+
+RUN poetry install
+
+# Build wheel to install in final image
+RUN poetry build
+
+############
+# Linting
+#
+# Runs all necessary linting and code checks
+RUN echo 'Running Flake8' && \
+    flake8 . && \
+    echo 'Running Black' && \
+    black --check --diff . && \
+    echo 'Running Pylint' && \
+    find . -name '*.py' | xargs pylint  && \
+    echo 'Running Yamllint' && \
+    yamllint . && \
+    echo 'Running pydocstyle' && \
+    pydocstyle . && \
+    echo 'Running Bandit' && \
+    bandit --recursive ./ --configfile .bandit.yml
+
+RUN pytest --color yes -vvv tests
+
+# Run full test suite including integration
+ENTRYPOINT ["pytest"]
+
+# Default to running colorful, verbose pytests
+CMD ["--cov=ttp_sros_parser", "--color=yes", "-vvv"]

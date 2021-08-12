@@ -1,3 +1,5 @@
+"""Tests system configuration."""
+
 from ttp_templates import parse_output
 import pprint
 
@@ -34,7 +36,7 @@ echo "System Configuration"
             sntp
                 shutdown
             exit
-            zone MST 
+            zone MST
         exit
         script-control
             script "EHS-Egress-FCS-Errors" owner "EHS"
@@ -54,7 +56,5 @@ echo "System Configuration"
 #--------------------------------------------------
 """
 
-result = parse_output(
-    data=data, platform="sros", command="admin display system configuration"
-)
+result = parse_output(data=data, platform="sros", command="admin display system configuration")
 pprint.pprint(result)

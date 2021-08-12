@@ -1,0 +1,7 @@
+[report]
+show_missing = true
+
+exclude_lines =
+    sys.exit.*
+    print.*
+    return.*
