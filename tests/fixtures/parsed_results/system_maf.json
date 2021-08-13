@@ -1,0 +1,60 @@
+[
+   {
+      "system":{
+         "management-access-filter":[
+            {
+               "ip-filter-params":{
+                  "admin-state":true,
+                  "default-action":"deny",
+                  "ipv4-filter":true
+               },
+               "ipv6-filter-params":{
+                  "admin-state":false,
+                  "default-action":"permit",
+                  "ipv6-filter":true
+               }
+            },
+            {
+               "ip-filter":{
+                  "entry":[
+                     {
+                        "action":"permit",
+                        "description":"SSH Traffic",
+                        "dst-port":"22 22",
+                        "entry-id":"10",
+                        "protocol":"tcp",
+                        "router-instance":"management"
+                     },
+                     {
+                        "action":"permit",
+                        "description":"Some Syslog Server",
+                        "entry-id":"25",
+                        "router-instance":"management"
+                     }
+                  ]
+               }
+            },
+            {
+               "ipv6-filter":{
+                  "entry":[
+                     {
+                        "action-instance":"permit",
+                        "description":"SSH Traffic",
+                        "dst-port":"22 22",
+                        "entry-id":"10",
+                        "router-instance":"management"
+                     },
+                     {
+                        "action-instance":"permit",
+                        "description":"Something Something Something",
+                        "entry-id":"25",
+                        "router-instance":"management",
+                        "src-ip":"1001:2000:a06:2130:f0:fef:0:147/128"
+                     }
+                  ]
+               }
+            }
+         ]
+      }
+   }
+]

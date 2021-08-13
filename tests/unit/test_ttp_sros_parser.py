@@ -50,224 +50,49 @@ def test_get_system_hostname(sros_parser):
 
 
 def test_get_system_cards(sros_parser, parsed_system_cards):
-    """
-    Test parsing system cards.
-    """
+    """Test parsing system cards."""
     result = sros_parser.get_system_cards()
     assert result == parsed_system_cards
 
 
-# def test_get_system_maf():
-#     """
+def test_get_system_maf(sros_parser, parsed_system_maf):
+    """Test extracting system MAF IPV4/6 Filters."""
+    result = sros_parser.get_system_maf()
+    assert result == parsed_system_maf
 
 
-#     Test extracting system MAF IPV4/6 Filters
-#     """
-#     parser = SrosParser(example_config)
-#     result = parser.get_system_maf()
-#     maf = """[
-#     {
-#         "system": {
-#             "management-access-filter": [
-#                 {
-#                     "ip-filter-params": {
-#                         "admin-state": true,
-#                         "default-action": "deny",
-#                         "ipv4-filter": true
-#                     },
-#                     "ipv6-filter-params": {
-#                         "admin-state": false,
-#                         "default-action": "permit",
-#                         "ipv6-filter": true
-#                     }
-#                 },
-#                 {
-#                     "ip-filter": {
-#                         "entry": [
-#                             {
-#                                 "action": "permit",
-#                                 "description": "SSH Traffic",
-#                                 "dst-port": "22 22",
-#                                 "entry-id": "10",
-#                                 "protocol": "tcp",
-#                                 "router-instance": "management"
-#                             },
-#                             {
-#                                 "action": "permit",
-#                                 "description": "Some Syslog Server",
-#                                 "entry-id": "25",
-#                                 "router-instance": "management"
-#                             }
-#                         ]
-#                     }
-#                 },
-#                 {
-#                     "ipv6-filter": {
-#                         "entry": [
-#                             {
-#                                 "action-instance": "permit",
-#                                 "description": "SSH Traffic",
-#                                 "dst-port": "22 22",
-#                                 "entry-id": "10",
-#                                 "router-instance": "management"
-#                             },
-#                             {
-#                                 "action-instance": "permit",
-#                                 "description": "Something Something Something",
-#                                 "entry-id": "25",
-#                                 "router-instance": "management",
-#                                 "src-ip": "1001:2000:a06:2130:f0:fef:0:147/128"
-#                             }
-#                         ]
-#                     }
-#                 }
-#             ]
-#         }
-#     }
-# ]"""
-#     assert result == maf
+def test_get_system_ethcfm(sros_parser, parsed_ethcfm):
+    """
+    Test extracting eth-cfm information
+    """
+    result = sros_parser.get_system_ethcfm()
+    assert result == parsed_ethcfm
 
 
-# def test_get_system_ethcfm():
-#     """
-#     Test extracting eth-cfm information
-#     """
-#     parser = SrosParser(example_config)
-#     result = parser.get_system_ethcfm()
-#     ethcfm = """[
-#     {
-#         "system": {
-#             "eth-cfm": {
-#                 "domain": [
-#                     {
-#                         "assosciations": [
-#                             {
-#                                 "assosciation-id": "1",
-#                                 "bridge-id": "420691",
-#                                 "format": "icc-based",
-#                                 "name": "epipe-7750-01",
-#                                 "remote-mepid": "420"
-#                             },
-#                             {
-#                                 "assosciation-id": "2",
-#                                 "bridge-id": "420692",
-#                                 "format": "icc-based",
-#                                 "name": "epipe-7750-02",
-#                                 "remote-mepid": "1420"
-#                             }
-#                         ],
-#                         "domain-id": "1",
-#                         "format": "none",
-#                         "level": "1"
-#                     },
-#                     {
-#                         "assosciations": [
-#                             {
-#                                 "assosciation-id": "1",
-#                                 "bridge-id": "11111",
-#                                 "format": "icc-based",
-#                                 "name": "epipe-7750-01",
-#                                 "remote-mepid": "4201"
-#                             },
-#                             {
-#                                 "assosciation-id": "2",
-#                                 "bridge-id": "2222",
-#                                 "format": "icc-based",
-#                                 "name": "epipe-7750-02",
-#                                 "remote-mepid": "14202"
-#                             }
-#                         ],
-#                         "domain-id": "2",
-#                         "format": "none",
-#                         "level": "1"
-#                     }
-#                 ]
-#             }
-#         }
-#     }
-# ]"""
-#     assert result == ethcfm
+def test_get_system_asn(sros_parser):
+    """
+    Test extracting system asn
+    """
+    result = sros_parser.get_system_asn()
+    assert result == "64500"
 
 
-# def test_get_system_asn(self):
-#     """
-#     Test extracting system asn
-#     """
-#     result = self.sros_parser.get_system_asn()
-#     assert result == "64500"
+def test_get_custom_template(sros_parser):
+    """
+    Test running custom template.
+    """
+    template = "ttp_sros_parser/templates/custom/sros_custom_hostname_asn.ttp"
+    result = sros_parser.get_custom_template(template_path=template)
+    custom = [{"asn": {"router": {"autonomous-system": "64500"}}, "system": {"hostname": "EXAMPLEPHX-P-AL-7750-01"}}]
+    assert result == custom
 
 
-# def test_get_custom_template():
-#     """
-#     Test running custom template.
-#     """
-#     template = "ttp_sros_parser/templates/custom/sros_custom_hostname_asn.ttp"
-#     parser = SrosParser(example_config)
-#     result = parser.get_custom_template(template_path=template)
-#     custom = """[
-# {
-#     "asn": {
-#         "router": {
-#             "autonomous-system": "64500"
-#         }
-#     },
-#     "system": {
-#         "hostname": "EXAMPLEPHX-P-AL-7750-01"
-#     }
-# }
-# ]"""
-#     assert result, custom
-
-
-# def test_get_system_service_sdp():
-#     """
-#     Test extracting system SDPs
-#     """
-#     parser = SrosParser(example_config)
-#     result = parser.get_system_service_sdp()
-#     sdp = """[
-# {
-#     "system": {
-#         "service": {
-#             "sdp": [
-#                 {
-#                     "admin-state": true,
-#                     "adv-mtu-override": true,
-#                     "description": "MPLS-LABEL-TO-7750-01",
-#                     "far-end": "10.100.69.0",
-#                     "keep-alive": {
-#                         "admin-state": false
-#                     },
-#                     "ldp": true,
-#                     "sdp-id": "215"
-#                 },
-#                 {
-#                     "admin-state": true,
-#                     "adv-mtu-override": true,
-#                     "description": "MPLS-LABEL-TO-7750-02",
-#                     "far-end": "10.100.69.1",
-#                     "keep-alive": {
-#                         "admin-state": false
-#                     },
-#                     "ldp": true,
-#                     "sdp-id": "1215"
-#                 },
-#                 {
-#                     "admin-state": true,
-#                     "far-end": "10.10.10.4",
-#                     "keep-alive": {
-#                         "admin-state": false
-#                     },
-#                     "lsp": "TO_R4",
-#                     "path-mtu": "9100",
-#                     "sdp-id": "14"
-#                 }
-#             ]
-#         }
-#     }
-# }
-# ]"""
-#     assert result, sdp
+def test_get_system_service_sdp(sros_parser, parsed_system_sdp):
+    """
+    Test extracting system SDPs
+    """
+    result = sros_parser.get_system_service_sdp()
+    assert result, parsed_system_sdp
 
 
 # def test_get_router_static_routes():

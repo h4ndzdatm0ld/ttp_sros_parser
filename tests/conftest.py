@@ -50,6 +50,24 @@ def parsed_system_cards():
 
 
 @pytest.fixture(scope="session")
+def parsed_system_sdp():
+    with open(f"{FIXTURES}/parsed_results/system_sdp.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_ethcfm():
+    with open(f"{FIXTURES}/parsed_results/ethcfm.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_system_maf():
+    with open(f"{FIXTURES}/parsed_results/system_maf.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
 def parsed_system_configuration():
     with open(f"{FIXTURES}/parsed_results/system_configuration.json") as f:
         return json.load(f)
