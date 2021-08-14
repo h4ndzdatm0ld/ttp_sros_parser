@@ -1,0 +1,23 @@
+[
+   {
+      "router":{
+         "interface":{
+            "admin_state":true,
+            "ingress_stats":true,
+            "interface_name":"system",
+            "ipv4":{
+               "primary":{
+                  "address":"199.199.9.1",
+                  "prefix_length":"32"
+               }
+            },
+            "ipv6":{
+               "address":{
+                  "ipv6_address":"2001:1111:3333:0:420:2a0::",
+                  "prefix-length>":"128"
+               }
+            }
+         }
+      }
+   }
+]

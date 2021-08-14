@@ -1,0 +1,50 @@
+[
+   {
+      "system":{
+         "profile":[
+            {
+               "default-action":"deny-all",
+               "entry":[
+                  {
+                     "action":"permit",
+                     "match":"back"
+                  },
+                  {
+                     "action":"permit",
+                     "match":"exit"
+                  }
+               ],
+               "user-profile-name":"readonly"
+            },
+            {
+               "default-action":"permit-all",
+               "entry":[
+                  {
+                     "action":"deny",
+                     "match":"configure system security"
+                  },
+                  {
+                     "action":"permit",
+                     "match":"show system security"
+                  }
+               ],
+               "user-profile-name":"administrative"
+            },
+            {
+               "default-action":"permit-all",
+               "entry":[
+                  {
+                     "action":"deny",
+                     "match":"configure system security"
+                  },
+                  {
+                     "action":"permit",
+                     "match":"show system security"
+                  }
+               ],
+               "user-profile-name":"Test Profile 69"
+            }
+         ]
+      }
+   }
+]

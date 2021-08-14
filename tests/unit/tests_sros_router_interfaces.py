@@ -1,3 +1,4 @@
+"""Tests router interfaces."""
 from ttp_templates import parse_output
 import pprint
 
@@ -19,7 +20,7 @@ echo "Router (Network Side) Configuration"
         interface "system"
             address 10.115.56.217/32
             ipv6
-                address 2001:4888:1069:1222:699:400:0:d7/128 
+                address 2001:4888:1069:1222:699:400:0:d7/128
             exit
             no shutdown
         exit
@@ -29,7 +30,7 @@ echo "Router (Network Side) Configuration"
             ldp-sync-timer 45
             port 1/5/8:3215
             ipv6
-                address 2001:1222:206a:21cd:699:400:0:1/64 
+                address 2001:1222:206a:21cd:699:400:0:1/64
                 bfd 500 receive 500 multiplier 3
             exit
             qos 20120
@@ -41,7 +42,5 @@ echo "Static Route Configuration"
 #--------------------------------------------------
 """
 
-result = parse_output(
-    data=data, platform="sros", command="admin display router interfaces"
-)
+result = parse_output(data=data, platform="sros", command="admin display router interfaces")
 pprint.pprint(result)

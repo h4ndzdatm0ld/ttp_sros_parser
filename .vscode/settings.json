@@ -1,3 +1,21 @@
 {
-    "python.pythonPath": "/Library/Developer/CommandLineTools/usr/bin/python3"
+    "python.pythonPath": "/home/htinoco/.cache/pypoetry/virtualenvs/ttp-sros-parser-JRXJ3YFb-py3.8/bin/python",
+    "workbench.colorCustomizations": {
+        "activityBar.activeBackground": "#75aea7",
+        "activityBar.activeBorder": "#f2ebf3",
+        "activityBar.background": "#75aea7",
+        "activityBar.foreground": "#15202b",
+        "activityBar.inactiveForeground": "#15202b99",
+        "activityBarBadge.background": "#f2ebf3",
+        "activityBarBadge.foreground": "#15202b",
+        "statusBar.background": "#599790",
+        "statusBar.foreground": "#15202b",
+        "statusBarItem.hoverBackground": "#467771",
+        "titleBar.activeBackground": "#599790",
+        "titleBar.activeForeground": "#15202b",
+        "titleBar.inactiveBackground": "#59979099",
+        "titleBar.inactiveForeground": "#15202b99"
+    },
+    "peacock.remoteColor": "#599790",
+    "python.linting.pylintEnabled": true
 }

@@ -11,7 +11,7 @@ echo "System Configuration"
 #--------------------------------------------------
     system
         name "PHLAPAMPT1A-P-AL-0030-01"
-        contact "Philadelphia-MSC-(215)-870-1001"
+        contact "Philadelphia-MSC"
         dns
         exit
         snmp
