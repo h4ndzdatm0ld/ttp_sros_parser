@@ -5,8 +5,8 @@ import pytest
 
 def test_globfindfile():
     """Test Success."""
-    res = globfindfile(r"*.py")
-    assert res == ["setup.py"]
+    res = globfindfile(r"tests/*.py")
+    assert res == ["tests/__init__.py", "tests/conftest.py"]
 
 
 def test_globfindfile_no_match():
