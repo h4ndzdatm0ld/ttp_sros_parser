@@ -1,20 +1,6 @@
 """Helper Functions."""
 import glob
 import sys
-import os
-
-
-def create_folder(directory: str):
-    """Create a folder.
-
-    Args:
-        directory (str): directory to create.
-    """
-    try:
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-    except OSError:
-        print("Error: Creating directory. " + directory)
 
 
 def globfindfile(regex):
@@ -26,10 +12,7 @@ def globfindfile(regex):
     Args:
         regex (str): Some regex pattern
     """
-    try:
-        files = list(glob.glob(regex))
-        if len(files) == 0:
-            sys.exit(f"No {regex} file found.")
-        return files
-    except Exception as err_mssg:
-        print(f"Something went wrong, {err_mssg}")
+    files = list(glob.glob(regex))
+    if len(files) == 0:
+        sys.exit(f"No {regex} file found.")
+    return files

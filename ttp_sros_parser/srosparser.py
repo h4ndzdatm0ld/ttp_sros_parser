@@ -173,12 +173,11 @@ class SrosParser:  # pylint: disable=R0904
         template. Once compiled, apply compiled template and generate full config.
         """
         templates = globfindfile(f"{self.templates_path}/admin_display_file/*.ttp")
-        sros_fullconfig = f"{self.templates_path}/full_config/sros_full_config.ttp"
+        full_config_template = f"{self.templates_path}/full_config/sros_full_config.ttp"
 
-        # Create one large template.
-        with open(sros_fullconfig, "w+") as all_templates:
+        with open(full_config_template, "w+") as full_config:
             for template in templates:
                 with open(template, "r") as file:
-                    all_templates.write(file.read())
+                    full_config.write(file.read())
 
-        return self._parse(template=sros_fullconfig, json_format=json_format)
+        return self._parse(template=full_config_template, json_format=json_format)
