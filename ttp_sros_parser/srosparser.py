@@ -171,27 +171,13 @@ class SrosParser:  # pylint: disable=R0904
 
         Loop through and open all templates and create 1 large ttp parsing
         template. Once compiled, apply compiled template and generate full config.
-        We skipp multiple templates that are redundant.
         """
         templates = globfindfile(f"{self.templates_path}/admin_display_file/*.ttp")
+        full_config_template = f"{self.templates_path}/full_config/sros_full_config.ttp"
 
-        sros_fullconfig = f"{self.templates_path}/admin_display_file/sros_full_config_latest.ttp"
-
-        # Create one large template.
-        with open(sros_fullconfig, "w+") as all_templates:
-            lst_temps = []
+        with open(full_config_template, "w+") as full_config:
             for template in templates:
-                if (
-                    "system_interface" in template
-                    or "hostname" in template
-                    or "full_config" in template
-                    or "custom" in template
-                ):  # Redundant, skipping.
-                    pass
-                else:
-                    lst_temps.append(template)
-                    with open(template, "r") as file:
-                        some_template = file.read()
-                        all_templates.write(some_template)
+                with open(template, "r") as file:
+                    full_config.write(file.read())
 
-        return self._parse(template=sros_fullconfig, json_format=json_format)
+        return self._parse(template=full_config_template, json_format=json_format)
