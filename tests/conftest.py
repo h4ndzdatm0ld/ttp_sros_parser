@@ -78,6 +78,18 @@ def parsed_system_profiles():
 
 
 @pytest.fixture(scope="session")
+def parsed_lags():
+    with open(f"{FIXTURES}/parsed_results/admin_display/lag.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_show_service_using():
+    with open(f"{FIXTURES}/parsed_results/show_cmds/show_service_service_using.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
 def parsed_system_cards():
     with open(f"{FIXTURES}/parsed_results/admin_display/system_cards.json") as f:
         return json.load(f)
@@ -122,10 +134,4 @@ def parsed_system_configuration():
 @pytest.fixture(scope="session")
 def parsed_connectors():
     with open(f"{FIXTURES}/parsed_results/admin_display/connectors.json") as f:
-        return json.load(f)
-
-
-@pytest.fixture(scope="session")
-def parsed_lags():
-    with open(f"{FIXTURES}/parsed_results/admin_display/lag.json") as f:
         return json.load(f)

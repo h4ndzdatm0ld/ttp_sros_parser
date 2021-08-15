@@ -1,0 +1,35 @@
+[
+   {
+      "service-using":{
+         "count":{
+            "total-services":"3"
+         },
+         "services":[
+            {
+               "admin-state":"Down",
+               "customer-id":"1",
+               "operational-state":"Down",
+               "service-id":"100",
+               "service-name":"100",
+               "service-type":"VPRN"
+            },
+            {
+               "admin-state":"Up",
+               "customer-id":"1",
+               "operational-state":"Down",
+               "service-id":"2147483648",
+               "service-name":"_tmnx_InternalIesService",
+               "service-type":"IES"
+            },
+            {
+               "admin-state":"Up",
+               "customer-id":"1",
+               "operational-state":"Down",
+               "service-id":"2147483649",
+               "service-name":"_tmnx_InternalVplsService",
+               "service-type":"intVpls"
+            }
+         ]
+      }
+   }
+]

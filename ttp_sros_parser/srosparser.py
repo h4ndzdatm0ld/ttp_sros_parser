@@ -105,22 +105,11 @@ class SrosParser:  # pylint: disable=R0904
         logging.info("Loading custom template %s", template_path)
         return self._parse(template_path, json_format=json_format)
 
-    def show_bof(self, ravs=False):
-        """Parse the 'show bof' cli output.
-
-        For now this must be in the same text as the full config file. Most likely, appended
-        to the end of a file after running, 'admin display-config'
-        """
-        if ravs:
-            template = f"{self.templates_path}/show_commands/sros_show_ravs_bof_cli.ttp"
-        else:
-            template = f"{self.templates_path}/show_commands/sros_show_bof_cli.ttp"
-
+    def show_bof(self):
+        """Parse the 'show bof' cli output."""
+        template = f"{self.templates_path}/show_commands/sros_show_bof_cli.ttp"
         results = self._parse(template)
 
-        if isinstance(results, list):  # TODO: Investigate
-            # Try again
-            return self._parse(template)
         return results
 
     def get_system_service_sdp(self, json_format: bool = True):

@@ -6,7 +6,7 @@ echo "System Configuration"
     system
         name "PHOENIX-P-AL-7750-060475-H1" 
         contact "PHX MSC - 505-555-555
-        location "Providence CO_RI Hub"
+        location "PHX CO_RI Hub"
         rollback
             rollback-location "cf2:\Rollback"
         exit
