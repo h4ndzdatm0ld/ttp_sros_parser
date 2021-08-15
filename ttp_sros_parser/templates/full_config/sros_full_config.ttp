@@ -9,6 +9,9 @@
                 </group>
             exit {{_end_}}
             </group>
+#-------------------------------------------------- {{ ignore}}
+echo "Router (Network Side) Configuration" {{ _start_ }}
+#-------------------------------------------------- {{ ignore}}
 <group name="router">
     router {{ignore}}
     <group name="interfaces">
@@ -44,8 +47,28 @@
         exit {{_end_}}
     </group>
 </group>
-    #-------------------------------------------------- {{_end_}}
-#-------------------------------------------------- {{ignore}}
+#-------------------------------------------------- {{_end_}}
+#-------------------------------------------------- {{ ignore }}
+echo "LAG Configuration" {{ _start_ }}
+#-------------------------------------------------- {{ ignore }}
+<group name="configure">
+    <group name="lag">
+    lag {{ lag-index | DIGIT }}
+        description {{ description | ORPHRASE }}
+        mode {{ mode }}
+        encap-type {{ encap-type }}
+        <group name="port">
+        port {{ port-id }}
+        </group>
+        <group name="lacp">
+        lacp {{ mode }} administrative-key {{ administrative-key | DIGIT}}
+        hold-time {{ hold-time | ORPHRASE }}
+        </group>
+        no shutdown {{ admin-state | set(true) }}
+    </group>
+    exit {{ _end_ }}
+</group>
+#-------------------------------------------------- {{ _end_ }}#-------------------------------------------------- {{ignore}}
 echo "Port Configuration" {{_start_}}
 #-------------------------------------------------- {{ignore}}
 <group name="configure.port">
@@ -187,18 +210,28 @@ echo "Log Configuration" <group name="configure.log"> {{_start_}}
     eth-cfm {{_start_}}
     <group name="domain">
         domain {{domain-id}} format {{format}} level {{level}}
-            <group name="assosciations">
-            association {{assosciation-id}} format {{format}} name {{name | strip('"')}}
+            <group name="associations">
+            association {{association-id}} format {{format}} name {{name | strip('"')}}
                 bridge-identifier {{bridge-id}}
                 exit {{ignore}}
                 remote-mepid {{remote-mepid}}
             </group>
     </group>
-    #-------------------------------------------------- {{_end_}}
+#-------------------------------------------------- {{_end_}}
 </group>
+<macro>
+def subscription_level(data):
+    data = data.replace('"','').split()
+    if len(data) => 3:
+        return {"card-type": data[0], "subscription-level": data[2]}
+    return data[0]
+</macro>
+#-------------------------------------------------- {{ ignore }}
+echo "Card Configuration" {{ _start_ }}
+#-------------------------------------------------- {{ ignore }}
     <group name="configure.card">
-    card {{slot-number}}
-        card-type {{card-type}}
+    card {{slot-number | DIGIT }}
+        card-type {{ card-type | ORPHRASE  | macro('subscription_level')}}
         fail-on-error {{fail-on-error | set(true)}}
         <group name="mda">
         mda {{mda-slot}}
@@ -219,6 +252,7 @@ echo "Log Configuration" <group name="configure.log"> {{_start_}}
         </group>
         exit {{ignore}}
     </group>
+#-------------------------------------------------- {{ _end_ }}
 <group name="router">
 #-------------------------------------------------- {{ignore}}
 echo "Management Router Configuration" {{ignore}}
@@ -319,3 +353,17 @@ def macro_true(data):
                 </group>
 #-------------------------------------------------- {{_end_}}
                 </group>
+#-------------------------------------------------- {{ ignore }}
+echo "Connector Configuration" {{ _start_ }}
+#-------------------------------------------------- {{ ignore }}
+<group name="configure.connector">
+    <group name="port.{{ port }}">
+    port {{ port }}
+        connector {{ ignore }}
+            breakout {{ breakout }}
+        exit {{ ignore }}
+        no shutdown {{ admin-state | set(true) }}
+    </group>
+    exit {{ _end_ }}
+</group>
+#-------------------------------------------------- {{ _end_ }}

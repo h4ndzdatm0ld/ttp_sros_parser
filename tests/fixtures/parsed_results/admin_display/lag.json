@@ -1,0 +1,43 @@
+[
+   {
+      "configure":{
+         "lag":[
+            {
+               "admin-state":true,
+               "description":"\"LINK-TO-TNTNMADO91A-P-AL-7750-01\"",
+               "encap-type":"dot1q",
+               "lacp":{
+                  "administrative-key":"11125",
+                  "hold-time":"down 250",
+                  "mode":"active"
+               },
+               "lag-index":"125",
+               "mode":"hybrid",
+               "port":{
+                  "port-id":"1/1/c1/1"
+               }
+            },
+            {
+               "admin-state":true,
+               "description":"\"LAG-11-to-TNTNMADOT1A-P-AL-7750-060475-H2\"",
+               "encap-type":"dot1q",
+               "lacp":{
+                  "administrative-key":"10011",
+                  "hold-time":"down 250",
+                  "mode":"active"
+               },
+               "lag-index":"11",
+               "mode":"hybrid",
+               "port":[
+                  {
+                     "port-id":"1/1/c1/3"
+                  },
+                  {
+                     "port-id":"1/1/c1/4"
+                  }
+               ]
+            }
+         ]
+      }
+   }
+]

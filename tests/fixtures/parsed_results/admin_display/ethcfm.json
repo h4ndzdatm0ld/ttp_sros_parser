@@ -4,16 +4,16 @@
          "eth-cfm":{
             "domain":[
                {
-                  "assosciations":[
+                  "associations":[
                      {
-                        "assosciation-id":"1",
+                        "association-id":"1",
                         "bridge-id":"420691",
                         "format":"icc-based",
                         "name":"epipe-7750-01",
                         "remote-mepid":"420"
                      },
                      {
-                        "assosciation-id":"2",
+                        "association-id":"2",
                         "bridge-id":"420692",
                         "format":"icc-based",
                         "name":"epipe-7750-02",
@@ -25,16 +25,16 @@
                   "level":"1"
                },
                {
-                  "assosciations":[
+                  "associations":[
                      {
-                        "assosciation-id":"1",
+                        "association-id":"1",
                         "bridge-id":"11111",
                         "format":"icc-based",
                         "name":"epipe-7750-01",
                         "remote-mepid":"4201"
                      },
                      {
-                        "assosciation-id":"2",
+                        "association-id":"2",
                         "bridge-id":"2222",
                         "format":"icc-based",
                         "name":"epipe-7750-02",

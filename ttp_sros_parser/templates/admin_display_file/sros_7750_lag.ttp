@@ -1,0 +1,21 @@
+#-------------------------------------------------- {{ ignore }}
+echo "LAG Configuration" {{ _start_ }}
+#-------------------------------------------------- {{ ignore }}
+<group name="configure">
+    <group name="lag">
+    lag {{ lag-index | DIGIT }}
+        description {{ description | ORPHRASE }}
+        mode {{ mode }}
+        encap-type {{ encap-type }}
+        <group name="port">
+        port {{ port-id }}
+        </group>
+        <group name="lacp">
+        lacp {{ mode }} administrative-key {{ administrative-key | DIGIT}}
+        hold-time {{ hold-time | ORPHRASE }}
+        </group>
+        no shutdown {{ admin-state | set(true) }}
+    </group>
+    exit {{ _end_ }}
+</group>
+#-------------------------------------------------- {{ _end_ }}

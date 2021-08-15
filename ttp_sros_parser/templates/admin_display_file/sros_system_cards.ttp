@@ -1,6 +1,16 @@
+<macro>
+def subscription_level(data):
+    data = data.replace('"','').split()
+    if len(data) => 3:
+        return {"card-type": data[0], "subscription-level": data[2]}
+    return data[0]
+</macro>
+#-------------------------------------------------- {{ ignore }}
+echo "Card Configuration" {{ _start_ }}
+#-------------------------------------------------- {{ ignore }}
     <group name="configure.card">
-    card {{slot-number}}
-        card-type {{card-type}}
+    card {{slot-number | DIGIT }}
+        card-type {{ card-type | ORPHRASE  | macro('subscription_level')}}
         fail-on-error {{fail-on-error | set(true)}}
         <group name="mda">
         mda {{mda-slot}}
@@ -21,3 +31,4 @@
         </group>
         exit {{ignore}}
     </group>
+#-------------------------------------------------- {{ _end_ }}
