@@ -1,5 +1,6 @@
-A:TCSNAZ7591A-P-AL-7750-02# environment no more 
-A:TCSNAZ7591A-P-AL-7750-02# show router static-route tag 1000
+A:PHOENIX-P-AL-7750-02# environment no more
+A:PHOENIX-P-AL-7750-02# environment no more
+A:PHX-P-AL-7750-02# show router static-route tag 1000
 
 ===============================================================================
 Static Route Table (Router: Base)  Family: IPv4
@@ -16,7 +17,7 @@ Prefix                                        Tag         Met    Pref Type Act
 -------------------------------------------------------------------------------
 No. of Static Routes: 3
 ===============================================================================
-A:TCSNAZ7591A-P-AL-7750-02# show router static-route tag 1000 ipv6 
+A:PHOENIX-P-AL-7750-02# show router static-route tag 1000 ipv6
 
 ===============================================================================
 Static Route Table (Router: Base)  Family: IPv6
@@ -33,7 +34,7 @@ Prefix                                        Tag         Met    Pref Type Act
 -------------------------------------------------------------------------------
 No. of Static Routes: 3
 ===============================================================================
-A:TCSNAZ7591A-P-AL-7750-02# show router 3 static-route tag 100 
+A:PHOENIX-P-AL-7750-02# show router 3 static-route tag 100
 
 ===============================================================================
 Static Route Table (Service: 3)  Family: IPv4
@@ -68,7 +69,7 @@ Prefix                                        Tag         Met    Pref Type Act
 -------------------------------------------------------------------------------
 No. of Static Routes: 12
 ===============================================================================
-A:TCSNAZ7591A-P-AL-7750-02# show router 4 route-table 
+A:PHOENIX-P-AL-7750-02# show router 4 route-table
 
 ===============================================================================
 Route Table (Service: 4)
@@ -1019,8 +1020,8 @@ Flags: n = Number of times nexthop is repeated
        L = LFA nexthop available
        S = Sticky ECMP requested
 ===============================================================================
-A:TCSNAZ7591A-P-AL-7750-02# 
-A:TCSNAZ7591A-P-AL-7750-02# show router 4 route-table ipv6 
+A:PHOENIX-P-AL-7750-02#
+A:PHOENIX-P-AL-7750-02# show router 4 route-table ipv6
 
 ===============================================================================
 IPv6 Route Table (Service: 4)
@@ -2491,4 +2492,3 @@ Flags: n = Number of times nexthop is repeated
        L = LFA nexthop available
        S = Sticky ECMP requested
 ===============================================================================
-A:TCSNAZ7591A-P-AL-7750-02# 

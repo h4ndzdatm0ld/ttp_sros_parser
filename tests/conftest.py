@@ -16,6 +16,11 @@ def sar_config():
 
 
 @pytest.fixture(scope="session")
+def config_7750():
+    return f"{FIXTURES}/configs/example-config-7750.txt"
+
+
+@pytest.fixture(scope="session")
 def full_parsed_config():
     return f"{FIXTURES}/configs/example-json.json"
 
@@ -23,6 +28,11 @@ def full_parsed_config():
 @pytest.fixture(scope="session")
 def sros_parser(sar_config):
     return SrosParser(sar_config)
+
+
+@pytest.fixture(scope="session")
+def sros_parser_7750(config_7750):
+    return SrosParser(config_7750)
 
 
 @pytest.fixture(scope="session")
@@ -68,6 +78,18 @@ def parsed_system_profiles():
 
 
 @pytest.fixture(scope="session")
+def parsed_lags():
+    with open(f"{FIXTURES}/parsed_results/admin_display/lag.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_show_service_using():
+    with open(f"{FIXTURES}/parsed_results/show_cmds/show_service_service_using.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
 def parsed_system_cards():
     with open(f"{FIXTURES}/parsed_results/admin_display/system_cards.json") as f:
         return json.load(f)
@@ -106,4 +128,10 @@ def parsed_system_maf():
 @pytest.fixture(scope="session")
 def parsed_system_configuration():
     with open(f"{FIXTURES}/parsed_results/admin_display/system_configuration.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_connectors():
+    with open(f"{FIXTURES}/parsed_results/admin_display/connectors.json") as f:
         return json.load(f)

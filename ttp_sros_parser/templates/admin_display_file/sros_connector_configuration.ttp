@@ -1,0 +1,14 @@
+#-------------------------------------------------- {{ ignore }}
+echo "Connector Configuration" {{ _start_ }}
+#-------------------------------------------------- {{ ignore }}
+<group name="configure.connector">
+    <group name="port.{{ port }}">
+    port {{ port }}
+        connector {{ ignore }}
+            breakout {{ breakout }}
+        exit {{ ignore }}
+        no shutdown {{ admin-state | set(true) }}
+    </group>
+    exit {{ _end_ }}
+</group>
+#-------------------------------------------------- {{ _end_ }}

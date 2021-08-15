@@ -3,6 +3,7 @@ import logging
 import json
 import datetime
 import os
+from typing import Optional
 from ttp import ttp
 from .helpers import globfindfile
 
@@ -75,6 +76,16 @@ class SrosParser:  # pylint: disable=R0904
         template = f"{self.templates_path}/admin_display_file/sros_system_profiles.ttp"
         return self._parse(template, json_format=json_format)
 
+    def get_connectors(self, json_format: bool = True):
+        """Extract connector configurations."""
+        template = f"{self.templates_path}/admin_display_file/sros_connector_configuration.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_lags(self, json_format: bool = True):
+        """Extract lag configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_7750_lag.ttp"
+        return self._parse(template, json_format=json_format)
+
     def get_system_maf(self, json_format: bool = True):
         """Extract system MAF IP Filters, IPv4/6."""
         template = f"{self.templates_path}/admin_display_file/sros_system_maf.ttp"
@@ -94,22 +105,11 @@ class SrosParser:  # pylint: disable=R0904
         logging.info("Loading custom template %s", template_path)
         return self._parse(template_path, json_format=json_format)
 
-    def show_bof(self, ravs=False):
-        """Parse the 'show bof' cli output.
-
-        For now this must be in the same text as the full config file. Most likely, appended
-        to the end of a file after running, 'admin display-config'
-        """
-        if ravs:
-            template = f"{self.templates_path}/show_commands/sros_show_ravs_bof_cli.ttp"
-        else:
-            template = f"{self.templates_path}/show_commands/sros_show_bof_cli.ttp"
-
+    def show_bof(self):
+        """Parse the 'show bof' cli output."""
+        template = f"{self.templates_path}/show_commands/sros_show_bof_cli.ttp"
         results = self._parse(template)
 
-        if isinstance(results, list):  # TODO: Investigate
-            # Try again
-            return self._parse(template)
         return results
 
     def get_system_service_sdp(self, json_format: bool = True):
@@ -152,17 +152,18 @@ class SrosParser:  # pylint: disable=R0904
         template = f"{self.templates_path}/admin_display_file/sros_log_configuration.ttp"
         return self._parse(template, json_format=json_format)
 
-    def show_router_static_route(self, protocol="protocol"):
+    def show_router_static_route(self, protocol: Optional[str]):
         """Parse show router static-route.
 
-        Must pass in protocol version of either IPV4 or IPV6.
+        Must pass in protocol version of either "ipv4" or "ipv6".
         """
-        if protocol.upper() == "IPV4":
+        if not protocol:
+            logging.info("Missing protocol for static-route parsing.")
+            return
+        if protocol.lower() == "ipv4":
             template = f"{self.templates_path}/show_commands/sros_show_router_static_route_ipv4.ttp"
-        elif protocol.upper() == "IPV6":
+        elif protocol.lower() == "ipv6":
             template = f"{self.templates_path}/show_commands/sros_show_router_static_route_ipv6.ttp"
-        elif protocol == "protocol":
-            print("Please specify IPV4 or IPV6.")
 
         return self._parse(template)
 
