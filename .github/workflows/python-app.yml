@@ -14,7 +14,6 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      OS: ${{ matrix.os }}
       PYTHON: '3.8'
     steps:
     - uses: actions/checkout@v2
