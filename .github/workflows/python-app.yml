@@ -27,6 +27,16 @@ jobs:
         poetry install --no-interaction
     - name: Test with pytest
       run: |
-        poetry run pytest --cov=ttp_sros_parser --cov=ttp_sros_parser -vv
+        poetry run pytest --cov=ttp_sros_parser --cov-report=xml -vv
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        directory: ./coverage/reports/
+        env_vars: OS,PYTHON
+        fail_ci_if_error: true
+        files: ./coverage1.xml,./coverage2.xml
+        flags: unittests
+        name: codecov-umbrella
+        path_to_write_report: ./coverage/codecov_report.txt
+        verbose: true
