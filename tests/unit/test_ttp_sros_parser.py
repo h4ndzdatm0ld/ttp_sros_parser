@@ -125,5 +125,5 @@ def test_get_log_configuration(sros_parser, parsed_log):
     """
     Test parsing log configuration
     """
-    result = sros_parser.get_log_configuraiton()
+    result = sros_parser.get_log_configuration()
     result == parsed_log

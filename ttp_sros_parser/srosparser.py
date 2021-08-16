@@ -147,7 +147,7 @@ class SrosParser:  # pylint: disable=R0904
         template = f"{self.templates_path}/show_commands/sros_show_service_service_using.ttp"
         return self._parse(template, json_format=json_format)
 
-    def get_log_configuraiton(self, json_format: bool = True):
+    def get_log_configuration(self, json_format: bool = True):
         """Parse Log Configuration."""
         template = f"{self.templates_path}/admin_display_file/sros_log_configuration.ttp"
         return self._parse(template, json_format=json_format)

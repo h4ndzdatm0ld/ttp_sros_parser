@@ -222,7 +222,7 @@ echo "Log Configuration" <group name="configure.log"> {{_start_}}
 <macro>
 def subscription_level(data):
     data = data.replace('"','').split()
-    if len(data) => 3:
+    if len(data) >= 3:
         return {"card-type": data[0], "subscription-level": data[2]}
     return data[0]
 </macro>
@@ -231,12 +231,12 @@ echo "Card Configuration" {{ _start_ }}
 #-------------------------------------------------- {{ ignore }}
     <group name="configure.card">
     card {{slot-number | DIGIT }}
-        card-type {{ card-type | ORPHRASE  | macro('subscription_level')}}
+        card-type {{ card-type | ORPHRASE  | macro('subscription_level') }}
         fail-on-error {{fail-on-error | set(true)}}
         <group name="mda">
         mda {{mda-slot}}
             shutdown {{admin-state | set(false)}}
-            mda-type {{mda-type}}
+            mda-type {{mda-type | replace('"', '') }}
             <group name="ingress-xpl">
             ingress-xpl {{_start_}}
                 window {{window}}
