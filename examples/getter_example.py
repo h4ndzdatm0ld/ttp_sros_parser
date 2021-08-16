@@ -6,4 +6,4 @@ EXAMPLE_CONFIG = "tests/fixtures/configs/example-config-7750.txt"
 
 router = SrosParser(EXAMPLE_CONFIG)
 
-pprint(router.get_router_interfaces())
+pprint(router.get_full_config(json_format=True))

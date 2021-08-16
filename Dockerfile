@@ -26,14 +26,9 @@ RUN poetry install --no-dev
 # into an image with docker-compose for running the full test suite.
 FROM base AS test
 
-RUN poetry install
-
 COPY . .
 
 RUN poetry install
-
-# Build wheel to install in final image
-RUN poetry build
 
 ############
 # Linting
