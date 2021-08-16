@@ -1,0 +1,29 @@
+A:PHOENIX-P-AL-7750-02# show router 4 route-table
+
+===============================================================================
+Route Table (Service: 4)
+===============================================================================
+Dest Prefix[Flags]                            Type    Proto     Age        Pref
+      Next Hop[Interface Name]                                    Metric   
+-------------------------------------------------------------------------------
+0.0.0.0/0                                     Remote  Static    0314d23h   5
+       10.141.37.1                                                  1
+10.90.164.0/29                                Remote  OSPF      0181d22h   150
+       10.203.13.252                                                1
+10.203.13.244/31                              Local   Local     19d08h06m  0
+       L3-EDN-BTS0270                                               0
+10.203.13.246/31                              Local   Local     0203d22h   0
+       L3-EDN-BTS0272                                               0
+10.203.13.252/31                              Local   Local     0314d23h   0
+       L3-VLAN460                                                   0
+10.249.204.190/32                             Remote  OSPF      0314d23h   10
+       10.203.13.252                                                25
+10.249.204.191/32                             Local   Local     0314d23h   0
+       loopback                                                     0
+-------------------------------------------------------------------------------
+No. of Routes: 468
+Flags: n = Number of times nexthop is repeated
+       B = BGP backup route available
+       L = LFA nexthop available
+       S = Sticky ECMP requested
+===============================================================================

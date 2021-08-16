@@ -48,6 +48,18 @@ def parsed_show_bof():
 
 
 @pytest.fixture(scope="session")
+def parsed_show_router_table():
+    with open(f"{FIXTURES}/parsed_results/show_cmds/show_router_route_table.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_static_route_v4():
+    with open(f"{FIXTURES}/parsed_results/show_cmds/show_static_route_v4.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
 def parsed_show_file_dir():
     with open(f"{FIXTURES}/parsed_results/show_cmds/file_dir.json") as f:
         return json.load(f)

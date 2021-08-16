@@ -42,3 +42,19 @@ def test_show_service_service_using(parsed_show_service_using):
     result = parser.show_service_service_using()
 
     assert result, parsed_show_service_using
+
+
+def test_get_show_route_table(parsed_show_router_table):
+    """Test general show router route table."""
+    data = "tests/fixtures/show_output/show_route_table.txt"
+    sros_parser = SrosParser(data)
+    result = sros_parser.show_router_route_table()
+    assert result == parsed_show_router_table
+
+
+def test_get_show_router_static_route_v4(parsed_static_route_v4):
+    """Test general show router static route."""
+    data = "tests/fixtures/show_output/show_router_static_route_tag.txt"
+    sros_parser = SrosParser(data)
+    result = sros_parser.show_router_static_route(protocol="ipv4")
+    assert result == parsed_static_route_v4

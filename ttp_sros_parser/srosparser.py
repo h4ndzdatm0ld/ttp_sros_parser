@@ -5,7 +5,7 @@ import datetime
 import os
 from typing import Optional
 from ttp import ttp
-from .helpers import globfindfile
+from .helpers import globfindfile, check_file
 
 
 class SrosParser:  # pylint: disable=R0904
@@ -19,7 +19,7 @@ class SrosParser:  # pylint: disable=R0904
 
     def __init__(self, config_file):
         """Init."""
-        self.config_file = config_file
+        self.config_file = check_file(config_file)
         self.templates_path = SrosParser.templates
         self.templates = globfindfile(f"{self.templates_path}/admin_display_file/*.ttp")
         logging.info("Loading all templates from 'templates/admin_display_file'")
@@ -108,9 +108,7 @@ class SrosParser:  # pylint: disable=R0904
     def show_bof(self):
         """Parse the 'show bof' cli output."""
         template = f"{self.templates_path}/show_commands/sros_show_bof_cli.ttp"
-        results = self._parse(template)
-
-        return results
+        return self._parse(template)
 
     def get_system_service_sdp(self, json_format: bool = True):
         """Extract System > Service SDP's from SROS."""
@@ -124,7 +122,7 @@ class SrosParser:  # pylint: disable=R0904
 
     def show_router_route_table(self, json_format: bool = True):
         """Parse show router route table."""
-        template = f"{self.templates_path}/show_commands/sros_show_router_route_table.ttp"
+        template = f"{self.templates_path}/show_commands/show_router_router_table_general.ttp"
         return self._parse(template, json_format=json_format)
 
     def get_router_static_routes(self, json_format: bool = True):
