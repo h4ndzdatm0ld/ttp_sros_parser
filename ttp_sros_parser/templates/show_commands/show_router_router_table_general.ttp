@@ -1,0 +1,23 @@
+=============================================================================== {{ ignore }}
+<group name="show_route_table">
+<group name="_">
+{{ route_table | ORPHRASE }} ({{ router }}: {{ instance }})
+</group>
+=============================================================================== {{ ignore }}
+Dest Prefix[Flags]                            Type    Proto     Age        Pref {{ ignore }}
+      Next Hop[Interface Name]                                    Metric        {{ ignore }}
+------------------------------------------------------------------------------- {{ ignore }}
+<group name="routes" method="table">
+{{ dest_prefix }} {{ type }} {{ protocol }} {{ age }} {{ pref | DIGIT}}
+       {{ next_hop }} {{ metric | DIGIT }}
+</group>
+------------------------------------------------------------------------------- {{ ignore }}
+<group name="total_count">
+No. of Routes: {{ count | DIGIT }}
+</group>
+</group>
+Flags: n = Number of times nexthop is repeated {{ ignore }}
+       B = BGP backup route available {{ ignore }}
+       L = LFA nexthop available {{ ignore }}
+       S = Sticky ECMP requested {{ ignore }}
+=============================================================================== {{ ignore }}

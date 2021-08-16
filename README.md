@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/h4ndzdatm0ld/ttp_sros_parser/branch/main/graph/badge.svg?token=ZL8JDKLQJI)](https://codecov.io/gh/h4ndzdatm0ld/ttp_sros_parser)
+
 # TTP SrosParser
 
 A library to parse a Nokia SROS 7750 full hierarchical configuration text file into structured data. Show commands are also able to be parsed, if included in the file alongside the configuration. This library is still under development, but a lot of parsers are readily available (see below for supported features). Configurations used for testing have all been on release version higher than TiMOS 16. At the moment, there is no capability to specify release version to accommodate different parsing templates.
@@ -9,30 +11,47 @@ A library that connects and extracts information from a remote device. You, as t
 ## Example
 
 ```python
-"""Get Cards Information - Example."""
-from pprint import pprint
+"""SrosParser - Example."""
 from ttp_sros_parser.srosparser import SrosParser
 
 EXAMPLE_CONFIG = "some/dir/path/to/7750-config.txt"
 
+# Instantiate class
 router = SrosParser(EXAMPLE_CONFIG)
 
-pprint(router.get_system_cards())
+# Call `get_system_cards` method
+router.get_system_cards()
 ```
 
 Results:
 
 ```json
-[{'configure': {'card': {'card-type': {'card-type': 'iom-1',
-                                       'subscription-level': 'cr'},
-                         'fail-on-error': True,
-                         'mda': {'admin-state': True,
-                                 'egress-xpl': {'window': '10'},
-                                 'fail-on-error': True,
-                                 'ingress-xpl': {'window': '10'},
-                                 'mda-slot': '1',
-                                 'mda-type': '"me6-100gb-qsfp28"'},
-                         'slot-number': '1'}}}]
+[
+   {
+      "configure":{
+         "card":{
+            "card-type":{
+               "card-type":"iom-1",
+               "subscription-level":"cr"
+            },
+            "fail-on-error":true,
+            "mda":{
+               "admin-state":true,
+               "egress-xpl":{
+                  "window":"10"
+               },
+               "fail-on-error":true,
+               "ingress-xpl":{
+                  "window":"10"
+               },
+               "mda-slot":"1",
+               "mda-type":"me6-100gb-qsfp28"
+            },
+            "slot-number":"1"
+         }
+      }
+   }
+]
 ```
 
 ## Available Methods (Parsers)
@@ -67,7 +86,7 @@ show_service_service_using
 
 ## Full Config
 
-SrosParser allows you to parse the full configuration with a single method call, `get_full_config()` and receive the full JSON output of the device.
+**SrosParser** allows you to parse the full configuration with a single method call, `get_full_config()` and receive the full JSON output of the device.
 
 ## Custom Templates
 
@@ -86,5 +105,6 @@ print(cool_ttp_template)
 Any contribution to the project must include unit tests and pass all linting.
 
 Simply run:
+
 - `docker-compose build`
 - `docker-compose run test`
