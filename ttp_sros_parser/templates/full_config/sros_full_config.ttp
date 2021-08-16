@@ -253,7 +253,32 @@ echo "Card Configuration" {{ _start_ }}
         exit {{ignore}}
     </group>
 #-------------------------------------------------- {{ _end_ }}
-<group name="router">
+#-------------------------------------------------- {{ ignore }}
+<group name="configure">
+echo "MPLS LSP Configuration" {{ ignore }}
+#-------------------------------------------------- {{ ignore }}
+        <group name="mpls"
+        mpls
+            <group name="path">
+            path "{{ name }}"
+                no shutdown {{ admin-state | set('true') }}
+                shutdown {{ admin-state | set('false') }}
+            exit
+            </group>
+            <group name="templates">
+            <group name="entry">
+            lsp-template "{{ name }}" {{ type }}
+                default-path "{{ default-path }}"
+                path-computation-method {{ path-computation-method }}
+                fast-reroute {{ fast-reroute }}
+                exit {{ ignore }}
+                no shutdown {{ admin-state | set('true') }}
+                shutdown {{ admin-state | set('false') }}
+            </group>
+            exit {{ _end_ }}
+            </group>
+</group>
+</group><group name="router">
 #-------------------------------------------------- {{ignore}}
 echo "Management Router Configuration" {{ignore}}
 #-------------------------------------------------- {{ ignore }}

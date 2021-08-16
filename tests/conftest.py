@@ -36,6 +36,11 @@ def sros_parser_7750(config_7750):
 
 
 @pytest.fixture(scope="session")
+def sros_parser_7750_R3():
+    return SrosParser(f"{FIXTURES}/configs/example-config-7750-r3.txt")
+
+
+@pytest.fixture(scope="session")
 def parsed_interfaces():
     with open(f"{FIXTURES}/parsed_results/admin_display/interfaces.json") as f:
         return json.load(f)

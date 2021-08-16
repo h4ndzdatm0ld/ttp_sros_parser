@@ -818,7 +818,6 @@ echo "Management Router Configuration"
         static-route 1001:1000:2a00::/40 next-hop 1001:1000:2a6a:30f6:645:2a0::
         static-route 1001:1000:a600::/40 next-hop 1001:1000:2a6a:30f6:645:2a0::
     exit
-
 #--------------------------------------------------
 echo "Router (Network Side) Configuration"
 #--------------------------------------------------
