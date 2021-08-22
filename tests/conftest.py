@@ -89,6 +89,12 @@ def parsed_ports():
 
 
 @pytest.fixture(scope="session")
+def parsed_lsps():
+    with open(f"{FIXTURES}/parsed_results/admin_display/mpls_lsps.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
 def parsed_system_profiles():
     with open(f"{FIXTURES}/parsed_results/admin_display/system_profiles.json") as f:
         return json.load(f)

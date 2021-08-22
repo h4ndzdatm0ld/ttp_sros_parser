@@ -782,40 +782,6 @@ echo "Management Router Configuration"
         static-route 10.132.8.144/28 next-hop 10.203.3.174
         static-route 10.132.192.0/20 next-hop 10.203.3.174
         static-route 10.132.208.0/22 next-hop 10.203.3.174
-        static-route 10.133.48.0/20 next-hop 10.203.3.174
-        static-route 10.133.64.0/22 next-hop 10.203.3.174
-        static-route 10.133.83.112/28 next-hop 10.203.3.174
-        static-route 10.133.165.80/28 next-hop 10.203.3.174
-        static-route 10.133.168.104/29 next-hop 10.203.3.174
-        static-route 10.133.168.160/28 next-hop 10.203.3.174
-        static-route 10.133.179.0/25 next-hop 10.203.3.174
-        static-route 10.134.0.0/20 next-hop 10.203.3.174
-        static-route 10.134.16.0/22 next-hop 10.203.3.174
-        static-route 10.134.47.112/28 next-hop 10.203.3.174
-        static-route 10.134.161.192/28 next-hop 10.203.3.174
-        static-route 10.134.161.224/29 next-hop 10.203.3.174
-        static-route 10.134.171.0/25 next-hop 10.203.3.174
-        static-route 10.134.176.208/28 next-hop 10.203.3.174
-        static-route 10.134.179.0/24 next-hop 10.203.3.174
-        static-route 10.134.180.117/32 next-hop 10.203.3.174
-        static-route 10.134.213.92/32 next-hop 10.203.3.174
-        static-route 10.139.84.0/25 next-hop 10.203.3.174
-        static-route 10.194.94.64/26 next-hop 10.203.3.174
-        static-route 10.215.137.0/24 next-hop 10.203.3.174
-        static-route 10.215.138.155/32 next-hop 10.203.3.174
-        static-route 10.215.141.24/32 next-hop 10.203.3.174
-        static-route 10.215.141.147/32 next-hop 10.203.3.174
-        static-route 10.215.166.80/29 next-hop 10.203.3.174
-        static-route 10.215.221.39/32 next-hop 10.203.3.174
-        static-route 10.215.221.90/32 next-hop 10.203.3.174
-        static-route 1001:1000:a00::/40 next-hop 1001:1000:2a6a:30f6:645:2a0::
-        static-route 1001:1000:a02:1d10::/64 next-hop 1001:1000:2a6a:30f6:645:2a0::
-        static-route 1001:1000:a02:1d11::/64 next-hop 1001:1000:2a6a:30f6:645:2a0::
-        static-route 1001:1000:a03:1d10::/64 next-hop 1001:1000:2a6a:30f6:645:2a0::
-        static-route 1001:1000:a03:1d11::/64 next-hop 1001:1000:2a6a:30f6:645:2a0::
-        static-route 1001:1000:a06:1d50::/64 next-hop 1001:1000:2a6a:30f6:645:2a0::
-        static-route 1001:1000:a06:1d51::/64 next-hop 1001:1000:2a6a:30f6:645:2a0::
-        static-route 1001:1000:2a00::/40 next-hop 1001:1000:2a6a:30f6:645:2a0::
         static-route 1001:1000:a600::/40 next-hop 1001:1000:2a6a:30f6:645:2a0::
     exit
 #--------------------------------------------------
