@@ -253,33 +253,92 @@ echo "Card Configuration" {{ _start_ }}
         exit {{ignore}}
     </group>
 #-------------------------------------------------- {{ _end_ }}
-<group name="router">
-#-------------------------------------------------- {{ignore}}
-echo "Management Router Configuration" {{ignore}}
 #-------------------------------------------------- {{ ignore }}
-    <group name="management.{{ router }}">
+<group name="configure">
+echo "MPLS LSP Configuration" {{ ignore }}
+#-------------------------------------------------- {{ ignore }}
+        <group name="mpls">
+        mpls
+            <group name="path">
+            path "{{ name }}"
+                no shutdown {{ admin-state | set('true') }}
+                shutdown {{ admin-state | set('false') }}
+            exit
+            </group>
+            <group name="templates">
+            <group name="entry">
+            lsp-template "{{ name }}" {{ type }}
+                default-path "{{ default-path }}"
+                path-computation-method {{ path-computation-method }}
+                fast-reroute {{ fast-reroute }}
+                exit {{ ignore }}
+                no shutdown {{ admin-state | set('true') }}
+                shutdown {{ admin-state | set('false') }}
+            </group>
+            exit {{ _end_ }}
+            </group>
+            <group name="lsp">
+            lsp "TO_IOSXR"
+                to {{ to }}
+                path-computation-method {{ path-computation-method }}
+                fast-reroute {{ fast-reroute }}
+                exit {{ ignore }}
+                primary "{{ primary }}"
+                exit {{ ignore }}
+                secondary "{{ secondary }}"
+                    {{ standby }}
+                exit {{ ignore }}
+                no shutdown {{ admin-state | set('true') }}
+                shutdown {{ admin-state | set('false') }}
+            exit {{ _end_ }}
+            </group>
+            <group name="auto-lsp">
+            auto-lsp lsp-template "{{ template }}" policy "{{ policy }}"
+            </group>
+            shutdown {{ admin-state | set('false') }}
+            no shutdown {{ admin-state | set('true') }}
+        exit {{ _end_ }}
+        </group>
+</group><macro>
+def set_true(data):
+    if 'bfd-enable' in data:
+        return data, {"bfd-enable": True}
+    elif 'black-hole' in data:
+        return data, {"black-hole": True}
+</macro>
+
+<group name="configure.router">
+#-------------------------------------------------- {{ ignore }}
+echo "Management Router Configuration" {{ _start_ }}
+#-------------------------------------------------- {{ ignore }}
+    <group name="router-name.{{ router }}">
     router {{ router }}
-        static-route {{ address }}/{{ prefix}} next-hop {{next-hop}}
-    exit
+        <group name="entry">
+        static-route {{ address | is_ip }}/{{ prefix }} next-hop {{ next-hop | is_ip }}
+        </group>
     </group>
-#-------------------------------------------------- {{ _end_ }}
+    exit {{ _end_ }}
+</group>
+
+<group name="configure.router.static-route.ipv4">
 #-------------------------------------------------- {{ ignore }}
-echo "Static Route Configuration" {{ ignore }}
-#--------------------------------------------------{{ ignore }}
-        static-route 0.0.0.0/0 next-hop 192.168.0.1 bfd-enable
-        static-route 0.0.0.0/0 next-hop 192.168.10.1 preference 10
-        static-route 10.115.69.65/32 next-hop 172.25.69.88 bfd-enable
-        static-route 10.115.69.65/32 next-hop 172.25.69.88 preference 10
-        static-route 10.115.69.101/32 black-hole
-#-------------------------------------------------- {{_end_}}
-echo "Static IPv6 Route Configuration" {{ ignore }}
-#--------------------------------------------------{{ ignore }}
-        static-route ::/0 next-hop 1001:1000:206a:31cd:645:400::/64 bfd-enable
-        static-route ::/0 next-hop 1001:1000:206a:31cc:645:400::/64 preference 10
-        static-route 1001:1000:2000:0:645:2a0::/128 next-hop 1001:1000:206a:31cd:645:400:: bfd-enable
-        static-route 1001:1000:2000:0:645:2a0:0:1/128 next-hop 1001:1000:206a:31cd:645:400:: preference 10
-        static-route 1001:1000:2062:30cf::/64 black-hole
-        static-route 1001:1000:2062:3634::/64 black-hole
+echo "Static Route Configuration" {{ _start_ }}
+#-------------------------------------------------- {{ ignore }}
+        <group name="entry">
+        static-route {{ address | IPV4}}/{{ prefix }} next-hop {{ next-hop | is_ip }} {{ bfd | macro('set_true') | _start_ }}
+        static-route {{ address | IPV4 }}/{{ prefix }} next-hop {{ next-hop | is_ip }} preference {{ preference | DIGIT | _start_ }}
+        static-route {{ address | IPV4 }}/{{ prefix }} {{ black-hole | macro('set_true') | _start_ }}
+        </group>
+</group>
+#-------------------------------------------------- {{ _end_ }}
+echo "Static IPv6 Route Configuration" {{ _start_ }}
+<group name="configure.router.static-route.ipv6">
+#-------------------------------------------------- {{ ignore }}
+        <group name="entry">
+        static-route {{ address | IPV6 }}/{{ prefix }} next-hop {{ next-hop | is_ip }} {{ bfd | macro('set_true') | _start_ }}
+        static-route {{ address | IPV6 }}/{{ prefix }} next-hop {{ next-hop | is_ip }} preference {{ preference | DIGIT | _start_ }}
+        static-route {{ address | IPV6 }}/{{ prefix }} {{ black-hole | macro('set_true') | _start_ }}
+        </group>
 #-------------------------------------------------- {{ _end_ }}
 </group>
 #-------------------------------------------------- {{ignore}}

@@ -130,6 +130,11 @@ class SrosParser:  # pylint: disable=R0904
         template = f"{self.templates_path}/admin_display_file/sros_router_static_routes.ttp"
         return self._parse(template, json_format=json_format)
 
+    def get_lsps(self, json_format: bool = True):
+        """Extract MPLS LSP Configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_7750_mpls_lsp.ttp"
+        return self._parse(template, json_format=json_format)
+
     def get_ports(self, json_format: bool = True):
         """Extract Port Configuration."""
         template = f"{self.templates_path}/admin_display_file/sros_port_config.ttp"

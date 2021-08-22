@@ -95,13 +95,12 @@ def test_get_system_service_sdp(sros_parser, parsed_system_sdp):
     assert result, parsed_system_sdp
 
 
-# TODO: FIX ME
-# def test_get_router_static_routes(sros_parser, parsed_static_routes):
-#     """
-#     Test extracting router static routes (BASE)
-#     """
-#     result = sros_parser.get_router_static_routes()
-#     assert result == parsed_static_routes
+def test_get_router_static_routes(sros_parser, parsed_static_routes):
+    """
+    Test extracting router static routes (BASE)
+    """
+    result = sros_parser.get_router_static_routes()
+    assert result == parsed_static_routes
 
 
 def test_get_system_profiles(sros_parser, parsed_system_profiles):

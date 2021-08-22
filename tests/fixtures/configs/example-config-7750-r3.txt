@@ -1,0 +1,553 @@
+            breakout c1-10g
+        exit
+        no shutdown
+    exit
+    port 1/1/c3
+        connector
+            breakout c1-10g
+        exit
+        no shutdown
+    exit
+    port 1/1/c4
+        connector
+            breakout c1-10g
+        exit
+        no shutdown
+    exit
+    port 1/1/c5
+        connector
+            breakout c1-10g
+        exit                          
+        no shutdown
+    exit
+    port 1/1/c6
+        connector
+            breakout c1-10g
+        exit
+        no shutdown
+    exit
+#--------------------------------------------------
+echo "Port Configuration"
+#--------------------------------------------------
+    port 1/1/c1/1
+        ethernet
+        exit
+        no shutdown
+    exit
+    port 1/1/c2/1
+        ethernet
+        exit
+        no shutdown
+    exit
+    port 1/1/c3/1
+        ethernet                      
+            mode access
+            mtu 9212
+        exit
+        no shutdown
+    exit
+    port 1/1/c4/1
+        ethernet
+        exit
+        no shutdown
+    exit
+    port 1/1/c5/1
+        ethernet
+            mode access
+        exit
+        no shutdown
+    exit
+    port 1/1/c6/1
+        ethernet
+        exit
+        no shutdown
+    exit
+#--------------------------------------------------
+echo "Interface Group Handler Configuration"
+#--------------------------------------------------
+    interface-group-handler 1
+        shutdown
+    exit
+#--------------------------------------------------
+echo "System Sync-If-Timing Configuration"
+#--------------------------------------------------
+    system
+        sync-if-timing
+            begin
+            commit
+        exit
+    exit
+#--------------------------------------------------
+echo "Management Router Configuration"
+#--------------------------------------------------
+    router management
+    exit
+
+#--------------------------------------------------
+echo "Router (Network Side) Configuration"
+#--------------------------------------------------
+    router Base                       
+        policy-options
+            begin
+            prefix-list "System-IPz"
+                prefix 10.10.10.0/24 prefix-length-range 32-32
+            exit
+            policy-statement "Remote-PEz"
+            exit
+            commit
+        exit
+        if-attribute
+            admin-group "GREEN" value 2
+            admin-group "RED" value 1
+            srlg-group "PURPLE" value 10
+            srlg-group "WHITE" value 11
+        exit
+        interface "TO_IOSXR"
+            address 10.3.8.3/24
+            port 1/1/c4/1
+            no shutdown
+        exit
+        interface "TO_R1"
+            address 10.1.3.3/24
+            port 1/1/c1/1             
+            no shutdown
+        exit
+        interface "TO_R4"
+            address 10.3.4.3/24
+            port 1/1/c2/1
+            no shutdown
+        exit
+        interface "system"
+            address 10.10.10.3/32
+            no shutdown
+        exit
+        autonomous-system 64500
+#--------------------------------------------------
+echo "OSPFv2 Configuration"
+#--------------------------------------------------
+        ospf 0
+            traffic-engineering
+            area 0.0.0.0
+                interface "system"
+                    no shutdown
+                exit
+                interface "TO_IOSXR"
+                    interface-type point-to-point
+                    mtu 1500
+                    no shutdown
+                exit
+                interface "TO_R1"
+                    interface-type point-to-point
+                    no shutdown
+                exit
+                interface "TO_R4"
+                    interface-type point-to-point
+                    no shutdown
+                exit
+            exit
+            no shutdown
+        exit
+#--------------------------------------------------
+echo "ISIS Configuration"
+#--------------------------------------------------
+        isis 0
+            shutdown
+        exit
+#--------------------------------------------------
+echo "MPLS Configuration"
+#--------------------------------------------------
+        mpls
+            admin-group-frr
+            cspf-on-loose-hop
+            interface "system"
+                no shutdown
+            exit
+            interface "TO_IOSXR"
+                admin-group "GREEN"
+                admin-group "RED"
+                te-metric 98999
+                no shutdown
+            exit
+            interface "TO_R1"
+                te-metric 65660
+                no shutdown
+            exit
+            interface "TO_R4"
+                srlg-group "PURPLE"
+                srlg-group "WHITE"
+                no shutdown
+            exit
+            srlg-database
+                router-id 10.10.10.3  
+                    shutdown
+                exit
+            exit
+        exit
+#--------------------------------------------------
+echo "RSVP Configuration"
+#--------------------------------------------------
+        rsvp
+            interface "system"
+                no shutdown
+            exit
+            interface "TO_IOSXR"
+                no shutdown
+            exit
+            interface "TO_R1"
+                no shutdown
+            exit
+            interface "TO_R4"
+                no shutdown
+            exit
+            no shutdown
+        exit
+#--------------------------------------------------
+echo "MPLS LSP Configuration"
+#--------------------------------------------------
+        mpls
+            path "loose"
+                no shutdown
+            exit
+            path "loose-2"
+                no shutdown
+            exit
+            lsp-template "Full-Mesh" mesh-p2p
+                default-path "loose"
+                path-computation-method local-cspf
+                fast-reroute facility
+                exit
+                no shutdown
+            exit
+            lsp "TO_IOSXR"
+                to 10.10.10.8
+                path-computation-method local-cspf
+                fast-reroute facility
+                exit
+                primary "loose"
+                exit                  
+                secondary "loose-2"
+                    standby
+                exit
+                no shutdown
+            exit
+            lsp "TO_R1"
+                to 10.10.10.1
+                path-computation-method local-cspf
+                fast-reroute facility
+                exit
+                primary "loose"
+                exit
+                secondary "loose-2"
+                    standby
+                exit
+                no shutdown
+            exit
+            lsp "TO_R2"
+                to 10.10.10.2
+                path-computation-method local-cspf
+                fast-reroute facility
+                exit
+                primary "loose"       
+                exit
+                secondary "loose-2"
+                    standby
+                exit
+                no shutdown
+            exit
+            lsp "TO_R4"
+                to 10.10.10.4
+                path-computation-method local-cspf
+                fast-reroute facility
+                exit
+                primary "loose"
+                exit
+                secondary "loose-2"
+                    standby
+                exit
+                no shutdown
+            exit
+            auto-lsp lsp-template "Full-Mesh" policy "Remote-PEz"
+            no shutdown
+        exit
+#--------------------------------------------------
+echo "LDP Configuration"              
+#--------------------------------------------------
+        ldp
+            import-pmsi-routes
+            exit
+            interface-parameters
+            exit
+            targeted-session
+                peer-template "TLDP-Mesh"
+                    tunneling
+                    no shutdown
+                exit
+                peer-template-map peer-template "TLDP-Mesh" policy "Remote-PEz"
+            exit
+            no shutdown
+        exit
+    exit
+
+#--------------------------------------------------
+echo "Service Configuration"
+#--------------------------------------------------
+    service
+        sdp 31 mpls create
+            far-end 10.10.10.1        
+            lsp "TO_R1"
+            keep-alive
+                shutdown
+            exit
+            no shutdown
+        exit
+        sdp 32 mpls create
+            far-end 10.10.10.2
+            lsp "TO_R2"
+            keep-alive
+                shutdown
+            exit
+            no shutdown
+        exit
+        sdp 34 mpls create
+            far-end 10.10.10.4
+            lsp "TO_R4"
+            keep-alive
+                shutdown
+            exit
+            no shutdown
+        exit
+        sdp 38 mpls create            
+            far-end 10.10.10.8
+            lsp "TO_IOSXR"
+            keep-alive
+                shutdown
+            exit
+            no shutdown
+        exit
+        customer 1 name "1" create
+            description "Default customer"
+        exit
+        customer 100 name "VPLS-SCALING" create
+        exit
+        customer 200 name "AVIFI-CO" create
+        exit
+        pw-template 2 name "2" create
+            hash-label
+            split-horizon-group "vpls-shg"
+            exit
+        exit
+        vprn 69 name "69" customer 1 create
+        exit
+        vprn 100 name "AVIFI" customer 200 create
+            interface "TEST-LOOPBACK" create
+            exit
+        exit
+        ies 301 name "301" customer 1 create
+            interface "L3_NODE_MGMT" create
+            exit
+        exit
+        vprn 69 name "69" customer 1 create
+            shutdown
+        exit
+        vprn 100 name "AVIFI" customer 200 create
+            autonomous-system 64500
+            route-distinguisher 64500:100
+            auto-bind-tunnel
+                resolution any
+            exit
+            vrf-target target:64500:100
+            interface "TEST-LOOPBACK" create
+                address 3.3.3.3/32
+                loopback
+            exit
+            no shutdown
+        exit
+        vpls 200 name "200" customer 100 create
+            stp
+                shutdown
+            exit
+            spoke-sdp 31:200 create
+                no shutdown
+            exit
+            mesh-sdp 34:200 create
+                no shutdown
+            exit
+            no shutdown
+        exit
+        ies 301 name "301" customer 1 create
+            interface "L3_NODE_MGMT" create
+                address 192.168.0.222/24
+                vpls "NODE_L2_MGMT"
+                exit
+            exit
+            no shutdown
+        exit
+        vpls 310 name "NODE_L2_MGMT" customer 1 create
+            service-mtu 9100
+            allow-ip-int-bind
+            exit                      
+            bgp
+                route-distinguisher 64500:310
+                route-target export target:64500:310 import target:64500:310
+                pw-template-binding 2 split-horizon-group "vpls-shg" import-rt "target:64500:310"
+                exit
+            exit
+            bgp-ad
+                vpls-id 64500:310
+                vsi-id
+                    prefix 10.10.10.3
+                exit
+                no shutdown
+            exit
+            stp
+                shutdown
+            exit
+            no shutdown
+        exit
+        vpls 400 name "VPLS-TEST" customer 100 create
+            service-mtu 9100
+            allow-ip-int-bind
+            exit
+            bgp                       
+                route-distinguisher 64500:400
+                route-target export target:64500:400 import target:64500:400
+                pw-template-binding 2 split-horizon-group "vpls-shg" import-rt "target:64500:400"
+                exit
+            exit
+            bgp-ad
+                vpls-id 64500:400
+                vsi-id
+                    prefix 10.10.10.3
+                exit
+                no shutdown
+            exit
+            stp
+                shutdown
+            exit
+            no shutdown
+        exit
+        vpls 401 name "VPLS-TEST-1" customer 100 create
+            service-mtu 9100
+            allow-ip-int-bind
+            exit
+            bgp
+                route-distinguisher 64500:401
+                route-target export target:64500:401 import target:64500:401
+                pw-template-binding 2 split-horizon-group "vpls-shg" import-rt "target:64500:401"
+                exit
+            exit
+            bgp-ad
+                vpls-id 64500:401
+                vsi-id
+                    prefix 10.10.10.3
+                exit
+                no shutdown
+            exit
+            stp
+                shutdown
+            exit
+            no shutdown
+        exit
+        vpls 410 name "410" customer 1 create
+            service-mtu 9200
+            stp
+                shutdown
+            exit
+            sap 1/1/c3/1 create
+                no shutdown           
+            exit
+            no shutdown
+        exit
+        vpls 310 name "NODE_L2_MGMT" customer 1 create
+            allow-ip-int-bind
+            exit
+        exit
+        vpls 400 name "VPLS-TEST" customer 100 create
+            allow-ip-int-bind
+            exit
+        exit
+        vpls 401 name "VPLS-TEST-1" customer 100 create
+            allow-ip-int-bind
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "Router (Service Side) Configuration"
+#--------------------------------------------------
+    router Base
+#--------------------------------------------------
+echo "Policy Configuration"
+#--------------------------------------------------
+        policy-options
+            begin
+            policy-statement "Remote-PEz"
+                entry 10
+                    from
+                        prefix-list "System-IPz"
+                    exit
+                    action accept
+                    exit
+                exit
+            exit
+            commit
+        exit
+#--------------------------------------------------
+echo "OSPFv2 Configuration"
+#--------------------------------------------------
+        ospf 0
+            no shutdown
+        exit
+#--------------------------------------------------
+echo "ISIS Configuration"
+#--------------------------------------------------
+        isis 0                        
+        exit
+#--------------------------------------------------
+echo "BGP Configuration"
+#--------------------------------------------------
+        bgp
+            rapid-update l2-vpn
+            next-hop-resolution
+                shortcut-tunnel
+                    family ipv4
+                        resolution-filter
+                            rsvp
+                        exit
+                        resolution filter
+                    exit
+                exit
+            exit
+            group "mp-BGP"
+                family vpn-ipv4 l2-vpn
+                peer-as 64500
+                neighbor 10.10.10.1
+                exit
+                neighbor 10.10.10.2
+                exit                  
+                neighbor 10.10.10.4
+                exit
+                neighbor 10.10.10.8
+                exit
+            exit
+            no shutdown
+        exit
+    exit
+
+#--------------------------------------------------
+echo "Log all events for service vprn Configuration"
+#--------------------------------------------------
+    log
+    exit
+#--------------------------------------------------
+echo "System Configuration Mode Configuration"
+#--------------------------------------------------
+    system
+        management-interface
+            configuration-mode mixed
+        exit
+    exit
+                                      
+exit all
+
+# Finished MON AUG 16 15:16:57 2021 UTC
+A:R3-SANDBOX#     

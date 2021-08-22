@@ -1,0 +1,47 @@
+#-------------------------------------------------- {{ ignore }}
+<group name="configure">
+echo "MPLS LSP Configuration" {{ ignore }}
+#-------------------------------------------------- {{ ignore }}
+        <group name="mpls">
+        mpls
+            <group name="path">
+            path "{{ name }}"
+                no shutdown {{ admin-state | set('true') }}
+                shutdown {{ admin-state | set('false') }}
+            exit
+            </group>
+            <group name="templates">
+            <group name="entry">
+            lsp-template "{{ name }}" {{ type }}
+                default-path "{{ default-path }}"
+                path-computation-method {{ path-computation-method }}
+                fast-reroute {{ fast-reroute }}
+                exit {{ ignore }}
+                no shutdown {{ admin-state | set('true') }}
+                shutdown {{ admin-state | set('false') }}
+            </group>
+            exit {{ _end_ }}
+            </group>
+            <group name="lsp">
+            lsp "TO_IOSXR"
+                to {{ to }}
+                path-computation-method {{ path-computation-method }}
+                fast-reroute {{ fast-reroute }}
+                exit {{ ignore }}
+                primary "{{ primary }}"
+                exit {{ ignore }}
+                secondary "{{ secondary }}"
+                    {{ standby }}
+                exit {{ ignore }}
+                no shutdown {{ admin-state | set('true') }}
+                shutdown {{ admin-state | set('false') }}
+            exit {{ _end_ }}
+            </group>
+            <group name="auto-lsp">
+            auto-lsp lsp-template "{{ template }}" policy "{{ policy }}"
+            </group>
+            shutdown {{ admin-state | set('false') }}
+            no shutdown {{ admin-state | set('true') }}
+        exit {{ _end_ }}
+        </group>
+</group>
