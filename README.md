@@ -58,7 +58,7 @@ Results:
 
 Current methods available (Automatically updated at build):
 
-[Methods]("docs/methods.md")
+[Methods](docs/methods.md)
 
 ## Full Config
 
