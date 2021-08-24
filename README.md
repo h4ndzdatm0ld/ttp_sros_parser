@@ -6,7 +6,7 @@ A library to parse a Nokia SROS 7750 full hierarchical configuration text file i
 
 ## What TTP SrosParser is not
 
-A library that connects and extracts information from a remote device. You, as the end-user must obtain a text file of the configuration. This file will be passed into the SrosParser class and you are able to convert to structure data using the built-in TTP parser templates. If you are looking to include show command output, simply combine the full configuration out + show commands into one file and provide the file to SrosParser.
+A library that connects and extracts information from a remote device. You, as the end-user must obtain a text file of the configuration. This file will be passed into the SrosParser class and you are able to convert a flat text configuration file into structure data using the built-in TTP parser templates. At this point, it's recommended to use a new instance of the srosparser with an individual show command as the text to parse to get the best results when parsing a show commands.
 
 ## Example
 
