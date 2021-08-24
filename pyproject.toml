@@ -1,11 +1,8 @@
 [tool.poetry]
 name = "ttp_sros_parser"
-version = "0.1.5"
+version = "0.0.2"
 description = "Utility to parse a full SROS Configuration."
 authors = ["Hugo <hugotinoco@icloud.com>"]
-readme = "README.md"
-repository = "https://github.com/h4ndzdatm0ld/ttp_sros_parser"
-keywords = ["sros", "ttp", "ttp-templates", "network automation", "nokia", "7750"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
