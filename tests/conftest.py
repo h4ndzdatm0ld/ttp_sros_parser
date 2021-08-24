@@ -65,6 +65,12 @@ def parsed_static_route_v4():
 
 
 @pytest.fixture(scope="session")
+def parsed_static_route_v6():
+    with open(f"{FIXTURES}/parsed_results/show_cmds/show_static_route_v6.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
 def parsed_show_file_dir():
     with open(f"{FIXTURES}/parsed_results/show_cmds/file_dir.json") as f:
         return json.load(f)

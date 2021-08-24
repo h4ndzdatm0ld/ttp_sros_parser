@@ -58,3 +58,19 @@ def test_get_show_router_static_route_v4(parsed_static_route_v4):
     sros_parser = SrosParser(data)
     result = sros_parser.show_router_static_route(protocol="ipv4")
     assert result == parsed_static_route_v4
+
+
+def test_get_show_router_static_route_v4_default(parsed_static_route_v4):
+    """Test general show router static route, default v4 without protocol specified."""
+    data = "tests/fixtures/show_output/show_router_static_route_tag.txt"
+    sros_parser = SrosParser(data)
+    result = sros_parser.show_router_static_route()
+    assert result == parsed_static_route_v4
+
+
+def test_get_show_router_static_route_v6(parsed_static_route_v6):
+    """Test general show router static route, ipv6 specified."""
+    data = "tests/fixtures/show_output/show_router_static_route_tag_v6.txt"
+    sros_parser = SrosParser(data)
+    result = sros_parser.show_router_static_route(protocol="IPV6")
+    assert result == parsed_static_route_v6

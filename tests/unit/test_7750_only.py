@@ -1,3 +1,6 @@
+"""Test specific 7750 configurations."""
+
+
 def test_get_connectors(sros_parser_7750, parsed_connectors):
     """
     Test extracting connector ports.
