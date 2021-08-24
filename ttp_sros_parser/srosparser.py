@@ -155,15 +155,13 @@ class SrosParser:  # pylint: disable=R0904
         template = f"{self.templates_path}/admin_display_file/sros_log_configuration.ttp"
         return self._parse(template, json_format=json_format)
 
-    def show_router_static_route(self, protocol: Optional[str]):
+    def show_router_static_route(self, protocol: Optional[str] = "ipv4"):
         """Parse show router static-route.
 
         Must pass in protocol version of either "ipv4" or "ipv6".
         """
-        if not protocol:
-            logging.info("Missing protocol for static-route parsing.")
-            return
-        if protocol.lower() == "ipv4":
+        if not protocol or protocol.lower() == "ipv4":
+            logging.info("Missing protocol for static-route parsing, defaulting to IPV4.")
             template = f"{self.templates_path}/show_commands/sros_show_router_static_route_ipv4.ttp"
         elif protocol.lower() == "ipv6":
             template = f"{self.templates_path}/show_commands/sros_show_router_static_route_ipv6.ttp"
