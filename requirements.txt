@@ -43,7 +43,7 @@ pathspec==0.8.1
 pexpect==4.8.0
 pkginfo==1.6.1
 pluggy==0.13.1
-poetry==1.1.4
+poetry==1.1.9
 poetry-core==1.0.0
 ptyprocess==0.6.0
 py==1.10.0
