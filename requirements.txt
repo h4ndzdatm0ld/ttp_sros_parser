@@ -37,7 +37,7 @@ nornir==3.0.0
 ntc-templates==1.6.0
 ordered-set==4.0.2
 packaging==20.8
-paramiko==2.7.2
+paramiko==2.10.1
 pastel==0.2.1
 pathspec==0.8.1
 pexpect==4.8.0
