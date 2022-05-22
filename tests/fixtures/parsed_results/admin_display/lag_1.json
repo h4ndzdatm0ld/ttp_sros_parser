@@ -4,6 +4,15 @@
          "lag":[
             {
                "admin-state":true,
+               "bfd":{
+                  "ipv4":{
+                     "admin-state":true,
+                     "family":"ipv4",
+                     "local-ip":"1.1.1.1",
+                     "multiplier":"4",
+                     "remote-ip-address":"1.1.1.2"
+                  }
+               },
                "description":"####LAG####",
                "lacp":{
                   "administrative-key":"32100",
@@ -66,6 +75,15 @@
             },
             {
                "admin-state":true,
+               "bfd":{
+                  "ipv4":{
+                     "admin-state":true,
+                     "family":"ipv4",
+                     "local-ip":"2.2.2.2",
+                     "multiplier":"4",
+                     "remote-ip-address":"2.2.2.3"
+                  }
+               },
                "description":"####LAG####",
                "lacp":{
                   "administrative-key":"32101",

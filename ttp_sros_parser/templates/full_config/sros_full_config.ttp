@@ -175,15 +175,14 @@ echo "LAG Configuration" {{ _start_ }}
         lacp {{ mode }} administrative-key {{ administrative-key | DIGIT}}
         hold-time {{ hold-time | ORPHRASE }}
         </group>
-        <group name="bfd">
-        <group name="ipv4">
-            shutdown {{ admin-state | set(false) }}
-            local-ip-address {{ local-ip }}
-            multiplier {{ multiplier }}
-            remote-ip-address {{ remote-ip-address }}
-            no shutdown {{ admin-state | set(true) }}
+        <group name="bfd.ipv4">
+            family {{ family | contains("ipv4") }}
+                shutdown {{ admin-state | set(false) }}
+                local-ip-address {{ local-ip }}
+                multiplier {{ multiplier }}
+                remote-ip-address {{ remote-ip-address }}
+                no shutdown {{ admin-state | set(true) }}
         exit {{ _end_ }}
-        </group>
         </group>            
         no shutdown {{ admin-state | set(true) }}
     </group>
