@@ -1,153 +1,3 @@
-           <group name="system.profile">
-            profile {{user-profile-name | re(r".+") | strip('"')}}
-                default-action {{default-action}}
-                <group name="entry">
-                entry {{entry-id}} {{_start_}}
-                    match {{match | re(r"\W.*") | strip('"')}}
-                    action {{action}}
-                exit {{ignore}}
-                </group>
-            exit {{_end_}}
-            </group>
-#-------------------------------------------------- {{ ignore}}
-echo "Router (Network Side) Configuration" {{ _start_ }}
-#-------------------------------------------------- {{ ignore}}
-<group name="router">
-    router {{ignore}}
-    <group name="interfaces">
-        interface {{interface_name | strip('"')}}
-            shutdown {{admin_state | set(false) }}
-            description {{description | strip('"')}}
-            enable-ingress-stats {{ingress_stats | set(true)}}
-            <group name="ipv4.primary">
-            address {{address}}/{{prefix_length}}
-            </group>
-            <group name="ipv4.bfd">
-            bfd {{ipv4_bfd | re(r"\d.*")}}
-            </group>
-            ldp_sync_timer {{ldp_sync_timer}}
-            cpu_protection {{cpu_protection}}
-            port {{port}}
-            <group name="ipv6">
-            ipv6 {{_start_}}
-                <group name="address">
-                address {{ipv6_address}}/{{prefix-length}}
-                </group>
-                <group name="address">
-                bfd {{ipv6_bfd | re(r"\d.*")}}
-                </group>
-            exit {{ignore}}
-            </group>
-            exit {{ignore}}
-            <group name="qos">
-            qos {{network-policy}}
-            </group>
-            bfd {{ipv4_bfd | re(r"\d.*")}}
-            no shutdown {{admin_state | set(true)}}
-        exit {{_end_}}
-    </group>
-</group>
-#-------------------------------------------------- {{_end_}}
-#-------------------------------------------------- {{ ignore }}
-echo "LAG Configuration" {{ _start_ }}
-#-------------------------------------------------- {{ ignore }}
-<group name="configure">
-    <group name="lag">
-    lag {{ lag-index | DIGIT }}
-        description {{ description | ORPHRASE }}
-        mode {{ mode }}
-        encap-type {{ encap-type }}
-        <group name="port">
-        port {{ port-id }}
-        </group>
-        <group name="lacp">
-        lacp {{ mode }} administrative-key {{ administrative-key | DIGIT}}
-        hold-time {{ hold-time | ORPHRASE }}
-        </group>
-        no shutdown {{ admin-state | set(true) }}
-    </group>
-    exit {{ _end_ }}
-</group>
-#-------------------------------------------------- {{ _end_ }}#-------------------------------------------------- {{ignore}}
-echo "Port Configuration" {{_start_}}
-#-------------------------------------------------- {{ignore}}
-<group name="configure.port">
-    port {{port-id}}
-        shutdown {{admin_state | set(false)}}
-        description "{{description}}"
-        <group name="ethernet">
-        ethernet {{_start_}}
-            mode {{mode}}
-            encap-type {{encap-type}}
-            mtu {{mtu | DIGIT}}
-            loopback internal persistent {{loopback | set(true)}}
-            <group name="network">
-            network {{ignore}}
-                queue-policy "{{queue-policy | DIGIT}}"
-            exit {{_end_}}
-            </group>
-            <group name="hold-time">
-            hold-time down {{down}}
-            </group>
-            <group name="hold-time">
-            hold-time up {{up| DIGIT}} down {{down | DIGIT}}
-            </group>
-            no autonegotiate {{autonegotiate | set(false)}}
-            autonegotiate {{autonegotiate}}
-            egress-rate {{egress-rate | DIGIT}} 
-        exit {{_end_}}
-        </group>
-        no shutdown {{admin_state | set(true)}}
-    exit {{_end_}}
-    </group>
-#-------------------------------------------------- {{_end_}}
-<group name="system.management-access-filter">
-            management-access-filter {{_start_}}
-                <group name="ip-filter-params">
-                ip-filter {{ipv4-filter | set(true)}}
-                    shutdown {{ admin-state | set(false)}}
-                    default-action {{default-action}}
-                    no shutdown {{ admin-state | set(true)}}
-                </group>
-                <group name="ipv6-filter-params">
-                ipv6-filter {{ipv6-filter | set(true)}}
-                    shutdown {{ admin-state | set(false)}}
-                    default-action {{default-action}}
-                    no shutdown {{ admin-state | set(true)}}
-                </group>
-</group>
-<group name="system.management-access-filter">
-            management-access-filter {{_start_}}
-                ip-filter {{_exact_}}
-                <group name="ip-filter">
-                <group name="entry">
-                    entry {{entry-id | DIGIT }}
-                        description {{description | re(r"\W.*") | strip('"')}}
-                        src-ip {{src-ip}}
-                        protocol {{protocol}}
-                        dst-port {{dst-port | re(r"\d.*")}}
-                        router {{router-instance | strip('"')}}
-                        action {{action | strip('"')}}
-                    exit {{ignore}}
-                ipv6-filter {{_end_}}
-                </group>
-                </group>
-</group>
-<group name="system.management-access-filter">
-                ipv6-filter {{_start_}}
-                <group name="ipv6-filter">
-                <group name="entry">
-                    entry {{entry-id}}
-                        description {{description | re(r"\W.*") | strip('"')}}
-                        src-ip {{src-ip }}
-                        protocol {{protocol}}
-                        dst-port {{dst-port | re(r"\d.*")}}
-                        router {{router-instance | strip('"')}}
-                        action {{action-instance | strip('"')}}
-                    exit {{ignore}}
-                </group>
-                </group>
-</group>
 <macro>
 def macro_gen(data):
 	if 'generate' in data:
@@ -206,162 +56,6 @@ echo "Log Configuration" <group name="configure.log"> {{_start_}}
         </group>
     exit {{_end_}}
 </group>
-<group name="system.eth-cfm">
-    eth-cfm {{_start_}}
-    <group name="domain">
-        domain {{domain-id}} format {{format}} level {{level}}
-            <group name="associations">
-            association {{association-id}} format {{format}} name {{name | strip('"')}}
-                bridge-identifier {{bridge-id}}
-                exit {{ignore}}
-                remote-mepid {{remote-mepid}}
-            </group>
-    </group>
-#-------------------------------------------------- {{_end_}}
-</group>
-<macro>
-def subscription_level(data):
-    data = data.replace('"','').split()
-    if len(data) >= 3:
-        return {"card-type": data[0], "subscription-level": data[2]}
-    return data[0]
-</macro>
-#-------------------------------------------------- {{ ignore }}
-echo "Card Configuration" {{ _start_ }}
-#-------------------------------------------------- {{ ignore }}
-    <group name="configure.card">
-    card {{slot-number | DIGIT }}
-        card-type {{ card-type | ORPHRASE  | macro('subscription_level') }}
-        fail-on-error {{fail-on-error | set(true)}}
-        <group name="mda">
-        mda {{mda-slot}}
-            shutdown {{admin-state | set(false)}}
-            mda-type {{mda-type | replace('"', '') }}
-            <group name="ingress-xpl">
-            ingress-xpl {{_start_}}
-                window {{window}}
-            exit {{_end_}}
-            </group>
-            <group name="egress-xpl">
-            egress-xpl {{_start_}}
-                window {{window}}
-            exit {{_end_}}
-            </group>
-            fail-on-error {{fail-on-error | set(true)}}
-            no shutdown {{admin-state | set(true)}}
-        </group>
-        exit {{ignore}}
-    </group>
-#-------------------------------------------------- {{ _end_ }}
-#-------------------------------------------------- {{ ignore }}
-<group name="configure">
-echo "MPLS LSP Configuration" {{ ignore }}
-#-------------------------------------------------- {{ ignore }}
-        <group name="mpls">
-        mpls
-            <group name="path">
-            path "{{ name }}"
-                no shutdown {{ admin-state | set('true') }}
-                shutdown {{ admin-state | set('false') }}
-            exit
-            </group>
-            <group name="templates">
-            <group name="entry">
-            lsp-template "{{ name }}" {{ type }}
-                default-path "{{ default-path }}"
-                path-computation-method {{ path-computation-method }}
-                fast-reroute {{ fast-reroute }}
-                exit {{ ignore }}
-                no shutdown {{ admin-state | set('true') }}
-                shutdown {{ admin-state | set('false') }}
-            </group>
-            exit {{ _end_ }}
-            </group>
-            <group name="lsp">
-            lsp "TO_IOSXR"
-                to {{ to }}
-                path-computation-method {{ path-computation-method }}
-                fast-reroute {{ fast-reroute }}
-                exit {{ ignore }}
-                primary "{{ primary }}"
-                exit {{ ignore }}
-                secondary "{{ secondary }}"
-                    {{ standby }}
-                exit {{ ignore }}
-                no shutdown {{ admin-state | set('true') }}
-                shutdown {{ admin-state | set('false') }}
-            exit {{ _end_ }}
-            </group>
-            <group name="auto-lsp">
-            auto-lsp lsp-template "{{ template }}" policy "{{ policy }}"
-            </group>
-            shutdown {{ admin-state | set('false') }}
-            no shutdown {{ admin-state | set('true') }}
-        exit {{ _end_ }}
-        </group>
-</group><macro>
-def set_true(data):
-    if 'bfd-enable' in data:
-        return data, {"bfd-enable": True}
-    elif 'black-hole' in data:
-        return data, {"black-hole": True}
-</macro>
-
-<group name="configure.router">
-#-------------------------------------------------- {{ ignore }}
-echo "Management Router Configuration" {{ _start_ }}
-#-------------------------------------------------- {{ ignore }}
-    <group name="router-name.{{ router }}">
-    router {{ router }}
-        <group name="entry">
-        static-route {{ address | is_ip }}/{{ prefix }} next-hop {{ next-hop | is_ip }}
-        </group>
-    </group>
-    exit {{ _end_ }}
-</group>
-
-<group name="configure.router.static-route.ipv4">
-#-------------------------------------------------- {{ ignore }}
-echo "Static Route Configuration" {{ _start_ }}
-#-------------------------------------------------- {{ ignore }}
-        <group name="entry">
-        static-route {{ address | IPV4}}/{{ prefix }} next-hop {{ next-hop | is_ip }} {{ bfd | macro('set_true') | _start_ }}
-        static-route {{ address | IPV4 }}/{{ prefix }} next-hop {{ next-hop | is_ip }} preference {{ preference | DIGIT | _start_ }}
-        static-route {{ address | IPV4 }}/{{ prefix }} {{ black-hole | macro('set_true') | _start_ }}
-        </group>
-</group>
-#-------------------------------------------------- {{ _end_ }}
-echo "Static IPv6 Route Configuration" {{ _start_ }}
-<group name="configure.router.static-route.ipv6">
-#-------------------------------------------------- {{ ignore }}
-        <group name="entry">
-        static-route {{ address | IPV6 }}/{{ prefix }} next-hop {{ next-hop | is_ip }} {{ bfd | macro('set_true') | _start_ }}
-        static-route {{ address | IPV6 }}/{{ prefix }} next-hop {{ next-hop | is_ip }} preference {{ preference | DIGIT | _start_ }}
-        static-route {{ address | IPV6 }}/{{ prefix }} {{ black-hole | macro('set_true') | _start_ }}
-        </group>
-#-------------------------------------------------- {{ _end_ }}
-</group>
-#-------------------------------------------------- {{ignore}}
-echo "Service Configuration" {{ignore}}
-#-------------------------------------------------- {{ignore}}
-    service {{_start_}}
-        <group name="system.service.sdp">
-        sdp {{sdp-id | re(r"\d.*") | replaceall("","create","mpls") | strip()}}
-            description {{description | strip('"')}}
-            far-end {{far-end | IP}}
-            ldp {{ldp | set(true)}}
-            lsp {{lsp | strip('"')}}
-            path-mtu {{path-mtu}}
-            adv-mtu-override {{adv-mtu-override | set(true)}}
-            <group name="keep-alive">
-            keep-alive {{_start_}}
-                shutdown {{admin-state | set(false)}}
-            </group>
-            exit {{ignore}}
-            no shutdown {{admin-state | set(true)}}
-        exit {{_end_}}
-        </group>
-#-------------------------------------------------- {{_end_}}
 <macro>
 def macro_true(data):
 	if 'prefer' in data:
@@ -412,7 +106,255 @@ def macro_true(data):
                 </group>
 #-------------------------------------------------- {{_end_}}
                 </group>
+<macro>
+def set_true(data):
+    if 'bfd-enable' in data:
+        return data, {"bfd-enable": True}
+    elif 'black-hole' in data:
+        return data, {"black-hole": True}
+</macro>
+
+<group name="configure.router">
 #-------------------------------------------------- {{ ignore }}
+echo "Management Router Configuration" {{ _start_ }}
+#-------------------------------------------------- {{ ignore }}
+    <group name="router-name.{{ router }}">
+    router {{ router }}
+        <group name="entry">
+        static-route {{ address | is_ip }}/{{ prefix }} next-hop {{ next-hop | is_ip }}
+        </group>
+    </group>
+    exit {{ _end_ }}
+</group>
+
+<group name="configure.router.static-route.ipv4">
+#-------------------------------------------------- {{ ignore }}
+echo "Static Route Configuration" {{ _start_ }}
+#-------------------------------------------------- {{ ignore }}
+        <group name="entry">
+        static-route {{ address | IPV4}}/{{ prefix }} next-hop {{ next-hop | is_ip }} {{ bfd | macro('set_true') | _start_ }}
+        static-route {{ address | IPV4 }}/{{ prefix }} next-hop {{ next-hop | is_ip }} preference {{ preference | DIGIT | _start_ }}
+        static-route {{ address | IPV4 }}/{{ prefix }} {{ black-hole | macro('set_true') | _start_ }}
+        </group>
+</group>
+#-------------------------------------------------- {{ _end_ }}
+echo "Static IPv6 Route Configuration" {{ _start_ }}
+<group name="configure.router.static-route.ipv6">
+#-------------------------------------------------- {{ ignore }}
+        <group name="entry">
+        static-route {{ address | IPV6 }}/{{ prefix }} next-hop {{ next-hop | is_ip }} {{ bfd | macro('set_true') | _start_ }}
+        static-route {{ address | IPV6 }}/{{ prefix }} next-hop {{ next-hop | is_ip }} preference {{ preference | DIGIT | _start_ }}
+        static-route {{ address | IPV6 }}/{{ prefix }} {{ black-hole | macro('set_true') | _start_ }}
+        </group>
+#-------------------------------------------------- {{ _end_ }}
+</group>
+<macro>
+def lag_info(data):
+    try:
+        int(data)
+        return data, {"lag-index": data}
+    except ValueError:
+        lag = data.split()
+        return data, {"lag-index": lag[0], "name": lag[2].strip('"')}
+</macro>
+
+#-------------------------------------------------- {{ ignore }}
+echo "LAG Configuration" {{ _start_ }}
+#-------------------------------------------------- {{ ignore }}
+<group name="configure">
+    <group name="lag">
+    lag {{ lag-index | ORPHRASE | macro(lag_info) }}
+        no shutdown {{ admin-state | set(false) }}
+        description {{ description | ORPHRASE | strip('"')}}
+        mode {{ mode }}
+        encap-type {{ encap-type }}
+        <group name="port">
+        port {{ port-id }}
+        </group>
+        <group name="lacp">
+        lacp {{ mode }} administrative-key {{ administrative-key | DIGIT}}
+        hold-time {{ hold-time | ORPHRASE }}
+        </group>
+        <group name="bfd.ipv4">
+            family {{ family | contains("ipv4") }}
+                shutdown {{ admin-state | set(false) }}
+                local-ip-address {{ local-ip }}
+                multiplier {{ multiplier }}
+                remote-ip-address {{ remote-ip-address }}
+                no shutdown {{ admin-state | set(true) }}
+        exit {{ _end_ }}
+        </group>            
+        no shutdown {{ admin-state | set(true) }}
+    </group>
+    exit {{ _end_ }}
+</group>
+#-------------------------------------------------- {{ _end_ }}<macro>
+def subscription_level(data):
+    data = data.replace('"','').split()
+    if len(data) >= 3:
+        return {"card-type": data[0], "subscription-level": data[2]}
+    return data[0]
+</macro>
+#-------------------------------------------------- {{ ignore }}
+echo "Card Configuration" {{ _start_ }}
+#-------------------------------------------------- {{ ignore }}
+    <group name="configure.card">
+    card {{slot-number | DIGIT }}
+        card-type {{ card-type | ORPHRASE  | macro('subscription_level') }}
+        fail-on-error {{fail-on-error | set(true)}}
+        <group name="mda">
+        mda {{mda-slot}}
+            shutdown {{admin-state | set(false)}}
+            mda-type {{mda-type | replace('"', '') }}
+            <group name="ingress-xpl">
+            ingress-xpl {{_start_}}
+                window {{window}}
+            exit {{_end_}}
+            </group>
+            <group name="egress-xpl">
+            egress-xpl {{_start_}}
+                window {{window}}
+            exit {{_end_}}
+            </group>
+            fail-on-error {{fail-on-error | set(true)}}
+            no shutdown {{admin-state | set(true)}}
+        </group>
+        exit {{ignore}}
+    </group>
+#-------------------------------------------------- {{ _end_ }}
+#-------------------------------------------------- {{ ignore}}
+echo "Router (Network Side) Configuration" {{ _start_ }}
+#-------------------------------------------------- {{ ignore}}
+<group name="router">
+    router {{ignore}}
+    <group name="interfaces">
+        interface {{interface_name | strip('"')}}
+            shutdown {{admin_state | set(false) }}
+            description {{description | strip('"')}}
+            enable-ingress-stats {{ingress_stats | set(true)}}
+            <group name="ipv4.primary">
+            address {{address}}/{{prefix_length}}
+            </group>
+            <group name="ipv4.bfd">
+            bfd {{ipv4_bfd | re(r"\d.*")}}
+            </group>
+            ldp_sync_timer {{ldp_sync_timer}}
+            cpu_protection {{cpu_protection}}
+            port {{port}}
+            <group name="ipv6">
+            ipv6 {{_start_}}
+                <group name="address">
+                address {{ipv6_address}}/{{prefix-length}}
+                </group>
+                <group name="address">
+                bfd {{ipv6_bfd | re(r"\d.*")}}
+                </group>
+            exit {{ignore}}
+            </group>
+            exit {{ignore}}
+            <group name="qos">
+            qos {{network-policy}}
+            </group>
+            bfd {{ipv4_bfd | re(r"\d.*")}}
+            no shutdown {{admin_state | set(true)}}
+        exit {{_end_}}
+    </group>
+</group>
+#-------------------------------------------------- {{_end_}}
+<group name="system.management-access-filter">
+            management-access-filter {{_start_}}
+                <group name="ip-filter-params">
+                ip-filter {{ipv4-filter | set(true)}}
+                    shutdown {{ admin-state | set(false)}}
+                    default-action {{default-action}}
+                    no shutdown {{ admin-state | set(true)}}
+                </group>
+                <group name="ipv6-filter-params">
+                ipv6-filter {{ipv6-filter | set(true)}}
+                    shutdown {{ admin-state | set(false)}}
+                    default-action {{default-action}}
+                    no shutdown {{ admin-state | set(true)}}
+                </group>
+</group>
+<group name="system.management-access-filter">
+            management-access-filter {{_start_}}
+                ip-filter {{_exact_}}
+                <group name="ip-filter">
+                <group name="entry">
+                    entry {{entry-id | DIGIT }}
+                        description {{description | re(r"\W.*") | strip('"')}}
+                        src-ip {{src-ip}}
+                        protocol {{protocol}}
+                        dst-port {{dst-port | re(r"\d.*")}}
+                        router {{router-instance | strip('"')}}
+                        action {{action | strip('"')}}
+                    exit {{ignore}}
+                ipv6-filter {{_end_}}
+                </group>
+                </group>
+</group>
+<group name="system.management-access-filter">
+                ipv6-filter {{_start_}}
+                <group name="ipv6-filter">
+                <group name="entry">
+                    entry {{entry-id}}
+                        description {{description | re(r"\W.*") | strip('"')}}
+                        src-ip {{src-ip }}
+                        protocol {{protocol}}
+                        dst-port {{dst-port | re(r"\d.*")}}
+                        router {{router-instance | strip('"')}}
+                        action {{action-instance | strip('"')}}
+                    exit {{ignore}}
+                </group>
+                </group>
+</group>
+#-------------------------------------------------- {{ ignore }}
+<group name="configure">
+echo "MPLS LSP Configuration" {{ ignore }}
+#-------------------------------------------------- {{ ignore }}
+        <group name="mpls">
+        mpls
+            <group name="path">
+            path "{{ name }}"
+                no shutdown {{ admin-state | set('true') }}
+                shutdown {{ admin-state | set('false') }}
+            exit
+            </group>
+            <group name="templates">
+            <group name="entry">
+            lsp-template "{{ name }}" {{ type }}
+                default-path "{{ default-path }}"
+                path-computation-method {{ path-computation-method }}
+                fast-reroute {{ fast-reroute }}
+                exit {{ ignore }}
+                no shutdown {{ admin-state | set('true') }}
+                shutdown {{ admin-state | set('false') }}
+            </group>
+            exit {{ _end_ }}
+            </group>
+            <group name="lsp">
+            lsp "TO_IOSXR"
+                to {{ to }}
+                path-computation-method {{ path-computation-method }}
+                fast-reroute {{ fast-reroute }}
+                exit {{ ignore }}
+                primary "{{ primary }}"
+                exit {{ ignore }}
+                secondary "{{ secondary }}"
+                    {{ standby }}
+                exit {{ ignore }}
+                no shutdown {{ admin-state | set('true') }}
+                shutdown {{ admin-state | set('false') }}
+            exit {{ _end_ }}
+            </group>
+            <group name="auto-lsp">
+            auto-lsp lsp-template "{{ template }}" policy "{{ policy }}"
+            </group>
+            shutdown {{ admin-state | set('false') }}
+            no shutdown {{ admin-state | set('true') }}
+        exit {{ _end_ }}
+        </group>
+</group>#-------------------------------------------------- {{ ignore }}
 echo "Connector Configuration" {{ _start_ }}
 #-------------------------------------------------- {{ ignore }}
 <group name="configure.connector">
@@ -425,4 +367,81 @@ echo "Connector Configuration" {{ _start_ }}
     </group>
     exit {{ _end_ }}
 </group>
-#-------------------------------------------------- {{ _end_ }}
+#-------------------------------------------------- {{ _end_ }}#-------------------------------------------------- {{ignore}}
+echo "Service Configuration" {{ignore}}
+#-------------------------------------------------- {{ignore}}
+    service {{_start_}}
+        <group name="system.service.sdp">
+        sdp {{sdp-id | re(r"\d.*") | replaceall("","create","mpls") | strip()}}
+            description {{description | strip('"')}}
+            far-end {{far-end | IP}}
+            ldp {{ldp | set(true)}}
+            lsp {{lsp | strip('"')}}
+            path-mtu {{path-mtu}}
+            adv-mtu-override {{adv-mtu-override | set(true)}}
+            <group name="keep-alive">
+            keep-alive {{_start_}}
+                shutdown {{admin-state | set(false)}}
+            </group>
+            exit {{ignore}}
+            no shutdown {{admin-state | set(true)}}
+        exit {{_end_}}
+        </group>
+#-------------------------------------------------- {{_end_}}
+#-------------------------------------------------- {{ignore}}
+echo "Port Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+<group name="configure.port">
+    port {{port-id}}
+        shutdown {{admin_state | set(false)}}
+        description "{{description}}"
+        <group name="ethernet">
+        ethernet {{_start_}}
+            mode {{mode}}
+            encap-type {{encap-type}}
+            mtu {{mtu | DIGIT}}
+            loopback internal persistent {{loopback | set(true)}}
+            <group name="network">
+            network {{ignore}}
+                queue-policy "{{queue-policy | DIGIT}}"
+            exit {{_end_}}
+            </group>
+            <group name="hold-time">
+            hold-time down {{down}}
+            </group>
+            <group name="hold-time">
+            hold-time up {{up| DIGIT}} down {{down | DIGIT}}
+            </group>
+            no autonegotiate {{autonegotiate | set(false)}}
+            autonegotiate {{autonegotiate}}
+            egress-rate {{egress-rate | DIGIT}} 
+        exit {{_end_}}
+        </group>
+        no shutdown {{admin_state | set(true)}}
+    exit {{_end_}}
+    </group>
+#-------------------------------------------------- {{_end_}}
+           <group name="system.profile">
+            profile {{user-profile-name | re(r".+") | strip('"')}}
+                default-action {{default-action}}
+                <group name="entry">
+                entry {{entry-id}} {{_start_}}
+                    match {{match | re(r"\W.*") | strip('"')}}
+                    action {{action}}
+                exit {{ignore}}
+                </group>
+            exit {{_end_}}
+            </group>
+<group name="system.eth-cfm">
+    eth-cfm {{_start_}}
+    <group name="domain">
+        domain {{domain-id}} format {{format}} level {{level}}
+            <group name="associations">
+            association {{association-id}} format {{format}} name {{name | strip('"')}}
+                bridge-identifier {{bridge-id}}
+                exit {{ignore}}
+                remote-mepid {{remote-mepid}}
+            </group>
+    </group>
+#-------------------------------------------------- {{_end_}}
+</group>

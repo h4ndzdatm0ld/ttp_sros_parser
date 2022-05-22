@@ -16,7 +16,7 @@ RUN poetry config virtualenvs.create false
 # Install project manifest
 COPY pyproject.toml poetry.lock ./
 
-RUN poetry install --no-dev
+RUN poetry install --no-root
 
 ############
 # Unit Tests
@@ -28,7 +28,7 @@ FROM base AS test
 
 COPY . .
 
-RUN poetry install
+RUN poetry install --no-interaction
 
 ############
 # Linting

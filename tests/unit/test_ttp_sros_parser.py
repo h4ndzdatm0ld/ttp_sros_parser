@@ -1,9 +1,9 @@
 """Test SROS Parser."""
-from ttp_sros_parser import __version__
+# from ttp_sros_parser import __version__
 
 
-def test_version():
-    assert __version__ == "0.1.0"
+# def test_version():
+#     assert __version__ == "0.1.5"
 
 
 def test_templates_as_list(sros_parser):

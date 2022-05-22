@@ -15,6 +15,7 @@ Parsed-Configs/*/*.txt
 Parsed-Configs/
 # Visual Studio
 workspace.code-workspace
+.vscode
 
 # Distribution / packaging
 .Python

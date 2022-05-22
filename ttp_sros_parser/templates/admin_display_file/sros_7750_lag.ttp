@@ -1,10 +1,21 @@
+<macro>
+def lag_info(data):
+    try:
+        int(data)
+        return data, {"lag-index": data}
+    except ValueError:
+        lag = data.split()
+        return data, {"lag-index": lag[0], "name": lag[2].strip('"')}
+</macro>
+
 #-------------------------------------------------- {{ ignore }}
 echo "LAG Configuration" {{ _start_ }}
 #-------------------------------------------------- {{ ignore }}
 <group name="configure">
     <group name="lag">
-    lag {{ lag-index | DIGIT }}
-        description {{ description | ORPHRASE }}
+    lag {{ lag-index | ORPHRASE | macro(lag_info) }}
+        no shutdown {{ admin-state | set(false) }}
+        description {{ description | ORPHRASE | strip('"')}}
         mode {{ mode }}
         encap-type {{ encap-type }}
         <group name="port">
@@ -14,6 +25,15 @@ echo "LAG Configuration" {{ _start_ }}
         lacp {{ mode }} administrative-key {{ administrative-key | DIGIT}}
         hold-time {{ hold-time | ORPHRASE }}
         </group>
+        <group name="bfd.ipv4">
+            family {{ family | contains("ipv4") }}
+                shutdown {{ admin-state | set(false) }}
+                local-ip-address {{ local-ip }}
+                multiplier {{ multiplier }}
+                remote-ip-address {{ remote-ip-address }}
+                no shutdown {{ admin-state | set(true) }}
+        exit {{ _end_ }}
+        </group>            
         no shutdown {{ admin-state | set(true) }}
     </group>
     exit {{ _end_ }}
