@@ -1,13 +1,11 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: Python application
-
-on:
-  push:
-    branches: ["*"]
-  pull_request:
-    branches: ["*"]
+---
+name: "CI"
+on: # yamllint disable-line rule:truthy rule:comments
+  - "push"
+  - "pull_request"
 
 jobs:
   build:
