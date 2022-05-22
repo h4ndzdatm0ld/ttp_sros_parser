@@ -9,7 +9,7 @@ keywords = ["sros", "ttp", "ttp-templates", "network automation", "nokia", "7750
 
 [tool.poetry.dependencies]
 python = "^3.8"
-ttp = "^0.7.2"
+ttp = "0.7.2"
 
 [tool.poetry.dev-dependencies]
 flake8 = "*"

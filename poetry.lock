@@ -657,7 +657,7 @@ pyyaml = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "3e997b34de4c1a59fef9c6172ec717fa26799fdef015ce8f958fc10726530d84"
+content-hash = "c7793b0fb67826f08be7b0c8b3715ec5dccf7fd185a0f686ae666ab19b53c042"
 
 [metadata.files]
 appnope = [
