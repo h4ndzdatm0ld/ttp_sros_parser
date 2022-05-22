@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.1.6] - 2022-xx-xx
+## [0.1.6] - 2022-22-05
 
 ### Added
     - Better support for LAG parsing
@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
     - Double quotes on LAG rendering stripped to single
     - Loosened development dependencies for local dev
+    - Pinned TTP (0.7.2) as anything above breaks parsing
 
 ## [0.1.5] - 2021-24-12
 
