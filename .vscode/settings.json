@@ -14,8 +14,12 @@
         "titleBar.activeBackground": "#599790",
         "titleBar.activeForeground": "#15202b",
         "titleBar.inactiveBackground": "#59979099",
-        "titleBar.inactiveForeground": "#15202b99"
+        "titleBar.inactiveForeground": "#15202b99",
+        "sash.hoverBorder": "#75aea7",
+        "statusBarItem.remoteBackground": "#599790",
+        "statusBarItem.remoteForeground": "#15202b"
     },
     "peacock.remoteColor": "#599790",
-    "python.linting.pylintEnabled": true
+    "python.linting.pylintEnabled": true,
+    "peacock.color": "#599790"
 }

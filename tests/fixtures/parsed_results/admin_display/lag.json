@@ -4,7 +4,7 @@
          "lag":[
             {
                "admin-state":true,
-               "description":"\"LINK-TO-TNTNMADO91A-P-AL-7750-01\"",
+               "description":"LINK-TO-TNTNMADO91A-P-AL-7750-01",
                "encap-type":"dot1q",
                "lacp":{
                   "administrative-key":"11125",
@@ -19,7 +19,7 @@
             },
             {
                "admin-state":true,
-               "description":"\"LAG-11-to-TNTNMADOT1A-P-AL-7750-060475-H2\"",
+               "description":"LAG-11-to-TNTNMADOT1A-P-AL-7750-060475-H2",
                "encap-type":"dot1q",
                "lacp":{
                   "administrative-key":"10011",

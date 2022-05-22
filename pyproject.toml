@@ -9,19 +9,19 @@ keywords = ["sros", "ttp", "ttp-templates", "network automation", "nokia", "7750
 
 [tool.poetry.dependencies]
 python = "^3.8"
-ttp = "^0.7.2"
+ttp = "0.7.2"
 
 [tool.poetry.dev-dependencies]
-flake8 = "^3.9.2"
-pylint = "^2.9.6"
-pydocstyle = "^6.1.1"
-bandit = "^1.7.0"
-yamllint = "^1.26.2"
-black = "^21.7b0"
-pytest = "^6.2.4"
-ipython = "^7.26.0"
-pytest-cov = "^2.12.1"
-coverage = "^5.5"
+flake8 = "*"
+pylint = "*"
+pydocstyle = "*"
+bandit = "*"
+yamllint = "*"
+black = "*"
+pytest = "*"
+ipython = "*"
+pytest-cov = "*"
+coverage = "*"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

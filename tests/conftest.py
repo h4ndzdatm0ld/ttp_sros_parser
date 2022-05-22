@@ -41,6 +41,11 @@ def sros_parser_7750_R3():
 
 
 @pytest.fixture(scope="session")
+def sros_parser_7750_R2():
+    return SrosParser(f"{FIXTURES}/configs/example-config-7750-r2.txt")
+
+
+@pytest.fixture(scope="session")
 def parsed_interfaces():
     with open(f"{FIXTURES}/parsed_results/admin_display/interfaces.json") as f:
         return json.load(f)
@@ -109,6 +114,12 @@ def parsed_system_profiles():
 @pytest.fixture(scope="session")
 def parsed_lags():
     with open(f"{FIXTURES}/parsed_results/admin_display/lag.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_lags_1():
+    with open(f"{FIXTURES}/parsed_results/admin_display/lag_1.json") as f:
         return json.load(f)
 
 

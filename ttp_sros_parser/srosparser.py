@@ -177,9 +177,9 @@ class SrosParser:  # pylint: disable=R0904
         templates = globfindfile(f"{self.templates_path}/admin_display_file/*.ttp")
         full_config_template = f"{self.templates_path}/full_config/sros_full_config.ttp"
 
-        with open(full_config_template, "w+") as full_config:
+        with open(full_config_template, "w+", encoding="utf-8") as full_config:
             for template in templates:
-                with open(template, "r") as file:
+                with open(template, "r", encoding="utf-8") as file:
                     full_config.write(file.read())
 
         return self._parse(template=full_config_template, json_format=json_format)
