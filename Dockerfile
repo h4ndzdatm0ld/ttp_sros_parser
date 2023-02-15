@@ -8,9 +8,10 @@ FROM python:${PYTHON_VER} AS base
 
 WORKDIR /usr/src/app
 
-# Install poetry for dep management
-RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
-ENV PATH="$PATH:/root/.poetry/bin"
+RUN pip install -U pip  && \
+    curl -sSL https://install.python-poetry.org  | python3 -
+ENV PATH="/root/.local/bin:$PATH"
+
 RUN poetry config virtualenvs.create false
 
 # Install project manifest
