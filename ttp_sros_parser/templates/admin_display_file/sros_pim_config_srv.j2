@@ -1,0 +1,22 @@
+#--------------------------------------------------
+echo "PIM Configuration"
+#--------------------------------------------------
+        pim
+            {%- for interface in parsed_config[0]['configure']['router']['pim'][1]['interface']%}{% if interface['name'] %}
+            interface "{{interface['name']}}"
+                {%- if interface['bfd_enable'] %}
+                bfd-enable
+                {%- endif %}
+                {%- if interface['priority'] %}
+                priority {{interface['priority']}}
+                {%- endif %}
+                {%- if interface['sticky-dr'] %}
+                sticky-dr
+                {%- endif %}              
+            exit
+            {%- endif %}
+            {%- endfor %}    
+            {%- if parsed_config[0]['configure']['router']['pim'][1]['admin_state']%}
+            no shutdown
+            {%- endif %}
+        exit

@@ -1,0 +1,84 @@
+#--------------------------------------------------
+echo "System Configuration"
+#--------------------------------------------------
+    system
+        name "{{parsed_config[0]['configure']['system']['name']}}"
+        power-management
+        {%- for peq in parsed_config[0]['configure']['system']['power-management']['peq'] %}{% if peq['peq-id'] %}
+            peq {{peq['peq-id']}}
+                peq-type {{peq['peq-type']}}
+                {%- if peq['admin-state']%}
+                no shutdown
+                {%- else %}
+                shutdown
+                {%- endif %}
+            exit
+        {%- endif %}
+        {%- endfor %}
+        exit
+        dns
+            address-pref {{parsed_config[0]['configure']['system']['dns']['address-pref']}}
+        exit
+        load-balancing
+            {%- if parsed_config[0]['configure']['system']['load-balancing']['l4-load-balancing']%}
+            l4-load-balancing
+            {%- endif %}
+            lsr-load-balancing {{parsed_config[0]['configure']['system']['load-balancing']['lsr-hashing']}}
+        exit
+        {%- if parsed_config[0]['configure']['system']['rollback']['rollback']%}
+        rollback
+            rollback-location "{{parsed_config[0]['configure']['system']['rollback']['rollback_cf_slot']}}:\{{parsed_config[0]['configure']['system']['rollback']['rollback_directory']}}"
+            rescue-location "{{parsed_config[0]['configure']['system']['rollback']['rescue_cf_slot']}}:\{{parsed_config[0]['configure']['system']['rollback']['rescue_directory']}}"
+        exit
+        {%- endif %}
+        time
+            {%- if parsed_config[0]['configure']['system']['time']['ntp']%}
+            ntp
+                {%- if parsed_config[0]['configure']['system']['time']['ntp']['admin_state']%}
+                no shutdown
+                {%- else %}
+                shutdown
+                {%- endif %}
+            exit
+            {%- endif %}
+            {%- if parsed_config[0]['configure']['system']['time']['sntp']%}
+            sntp
+                {%- if parsed_config[0]['configure']['system']['time']['sntp']['admin_state']%}
+                no shutdown
+                {%- else %}
+                shutdown
+                {%- endif %}
+            exit
+            {%- endif %}
+            dst-zone {{parsed_config[0]['configure']['system']['time']['dst-zone']['dst-zone']}}
+                start last {{parsed_config[0]['configure']['system']['time']['dst-zone']['dst-zone-start']}}
+                end last {{parsed_config[0]['configure']['system']['time']['dst-zone']['dst-zone-end']}}
+            exit
+            zone {{parsed_config[0]['configure']['system']['time']['time_zone']}}
+        exit
+        script-control
+            {%- for script in parsed_config[0]['configure']['system']['script-control']['script'] %}{% if script['name'] %}
+            script "{{script['name']}}"
+                description "{{script['description']}}"
+                location "{{script['location']}}"
+                {%- if script['admin-state']%}
+                no shutdown
+                {%- else %}
+                shutdown
+                {%- endif %}
+            exit
+            {%- endif %}
+            {%- endfor %}
+            {%- for script_policy in parsed_config[0]['configure']['system']['script-control']['script-policy'] %}{% if script_policy['name'] %}
+            script-policy "{{script_policy['name']}}"
+                results "{{script_policy['results']}}"
+                script "{{script_policy['script-file']}}"
+                {%- if script_policy['admin-state']%}
+                no shutdown
+                {%- else %}
+                shutdown
+                {%- endif %}
+            exit
+            {%- endif %}
+            {%- endfor %}
+        exit        

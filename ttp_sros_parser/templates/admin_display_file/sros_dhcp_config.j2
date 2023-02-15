@@ -1,0 +1,30 @@
+{%- set server = parsed_config[0]['configure']['router']['dhcp']['server'] %}
+#--------------------------------------------------
+echo "Local DHCP Server (Base Router) Configuration"
+#--------------------------------------------------
+    router
+        dhcp
+            local-dhcp-server "{{server['name']}}" create
+                user-db "{{server['user-db']}}"
+                pool "{{server['pool']['name']}}" create
+                    min-lease-time {{server['pool']['min-lease-time']}}
+                    max-lease-time {{server['pool']['max-lease-time']}}
+                    options
+                        dns-server {% for dns in server['pool']['options']['dns-server']%}{{dns}} {% endfor %} 
+                        {%- for option in server['pool']['options']['custom-option']%}{% if option['id'] %}
+                        custom-option {{option['id']}} address {{option['address']}}
+                        {%- endif %}
+                        {%- endfor %}                         
+                    exit
+                    subnet {{server['pool']['subnet']['prefix']}} create
+                        address-range {{server['pool']['subnet']['address-range']}}
+                    exit
+                exit
+                {%- if server['admin_state']%}
+                no shutdown
+                {%- else %}
+                shutdown
+                {%- endif %}
+            exit
+        exit
+    exit

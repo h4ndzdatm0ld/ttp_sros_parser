@@ -4,23 +4,40 @@ echo "Port Configuration" {{_start_}}
 <group name="configure.port">
     port {{port-id}}
         shutdown {{admin_state | set(false)}}
-        description "{{description}}"
+        description "{{description | ORPHRASE}}"
         <group name="ethernet">
         ethernet {{_start_}}
+            <group name="dot1x">
+            dot1x {{_start_}}
+                {{dot1x-param}}
+            exit {{_end_}}
+            </group>
+            <group name="down-when-looped"> 
+            down-when-looped {{down-when-looped | set(true)}}
+                no shutdown {{admin_state | set(true)}}
+            exit {{_end_}}
+            </group>
             mode {{mode}}
             encap-type {{encap-type}}
             mtu {{mtu | DIGIT}}
+            egress-scheduler-policy "{{egress-scheduler-policy-name | ORPHRASE}}"
             loopback internal persistent {{loopback | set(true)}}
             <group name="network">
-            network {{ignore}}
-                queue-policy "{{queue-policy | DIGIT}}"
+            network {{_start_}}
+                queue-policy "{{queue-policy | ORPHRASE}}"
             exit {{_end_}}
             </group>
             <group name="hold-time">
-            hold-time down {{down}}
+            hold-time up {{hold-time-up| DIGIT}}
             </group>
-            <group name="hold-time">
-            hold-time up {{up| DIGIT}} down {{down | DIGIT}}
+            <group name="lldp">
+            lldp {{_start_}}
+                dest-mac {{nearest-type}}
+                    admin-status {{tx-rx}}
+                    tx-tlvs {{ tlv-mgt | ORPHRASE }}
+                    port-id-subtype {{port-id-subtype | ORPHRASE }}
+                exit {{ignore}}
+            exit {{_end_}}
             </group>
             no autonegotiate {{autonegotiate | set(false)}}
             autonegotiate {{autonegotiate}}

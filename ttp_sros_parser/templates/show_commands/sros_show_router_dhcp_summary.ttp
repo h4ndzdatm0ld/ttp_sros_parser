@@ -1,0 +1,19 @@
+<group name="router.dhcp">
+=============================================================================== {{ignore}}
+DHCP Summary (Router: Base) {{ignore}}
+=============================================================================== {{ignore}}
+Interface Name                   Arp      Leases Per Interface/ Info    Admin {{ignore}}
+  SapId/Sdp                      Populate Per Sap Limit         Option  State {{_start_}}
+------------------------------------------------------------------------------- {{ignore}}
+<group name="interface.{{name}}" method="table">
+{{name}}          {{arp-populate}}      {{leases-per-sap}}/{{limit}} {{info-option}} {{admin-state}}
+    <group name="sap.lag-{{id}}" method="table">
+  sap:lag-{{id | DIGIT | _start_ }}:{{id-type-collecte | DIGIT}}.{{vlan-boucle | DIGIT}}   {{leases-per-sap | DIGIT }}/{{limit | DIGIT | _end_ }}
+    </group>
+------------------------------------------------------------------------------- {{_end_}}
+</group>
+<group name="count">
+Interfaces : {{total-interfaces | DIGIT}}
+=============================================================================== {{ignore}}
+</group>
+</group>

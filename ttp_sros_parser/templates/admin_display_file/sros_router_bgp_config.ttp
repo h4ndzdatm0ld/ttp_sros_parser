@@ -1,0 +1,88 @@
+<group name="configure.router.bgp">
+#-------------------------------------------------- {{ignore}}
+echo "BGP Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+        bgp {{ignore}}
+            ibgp-multipath {{ibgp-multipath | set(true)}}   
+            enable-peer-tracking {{enable-peer-tracking | set(true)}}   
+            advertise-external {{advertise-external | ORPHRASE | split(" ") | to_list}}
+            backup-path {{backup-path | ORPHRASE | split(" ") | to_list}}
+            <group name="next-hop-resolution">
+            next-hop-resolution {{_start_}}
+                policy {{ policy | ORPHRASE }}
+                <group name="shortcut-tunnel">
+                shortcut-tunnel {{_start_}}
+                    <group name="family">
+                    family {{type}}
+                        <group name="resolution-filter">
+                        resolution-filter {{_start_}}
+                            {{type | ORPHRASE}}
+                        exit{{_end_}}
+                        </group>
+                        resolution filter {{_start_}}
+                    exit{{_end_}}
+                    </group>
+                exit{{_end_}}
+                </group>
+            exit{{_end_}}
+            </group>
+            peer-tracking-policy {{peer-tracking-policy | ORPHRASE}}
+
+            <group name="rib-management">
+            rib-management {{_start_}}
+                <group name="ipv6">
+                ipv6{{_start_}}{{_exact_}}
+                    route-table-import {{route-table-import | ORPHRASE}}
+                exit{{_end_}} 
+                </group>
+
+                <group name="label-ipv6">
+                label-ipv6{{_start_}}{{_exact_}}
+                    route-table-import {{route-table-import | ORPHRASE}}
+                exit{{_end_}} 
+                </group>
+
+            exit{{_end_}}
+            </group>
+            <group name="group">
+            group {{name | _start_ | ORPHRASE}}
+                shutdown {{admin-state | set(false)}}
+                description {{description | ORPHRASE}}
+                family {{family | ORPHRASE}}
+                loop-detect {{loop-detect | ORPHRASE }}
+                next-hop-self {{next-hop-self | set(true)}}
+                vpn-apply-import {{vpn-apply-import | set (true)}}
+                vpn-apply-export {{vpn-apply-export | set (true)}}
+                type {{type | ORPHRASE}}
+                multihop {{type | DIGIT}}
+                local-address {{ local-address | IP}}
+                min-route-advertisement {{min-route-advertisement | DIGIT}}
+                preference {{preference | DIGIT}}
+                path-mtu-discovery {{path-mtu-discovery | set(true)}}
+                import {{import | ORPHRASE | split (" ") }}
+                export {{export | ORPHRASE | split (" ") }}
+                peer-as {{peer-as | DIGIT}}
+                local-as {{local-as | DIGIT}}
+                ttl-security {{ttl-security | DIGIT}}
+                <group name="add-paths">
+                add-paths {{_start_}}
+                    {{config | ORPHRASE }}
+                exit{{_end_}}
+                </group>
+
+                prefix-limit ipv4 {{prefix-limit-ipv4 | _exact_ | DIGIT }} {{ post-importv4 | let (true) }}
+                prefix-limit ipv6 {{prefix-limit-ipv6 | _exact_ | DIGIT }} {{ post-importv6 | let (true) }} 
+
+                <group name="neighbor">
+                neighbor {{neighbor-id | IP}}
+                    description "{{description | ORPHRASE}}"
+                    peer-as {{peer-as | DIGIT}}
+                    
+                exit{{_end_}}
+                </group>
+            
+            exit{{_end_}}
+            </group>
+            shutdown {{admin-state | set(true)}}
+        exit{{_end_}}
+        </group>

@@ -1,0 +1,69 @@
+<group name="configure.system.security.cpm-filter">
+#--------------------------------------------------{{ignore}}
+echo "System Security Cpm Hw Filters, PKI, TLS and LDAP Configuration" {{_start_}}
+#--------------------------------------------------{{ignore}}
+    system {{_start_}}
+        security {{_start_}}
+            cpm-filter {{_start_}}
+                default-action drop {{default-action | set(drop)}}
+                <group name="ip-filter">
+                ip-filter {{_start_}}
+                    no shutdown{{admin_state | _exact_ | set(true)}}
+                    shutdown{{admin_state | _exact_ | set(false)}}
+                    <group name="entry">
+                    entry {{entry-id | _start_ }} create
+                        action {{action | ORPHRASE}}
+                        description "{{description | ORPHRASE}}"
+                        log {{log-id}}
+                        <group name="match-protocol">
+                        match protocol {{protocol | _start_}}
+                            src-ip {{src-ip-address | PREFIX}}
+                            src-ip ip-prefix-list "{{src-ip-prefix-list}}"
+                            dst-ip {{dst-ip-address | PREFIX}}
+                            dst-ip ip-prefix-list "{{dst-ip-prefix-list}}"
+                            src-port {{ src-port | ORPHRASE | split(' ')}}
+                            dst-port {{ dst-port | ORPHRASE | split(' ')}}
+                            icmp-type {{icmp-type}}
+                        exit {{_end_}}
+                        </group>
+                        <group name="match">
+                        match {{_start_}}
+                            src-ip {{src-ip-address | PREFIX}}
+                            src-ip ip-prefix-list "{{src-ip-prefix-list}}"
+                            dst-ip {{dst-ip-address | PREFIX}}
+                            dst-ip ip-prefix-list "{{dst-ip-prefix-list}}"
+                        exit {{_end_}}
+                        </group>                        
+                    exit {{_end_}}
+                    </group>
+                exit {{_end_}}
+                </group>
+                <group name="ipv6-filter">
+                ipv6-filter {{_start_}}
+                    no shutdown{{admin_state | _exact_ | set(true)}}
+                    shutdown{{admin_state | _exact_ | set(false)}}
+                    <group name="entry">
+                    entry {{entry-id | _start_ }} create
+                        action {{action | ORPHRASE}}
+                        description "{{description | ORPHRASE}}"
+                        log {{log-id}}
+                        <group name="match-next-header">
+                        match next-header {{protocol | _start_}}
+                            src-ip {{src-ipv6-address | PREFIXV6 }}
+                            src-ip ipv6-prefix-list "{{src-ipv6-prefix-list}}"
+                            dst-ip {{dst-ipv6-address | PREFIXV6}}
+                            dst-ip ipv6-prefix-list "{{dst-ipv6-prefix-list}}"
+                            src-port {{ src-port | ORPHRASE | split(' ')}}
+                            dst-port {{ dst-port | ORPHRASE | split(' ')}}
+                        exit {{_end_}}
+                        </group>  
+                    exit {{_end_}}
+                    </group>
+                exit {{_end_}}
+                </group>
+            exit {{_end_}}
+        exit {{_end_}}
+    exit {{_end_}}
+#-------------------------------------------------- {{ignore}}
+echo "System Login Control Configuration" {{_end_}}
+</group>

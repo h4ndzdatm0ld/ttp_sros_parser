@@ -1,0 +1,26 @@
+<group name="configure.python">
+#-------------------------------------------------- {{ ignore }}
+echo "PYTHON Configuration" {{_start_}}
+#-------------------------------------------------- {{ ignore }}
+    python {{ ignore }}
+        <group name="python-script">
+        python-script "{{name | ORPHRASE | _start_}}" create
+            description "{{description | ORPHRASE}}"
+            primary-url "{{primary-url | ORPHRASE}}"
+            no shutdown {{admin_state | set(true)}}
+        exit {{_end_}}
+        </group>
+        <group name="python-policy">
+        python-policy "{{name | ORPHRASE | _start_}}" create
+            description "{{description | ORPHRASE}}"
+            <group name="dhcp">
+            dhcp {{message | WORD}} direction {{direction}} script "{{script | ORPHRASE}}"
+            </group>
+            <group name="dhcp6">
+            dhcp6 {{message | WORD}} direction {{direction}} script "{{script | ORPHRASE}}"
+            </group>
+        exit {{_end_}}
+        </group>
+    exit {{_end_}}
+#--------------------------------------------------
+</group>

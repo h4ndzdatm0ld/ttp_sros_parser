@@ -1,0 +1,50 @@
+<group name="configure.router.policy">
+#-------------------------------------------------- {{ignore}}
+echo "Policy Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+        policy-options {{ignore}}
+            begin {{ignore}}
+            <group name="prefix-list">
+            prefix-list {{ name | re(r'.*') }}     
+                {{ prefix-list_cfg | _line_ | contains("prefix") | joinmatches }}
+            exit {{_end_}}
+            </group>
+
+            <group name="community">
+            community {{ name | re(r'.*') }}   
+                members "{{ members | WORD }}"
+                expression {{ expression | PHRASE }}
+            exit {{_end_}}
+            </group>
+
+            <group name="policy-statement">
+            policy-statement {{ name | re(r'.*') }}
+                <group name="entry-list">
+                entry {{entry-id | DIGIT}}
+                    description "{{description | re(r'.*')}}"
+                    <group name="from">
+                    from {{_start_}}
+                        {{ from | ORPHRASE | joinmatches }}
+                    exit {{_end_}}
+                    </group>
+                    <group name="to">
+                    to {{_start_}}
+                        {{ to | ORPHRASE | joinmatches }}
+                    exit {{_end_}}
+                    </group>
+                    
+                    <group name="action">
+                    action {{type | re (r'.*')}} {{_start_}}
+                        {{ addons | ORPHRASE | joinmatches }}
+                    exit {{_end_}}
+                    </group>                
+                    
+                    exit {{_end_}}
+                </group>
+                default-action {{default-action | re (r'.*')}}
+            exit {{_end_}}    
+            </group>        
+                
+            exit {{_end_}}
+
+</group>

@@ -1,0 +1,70 @@
+#--------------------------------------------------
+echo "Router (Network Side) Configuration"
+#--------------------------------------------------
+    router Base
+        dhcp
+            local-dhcp-server "{{parsed_config[0]['router'][0]['dhcp']['local-dhcp-server-name'] }}" create
+            exit
+        exit
+        {%- for interface in parsed_config[0]['router'][0]['interfaces'] %}{% if interface['interface_name'] %}
+        interface "{{interface['interface_name']}}"
+            address {{interface['ipv4']['primary']['address']}}/{{interface['ipv4']['primary']['prefix_length']}}
+            {%- if interface['description']%}
+            description {{interface['description']}}
+            {%- endif %}
+            {%- if interface['ldp_sync_timer']%}
+            ldp-sync-timer {{interface['ldp_sync_timer']}}
+            {%- endif %}
+            {%- if interface['cpu_protection']%}
+            cpu_protection {{interface['cpu_protection']}}
+            {%- endif %}
+            {%- if interface['loopback']%}
+            loopback
+            {%- endif %}
+            {%- if interface['port']%}
+            port {{interface['port']}}
+            {%- endif %}
+            {%- if interface['ipv6']%}
+            ipv6
+                address {{interface['ipv6']['ipv6_address']}}/{{interface['ipv6']['prefix-length']}}
+            exit
+            {%-endif %}
+            {%- if interface['qos']%}
+            qos {{interface['qos']['network-policy']}}
+            {%- endif %}
+            {%- if interface['ingress']%}
+            ingress
+                filter ip {{interface['ingress']['filter-acl-id']}}
+                {%- if interface['ingress']['filter-acl-id-v6']%}
+                filter ipv6 {{interface['ingress']['filter-acl-id-v6']}}
+                {%- endif %}
+            exit
+            {%- endif %}
+            {%- if interface['egress']%}
+            egress
+                filter ip {{interface['ingress']['filter-acl-id']}}
+                {%- if interface['ingress']['filter-acl-id-v6']%}
+                filter ipv6 {{interface['ingress']['filter-acl-id-v6']}}
+                {%- endif %}
+            exit
+            {%- endif %}
+            {%- if interface['cflowd-parameters']%}
+            cflowd-parameters
+                sampling {{interface['cflowd-parameters']['cast']}} type {{interface['cflowd-parameters']['sampling-type']}}
+            exit
+            {%- endif %}
+            {%- if interface['local-dhcp-server-name']%}
+            local-dhcp-server "{{interface['local-dhcp-server-name']}}"
+            {%- endif %}
+            {%- if interface['admin_state']%}
+            no shutdown
+            {%- else %}
+            shutdown
+            {%- endif %}
+        exit
+        {%- endif %}
+        {%- endfor %}
+        autonomous-system {{parsed_config[0]['router'][0]['autonomous-system-id']}}
+        ecmp {{parsed_config[0]['router'][0]['ecmp-value']}}
+
+

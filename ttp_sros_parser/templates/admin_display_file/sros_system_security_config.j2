@@ -1,0 +1,89 @@
+#--------------------------------------------------
+echo "System Security Cpm Hw Filters, PKI, TLS and LDAP Configuration"
+#--------------------------------------------------
+    system
+        security
+            cpm-filter
+                default-action {{parsed_config[0]['configure']['system']['security']['cpm-filter'][0]['default-action']}}
+                ip-filter
+                    {%- for entry in parsed_config[0]['configure']['system']['security']['cpm-filter'][0]['ip-filter']['entry'] %}{% if entry['entry-id'] %}
+                    entry {{entry['entry-id']}} create
+                        action {{entry['action']}}
+                        description "{{entry['description']}}"
+                        {%- if entry['log-id'] %}
+                        log {{entry['log-id']}}
+                        {%- endif %}                        
+                        {%- if entry['match'] %}
+                        match
+                            {%- if entry['match']['src-ip-prefix-list'] %}
+                            src-ip ip-prefix-list "{{entry['match']['src-ip-prefix-list']}}"
+                            {%- endif %}
+                            {%- if entry['match']['src-ip-address'] %}
+                            src-ip {{entry['match']['src-ip-address']}}
+                            {%- endif %}
+                            {%- if entry['match']['dst-ip-address'] %}
+                            dst-ip {{entry['match']['dst-ip-address']}}
+                            {%- endif %}    
+                        exit
+                        {%- endif %}
+                        {%- if entry['match-protocol'] %}
+                        match protocol {{entry['match-protocol']['protocol']}}
+                            {%- if entry['match-protocol']['protocol'] =="icmp" %}
+                            icmp-type {{entry['match-protocol']['icmp-type']}}
+                            {%- endif %}
+                            {%- if entry['match-protocol']['src-ip-address'] %}
+                            src-ip {{entry['match-protocol']['src-ip-address']}}
+                            {%- endif %}
+                            {%- if entry['match-protocol']['dst-ip-address'] %}
+                            dst-ip {{entry['match-protocol']['dst-ip-address']}}
+                            {%- endif %}
+                            {%- if entry['match-protocol']['dst-port'] %}
+                            dst-port{%- for port in entry['match-protocol']['dst-port'] %} {{port}}{% endfor %}
+                            {%- endif %}
+                            {%- if entry['match-protocol']['src-port'] %}
+                            src-port{%- for port in entry['match-protocol']['src-port'] %} {{port}}{% endfor %}
+                            {%- endif %}
+                            {%- if entry['match-protocol']['src-ip-prefix-list'] %}
+                            src-ip ip-prefix-list "{{entry['match-protocol']['src-ip-prefix-list']}}"
+                            {%- endif %}
+                        exit
+                        {%- endif %}
+                    exit          
+                    {%- endif %}
+                    {%- endfor %}
+                    {%- if parsed_config[0]['configure']['system']['security']['cpm-filter'][0]['ip-filter']['admin_state']%}
+                    no shutdown
+                    {%- else %}
+                    shutdown
+                    {%- endif %}       
+                exit
+                ipv6-filter
+                {%- for entry in parsed_config[0]['configure']['system']['security']['cpm-filter'][0]['ipv6-filter']['entry'] %}{% if entry['entry-id'] %}
+                    entry {{entry['entry-id']}} create
+                        action {{entry['action']}}
+                        description "{{entry['description']}}"
+                        {%- if entry['log-id'] %}
+                        log {{entry['log-id']}}
+                        {%- endif %}                        
+                        {%- if entry['match-next-header'] %}
+                        match next-header {{entry['match-next-header']['protocol']}}
+                            {%- if entry['match-next-header']['dst-port'] %}
+                            dst-port{%- for port in entry['match-next-header']['dst-port'] %} {{port}}{% endfor %}
+                            {%- endif %}
+                            {%- if entry['match-next-header']['src-port'] %}
+                            src-port{%- for port in entry['match-next-header']['src-port'] %} {{port}}{% endfor %}
+                            {%- endif %}
+                        {%- endif %}    
+                        exit
+                    exit
+                    {%- endif %}     
+                    {%- endfor %}
+                    {%- if parsed_config[0]['configure']['system']['security']['cpm-filter'][0]['ipv6-filter']['admin_state']%}
+                    no shutdown
+                    {%- else %}
+                    shutdown
+                    {%- endif %} 
+                exit    
+            exit
+        exit
+    exit

@@ -1,0 +1,69 @@
+#--------------------------------------------------
+echo "Port Configuration"
+#--------------------------------------------------
+    {%- for port in parsed_config[0]['configure']['port'] %}{% if port['port-id'] %}
+    port {{port['port-id']}}
+        {%- if not port['admin_state']%}
+        shutdown
+        {%- endif %}
+        {%- if port['description'] %}
+        description "{{port['description']}}"
+        {%- endif %}
+        {%- if port['ethernet'] %}
+        ethernet
+            {%- if port['ethernet']['dot1x'] %}
+            dot1x
+                {{port['ethernet']['dot1x']['dot1x-param']}}
+            exit
+            {%- endif %}
+            {%- if port['ethernet']['mode'] %}
+            mode {{port['ethernet']['mode']}}
+            {%- endif %}
+            {%- if port['ethernet']['encap-type'] %}
+            encap-type {{port['ethernet']['encap-type']}}
+            {%- endif %}
+            {%- if port['ethernet']['mtu'] %}
+            mtu {{port['ethernet']['mtu']}}
+            {%- endif %}
+            {%- if port['ethernet']['egress-scheduler-policy-name'] %}
+            egress-scheduler-policy "{{port['ethernet']['egress-scheduler-policy-name']}}"
+            {%- endif %}
+            {%- if port['ethernet']['down-when-looped'] %}
+            down-when-looped
+                {%- if port['ethernet']['down-when-looped']['admin_state']%}
+                no shutdown
+                {%- else %}
+                shutdown
+                {%- endif %}
+            exit    
+            {%- endif %}
+            {%- if port['ethernet']['network'] %}
+            network
+                queue-policy "{{port['ethernet']['network']['queue-policy']}}"
+            exit
+            {%- endif %}    
+            {%- if port['ethernet']['lldp'] %}
+            lldp
+                dest-mac {{port['ethernet']['lldp']['nearest-type']}}
+                    admin-status {{port['ethernet']['lldp']['tx-rx']}}
+                    {%- if port['ethernet']['lldp']['tlv-mgt']%}
+                    tx-tlvs {{port['ethernet']['lldp']['tlv-mgt']}}
+                    {%- endif %}
+                    port-id-subtype {{port['ethernet']['lldp']['port-id-subtype']}}
+                exit
+            exit
+            {%- endif %}
+            {%- if port['ethernet']['hold-time'] %}
+            hold-time up {{port['ethernet']['hold-time']['hold-time-up']}}
+            {%- endif %}                   
+        exit
+        {%- if port['admin_state']%}
+        no shutdown
+        {%- endif %}  
+        {%- else %}
+        ethernet
+        exit
+        {%- endif %}
+    exit
+    {%- endif %}
+    {%- endfor %}

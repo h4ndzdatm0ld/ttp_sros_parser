@@ -1,0 +1,39 @@
+#--------------------------------------------------
+echo "Filter Configuration"
+#--------------------------------------------------
+    filter
+        ip-filter 10 name "10" create
+            embed-filter flowspec router "Base"
+        exit
+        ip-filter 1001 name "1001" create
+            embed-filter flowspec router "Base" offset 2000
+        exit
+        ip-filter 1002 name "1002" create
+            embed-filter 2000
+            embed-filter 2100
+        exit
+        ip-filter 1003 name "1003" create
+            embed-filter 2001
+            embed-filter 2101
+        exit
+        ip-filter 1005 name "1005" create
+            embed-filter 2001
+        exit
+        ip-filter 2002 name "2002" create
+            embed-filter flowspec router "Base" offset 2000
+        exit
+        ipv6-filter 1002 name "1002" create
+            embed-filter 2000
+            embed-filter 2100
+        exit
+        ipv6-filter 1003 name "1003" create
+            embed-filter 2001
+            embed-filter 2101
+        exit
+        ipv6-filter 1004 name "1004" create
+            embed-filter 2000
+        exit
+        ipv6-filter 1005 name "1005" create
+            embed-filter 2001
+        exit
+    exit

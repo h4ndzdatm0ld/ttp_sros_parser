@@ -9,49 +9,53 @@ def macro_source(data):
     elif 'change' in data:
         return data, {"change": True}
     elif 'security' in data:
-        return data, {"security": True}   
+        return data, {"security": True}
+    elif 'debug-trace' in data:
+        return data, {"debug-trace": True}
 </macro>
-
+<group name="configure.log">
 #-------------------------------------------------- {{ignore}}
-echo "Log Configuration" <group name="configure.log"> {{_start_}}
+echo "Log Configuration" {{_start_}}
 #-------------------------------------------------- {{ignore}}
     log {{ignore}}
-    <group name="file">
+        route-preference primary {{route-pref-primary}} secondary {{route-pref-secondary}}
+        <group name="file">
         file-id {{file-id}} 
             description "{{description}}"
             <group name="compact-flash-location">
             location {{primary}}: 
             </group>
             rollover {{rollover}} retention {{retention}} 
-        exit {{ignore}}
-    </group>
-        <group name="log-events.chassis">
-        event-control "{{event}}" {{event-id}} {{generate | re(r'generate') | macro('macro_gen')}}
+        exit {{_end_}}
+        </group>
+        <group name="event-control">
+        event-control "{{event | ORPHRASE}}" {{event-id | DIGIT }} {{action | WORD}}
         </group>
         <group name="syslog">
         syslog {{syslog-id | DIGIT}}
-            description "{{description | PHRASE}}"
-            address {{address}}
-        </group>
+            description "{{description | ORPHRASE}}"
+            address {{address | IP}}
+            facility auth {{facility-auth | | set(true) }}
+            level {{level}}
+            log-prefix "{{log-prefix}}"
         exit {{_end_}}
+        </group>
         <group name="snmp-trap-group">
-        snmp-trap-group {{log-id | DIGIT | _start_ }}
-            description "{{description}}"
+        snmp-trap-group {{log-id | DIGIT | _start_}}
             <group name="trap-target">
-            trap-target "{{name | _start_ }}" address {{address}} {{snmp-version}} notify-community "{{notify-community}}" security-level {{security-level}}
-            trap-target "{{name | _start_ }}" address {{address}} {{snmp-version}} notify-community "{{notify-community}}"
+            trap-target "{{name | _start_ }}" address {{address | IP}} {{snmp-version}} notify-community "{{notify-community}}" security-level {{security-level}}
+            trap-target "{{name | _start_ }}" address {{address | IP}} {{snmp-version}} notify-community "{{notify-community}}"
             </group>
-        </group>
         exit {{_end_}}
+        </group>
         <group>
         log-id {{log-id}} 
             description "{{description}}"
-            <group name="source">
-            from {{source | _start_ | macro('macro_source')}}
-            from {{source | _start_ | macro('macro_source')}} {{security | macro('macro_source')}}
-            from {{source | _start_ | macro('macro_source')}} {{security | macro('macro_source')}} {{change | macro('macro_source')}}
-            </group>
-            to {{destination}}
+            shutdown {{admin_state | set(false)}}
+            no shutdown {{admin_state | set(true)}}
+            time-format {{time-format}}
+            from {{source | ORPHRASE}}
+            to {{destination | ORPHRASE}}
         exit {{_end_}}
         </group>
     exit {{_end_}}

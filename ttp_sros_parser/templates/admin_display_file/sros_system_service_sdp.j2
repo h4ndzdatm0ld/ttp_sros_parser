@@ -1,0 +1,89 @@
+#--------------------------------------------------
+echo "Service Configuration"
+#--------------------------------------------------
+    service
+        {%- for sdp in parsed_config[0]['configure']['system']['service']['sdp']%}{% if sdp['sdp-id'] %}
+        sdp {{sdp['sdp-id']}} mpls create
+            {%- if not sdp['admin-state'] %}
+            shutdown
+            {%- endif %}
+            description "{{sdp['description']}}"
+            far-end {{sdp['far-end']}}
+            {%- if sdp['mixed-lsp-mode'] %}
+            mixed-lsp-mode
+            exit
+            {%- endif %}
+            {%- if sdp['ldp'] %}
+            ldp
+            {%- endif %}
+            {%- if sdp['bgp-tunnel'] %}
+            bgp-tunnel
+            {%- endif %}
+            path-mtu {{sdp['path-mtu']}}
+            {%- if sdp['keep-alive'] %}
+            keep-alive
+                {%- if not sdp['keep-alive']['admin-state'] %}
+                shutdown
+                {%- endif %}
+            exit
+            {%- endif %}
+            {%- if sdp['admin-state'] %}
+            no shutdown
+            {%- endif %}
+        exit
+        {%- endif %}
+        {%- endfor %}
+        {%- for customer in parsed_config[0]['configure']['system']['service']['customer']%}{% if customer['customer-id'] %}
+        customer {{customer['customer-id'] }} name "{{customer['customer-name']}}" create
+            {%- if customer['description'] %}
+            description "{{customer['description'] }}"
+            {%- endif %}
+        exit
+        {%- endif %}
+        {%- endfor %}
+        {%- for ies in parsed_config[0]['configure']['system']['service']['ies']%}{% if ies['redundant-interface'] is defined %}{% if ies['redundant-interface']['address'] is not defined %}
+        ies {{ies['ies-id']}} name "{{ies['ies-name']}}" customer {{ies['customer-id']}} create
+            {%- if ies['redundant-interface'] %}
+            redundant-interface {{ies['redundant-interface']['redundant-interface-name']}} create
+            exit
+            {%- endif %}
+            {%- if ies['subscriber-interface'] %}
+            subscriber-interface "{{ies['subscriber-interface']['subscriber-interface-name']}}" create
+                {%- for gif in ies['subscriber-interface']['group-interface']%}{% if gif['group-interface-name'] %}
+                group-interface "{{gif['group-interface-name']}}" create
+                exit
+                {%- endif %}
+                {%- endfor %}
+            exit
+            {%- endif %}
+            {%- for interface in ies['interface']%}{% if interface['interface-name'] %}
+            interface "{{interface['interface-name']}}" create
+            exit
+            {%- endif %}
+            {%- endfor %}
+        exit
+        {%- endif %}
+        {%- elif ies['interface'] is defined %
+        ies {{ies['ies-id']}} name "{{ies['ies-name']}}" customer {{ies['customer-id']}} create
+            {%- for interface in ies['interface']%}{% if interface['interface-name'] %}
+            interface "{{interface['interface-name']}}" create
+            exit
+            {%- endif %}
+            {%- endfor %}        
+        exit
+        {%- else %}
+        ies {{ies['ies-id']}} name "{{ies['ies-name']}}" customer {{ies['customer-id']}} create
+        exit
+        {%- endif %}
+        {%- endfor %}
+        {%- for vprn in parsed_config[0]['configure']['system']['service']['vprn']%}{% if vprn['vprn-id'] %}
+        vprn {{vprn['vprn-id']}} name "{{vprn['vprn-name']}}" customer {{vprn['customer-id']}} create
+        {%- for interface in vprn['interface']%}{% if interface['intf-name'] %}{% if interface['address'] is not defined %}
+            interface "{{interface['intf-name']}}" create
+            exit
+            {%- endif %}
+            {%- endif %}
+            {%- endfor %}
+        exit
+        {%- endif %}
+        {%- endfor %}        

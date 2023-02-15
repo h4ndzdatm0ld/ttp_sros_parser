@@ -1,0 +1,34 @@
+#--------------------------------------------------
+echo "LAG Configuration"
+#--------------------------------------------------
+    {%- for lag in parsed_config[0]['configure']['lag']%}{% if lag['lag-index'] %}
+    lag {{lag['lag-index']}}
+        description "{{lag['description']}}"
+        {%- if lag['mode'] %}
+        mode {{lag['mode']}}
+        {%- endif %}
+        {%- if lag['encap-type'] %}
+        encap-type {{lag['encap-type']}}
+        {%- endif %}
+        {%- if lag['mode']== 'access' %}
+        access
+            adapt-qos link
+        exit
+        {%- endif %}
+        {%- if lag['port'] %}
+        {%- for port in lag['port'] %}{% if port['id'] %}
+        port {{port['id']}}
+        {%- endif %}
+        {%- endfor %}
+        {%- endif %}
+        {%- if lag['lacp'] %}
+        lacp {{lag['lacp']['mode']}} administrative-key {{lag['lacp']['administrative-key']}}
+        {%- endif %}
+        {%- if lag['admin-state']%}
+        no shutdown
+        {%- else %}
+        shutdown
+        {%- endif %}
+    exit
+    {%- endif %}
+    {%- endfor %}

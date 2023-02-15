@@ -1,0 +1,16 @@
+<group name="configure.router.radius-server">
+#-------------------------------------------------- {{ ignore }}
+echo "RADIUS Server Configuration" {{_start_}}
+#-------------------------------------------------- {{ ignore }}
+        radius-server {{_ignore_}}
+            <group name="server">
+            server "{{name | ORPHRASE | _start_}}" address {{address | IP }} secret "{{secret | ORPHRASE}}" {{hash-type | WORD}} create
+                description "{{description | ORPHRASE}}"
+                acct-port {{acct-port | DIGIT}}
+                accept-coa {{accept-coa | set (true)}}
+                auth-port {{auth-port | DIGIT}}
+                coa-script-policy "{{coa-script-policy | ORPHRASE}}"             
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+</group>

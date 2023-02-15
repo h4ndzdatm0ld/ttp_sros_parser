@@ -1,0 +1,23 @@
+#--------------------------------------------------
+echo "RADIUS Server Configuration"
+#--------------------------------------------------
+        radius-server
+            {%- for server in parsed_config[0]['configure']['router']['radius-server']['server']%}{% if server['name'] %}
+            server "{{server['name']}}" address {{server['address']}} secret "{{server['secret']}}" {{server['hash-type']}} create
+                description "{{server['description']}}"
+                {%- if server['acct-port'] %}
+                acct-port {{server['acct-port']}}
+                {%- endif %}
+                {%- if server['accept-coa'] %}              
+                accept-coa
+                {%- endif %}
+                {%- if server['auth-port'] %}
+                auth-port {{server['auth-port']}}
+                {%- endif %}
+                {%- if server['coa-script-policy'] %}   
+                coa-script-policy "{{server['coa-script-policy']}}"
+                {%- endif %}
+            exit
+            {%- endif %}
+            {%- endfor %}  
+        exit

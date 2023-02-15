@@ -1,0 +1,12 @@
+#--------------------------------------------------
+echo "Multicast Path Management Policy Configuration"
+#--------------------------------------------------
+    mcast-management
+        bandwidth-policy "{{parsed_config[0]['configure']['mcast-management']['bandwidth-policy']['name']}}" create
+            t2-paths
+                secondary-path
+                    number-paths {{parsed_config[0]['configure']['mcast-management']['bandwidth-policy']['t2-paths']['secondary-path']['number-paths']}} redundant-sfm {{parsed_config[0]['configure']['mcast-management']['bandwidth-policy']['t2-paths']['secondary-path']['redundant-sfm']}} 
+                exit
+            exit
+        exit
+    exit

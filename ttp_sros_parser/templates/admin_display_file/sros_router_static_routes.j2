@@ -1,0 +1,59 @@
+#--------------------------------------------------
+echo "Static Route Configuration"
+#--------------------------------------------------
+        {%- for route in parsed_config[0]['configure']['router']['static-route']['ipv4']['entry']%}{% if route['addressv4'] %}
+        static-route-entry {{route['addressv4']}}/{{route['prefix']}}
+            {%- if route['next-hop'] %}
+            next-hop {{route['next-hop']['next-hop']}}
+                {%- if route['next-hop']['tag-id'] %}
+                tag {{route['next-hop']['tag-id']}}
+                {%- endif %}
+                {%- if route['next-hop']['admin-state']%}
+                no shutdown
+                {%- else %}
+                shutdown
+                {%- endif %}
+            {%- endif %}
+            {%- if route['blackhole'] %}
+            black-hole
+                {%- if route['blackhole']['tag-id'] %}
+                tag {{route['blackhole']['tag-id']}}
+                {%- endif %}
+                {%- if route['blackhole']['admin-state']%}
+                no shutdown
+                {%- else %}
+                shutdown
+                {%- endif %}
+            {%- endif %}
+            exit
+        exit
+        {%- endif %}
+        {%- endfor %}
+        {%- for route in parsed_config[0]['configure']['router']['static-route']['ipv6']['entry']%}{% if route['addressv6'] %}
+        static-route-entry {{route['addressv6']}}/{{route['prefix']}}
+            {%- if route['next-hop'] %}
+            next-hop {{route['next-hop']['next-hop']}}
+                {%- if route['next-hop']['tag-id'] %}
+                tag {{route['next-hop']['tag-id']}}
+                {%- endif %}
+                {%- if route['next-hop']['admin-state']%}
+                no shutdown
+                {%- else %}
+                shutdown
+                {%- endif %}
+            {%- endif %}
+            {%- if route['blackhole'] %}
+            black-hole
+                {%- if route['blackhole']['tag-id'] %}
+                tag {{route['blackhole']['tag-id']}}
+                {%- endif %}
+                {%- if route['blackhole']['admin-state']%}
+                no shutdown
+                {%- else %}
+                shutdown
+                {%- endif %}
+            {%- endif %}
+            exit
+        exit
+        {%- endif %}
+        {%- endfor %}

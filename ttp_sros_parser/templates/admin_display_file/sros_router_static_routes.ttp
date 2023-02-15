@@ -6,37 +6,47 @@ def set_true(data):
         return data, {"black-hole": True}
 </macro>
 
-<group name="configure.router">
-#-------------------------------------------------- {{ ignore }}
-echo "Management Router Configuration" {{ _start_ }}
-#-------------------------------------------------- {{ ignore }}
-    <group name="router-name.{{ router }}">
-    router {{ router }}
-        <group name="entry">
-        static-route {{ address | is_ip }}/{{ prefix }} next-hop {{ next-hop | is_ip }}
-        </group>
-    </group>
-    exit {{ _end_ }}
-</group>
-
-<group name="configure.router.static-route.ipv4">
+<group name="configure.router.static-route.ipv4" contains = 'addressv4'>
 #-------------------------------------------------- {{ ignore }}
 echo "Static Route Configuration" {{ _start_ }}
 #-------------------------------------------------- {{ ignore }}
-        <group name="entry">
-        static-route {{ address | IPV4}}/{{ prefix }} next-hop {{ next-hop | is_ip }} {{ bfd | macro('set_true') | _start_ }}
-        static-route {{ address | IPV4 }}/{{ prefix }} next-hop {{ next-hop | is_ip }} preference {{ preference | DIGIT | _start_ }}
-        static-route {{ address | IPV4 }}/{{ prefix }} {{ black-hole | macro('set_true') | _start_ }}
+        <group name="entry" containsall = 'addressv4'>
+        static-route-entry {{ addressv4 | IP }}/{{ prefix }}
+            <group name="next-hop"> 
+            next-hop {{ next-hop | _start_ | is_ip }}
+                tag {{tag-id}}
+                no shutdown {{ admin-state | set(true) }}
+            </group>
+            exit {{_end_}}
+            <group name="blackhole"> 
+            black-hole {{_start_}}
+                tag {{tag-id}}
+                no shutdown {{ admin-state | set(true) }}
+            </group>
+            exit {{_end_}}
+        static-route-entry {{ addressv4 | IP }}/{{ prefix }} 
+            next-hop {{ next-hop | is_ip }} preference {{ preference | DIGIT | _start_ }}
+        static-route-entry {{ addressv4 | IP }}/{{ prefix }} {{ black-hole | macro('set_true') | _start_ }}
         </group>
 </group>
-#-------------------------------------------------- {{ _end_ }}
-echo "Static IPv6 Route Configuration" {{ _start_ }}
-<group name="configure.router.static-route.ipv6">
-#-------------------------------------------------- {{ ignore }}
-        <group name="entry">
-        static-route {{ address | IPV6 }}/{{ prefix }} next-hop {{ next-hop | is_ip }} {{ bfd | macro('set_true') | _start_ }}
-        static-route {{ address | IPV6 }}/{{ prefix }} next-hop {{ next-hop | is_ip }} preference {{ preference | DIGIT | _start_ }}
-        static-route {{ address | IPV6 }}/{{ prefix }} {{ black-hole | macro('set_true') | _start_ }}
+
+
+<group name="configure.router.static-route.ipv6" contains = 'addressv6'>
+        <group name="entry" containsall = 'addressv6'>
+        static-route-entry {{ addressv6 | IPV6 }}/{{ prefix }}
+            <group name="next-hop"> 
+            next-hop {{ next-hop | _start_ | IPV6 | is_ip }}
+                tag {{tag-id}}
+                no shutdown {{ admin-state | set(true) }}
+            </group>
+            <group name="blackhole"> 
+            black-hole {{_start_}}
+                tag {{tag-id}}
+                no shutdown {{ admin-state | set(true) }}
+            </group>
+            exit {{_end_}}
+        static-route-entry {{ addressv6 | IP }}/{{ prefix }} 
+            next-hop {{ next-hop | is_ip }} preference {{ preference | DIGIT | _start_ }}
+        static-route-entry {{ addressv6 | IP }}/{{ prefix }} {{ black-hole | macro('set_true') | _start_ }}
         </group>
-#-------------------------------------------------- {{ _end_ }}
 </group>

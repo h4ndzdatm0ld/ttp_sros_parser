@@ -9,13 +9,26 @@ def subscription_level(data):
 echo "Card Configuration" {{ _start_ }}
 #-------------------------------------------------- {{ ignore }}
     <group name="configure.card">
-    card {{slot-number | DIGIT }}
+    card {{slot-number | DIGIT | _start_}}
         card-type {{ card-type | ORPHRASE  | macro('subscription_level') }}
         fail-on-error {{fail-on-error | set(true)}}
+        <group name="virtual-scheduler-adjustment">
+        virtual-scheduler-adjustment {{ _start_ }}
+            sched-run-min-int {{sched-run-min-int}}
+            task-scheduling-int {{task-scheduling-int}}
+        exit {{ _end_ }}
+        </group>
         <group name="mda">
-        mda {{mda-slot}}
-            shutdown {{admin-state | set(false)}}
-            mda-type {{mda-type | replace('"', '') }}
+        mda {{mda-slot | DIGIT | _start_}} 
+            <group name="network">
+            network {{_start_}}
+                <group name="ingress">
+                ingress {{_start_}}
+                    queue-policy {{queue-policy-name | ORPHRASE | replace('"', '') }}
+                exit {{_end_}}
+                </group>
+            exit {{ _end_ }}
+            </group>
             <group name="ingress-xpl">
             ingress-xpl {{_start_}}
                 window {{window}}
@@ -26,9 +39,28 @@ echo "Card Configuration" {{ _start_ }}
                 window {{window}}
             exit {{_end_}}
             </group>
+            mda-type {{mda-type | replace('"', '') }}
             fail-on-error {{fail-on-error | set(true)}}
+            shutdown {{admin-state | set(false)}}
             no shutdown {{admin-state | set(true)}}
+        exit {{_end_}}
         </group>
-        exit {{ignore}}
+        <group name="fp">
+        fp {{fp-slot | DIGIT | _start_}} 
+            hi-bw-mcast-src group {{hi-bw-mcast-src-group-id | DIGIT }}
+            <group name="ingress">
+            ingress {{ _start_ }}
+                <group name="mcast-path-management">
+                mcast-path-management {{ _start_ }}
+                    bandwidth-policy {{bandwidth-policy-name | ORPHRASE | replace('"', '') }}
+                    no shutdown {{ admin-state | set(true) }}
+                exit {{_end_}}
+                </group>
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+        no shutdown {{ admin-state | set(true) }}
+    exit {{_end_}}
     </group>
 #-------------------------------------------------- {{ _end_ }}

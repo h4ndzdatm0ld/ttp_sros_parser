@@ -1,0 +1,14 @@
+#--------------------------------------------------
+echo "Cflowd Configuration"
+#--------------------------------------------------
+    cflowd
+        active-timeout {{parsed_config[0]['configure']['cflowd']['active-timeout']}}
+        cache-size {{parsed_config[0]['configure']['cflowd']['cache-size']}}
+        inactive-timeout {{parsed_config[0]['configure']['cflowd']['inactive-timeout']}}
+        rate {{parsed_config[0]['configure']['cflowd']['rate']}}
+        template-retransmit {{parsed_config[0]['configure']['cflowd']['template-retransmit']}}
+        collector {{parsed_config[0]['configure']['cflowd']['collector']['collector_ip_address']}} version {{parsed_config[0]['configure']['cflowd']['collector']['version_id']}}
+            description "{{parsed_config[0]['configure']['cflowd']['collector']['description']}}"
+            template-set {{parsed_config[0]['configure']['cflowd']['collector']['collector_template-set']}}
+        exit
+    exit

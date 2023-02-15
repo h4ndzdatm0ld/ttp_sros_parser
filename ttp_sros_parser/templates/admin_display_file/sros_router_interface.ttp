@@ -3,37 +3,60 @@ echo "Router (Network Side) Configuration" {{ _start_ }}
 #-------------------------------------------------- {{ ignore}}
 <group name="router">
     router {{ignore}}
-    <group name="interfaces">
+        <group name="dhcp">
+        dhcp {{ _start_ }}
+            local-dhcp-server "{{local-dhcp-server-name}}" create
+            exit {{_end_}}
+        exit {{ignore}} 
+        </group>
+        <group name="interfaces">
         interface {{interface_name | strip('"')}}
             shutdown {{admin_state | set(false) }}
-            description {{description | strip('"')}}
+            description {{description | ORPHRASE}}
+            ldp-sync-timer {{ldp_sync_timer | DIGIT}}
+            cpu_protection {{cpu_protection}}
             enable-ingress-stats {{ingress_stats | set(true)}}
             <group name="ipv4.primary">
-            address {{address}}/{{prefix_length}}
+            address {{address | IP}}/{{prefix_length}}
             </group>
+            loopback {{loopback | set(true)}}
             <group name="ipv4.bfd">
             bfd {{ipv4_bfd | re(r"\d.*")}}
             </group>
-            ldp_sync_timer {{ldp_sync_timer}}
-            cpu_protection {{cpu_protection}}
             port {{port}}
             <group name="ipv6">
             ipv6 {{_start_}}
-                <group name="address">
-                address {{ipv6_address}}/{{prefix-length}}
-                </group>
-                <group name="address">
+                address {{ipv6_address | IPV6 }}/{{prefix_length}}
                 bfd {{ipv6_bfd | re(r"\d.*")}}
-                </group>
             exit {{ignore}}
             </group>
             exit {{ignore}}
             <group name="qos">
             qos {{network-policy}}
             </group>
+            <group name="ingress">
+            ingress {{_start_}}
+                filter ip {{filter-acl-id}}
+                filter ipv6 {{filter-acl-id-v6}}
+            exit {{_end_}}
+            </group>
+            <group name="egress">
+            egress {{_start_}}
+                filter ip {{filter-acl-id}}
+                filter ipv6 {{filter-acl-id-v6}}
+            exit {{_end_}}
+            </group>
+            <group name="cflowd-parameters">
+            cflowd-parameters {{_start_}}
+                sampling {{cast}} type {{sampling-type}}
+            exit {{_end_}}
+            </group>
+            local-dhcp-server  "{{local-dhcp-server-name}}"
             bfd {{ipv4_bfd | re(r"\d.*")}}
             no shutdown {{admin_state | set(true)}}
         exit {{_end_}}
-    </group>
+        </group>
+        autonomous-system {{autonomous-system-id}}
+        ecmp {{ecmp-value}}
 </group>
 #-------------------------------------------------- {{_end_}}

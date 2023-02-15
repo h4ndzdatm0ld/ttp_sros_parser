@@ -1,0 +1,65 @@
+#--------------------------------------------------
+echo "Log Configuration"
+#--------------------------------------------------
+    log
+        route-preference primary {{ parsed_config[0]['configure']['log'][0]['route-pref-primary'] }} secondary {{ parsed_config[0]['configure']['log'][0]['route-pref-secondary'] }}
+        {%- for file in parsed_config[0]['configure']['log'][0]['file'] %}{% if file['file-id'] %}
+        file-id {{ file['file-id'] }}
+            {%- if file['description'] %}
+            description "{{ file['description'] }}"
+            {%- endif %}
+            {%- if file['compact-flash-location'] %}
+            location {{ file['compact-flash-location']['primary'] }}:
+            {%- endif %}
+        exit
+        {%- endif %}
+        {%- endfor %}
+        {%- for event in parsed_config[0]['configure']['log'][0]['event-control'] %}{% if event['event'] %}
+        event-control "{{ event['event'] }}" {{ event['event-id'] }} {{ event['action'] }}
+        {%- endif %}
+        {%- endfor %}
+        {%- for syslog in parsed_config[0]['configure']['log'][0]['syslog'] %}{% if syslog['syslog-id'] %}
+        syslog {{syslog['syslog-id']}}
+            description "{{syslog['description']}}"
+            address {{syslog['address']}}
+            {%- if syslog['facility-auth'] %}
+            facility auth
+            {%- endif %}
+            level {{syslog['level']}}
+            log-prefix "{{syslog['log-prefix']}}"
+        exit
+        {%- endif %}
+        {%- endfor %}
+        {%- for snmp in parsed_config[0]['configure']['log'][0]['snmp-trap-group'] %}{% if snmp['log-id'] %}
+        snmp-trap-group {{snmp['log-id']}}
+            {%- for trap_target in snmp['trap-target'] %}{% if trap_target['name'] %}
+            trap-target "{{trap_target['name']}}" address {{trap_target['address']}} {{trap_target['snmp-version']}} notify-community "{{trap_target['notify-community']}}"
+            {%- endif %}
+            {%- endfor %}
+        exit
+        {%- endif %}
+        {%- endfor %}
+        {%- for log in parsed_config[0]['configure']['log'] %}{% if log['log-id'] %}
+        log-id {{log['log-id']}}
+            {%- if not log['admin_state'] %}
+            shutdown
+            {%- endif %}
+            {%- if log['description'] %}
+            description "{{ log['description'] }}"
+            {%- endif %}
+            {%- if log['time-format'] %}
+            time-format {{ log['time-format'] }}
+            {%- endif %}
+            {%- if log['source'] %}
+            from {{ log['source'] }}
+            {%- endif %}
+            {%- if log['destination'] %}
+            to {{ log['destination'] }}
+            {%- endif %}
+            {%- if log['admin_state'] %}
+            no shutdown
+            {%- endif %}
+        exit
+        {%- endif %}
+        {%- endfor %}        
+    exit

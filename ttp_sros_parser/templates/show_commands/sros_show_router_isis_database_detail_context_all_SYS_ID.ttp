@@ -1,0 +1,3 @@
+<group name="router.isis" method="table">
+SYS ID    : {{sys-id}}         SysID Len : {{sysid-len | DIGIT}}        Used Len  : {{used-len | DIGIT}}
+</group> 

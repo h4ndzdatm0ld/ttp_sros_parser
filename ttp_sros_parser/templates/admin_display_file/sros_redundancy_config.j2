@@ -1,0 +1,41 @@
+#--------------------------------------------------
+echo "Redundancy Configuration"
+#--------------------------------------------------
+    redundancy
+        multi-chassis
+            peer {{parsed_config[0]['configure']['redundancy']['multi-chassis']['peer']['peer-address']}} create
+                description "{{parsed_config[0]['configure']['redundancy']['multi-chassis']['peer']['description']}}"
+                sync
+                    {%- if parsed_config[0]['configure']['redundancy']['multi-chassis']['peer']['sync']['igmp'] %}
+                    igmp
+                    {%- endif %}
+                    {%- if parsed_config[0]['configure']['redundancy']['multi-chassis']['peer']['sync']['srrp'] %}
+                    srrp
+                    {%- endif %}
+                    {%- if parsed_config[0]['configure']['redundancy']['multi-chassis']['peer']['sync']['sub-mgmt'] %}
+                    sub-mgmt {{parsed_config[0]['configure']['redundancy']['multi-chassis']['peer']['sync']['sub-mgmt']}}
+                    {%- endif %}
+                    {%- for port in parsed_config[0]['configure']['redundancy']['multi-chassis']['peer']['sync']['port']%}{% if port['port'] %}
+                    port {{port['port']}} create
+                        {%- for range in port['range']%}{% if range['range'] %}
+                        range {{range['range']}} sync-tag "{{range['sync-tag']}}"
+                        {%- endif %}
+                        {%- endfor %}
+                    exit                       
+                    {%- endif %}
+                    {%- endfor %}
+                    {%- if parsed_config[0]['configure']['redundancy']['multi-chassis']['peer']['sync']['admin_state'] %}
+                    no shutdown
+                    {%- else %}
+                    shutdown
+                    {%- endif%}
+                exit
+                {%- if parsed_config[0]['configure']['redundancy']['multi-chassis']['peer']['admin_state'] %}
+                no shutdown
+                {%- else %}
+                shutdown
+                {%- endif%}
+            exit
+        exit
+        synchronize {{parsed_config[0]['configure']['redundancy']['synchronize']}}
+    exit

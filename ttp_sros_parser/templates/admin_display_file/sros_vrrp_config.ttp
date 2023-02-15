@@ -1,0 +1,27 @@
+<group name="configure.vrrp">
+#-------------------------------------------------- {{ignore}}
+echo "Vrrp Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+    vrrp {{_start_}}
+        <group name="policy">
+        policy {{id | DIGIT}}
+            delta-in-use-limit {{delta-in-use-limit | DIGIT}}
+            <group name="priority-event">
+            priority-event {{_start_}}
+                <group name="lag-port-down">
+                lag-port-down {{id | DIGIT }}
+                    hold-clear {{hold-clear | DIGIT}}
+                    <group name="number-down">
+                    number-down {{id | DIGIT}}
+                        priority {{priority | DIGIT}} delta
+                    exit {{_end_}}
+                    </group>
+                exit {{_end_}}
+                </group>
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+    exit {{_end_}}
+    </group>
+#-------------------------------------------------- {{_end_}}

@@ -1,0 +1,27 @@
+<group name="router.bgp">
+=============================================================================== {{ignore}}
+ BGP Router ID:{{router-id | IP | _start_}}    AS:{{neighbor-AS | DIGIT}}        Local AS:{{local-AS | DIGIT}}       
+=============================================================================== {{ignore}}
+ Legend - {{ignore}}
+ Status codes  : u - used, s - suppressed, h - history, d - decayed, * - valid {{ignore}}
+                 l - leaked, x - stale, > - best, b - backup, p - purge {{ignore}}
+ Origin codes  : i - IGP, e - EGP, ? - incomplete {{ignore}}
+
+=============================================================================== {{ignore}}
+BGP IPv4 Routes {{ignore}}
+=============================================================================== {{ignore}}
+Flag  Network                                            LocalPref   MED {{ignore}}
+      Nexthop (Router)                                   Path-Id     Label {{ignore}}
+      As-Path {{ignore}}                                                       
+------------------------------------------------------------------------------- {{ignore}}
+<group name="advertised-routes">
+{{flag | WORD | _start_}}     {{network | PREFIX}}                  {{localpref | DIGIT}}       {{MED}}
+      {{nexthop | IP}}                                      {{path-id}}        {{label}}
+      No As-Path   {{AS-Path | set(false) | _end_}}
+</group> 
+------------------------------------------------------------------------------- {{ignore}}
+<group name="count">
+Routes : {{total | DIGIT | _start_}}
+=============================================================================== {{_end_}}
+</group> 
+</group> 

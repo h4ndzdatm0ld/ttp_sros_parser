@@ -3,8 +3,9 @@
 Services {{ignore}}
 =============================================================================== {{ignore}}
 ------------------------------------------------------------------------------- {{ignore}}
-<group name="services" method="table">
-{{service-id | DIGIT}}          {{service-type}}      {{admin-state}} {{operational-state}} {{customer-id | DIGIT}}          {{service-name}}
+ServiceId    Type      Adm  Opr  CustomerId Service Name {{_start_}}
+<group name="services.{{service-id}}" method="table">
+{{service-id | DIGIT}}          {{service-type}}      {{admin-state}} {{operational-state}} {{customer-id | DIGIT}}          {{service-name | ORPHRASE}}
 ------------------------------------------------------------------------------- {{_end_}}
 </group>
 <group name="count">

@@ -1,0 +1,24 @@
+#--------------------------------------------------
+echo "Mirror Configuration"
+#--------------------------------------------------
+    mirror
+        {%- for mirror in parsed_config[0]['configure']['mirror']['mirror-conf'] %}{% if mirror['mirror-dest'] %}
+        mirror-dest {{mirror['mirror-dest']}} name {{mirror['name']}} type {{mirror['type']}} create
+            description {{mirror['description']}}
+            encap
+                {{mirror['encap']['l3-encap']['encap-type']}} create
+                    gateway create
+                        ip src {{mirror['encap']['l3-encap']['gateway']['src-ip']}} dest {{mirror['encap']['l3-encap']['gateway']['dest-ip']}}
+                        udp src {{mirror['encap']['l3-encap']['gateway']['src-udp']}} dest {{mirror['encap']['l3-encap']['gateway']['dest-udp']}}
+                    exit
+                exit
+            exit
+            {%- if mirror['admin-state']%}
+            no shutdown
+            {%- else %}
+            shutdown
+            {%- endif %}
+        exit
+        {%- endif %}
+        {%- endfor %}        
+    exit    

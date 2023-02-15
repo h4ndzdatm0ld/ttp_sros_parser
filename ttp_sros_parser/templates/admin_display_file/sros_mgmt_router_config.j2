@@ -1,0 +1,12 @@
+#--------------------------------------------------
+echo "Management Router Configuration"
+#--------------------------------------------------
+    router management
+        {%- for route in parsed_config[0]['configure']['router']['router-name']['management']['entry']%}{% if route['address'] %}
+        static-route-entry {{route['address']}}/{{route['prefix']}}
+            next-hop {{route['next-hop']}}
+            exit
+        exit
+    {%- endif %}
+    {%- endfor %}
+    exit

@@ -1,0 +1,13 @@
+#--------------------------------------------------
+echo "System Time NTP Configuration"
+#--------------------------------------------------
+    system
+        time
+            ntp
+                {% for server in parsed_config[0]['configure']['system']['ntp']['server']['address']%}{% if server %}
+                server {{server}}
+                {%- endif %}
+                {%- endfor %}
+            exit
+        exit
+    exit

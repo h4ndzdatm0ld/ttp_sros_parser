@@ -1,0 +1,29 @@
+#--------------------------------------------------
+echo "Filter Match lists Configuration"
+#--------------------------------------------------
+    filter
+        match-list
+            {%- for ip_pfx in parsed_config[0]['configure']['filter'][0]['match-list']['ip-prefix-list'] %}{% if ip_pfx['name'] %}
+            ip-prefix-list "{{ip_pfx['name']}}" create
+                {%- if ip_pfx['description'] %}
+                description "{{ip_pfx['description']}}"
+                {%- endif %}
+                {%- for pfx in ip_pfx['prefix'] %}
+                prefix {{pfx}}
+                {%- endfor %}
+            exit            
+            {%- endif %}
+            {%- endfor %}
+            {%- for ipv6_pfx in parsed_config[0]['configure']['filter'][0]['match-list']['ipv6-prefix-list'] %}{% if ipv6_pfx['name'] %}
+            ipv6-prefix-list "{{ipv6_pfx['name']}}" create
+                {%- if ipv6_pfx['description'] %}
+                description "{{ipv6_pfx['description']}}"
+                {%- endif %}
+                {%- for pfx in ipv6_pfx['prefix'] %}
+                prefix {{pfx}}
+                {%- endfor %}
+            exit            
+            {%- endif %}
+            {%- endfor %}
+        exit
+    exit

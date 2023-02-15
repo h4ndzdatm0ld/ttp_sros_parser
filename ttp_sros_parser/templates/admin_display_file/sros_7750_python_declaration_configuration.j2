@@ -1,0 +1,10 @@
+#--------------------------------------------------
+echo "PYTHON (declaration) Configuration"
+#--------------------------------------------------
+    python
+        {%- for python_policy in parsed_config[0]['configure']['python']['python-policy'] %}{% if python_policy['name'] %}
+        python-policy {{python_policy['name']}} create
+        exit
+        {%- endif %}
+        {%- endfor %}
+    exit

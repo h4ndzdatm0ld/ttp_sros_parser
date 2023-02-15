@@ -1,0 +1,72 @@
+#--------------------------------------------------
+echo "Card Configuration"
+#--------------------------------------------------
+    {%- for card in parsed_config[0]['configure']['card']%}{% if card['slot-number'] %}
+    card {{card['slot-number']}}
+        card-type {{card['card-type']}}
+        {%- if card['virtual-scheduler-adjustment'] %}
+        virtual-scheduler-adjustment
+            sched-run-min-int {{card['virtual-scheduler-adjustment']['sched-run-min-int'] }}
+            task-scheduling-int {{card['virtual-scheduler-adjustment']['task-scheduling-int'] }}
+        exit
+        {%- endif %}
+        {%- if card['mda'] is mapping %}
+        mda {{card['mda']['mda-slot']}}
+            {%- if card['mda']['mda-type'] %}
+            mda-type {{card['mda']['mda-type']}}
+            {%- endif %}
+            network
+                ingress
+                    queue-policy "{{card['mda']['network']['ingress']['queue-policy-name']}}"
+                exit
+            exit
+            {%- if card['mda']['admin-state']%}
+            no shutdown
+            {%- else %}
+            shutdown
+            {%- endif %}
+        exit
+        {%- else %}
+        {%- for mda in card['mda']%}      
+        mda {{mda['mda-slot']}}
+            {%- if mda['mda-type'] %}
+            mda-type {{mda['mda-type']}}
+            {%- endif %}
+            network
+                ingress
+                    queue-policy "{{mda['network']['ingress']['queue-policy-name']}}"
+                exit
+            exit
+            {%- if mda['admin-state']%}
+            no shutdown
+            {%- else %}
+            shutdown
+            {%- endif %}
+        exit
+        {%- endfor %}             
+        {%- endif %}
+        fp {{card['fp']['fp-slot']}}
+            {%- if card['fp']['hi-bw-mcast-src-group-id']%}
+            hi-bw-mcast-src group {{card['fp']['hi-bw-mcast-src-group-id']}}
+            {%- endif %}
+            ingress
+                mcast-path-management
+                    {%- if card['fp']['ingress']['mcast-path-management']['bandwidth-policy-name']%}
+                    bandwidth-policy "{{card['fp']['ingress']['mcast-path-management']['bandwidth-policy-name']}}"
+                    {%- endif %}
+                    {%- if card['fp']['ingress']['mcast-path-management']['admin-state']%}
+                    no shutdown
+                    {%- else %}
+                    shutdown
+                    {%- endif %}
+                exit
+            exit
+        exit
+        {%- if card['admin-state']%}
+        no shutdown
+        {%- else %}
+        shutdown
+        {%- endif %}
+    exit
+    {%- endif %}
+    {%- endfor %}
