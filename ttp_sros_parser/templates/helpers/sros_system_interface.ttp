@@ -12,7 +12,7 @@
             <group name="ipv6">
             ipv6 {{_start_}}
                 <group name="address">
-                address {{ipv6_address}}/{{prefix-length>}}
+                address {{ipv6_address}}/{{prefix_length}}
                 </group>
                 <group name="address">
                 </group>

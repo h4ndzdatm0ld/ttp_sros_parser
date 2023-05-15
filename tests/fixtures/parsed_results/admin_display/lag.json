@@ -13,9 +13,7 @@
                },
                "lag-index":"125",
                "mode":"hybrid",
-               "port":{
-                  "port-id":"1/1/c1/1"
-               }
+               "port":["1/1/c1/1"]
             },
             {
                "admin-state":true,
@@ -28,14 +26,7 @@
                },
                "lag-index":"11",
                "mode":"hybrid",
-               "port":[
-                  {
-                     "port-id":"1/1/c1/3"
-                  },
-                  {
-                     "port-id":"1/1/c1/4"
-                  }
-               ]
+               "port":["1/1/c1/3", "1/1/c1/4"]
             }
          ]
       }

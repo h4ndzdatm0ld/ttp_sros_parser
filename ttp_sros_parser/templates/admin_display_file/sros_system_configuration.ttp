@@ -11,6 +11,54 @@ def macro_true(data):
         <group name="rollback">
         rollback {{rollback | set(true)}}
             rollback-location {{cf_slot | strip('"') | to_str}}:\{{ directory | to_str | strip('"')}}
+            rescue-location {{rescue_cf_slot | strip('"') | to_str}}:\{{ rescue_directory | to_str | strip('"')}}
+            exit {{_end_}}
+        </group>
+        <group name="power-management">
+        power-management {{_start_}}
+            <group name="peq">
+            peq {{peq-id | _start_}}
+                peq-type {{peq-type}}
+                no shutdown {{ admin-state | set(true) }}
+                shutdown {{ admin-state | set(false) }}
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="dns">
+        dns {{_start_}}
+            address-pref {{address-pref | ORPHRASE }}
+        exit {{_end_}}
+        </group>
+        <group name="load-balancing">
+        load-balancing {{_start_}}
+            l4-load-balancing {{ l4-load-balancing | set(true) }}
+            lsr-load-balancing {{lsr-hashing}}
+        exit {{_end_}}
+        </group>
+        <group name="time" contains="time_zone">
+        time {{_start_}}
+            <group name="ntp" containsall="admin_state">
+            ntp {{_start_}}{{ _exact_ }}
+                no shutdown {{ admin_state | set(true) }}
+                shutdown {{ admin_state | set(false) }}
+                server {{server | IP}}
+            exit {{_end_}}
+            </group>
+            <group name="sntp">
+            sntp {{_start_}}{{ _exact_ }}
+                no shutdown {{ admin_state | set(true) }}
+                shutdown {{ admin_state | set(false) }}
+            exit {{_end_}}
+            </group>
+            <group name="dst-zone">
+            dst-zone {{ dst-zone | _start_}}
+                start last {{dst-zone-start | ORPHRASE }}
+                end last {{dst-zone-end | ORPHRASE }}
+            exit {{_end_}}
+            </group> 
+            zone {{time_zone}}
+        exit {{_end_}}
         </group>
         <group name="snmp">
             packet-size {{packet_size}}
@@ -43,6 +91,26 @@ def macro_true(data):
         </group> 
         <group name="zone.standard">
             zone {{name}}
+        </group>
+        <group name="script-control">
+        script-control {{_start_}}
+            <group name="script">
+            script "{{name | _start_}}"
+                description "{{description | ORPHRASE}}"
+                location "{{location}}"
+                shutdown {{ admin-state | set(false) }}
+                no shutdown {{ admin-state | set(true) }}
+            exit {{_end_}}
+            </group>
+            <group name="script-policy">
+            script-policy "{{name | _start_}}"
+                results "{{results}}"
+                script "{{script-file}}"
+                shutdown {{ admin-state | set(false) }}
+                no shutdown {{ admin-state | set(true) }}
+            exit {{_end_}}       
+            </group>
+        exit {{_end_}}
         </group>
                 </group>       
                 </group>
