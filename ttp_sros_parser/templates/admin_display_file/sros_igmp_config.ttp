@@ -1,0 +1,25 @@
+<group name="configure.router.igmp" >
+#-------------------------------------------------- {{ignore}}
+echo "IGMP Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+        igmp {{ignore}}
+            <group name="ssm-translate">
+            ssm-translate {{_start_}}
+                <group name="grp-range">
+                grp-range {{grp-range | ORPHRASE}}
+                    source {{source | IP}}
+                exit {{_end_}}
+                </group>
+            exit {{_ignore_}}
+            </group>
+            <group name="interface">
+            interface "{{name | _start_}}"
+                no shutdown {{admin_state | set(true)}}
+            exit {{_end_}}    
+            </group>
+            query-interval {{query_interval | DIGIT}}
+            query-last-member-interval {{query-last-member-interval | DIGIT}}
+            no shutdown {{admin_state | set(true)}}
+        exit {{_end_}}
+        </group>
+#-------------------------------------------------- {{_end_}}

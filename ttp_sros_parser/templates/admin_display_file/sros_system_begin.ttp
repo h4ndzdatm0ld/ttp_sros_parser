@@ -1,0 +1,6 @@
+<group name="configure.system">
+# TiMOS-C-{{version | _start_}} cpm/hops64 Nokia {{platform}} SR Copyright (c) {{year}} Nokia.
+# All rights reserved. All use subject to applicable license agreements. {{ ignore }}
+# Built on Wed Nov 13 11:34:50 PST 2019 by builder in /builds/c/160B/R10/panos/main {{ ignore }}
+</group>
+

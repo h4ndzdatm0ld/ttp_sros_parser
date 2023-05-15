@@ -1,0 +1,30 @@
+#--------------------------------------------------
+echo "PIM Configuration"
+#--------------------------------------------------
+        pim
+            {%- for interface in parsed_config[0]['configure']['router']['pim'][0]['interface']%}{% if interface['name'] %}
+            interface "{{interface['name']}}"
+            exit
+            {%- endif %}
+            {%- endfor %}    
+            rp
+                static
+                    {%- if parsed_config[0]['configure']['router']['pim'][0]['rp']['static']['admin_state'] == 'false'%}
+                    shutdown
+                    {%- endif %}
+                exit
+                bsr-candidate
+                    {%- if not parsed_config[0]['configure']['router']['pim'][0]['rp']['bsr-candidate']['admin_state']%}
+                    shutdown
+                    {%- endif %}
+                exit
+                rp-candidate
+                    {%- if not parsed_config[0]['configure']['router']['pim'][0]['rp']['rp-candidate']['admin_state']%}
+                    shutdown
+                    {%- endif %}
+                exit
+            exit
+            {%- if parsed_config[0]['configure']['router']['pim'][0]['admin_state']%}
+            no shutdown
+            {%- endif %}
+        exit

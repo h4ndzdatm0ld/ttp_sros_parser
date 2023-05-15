@@ -1,0 +1,31 @@
+#-------------------------------------------------- {{ ignore }}
+echo "LDP Configuration" {{_start_}}
+#-------------------------------------------------- {{ ignore }}
+        <group name="configure.router.ldp">     
+        ldp {{_start_}}
+            export-tunnel-table "{{export-tunnel-table}}"
+            fast-reroute {{fast-reroute | set(true)}}
+            fec-originate {{fec-originate | PREFIX}} {{pop | let(true)}}
+            <group name="interface_parameters">
+            interface-parameters {{_start_}}
+                <group name="interface">
+                interface "{{name | ORPHRASE}}" {{dual-stack | let(true)}}
+                    <group name="ipv4">
+                    ipv4 {{_start_}}
+                        no shutdown {{admin_state | set (true)}}
+                    exit {{_end_}}
+                    </group>
+                    no shutdown {{admin_state | set (true)}}
+                exit {{_end_}}
+                </group>
+            exit {{_end_}}
+            </group>
+            <group name="targeted-session">
+            targeted-session {{_start_}}
+                no shutdown {{admin_state | set (true)}}
+            exit {{_end_}}
+            </group>
+            no shutdown {{admin_state | set (true)}}
+        exit {{_end_}}
+        </group>
+

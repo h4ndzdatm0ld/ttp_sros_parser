@@ -1,0 +1,14 @@
+<group name="configure.system.ntp">
+#-------------------------------------------------- {{ignore}}
+echo "System Time NTP Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+    system {{_ignore_}}
+        time {{_ignore_}}
+            <group name="server">            
+            ntp {{_start_}}
+                server {{ address | _line_ | IP | to_list}}
+            exit {{_ignore_}}
+            </group>
+        exit {{_ignore_}}
+    exit {{_end_}}
+    </group>

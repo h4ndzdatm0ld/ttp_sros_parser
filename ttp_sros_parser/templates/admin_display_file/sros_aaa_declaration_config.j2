@@ -1,0 +1,15 @@
+#--------------------------------------------------
+echo "AAA (Declarations) Configuration"
+#--------------------------------------------------
+    aaa
+        {%- for server  in  parsed_config[0]['configure']['aaa_declarations']['radius-server-policy']%}{%- if server['name'] %}    
+        radius-server-policy "{{server['name']}}" create
+        exit
+        {%- endif %}
+        {%- endfor %}
+        {%- for script  in  parsed_config[0]['configure']['aaa_declarations']['radius-script-policy']%}{%- if script['name'] %}
+        radius-script-policy "{{script['name']}}" create
+        exit
+        {%- endif %}
+        {%- endfor %}
+    exit

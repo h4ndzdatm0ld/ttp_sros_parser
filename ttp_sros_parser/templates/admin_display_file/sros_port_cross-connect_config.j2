@@ -1,0 +1,17 @@
+#--------------------------------------------------
+echo "Port Cross-Connect Configuration"
+#--------------------------------------------------
+    port-xc
+        {%- for pxc in parsed_config[0]['configure']['port-xc']['pxc'] %}{% if pxc['number'] %}
+        pxc {{pxc['number']}} create
+            description "{{pxc['description']}}"
+            port {{pxc['port']}}
+            {%- if pxc['admin_state']%}
+            no shutdown
+            {%- else %}
+            shutdown
+            {%- endif %}
+        exit
+        {%- endif %}
+        {%- endfor %}
+    exit

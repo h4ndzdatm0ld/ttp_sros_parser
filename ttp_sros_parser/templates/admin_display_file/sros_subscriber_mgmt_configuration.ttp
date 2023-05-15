@@ -1,0 +1,181 @@
+<group name="configure.subscriber-mgmt">
+#--------------------------------------------------{{ignore}}
+echo "Subscriber-mgmt Configuration" {{_start_}}
+#--------------------------------------------------{{ignore}}
+        subscriber-mgmt {{ignore}}
+        <group name="auto-sub-id-key">
+        auto-sub-id-key {{_start_}}
+            ipoe-sub-id-key {{ipoe-sub-id-key}}
+        exit {{_end_}}
+        </group>
+        <group name="authentication-policy">
+        authentication-policy "{{name | ORPHRASE | _start_ }}" create
+            description "{{description | ORPHRASE}}"
+            password "{{paswword}}" {{hash}}
+            user-name-format {{user-name-format | WORD }}
+            fallback-action {{fallback-action}}
+            pppoe-access-method {{pppoe-access-method}}
+            <group name="include-radius-attribute">
+            include-radius-attribute {{_start_}}
+                circuit-id {{circuit-id | set(true)}}
+                remote-id {{remote-id | set(true)}}
+                nas-port-id {{nas-port-id | set(true)}}
+                nas-identifier {{nas-identifier | set(true)}}
+                dhcp-options {{dhcp-options | set(true)}}
+                dhcp6-options {{dhcp6-options | set(true)}}
+                access-loop-options {{access-loop-options | set(true)}}
+                mac-address {{mac-address | set(true)}}
+                called-station-id {{called-station-id  | set(true)}}
+                calling-station-id {{calling-station-id}}
+                user-name {{user-name | set(true)}}
+                acct-authentic {{acct-authentic | set(true)}}
+                delegated-ipv6-prefix {{delegated-ipv6-prefix | set(true)}}
+                framed-ip-addr {{framed-ip-addr | set(true)}}
+                framed-ipv6-prefix {{framed-ipv6-prefix | set(true)}}
+                sla-profile {{sla-profile | set(true)}}
+                sub-profile {{sub-profile | set(true)}}
+                subscriber-id {{subscriber-id | set(true)}}
+                no detailed-acct-attributes {{detailed-acct-attributes | set(false)}}
+                std-acct-attributes {{std-acct-attributes | set(true)}}
+            exit {{_end_}}
+            </group>
+            <group name="radius-authentication-server">
+            radius-authentication-server {{_start_}}
+                retry {{retry | DIGIT}}
+                source-address {{source-address | IP}}
+                timeout {{timeout | DIGIT }}
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="radius-accounting-policy">
+        radius-accounting-policy "{{name | ORPHRASE |_start_}}" create
+            description "{{description | ORPHRASE}}"
+            no queue-instance-accounting {{queue-instance-accounting | set(false)}}
+            session-accounting {{session-accounting}}
+            <group name="include-radius-attribute">
+            include-radius-attribute {{_start_}}
+                circuit-id {{circuit-id | set(true)}}
+                remote-id {{remote-id | set(true)}}
+                nas-port-id {{nas-port-id | set(true)}}
+                nas-identifier {{nas-identifier | set(true)}}
+                dhcp-options {{dhcp-options | set(true)}}
+                dhcp6-options {{dhcp6-options | set(true)}}
+                access-loop-options {{access-loop-options | set(true)}}
+                mac-address {{mac-address | set(true)}}
+                called-station-id {{called-station-id  | set(true)}}
+                calling-station-id {{calling-station-id}}
+                user-name {{user-name | set(true)}}
+                acct-authentic {{acct-authentic | set(true)}}
+                delegated-ipv6-prefix {{delegated-ipv6-prefix | set(true)}}
+                framed-ip-addr {{framed-ip-addr | set(true)}}
+                framed-ipv6-prefix {{framed-ipv6-prefix | set(true)}}
+                sla-profile {{sla-profile | set(true)}}
+                sub-profile {{sub-profile | set(true)}}
+                subscriber-id {{subscriber-id | set(true)}}
+                no detailed-acct-attributes {{detailed-acct-attributes | set(false)}}
+                std-acct-attributes {{std-acct-attributes | set(true)}}
+            exit {{_end_}}
+            </group>
+            session-id-format {{session-id-format}}
+            radius-server-policy "{{radius-server-policy | ORPHRASE}}"
+            <group name="radius-accounting-server">
+            radius-accounting-server {{_start_}}
+                source-address {{source-address | IP}}
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="ipoe-session-policy">
+        ipoe-session-policy "{{name | ORPHRASE |_start_}}" create
+            description "{{description | ORPHRASE}}"
+            session-key {{session-key | ORPHRASE | split(' ') | join(',') }}
+        exit {{_end_}}
+        </group>
+        <group name="sla-profile">
+        sla-profile "{{name | ORPHRASE |_start_}}" create
+            description "{{description | ORPHRASE}}"
+            <group name="ingress">
+            ingress {{_start_}}
+                qos {{qos | DIGIT }}
+                exit {{ingore}}
+                ip-filter {{ip-filter | DIGIT }}
+                ipv6-filter {{ipv6-filter | DIGIT }}
+                no qos-marking-from-sap {{qos-marking-from-sap | set(false)}}
+            exit {{_end_}}
+            </group>
+            <group name="egress">
+            egress {{_start_}}
+                qos {{qos | DIGIT }}
+                exit {{ingore}}
+                ip-filter {{ip-filter | DIGIT }}
+                ipv6-filter {{ipv6-filter | DIGIT }}
+                no qos-marking-from-sap {{qos-marking-from-sap | set(false)}}
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="sub-profile">
+        sub-profile "{{name | ORPHRASE |_start_}}" create
+            description "{{description | ORPHRASE}}"
+            <group name="radius-accounting">
+            radius-accounting {{_start_}}
+                policy "{{policy | ORPHRASE}}"
+            exit {{_end_}}
+            </group>
+            <group name="ingress">
+            ingress {{_start_}}
+                policer-control-policy "{{policer-control-policy | ORPHRASE}}"
+            exit {{_end_}}
+            </group>
+            <group name="egress">
+            egress {{_start_}}
+                policer-control-policy "{{policer-control-policy | ORPHRASE}}"
+                scheduler-policy "{{scheduler-policy | ORPHRASE}}"
+            exit {{_end_}}
+            </group>
+            <group name="sla-profile-map">
+            sla-profile-map {{_start_}}
+                use-direct-map-as-default {{use-direct-map-as-default | set(true)}}
+                <group name="entry">
+                entry key "{{key}}" sla-profile "{{sla-profile}}"
+                </group>
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="sub-ident-policy">
+        sub-ident-policy "{{name | ORPHRASE |_start_}}" create
+            description "{{description | ORPHRASE}}"
+            <group name="sub-profile-map">
+            sub-profile-map {{_start_}}
+                use-direct-map-as-default {{use-direct-map-as-default | set(true)}}
+            exit {{_end_}}
+            </group>
+            <group name="sla-profile-map">
+            sla-profile-map {{_start_}}
+                use-direct-map-as-default {{use-direct-map-as-default | set(true)}}
+            exit {{_end_}}
+            </group>
+            <group name="app-profile-map">
+            app-profile-map {{_start_}}
+                use-direct-map-as-default {{use-direct-map-as-default | set(true)}}
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="ppp-policy">
+        ppp-policy "{{name | ORPHRASE |_start_}}" create
+            description "{{description | ORPHRASE}}"
+            ppp-mtu {{ppp-mtu | DIGIT}}
+            max-sessions-per-mac {{max-sessions-per-mac | DIGIT}}
+            ppp-authentication {{ppp-authentication}}
+        exit {{_end_}}
+        </group>
+        <group name="local-user-db">
+        local-user-db "{{name | ORPHRASE |_start_}}" create
+        exit {{_end_}}
+        </group>
+#--------------------------------------------------{{ignore}}
+echo "Service Configuration" {{_end_}}
+</group>

@@ -1,0 +1,92 @@
+<group name="configure.filter">
+#-------------------------------------------------- {{ignore}}
+echo "Filter Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+    filter {{ignore}}
+        <group name="ip-filter">
+        ip-filter {{id | DIGIT | _start_}} name "{{name | ORPHRASE}}" create
+            default-action {{default-action}}
+            description "{{description | ORPHRASE}}"
+            scope {{scope}}
+            <group name="embed-filter">
+            embed-filter flowspec router "{{router-instance | _start_}}"
+            embed-filter flowspec router "{{router-instance | _start_}}" offset {{offset | DIGIT}}
+            embed-filter {{id | DIGIT | _start_}}
+            </group>
+            <group name="entry">
+            entry {{entry | DIGIT | _start_}} create
+                description "{{description | ORPHRASE}}"
+                log {{log | DIGIT}}
+                <group name="match-protocol">
+                match protocol {{protocol}}
+                    src-ip {{src-ip-address | PREFIX}}
+                    src-ip ip-prefix-list "{{src-ip-prefix-list}}"
+                    dst-ip {{dst-ip-address | PREFIX}}
+                    dst-ip ip-prefix-list "{{dst-ip-prefix-list}}"
+                    src-port eq {{ src-port | ORPHRASE | split(' ') | join(',')}}
+                    dst-port eq {{ dst-port | ORPHRASE | split(' ') | join(',')}}
+                    icmp-type {{icmp-type}}
+                exit {{_end_}}
+                </group>
+                <group name="match">
+                match {{_start_}}
+                    src-ip {{src-ip-address | PREFIX}}
+                    src-ip ip-prefix-list "{{src-ip-prefix-list}}"
+                    dst-ip {{dst-ip-address | PREFIX}}
+                    dst-ip ip-prefix-list "{{dst-ip-prefix-list}}"
+                exit {{_end_}}
+                </group>  
+                <group name="action">
+                action {{_start_}}
+                    forward {{forward |set(true)}}
+                    drop {{drop |set(true)}}
+                exit {{_end_}} 
+                </group>
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="ipv6-filter">
+        ipv6-filter {{id | DIGIT | _start_}} name "{{name | ORPHRASE}}" create
+            scope {{scope}}
+            description "{{description | ORPHRASE}}"
+            <group name="embed-filter">
+            embed-filter flowspec router "{{router-instance | _start_}}"
+            embed-filter flowspec router "{{router-instance | _start_}}" offset {{offset | DIGIT}}
+            embed-filter {{id | DIGIT | _start_}}
+            </group>
+            <group name="entry">
+            entry {{entry-id | _start_ }} create
+                description "{{description | ORPHRASE}}"
+                log {{log-id}}
+                <group name="match">
+                match {{_start_}}
+                    src-ip {{src-ip-address | PREFIXV6}}
+                    src-ip ip-prefix-list "{{src-ip-prefix-list}}"
+                    dst-ip {{dst-ip-address | ORPHRASE}}
+                    dst-ip ip-prefix-list "{{dst-ip-prefix-list}}"
+                exit {{_end_}}
+                </group>  
+                <group name="match-next-header">
+                match next-header {{protocol | _start_}}
+                    src-ip {{src-ipv6-address | PREFIXV6 }}
+                    src-ip ipv6-prefix-list "{{src-ipv6-prefix-list}}"
+                    dst-ip {{dst-ipv6-address | ORPHRASE}}
+                    dst-ip ipv6-prefix-list "{{dst-ipv6-prefix-list}}"
+                    src-port eq {{ src-port | ORPHRASE | split(' ') | join(',')}}
+                    dst-port eq {{ dst-port | ORPHRASE | split(' ') | join(',')}}
+                    icmp-type {{icmp-type}}
+                exit {{_end_}}
+                </group>
+                <group name="action">
+                action {{_start_}}
+                    forward {{forward | set(true)}}
+                    drop {{drop | set(true)}}
+                    drop hop-limit {{ltgteq | WORD}} {{hop-limit-value | DIGIT}}
+                exit {{_end_}} 
+                </group>  
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+    exit {{_end_}}
+</group>

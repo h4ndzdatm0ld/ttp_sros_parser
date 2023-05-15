@@ -1,0 +1,37 @@
+<group name="configure.redundancy">
+#-------------------------------------------------- {{ignore}}
+echo "Redundancy Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+    redundancy {{ignore}}
+        <group name="multi-chassis">
+        multi-chassis {{_start_}}
+            <group name="peer">
+            peer {{peer-address | IP | _start_ }} create
+                description "{{description | ORPHRASE}}"
+                <group name="sync">
+                sync {{_start_}}
+                    igmp {{igmp | set(true)}}
+                    srrp {{srrp | set(true)}}
+                    sub-mgmt {{sub-mgmt | ORPHRASE}}
+                    <group name="port">
+                    port {{port | _start_}} create
+                        <group name="range">
+                        range {{range}} sync-tag "{{sync-tag | ORPHRASE }}"
+                        </group>
+                    exit {{_end_}}
+                    </group>
+                    no shutdown {{admin_state | set(true)}}
+                    shutdown {{admin_state | set(false)}}
+                exit {{_end_}}
+                </group>
+                no shutdown {{admin_state | set(true)}}
+                shutdown {{admin_state | set(false)}}
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+        synchronize {{synchronize}}
+    exit {{ignore}}
+#-------------------------------------------------- {{ignore}}
+echo "QoS Policy Configuration" {{_end_}}
+</group>

@@ -1,0 +1,36 @@
+<group name="configure.aaa">
+#-------------------------------------------------- {{ ignore }}
+echo "AAA Configuration" {{_start_}}
+#-------------------------------------------------- {{ ignore }}
+
+
+    aaa {{_ignore_}}
+        <group name="radius-server-policy">
+        radius-server-policy {{name | _start_ | ORPHRASE}} create
+            description {{description | ORPHRASE}}
+            acct-request-script-policy {{acct-request-script-policy | ORPHRASE}}
+            auth-request-script-policy {{auth-request-script-policy | ORPHRASE}}
+            accept-script-policy {{accept-script-policy | ORPHRASE}}
+            <group name="servers">
+            servers {{_start_}}
+                retry {{retry | DIGIT}}
+                router {{router | ORPHRASE}}
+                timeout {{timeout | ORPHRASE}}
+                server {{server-id | DIGIT}} name {{server-name | ORPHRASE}}
+            exit {{_ignore_}}
+            </group>
+        exit {{_ignore_}}
+        </group>
+        <group name="radius-script-policy">
+        radius-script-policy {{name | _start_ | ORPHRASE}} create
+            description {{description | ORPHRASE}}
+            <group name="primary">
+            primary {{_start_}}
+                script-url {{script-url | ORPHRASE}}
+                no shutdown {{admin_state | set(true)}}
+            exit {{_ignore_}}
+            </group>
+        exit {{_ignore_}}
+        </group>
+    
+</group>

@@ -1,0 +1,28 @@
+<group name="configure.mirror">
+#-------------------------------------------------- {{ ignore }}
+echo "Mirror Configuration" {{_start_}}
+#-------------------------------------------------- {{ ignore }}
+    
+    mirror {{_ignore_}}
+        <group name="mirror-conf">
+        mirror-dest {{ mirror-dest | _start_ | DIGIT }} name {{name | ORPHRASE}} type {{type | ORPHRASE}} create
+            description {{description | ORPHRASE}}
+            <group name="encap">
+            encap {{_start_}}
+                <group name="l3-encap">
+                {{encap-type | _start_ | ORPHRASE}} create
+                    <group name="gateway">
+                    gateway create {{_start_}}
+                        ip src {{src-ip | IP }} dest {{dest-ip | IP }}
+                        udp src {{src-udp | DIGIT }} dest {{dest-udp | DIGIT }}
+                    exit {{_ignore_}}
+                    </group>
+                exit {{_ignore_}}
+                </group>
+            exit {{_ignore_}}
+            </group>
+            no shutdown {{admin-state | set(true)}}
+        exit {{_end_}}
+        </group>
+        
+</group>

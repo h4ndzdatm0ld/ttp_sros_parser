@@ -1,0 +1,38 @@
+#--------------------------------------------------
+echo "LDP Configuration"
+#--------------------------------------------------
+        ldp
+            export-tunnel-table "{{parsed_config[0]['configure']['router']['ldp']['export-tunnel-table']}}"
+            {%- if parsed_config[0]['configure']['router']['ldp']['fast-reroute'] %}
+            fast-reroute
+            {%- endif %}
+            fec-originate {{parsed_config[0]['configure']['router']['ldp']['fec-originate']}} {% if parsed_config[0]['configure']['router']['ldp']['pop']%}pop{% endif %}
+            interface-parameters
+                interface "{{parsed_config[0]['configure']['router']['ldp']['interface_parameters']['interface']['name']}}" {% if parsed_config[0]['configure']['router']['ldp']['interface_parameters']['interface']['dual-stack']%}dual-stack {% endif %}
+                    ipv4
+                        {%- if parsed_config[0]['configure']['router']['ldp']['interface_parameters']['interface']['ipv4']['admin_state']%}
+                        no shutdown
+                        {%- else %}
+                        shutdown
+                        {%- endif %}
+                    exit
+                    {%- if parsed_config[0]['configure']['router']['ldp']['interface_parameters']['interface']['admin_state']%}
+                    no shutdown
+                    {%- else %}
+                    shutdown
+                    {%- endif %}
+                exit
+            exit
+            {%- if parsed_config[0]['configure']['router']['ldp']['targeted-session'] is defined%}
+            targeted-session
+                {%- if parsed_config[0]['configure']['router']['ldp']['admin_state'] == 'true'%}
+                no shutdown
+                {%- endif %}
+            exit
+            {%- endif %}
+            {%- if parsed_config[0]['configure']['router']['ldp']['admin_state']%}
+            no shutdown
+            {%- else %}
+            shutdown
+            {%- endif %}
+        exit

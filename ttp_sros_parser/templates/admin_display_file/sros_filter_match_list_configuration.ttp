@@ -1,0 +1,24 @@
+<group name="configure.filter">
+#-------------------------------------------------- {{ignore}}
+echo "Filter Match lists Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+    filter {{ignore}}
+        <group name="match-list">
+        match-list {{_start_}}
+            <group name="ip-prefix-list">
+            ip-prefix-list "{{name | _start_}}" create
+                description "{{description | ORPHRASE}}"
+                {{ prefix | _line_ | contains ("prefix") | joinmatches | resub(old = '^prefix ', new = '') | to_list}}
+            exit{{_end_}}
+            </group>
+            <group name="ipv6-prefix-list">
+            ipv6-prefix-list "{{name | _start_}}" create
+                description "{{description | ORPHRASE}}"
+                {{ prefix | _line_ | contains ("prefix") | joinmatches | resub(old = '^prefix ', new = '') | to_list}}
+            exit{{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+    exit {{_end_}}
+#---{{_end_}}   
+</group>

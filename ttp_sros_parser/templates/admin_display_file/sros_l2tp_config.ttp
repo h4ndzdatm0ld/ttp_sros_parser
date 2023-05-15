@@ -1,0 +1,21 @@
+<group name="configure.router.l2tp">
+#-------------------------------------------------- {{ignore}}
+echo "L2TP Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+        l2tp {{_start_}}
+            <group name="group">
+            group "{{group}}" protocol {{protocol}} create
+                <group name="tunnel">
+                tunnel "{{tunnel}}" create
+                    local-name "{{local-name}}"
+                    peer {{peer | IP}}
+                    no shutdown {{admin_state | set(true)}}
+                exit {{_end_}}
+                </group>
+                no shutdown {{admin_state | set(true)}}
+            exit {{_end_}}
+            </group>
+            no shutdown {{admin_state | set(true)}}
+        exit {{ignore}}
+#-------------------------------------------------- {{_end_}}
+</group>

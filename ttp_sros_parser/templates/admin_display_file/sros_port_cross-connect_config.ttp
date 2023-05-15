@@ -1,0 +1,17 @@
+<group name="configure.port-xc">
+#-------------------------------------------------- {{ignore}}
+echo "Port Cross-Connect Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+    port-xc {{ignore}}
+        <group name="pxc">
+        pxc {{number | DIGIT | _start_}} create
+            description "{{description | ORPHRASE}}"
+            port {{port}}
+            no shutdown {{admin_state | set(true)}}
+            shutdown {{admin_state | set(false)}}
+        exit {{_end_}}
+        </group>
+    exit {{ignore}}
+#-------------------------------------------------- {{ignore}}
+echo "Port Configuration" {{_end_}}
+</group>

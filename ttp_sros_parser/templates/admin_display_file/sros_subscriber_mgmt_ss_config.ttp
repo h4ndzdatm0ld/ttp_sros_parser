@@ -1,0 +1,83 @@
+<vars>
+PROTOCOL_TYPE = r"ppp|ipoe"
+</vars>
+
+
+<group name="configure.subscriber-mgmt">
+#-------------------------------------------------- {{ ignore }}
+echo "Subscriber-mgmt (Service Side) Configuration" {{_start_}}
+#-------------------------------------------------- {{ ignore }}
+    
+    subscriber-mgmt {{_ignore_}}
+
+        <group name="authentication-policy">
+        authentication-policy {{name | _start_ | ORPHRASE}}
+            <group name="radius-authentication-server">
+            radius-authentication-server {{_start_}}
+                router {{router | ORPHRASE }}
+                server {{server-id | DIGIT }} address {{address | IP }} secret {{ secret | re(r'".*"') }} {{hashing-scheme | WORD }} port {{ port | DIGIT }} 
+
+            exit {{_ignore_}}
+            </group>
+        exit {{_ignore_}}
+        </group>
+
+        <group name="radius-accounting-policy">
+        radius-accounting-policy {{name| _start_ | ORPHRASE}}
+            <group name="radius-accounting-server">
+            radius-accounting-server {{_start_}}
+                router {{router | ORPHRASE }}
+                server {{server-id | DIGIT }} address {{address | IP }} secret {{ secret | re(r'".*"') }} {{hashing-scheme | WORD }} port {{ port | DIGIT }} 
+            exit {{_ignore_}}
+            </group>
+        exit {{_ignore_}}       
+        </group>
+
+
+        <group name="local-user-db"> 
+        local-user-db {{ name | _start_ | ORPHRASE}} create
+            <group name="protocol"> 
+            {{ type | _start_ | re(r"PROTOCOL_TYPE")}}
+                match-list {{ match-list | ORPHRASE}}
+                <group name="host"> 
+                host {{host-name |  _start_ | ORPHRASE}} create
+                    auth-policy {{auth-policy | ORPHRASE }}
+                    pre-auth-policy {{pre-auth-policy | ORPHRASE }}
+                    server {{server | IP }}
+                    no shutdown {{admin-state | set(true)}}
+                    <group name="host-identification"> 
+                    host-identification {{_start_}}
+                        username {{ username | WORD}} {{ domain-only | let(true)}}
+                        username {{ username | WORD}}
+                        option60 string {{option60-string | ORPHRASE}}
+                    </group>
+
+                    exit {{_ignore_}}
+                    address pool {{address-pool | ORPHRASE }}
+                    auth-policy {{auth-policy | ORPHRASE }}
+                    password {{password | ORPHRASE }}
+                    <group name="identification-strings"> 
+                    identification-strings {{string-id | _start_ | DIGIT }} create
+                        subscriber-id {{subscriber-id | ORPHRASE }}
+                        sla-profile-string {{sla-profile-string | ORPHRASE }}
+                        sub-profile-string {{sub-profile-string | ORPHRASE }}
+                    </group>
+                    exit {{_ignore_}} 
+                    pre-auth-policy {{pre-auth-policy | ORPHRASE }}
+                    server {{server | IP }}
+                    <group name="l2tp"> 
+                    l2tp {{_start_}}
+                        group {{group | ORPHRASE }}
+                    </group>
+                    exit {{_ignore_}}
+                    no shutdown {{admin-state | set(true)}}
+                </group>
+                exit {{_ignore_}}
+            </group>
+            exit {{_ignore_}}
+        </group>
+        exit {{_ignore_}}
+    exit {{_ignore_}} 
+
+
+</group>

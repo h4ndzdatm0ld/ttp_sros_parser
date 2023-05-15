@@ -1,0 +1,35 @@
+#--------------------------------------------------
+echo "PYTHON Configuration"
+#--------------------------------------------------
+    python
+        {%- for python_script in parsed_config[0]['configure']['python']['python-script'] %}{% if python_script['name'] %}
+        python-script "{{python_script['name']}}" create
+            {%- if  python_script['description'] %}
+            description "{{python_script['description']}}"
+            {%- endif %}
+            primary-url "{{python_script['primary-url']}}"
+            {%- if python_script['admin_state']%}
+            no shutdown
+            {%- else %}
+            shutdown
+            {%- endif %}
+        exit
+        {%- endif %}
+        {%- endfor %}
+        {%- for python_policy in parsed_config[0]['configure']['python']['python-policy'] %}{% if python_policy['name'] %}
+        python-policy "{{python_policy['name']}}" create
+            {%- if  python_policy['description'] %}
+            description "{{python_policy['description']}}"
+            {%- endif %}
+            {%- for dhcp in python_policy['dhcp'] %}{% if dhcp['message'] %}        
+            dhcp {{dhcp['message']}} direction {{dhcp['direction']}} script "{{dhcp['script']}}"
+            {%- endif %}
+            {%- endfor %}
+            {%- for dhcp6 in python_policy['dhcp6'] %}{% if dhcp6['message'] %}        
+            dhcp6 {{dhcp6['message']}} direction {{dhcp6['direction']}} script "{{dhcp6['script']}}"
+            {%- endif %}
+            {%- endfor %}       
+        exit
+        {%- endif %}
+        {%- endfor %}
+    exit

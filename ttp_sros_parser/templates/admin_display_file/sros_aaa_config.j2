@@ -1,0 +1,12 @@
+aaa{% for radius_server_policy in parsed_config[0]['configure']['aaa']['radius-server-policy']%}{% if radius_server_policy.name %}
+    radius-server-policy {{ radius_server_policy.name }} create
+        description {{ radius_server_policy.description }}
+        acct-request-server-policy {{ radius_server_policy['acct-request-server-policy'] }}
+        
+        servers
+            retry {{ radius_server_policy['servers']['retry'] }}
+            router {{ radius_server_policy['servers']['router'] }}
+            server router {{ radius_server_policy['servers']['server-id'] }} name {{ radius_server_policy['servers']['server-name'] }}
+        exit
+    exit
+{% endif %}{%- endfor %}

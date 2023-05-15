@@ -1,0 +1,10 @@
+#-------------------------------------------------- {{ignore}}
+echo "Service Configuration" {{ignore}}
+#-------------------------------------------------- {{ignore}}
+    service {{_start_}}
+        <group name="system.service.customer">
+        customer {{customer-id}} name {{customer-name | strip('"')}} create
+            description {{description | strip('"')}}
+        exit {{_end_}}
+        </group>
+#-------------------------------------------------- {{_end_}}

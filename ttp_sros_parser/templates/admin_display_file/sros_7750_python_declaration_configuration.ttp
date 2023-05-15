@@ -1,0 +1,12 @@
+<group name="configure.python">
+#-------------------------------------------------- {{ ignore }}
+echo "PYTHON (declaration) Configuration" {{_start_}}
+#-------------------------------------------------- {{ ignore }}
+    python {{ ignore }}
+        <group name="python-policy">
+        python-policy "{{name | ORPHRASE | _start_}}" create
+        exit {{_end_}}
+        </group>
+    exit {{_end_}}
+#-------------------------------------------------- {{ ignore }}
+</group>
