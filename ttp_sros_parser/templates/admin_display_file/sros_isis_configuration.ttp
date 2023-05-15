@@ -1,0 +1,48 @@
+<group name="configure.router.isis">
+#-------------------------------------------------- {{ ignore }}
+echo "ISIS Configuration" {{_start_}}
+#-------------------------------------------------- {{ ignore }}
+        isis {{process}}
+            area-id {{area-id}}
+            lsp-lifetime {{lsp-lifetime | DIGIT }}
+            lsp-refresh-interval {{lsp-refresh-interval | DIGIT }} half-lifetime {{half-lifetime | WORD}}
+            overload-on-boot timeout {{overload-on-boot-timeout}}
+            export {{ export | ORPHRASE | replace('"', '') |split(' ') | join(',')}}
+            rib-priority {{rib-priority | WORD}} "{{rib-priority-name}}"
+            ipv6-routing {{ipv6-routing}}
+            <group name="multi-topology">
+            multi-topology {{_start_}}
+                ipv6-unicast {{ipv6-unicast | set(true)}}
+            exit {{_end_}}
+            </group>
+            <group name="timers">
+            timers {{_start_}}
+                spf-wait {{spf-wait | DIGIT}} spf-initial-wait {{spf-initial-wait | DIGIT}} spf-second-wait {{spf-second-wait | DIGIT}}
+            exit {{_end_}}
+            </group>
+            <group name="level">
+            level {{number | DIGIT | _start_}}
+                wide-metrics-only {{wide-metrics-only | set(true)}}
+            exit {{_end_}}
+            </group>
+            <group name="interface">
+            interface "{{name | ORPHRASE | _start_}}"
+                level-capability {{level-capability}}
+                hello-authentication-key "{{hello-authentication-key}}" {{hash-type}}
+                hello-authentication-type {{hello-authentication-type}}
+                passive {{passive | set(true)}}
+                tag {{tag | DIGIT }}
+                interface-type {{interface-type}}
+                <group name="level">
+                level {{number | DIGIT | _start_}}
+                    ipv6-unicast-metric {{ipv6-unicast-metric | DIGIT }}
+                    metric {{metric | DIGIT}}
+                exit {{_end_}}
+                </group>
+                no shutdown {{admin-state | set(true)}}
+            no shutdown {{admin-state | set(true)}}
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+#-------------------------------------------------- {{ ignore }}
+</group>

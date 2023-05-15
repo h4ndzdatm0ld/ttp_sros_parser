@@ -1,0 +1,13 @@
+#--------------------------------------------------
+echo "Filter Log Configuration"
+#--------------------------------------------------
+    filter
+        {%- for log in parsed_config[0]['configure']['filter']['log'] %}{% if log['log-id'] %}
+        log {{log['log-id']}} create
+            {%- if log['description']%}
+            description "{{log['description']}}"
+            {%- endif %}
+        exit
+        {%- endif %}
+        {%- endfor %}
+    exit

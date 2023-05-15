@@ -1,0 +1,19 @@
+#-------------------------------------------------- {{ignore}}
+echo "Cflowd Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+<group name="configure.cflowd">
+    cflowd {{_start_}}
+        active-timeout {{active-timeout}}
+        cache-size {{cache-size}}
+        inactive-timeout {{inactive-timeout}}
+        rate {{rate}}
+        template-retransmit {{template-retransmit}}
+        <group name="collector">
+        collector {{collector_ip_address | _start_}} version {{version_id}}
+            description "{{description | ORPHRASE}}"
+            template-set {{collector_template-set}}
+        exit {{_end_}}
+        </group>
+    exit {{_end_}}
+    </group>
+#-------------------------------------------------- {{_end_}}

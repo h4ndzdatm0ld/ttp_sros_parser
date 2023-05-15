@@ -18,8 +18,16 @@ echo "LAG Configuration" {{ _start_ }}
         description {{ description | ORPHRASE | strip('"')}}
         mode {{ mode }}
         encap-type {{ encap-type }}
-        <group name="port">
-        port {{ port-id }}
+        <group name="access">
+        access {{ _start_ }}
+            adapt-qos {{adapt-qos}}
+            bandwidth {{bandwidth}}
+            booking-factor {{booking-factor}}
+            per-fp{{per-fp-queuing}}
+        exit {{_end_}}
+        </group>
+        <group name="port" itemize="id">
+        port {{id}}
         </group>
         <group name="lacp">
         lacp {{ mode }} administrative-key {{ administrative-key | DIGIT}}

@@ -1,0 +1,26 @@
+#--------------------------------------------------
+echo "L2TP Configuration"
+#--------------------------------------------------
+        l2tp
+            group "{{parsed_config[0]['configure']['router']['l2tp']['group']['group']}}" protocol {{parsed_config[0]['configure']['router']['l2tp']['group']['protocol']}} create
+                tunnel "{{parsed_config[0]['configure']['router']['l2tp']['group']['tunnel']['tunnel']}}" create
+                    local-name "{{parsed_config[0]['configure']['router']['l2tp']['group']['tunnel']['local-name']}}"
+                    peer {{parsed_config[0]['configure']['router']['l2tp']['group']['tunnel']['peer']}}
+                    {%- if parsed_config[0]['configure']['router']['l2tp']['group']['tunnel']['admin_state']%}
+                    no shutdown
+                    {%- else %}
+                    shutdown
+                    {%- endif %}
+                exit
+                {%- if parsed_config[0]['configure']['router']['l2tp']['group']['admin_state']%}
+                no shutdown
+                {%- else %}
+                shutdown
+                {%- endif %}
+            exit
+            {%- if parsed_config[0]['configure']['router']['l2tp']['group']['admin_state']%}
+            no shutdown
+            {%- else %}
+            shutdown
+            {%- endif %}
+        exit

@@ -1,0 +1,30 @@
+#--------------------------------------------------
+echo "IGMP Configuration"
+#--------------------------------------------------
+        igmp
+            ssm-translate
+                {%- for group in parsed_config[0]['configure']['router']['igmp'][1]['ssm-translate']['grp-range']%}{% if group['grp-range'] %}
+                grp-range {{group['grp-range']}}
+                    source {{group['source']}}
+                exit
+                {%- endif %}
+                {%- endfor %}        
+            exit
+            {%- for interface in parsed_config[0]['configure']['router']['igmp'][1]['interface']%}{% if interface['name'] %}
+            interface "{{interface['name']}}"
+                {%- if interface['admin_state']%}
+                no shutdown
+                {%- else %}
+                shutdown
+                {%- endif %}
+            exit
+            {%- endif %}
+            {%- endfor %}   
+            query-interval {{parsed_config[0]['configure']['router']['igmp'][1]['query_interval']}}
+            query-last-member-interval {{parsed_config[0]['configure']['router']['igmp'][1]['query-last-member-interval']}}
+            {%- if parsed_config[0]['configure']['router']['igmp'][1]['admin_state']%}
+            no shutdown
+            {%- else %}
+            shutdown
+            {%- endif %}
+        exit

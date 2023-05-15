@@ -1,0 +1,24 @@
+<macro>
+def set_true(data):
+    if 'bfd-enable' in data:
+        return data, {"bfd-enable": True}
+    elif 'black-hole' in data:
+        return data, {"black-hole": True}
+</macro>
+
+<group name="configure.router" contains_val="'router', 'management'"> 
+#-------------------------------------------------- {{ ignore }}
+echo "Management Router Configuration" {{ _start_ }}
+#-------------------------------------------------- {{ ignore }}
+    <group name="router-name.{{ router }}">
+    router {{ router | _start_ }}
+        <group name="entry">
+        static-route-entry {{ address | is_ip }}/{{ prefix }}
+            next-hop {{ next-hop | is_ip }}
+            exit {{_ignore_}}
+        </group>
+        exit {{ _ignore_ }}
+    exit {{ _end_ }}
+    </group>
+</group>
+#-------------------------------------------------- {{ _end_ }}

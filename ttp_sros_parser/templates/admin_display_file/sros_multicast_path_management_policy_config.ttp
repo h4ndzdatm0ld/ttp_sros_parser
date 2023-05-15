@@ -1,0 +1,22 @@
+<group name="configure.mcast-management">
+#-------------------------------------------------- {{ignore}}
+echo "Multicast Path Management Policy Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+    mcast-management {{ignore}}
+        <group name="bandwidth-policy">
+        bandwidth-policy "{{name | ORPHRASE | _start_}}" create
+            <group name="t2-paths">
+            t2-paths {{_start_}}
+                <group name="secondary-path">
+                secondary-path {{_start_}}
+                    number-paths {{number-paths | DIGIT}} redundant-sfm {{redundant-sfm | DIGIT}}
+                exit {{_end_}}
+                </group>
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+    exit {{ignore}}
+#-------------------------------------------------- {{ignore}}
+echo "Switch Fabric Configuration" {{_end_}}
+</group>

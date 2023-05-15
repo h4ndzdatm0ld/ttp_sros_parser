@@ -27,7 +27,7 @@
                      ]
                   },
                   {
-                     "admin-state":true,
+                     "admin_state":true,
                      "authentication-check":false,
                      "dst-zone":{
                         "end":{
@@ -50,7 +50,10 @@
                         }
                      }
                   }
-               ]
+               ],
+               "sntp":{
+                  "admin_state": false
+               }
             }
          }
       }

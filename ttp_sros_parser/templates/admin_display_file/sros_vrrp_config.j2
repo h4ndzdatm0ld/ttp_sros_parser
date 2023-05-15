@@ -1,0 +1,23 @@
+#--------------------------------------------------
+echo "Vrrp Configuration"
+#--------------------------------------------------
+    vrrp
+        {%- for policy in parsed_config[0]['configure']['vrrp']['policy']%}{% if policy['id'] %}
+        policy {{policy['id']}}
+            {%- if policy['delta-in-use-limit'] %}
+            delta-in-use-limit {{policy['delta-in-use-limit']}}
+            {%- endif %}
+            {%- if policy['priority-event'] %}
+            priority-event
+                lag-port-down {{policy['priority-event']['lag-port-down']['id']}}
+                    hold-clear {{policy['priority-event']['lag-port-down']['hold-clear']}}
+                    number-down {{policy['priority-event']['lag-port-down']['number-down']['id']}}
+                        priority {{policy['priority-event']['lag-port-down']['number-down']['priority']}} delta
+                    exit
+                exit
+            exit
+            {%- endif %}
+        exit
+    {%- endif %}
+    {%- endfor %}
+    exit

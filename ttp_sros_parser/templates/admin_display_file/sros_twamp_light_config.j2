@@ -1,0 +1,20 @@
+#--------------------------------------------------
+echo "TWAMP Light Configuration"
+#--------------------------------------------------
+        twamp-light
+            reflector udp-port {{parsed_config[0]['configure']['router']['twamp_light']['reflector']['udp_port']}} create
+                description "{{parsed_config[0]['configure']['router']['twamp_light']['reflector']['description']}}"
+                {%- for prefix in parsed_config[0]['configure']['router']['twamp_light']['reflector']['prefix']%}{% if prefix['prefix'] %}
+                prefix {{prefix['prefix']}} create
+                    description "{{prefix['description']}}"
+                exit
+                {%- endif %}
+                {%- endfor %}
+                {%- if parsed_config[0]['configure']['router']['twamp_light']['reflector']['admin_state']%}
+                no shutdown
+                {%- else %}
+                shutdown
+                {%- endif %}
+            exit
+        exit
+    exit

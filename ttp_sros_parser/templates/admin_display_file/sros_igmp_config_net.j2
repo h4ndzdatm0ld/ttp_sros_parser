@@ -1,0 +1,18 @@
+#--------------------------------------------------
+echo "IGMP Configuration"
+#--------------------------------------------------
+        igmp
+            ssm-translate
+                {%- for group in parsed_config[0]['configure']['router']['igmp'][0]['ssm-translate']['grp-range']%}{% if group['grp-range'] %}
+                grp-range {{group['grp-range']}}
+                    source {{group['source']}}
+                exit
+                {%- endif %}
+                {%- endfor %}        
+            exit
+            {%- if parsed_config[0]['configure']['router']['igmp'][0]['admin_state']%}
+            no shutdown
+            {%- else %}
+            shutdown
+            {%- endif %}            
+        exit

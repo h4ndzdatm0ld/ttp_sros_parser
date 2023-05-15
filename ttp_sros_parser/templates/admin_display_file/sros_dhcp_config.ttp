@@ -1,0 +1,35 @@
+<group name="configure.router.dhcp">
+#-------------------------------------------------- {{ ignore }}
+echo "Local DHCP Server (Base Router) Configuration" {{_start_}}
+#-------------------------------------------------- {{ ignore }}
+    router {{_ignore_}}
+        dhcp {{_ignore_}}
+            <group name="server">
+            local-dhcp-server "{{name | ORPHRASE | _start_}}" create
+                user-db "{{user-db | ORPHRASE}}"
+                <group name="pool">
+                pool "{{name | ORPHRASE | _start_}}" create
+                    min-lease-time {{min-lease-time | ORPHRASE}}
+                    max-lease-time {{max-lease-time | ORPHRASE}}
+                    <group name="options">
+                    options {{_start_}}
+                        dns-server {{dns-server | ORPHRASE | split(" ")}}
+                        <group name="custom-option">
+                        custom-option {{id | DIGIT}} address {{address | IP}}
+                        </group>
+                    exit {{_end_}}
+                    </group>
+                    <group name="subnet">
+                    subnet {{prefix | PREFIX}} create
+                        address-range {{address-range | ORPHRASE}}
+                    exit {{_end_}}
+                    </group>
+                exit {{_end_}}
+                </group>
+                no shutdown {{admin_state | set (true)}}
+            exit {{_end_}}
+            </group>
+        exit{{_ignore_}}
+    exit{{_ignore_}}
+</group>
+#-------------------------------------------------- {{_end_}}

@@ -1,0 +1,12 @@
+<group name="configure.filter">
+#-------------------------------------------------- {{ignore}}
+echo "Filter Log Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+    filter {{ignore}}
+        <group name="log">
+        log {{log-id}} create
+            description "{{description}}"
+        exit {{_end_}}  
+        </group>
+    exit {{_end_}}       
+</group>

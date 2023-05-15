@@ -14,7 +14,7 @@
             "ipv6":{
                "address":{
                   "ipv6_address":"2001:1111:3333:0:420:2a0::",
-                  "prefix-length>":"128"
+                  "prefix_length":"128"
                }
             }
          }

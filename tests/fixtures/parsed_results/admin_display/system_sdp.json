@@ -1,41 +1,43 @@
 [
    {
-      "system":{
-         "service":{
-            "sdp":[
-               {
-                  "admin-state":true,
-                  "adv-mtu-override":true,
-                  "description":"MPLS-LABEL-TO-7750-01",
-                  "far-end":"10.100.69.0",
-                  "keep-alive":{
-                     "admin-state":false
+      "configure":{
+         "system":{
+            "service":{
+               "sdp":[
+                  {
+                     "admin-state":true,
+                     "adv-mtu-override":true,
+                     "description":"MPLS-LABEL-TO-7750-01",
+                     "far-end":"10.100.69.0",
+                     "keep-alive":{
+                        "admin-state":false
+                     },
+                     "ldp":true,
+                     "sdp-id":"215"
                   },
-                  "ldp":true,
-                  "sdp-id":"215"
-               },
-               {
-                  "admin-state":true,
-                  "adv-mtu-override":true,
-                  "description":"MPLS-LABEL-TO-7750-02",
-                  "far-end":"10.100.69.1",
-                  "keep-alive":{
-                     "admin-state":false
+                  {
+                     "admin-state":true,
+                     "adv-mtu-override":true,
+                     "description":"MPLS-LABEL-TO-7750-02",
+                     "far-end":"10.100.69.1",
+                     "keep-alive":{
+                        "admin-state":false
+                     },
+                     "ldp":true,
+                     "sdp-id":"1215"
                   },
-                  "ldp":true,
-                  "sdp-id":"1215"
-               },
-               {
-                  "admin-state":true,
-                  "far-end":"10.10.10.4",
-                  "keep-alive":{
-                     "admin-state":false
-                  },
-                  "lsp":"TO_R4",
-                  "path-mtu":"9100",
-                  "sdp-id":"14"
-               }
-            ]
+                  {
+                     "admin-state":true,
+                     "far-end":"10.10.10.4",
+                     "keep-alive":{
+                        "admin-state":false
+                     },
+                     "lsp":"TO_R4",
+                     "path-mtu":"9100",
+                     "sdp-id":"14"
+                  }
+               ]
+            }
          }
       }
    }

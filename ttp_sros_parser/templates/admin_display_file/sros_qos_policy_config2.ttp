@@ -1,0 +1,132 @@
+<group name="configure.qos">
+#-------------------------------------------------- {{ignore}}
+echo "QoS Policy Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+    qos
+        <group name="sap-ingress">
+        sap-ingress {{policy-id |DIGIT | _start_}} name "{{name | ORPHRASE}}" create
+            description "{{description | ORPHRASE}}"
+            <group name="queue">
+            queue {{id | DIGIT | _start_}} {{ type | WORD }} create
+            queue {{id | DIGIT | _start_}} create
+                rate {{rate | DIGIT}}
+                port-parent level {{port-parent-level | DIGIT }} cir-level {{port-parent-cir-level | DIGIT }}
+                port-parent cir-level {{port-parent-cir-level | DIGIT }}
+            exit {{_end_}}
+            </group>
+            <group name="policer">
+            policer {{id | DIGIT | _start_}} create
+                description "{{description | ORPHRASE}}"
+                parent "{{parent | ORPHRASE}}"
+                rate {{rate | DIGIT}}
+            exit {{_end_}}
+            </group>
+            <group name="fc">
+            fc {{fc | WORD | _start_ }} create
+                multicast-queue {{multicast-queue-id | DIGIT}}
+                queue {{queue-id | DIGIT}}
+                policer {{policer-id}}
+                unknown-policer {{unknown-policer-id}}
+                dot1p {{dot1p}}
+            exit {{_end_}}
+            </group>
+            default-fc "{{default-fc}}"
+            <group name="dot1p">
+            dot1p {{dot1p-priority | DIGIT}} fc "{{fc}}"
+            </group>
+            <group name="dscp">
+            dscp {{ dscp | ORPHRASE | split(' ') | join(',')}} fc "{{fc}}"
+            </group>
+            <group name="lsp-exp">
+            lsp-exp {{lsp-exp| DIGIT}} fc "{{fc}}"
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="sap-egress">
+        sap-egress {{policy-id |DIGIT | _start_}} name "{{name | ORPHRASE}}" create
+            description "{{description | ORPHRASE}}"
+            <group name="queue">
+            queue {{id | DIGIT | _start_}} {{ type | WORD }} create
+            queue {{id | DIGIT | _start_}} create
+                rate {{rate | DIGIT}}
+                port-parent level {{port-parent-level | DIGIT }} cir-level {{port-parent-cir-level | DIGIT }}
+                port-parent cir-level {{port-parent-cir-level | DIGIT }}
+            exit {{_end_}}
+            </group>
+            <group name="policer">
+            policer {{id | DIGIT | _start_}} create
+                description "{{description | ORPHRASE}}"
+                parent "{{parent | ORPHRASE}}"
+                rate {{rate | DIGIT}}
+            exit {{_end_}}
+            </group>
+            <group name="fc">
+            fc {{fc | WORD | _start_ }} create
+                multicast-queue {{multicast-queue-id | DIGIT}}
+                queue {{queue-id | DIGIT}}
+                policer {{policer-id}}
+                unknown-policer {{unknown-policer-id}}
+                dot1p {{dot1p}}
+            exit {{_end_}}
+            </group>
+            default-fc "{{default-fc}}"
+            <group name="dot1p">
+            dot1p {{dot1p-priority | DIGIT}} fc "{{fc}}"
+            </group>
+            <group name="dscp">
+            dscp {{ dscp | ORPHRASE | split(' ') | join(',')}} fc "{{fc}}"
+            </group>
+            <group name="lsp-exp">
+            lsp-exp {{lsp-exp| DIGIT}} fc "{{fc}}"
+            </group>
+            <group name="ip-criteria">
+            ip-criteria {{_start_}}
+                <group name="entry">
+                entry {{id}} create
+                    description "{{description | ORPHRASE}}"
+                    <group name="match-protocol">
+                    match protocol {{protocol | _start_ }}
+                        src-ip {{src-ip-address | PREFIX}}
+                        src-ip ip-prefix-list "{{src-ip-prefix-list}}"
+                        dst-ip {{dst-ip-address | PREFIX}}
+                        dst-ip ip-prefix-list "{{dst-ip-prefix-list}}"
+                        src-port {{ src-port | ORPHRASE | split(' ') | join(',')}}                            dst-port {{ dst-port | ORPHRASE | split(' ') | join(',')}}
+                        icmp-type {{icmp-type}}
+                    exit {{_end_}}
+                    </group>
+                    action fc "{{action-fc}}"
+                exit {{_end_}}
+                </group>
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="network">
+        network {{id | DIGIT }} name "{{name}}" create
+            description "{{description | ORPHRASE}}"
+            <group name="ingress">
+            ingress {{_start_}}
+                ler-use-dscp {{ler-use-dscp | set(true)}}
+                <group name="dscp">
+                dscp {{ dscp | WORD}} fc {{fc}} profile {{profile}}
+                </group>
+                <group name="lsp-exp">
+                lsp-exp {{lsp-exp| DIGIT}} fc {{fc}} profile {{profile}}
+                </group>
+            exit {{_end_}}
+            </group>
+            <group name="egress">
+            egress {{_start_}}
+                <group name="fc">
+                fc {{fc | WORD | _start_ }}
+                    dscp-in-profile {{dscp-in-profile | WORD}}
+                    dscp-out-profile {{dscp-out-profile | WORD}}
+                    lsp-exp-in-profile {{lsp-exp-in-profile | DIGIT}}
+                    lsp-exp-out-profile {{lsp-exp-out-profile | DIGIT}}
+                exit {{_end_}}
+                </group>
+            </group>
+        exit {{_end_}}
+        </group>
+    exit {{_end_}}
+</group>

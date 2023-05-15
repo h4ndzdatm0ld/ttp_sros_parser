@@ -1,0 +1,17 @@
+<group name="configure.aaa_declarations">
+#-------------------------------------------------- {{ignore}}
+echo "AAA (Declarations) Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+    aaa {{ignore}}
+        <group name="radius-server-policy">
+        radius-server-policy "{{name | ORPHRASE | _start_}}" create
+        exit {{_end_}}
+        </group>
+        <group name="radius-script-policy">
+        radius-script-policy "{{name | ORPHRASE | _start_ }}" create
+        exit {{_end_}}
+        </group>
+    exit {{ignore}}
+#-------------------------------------------------- {{ignore}}
+echo "Multicast Path Management Policy Configuration" {{_end_}}
+</group>

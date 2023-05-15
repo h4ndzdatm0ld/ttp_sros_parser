@@ -1,0 +1,104 @@
+#--------------------------------------------------
+echo "QoS Policy Configuration"
+#--------------------------------------------------
+    qos
+        match-list
+            ip-prefix-list "{{parsed_config[0]['configure']['qos'][0]['match-list']['ip-prefix-list']['name']}}" create
+                {%- if parsed_config[0]['configure']['qos'][0]['match-list']['ip-prefix-list']['description'] %}
+                description "{{parsed_config[0]['configure']['qos'][0]['match-list']['ip-prefix-list']['description']}}"
+                {%- endif %}
+                {%- for pfx in parsed_config[0]['configure']['qos'][0]['match-list']['ip-prefix-list']['prefix'] %}
+                prefix {{pfx['prefix']}}
+                {%- endfor %}
+            exit            
+        exit
+        network-queue "{{parsed_config[0]['configure']['qos'][0]['network-queue']['name']}}" create
+            {%- for queue  in  parsed_config[0]['configure']['qos'][0]['network-queue']['queue']%}{%- if queue['id'] %}
+            queue {{queue['id']}}{% if queue['multipoint'] %} multipoint{% endif %} create
+                {%- if queue['id'] == '1'%}
+                port-parent
+                {%- elif queue['port-parent-level'] != '1' and queue['port-parent-level'] is defined %}
+                port-parent level {{queue['port-parent-level']}} cir-level {{queue['port-parent-cir-level']}}
+                {%- else%}
+                {%- endif %}
+                {%- if queue['mbs'] %}
+                mbs {{queue['mbs']}}
+                {%- endif %}
+                {%- if queue['rate'] %}
+                rate {{queue['rate']}} cir {{queue['rate-cir']}} 
+                {%- endif %}
+                {%- if queue['drop-tail'] %}
+                drop-tail
+                    low
+                        percent-reduction-from-mbs {{queue['drop-tail']['low']['percent-reduction-from-mbs']}}
+                    exit
+                exit
+                {%- endif %}
+            exit
+            {%- endif %}
+            {%- endfor %}
+            {%- for fc  in  parsed_config[0]['configure']['qos'][0]['network-queue']['fc']%}{%- if fc['tag'] %}
+            fc {{fc['tag']}} create
+                multicast-queue {{fc['multicast-queue']}}
+                queue {{fc['queue-id']}}
+                {%- if fc['egress-hsmda'] %}
+                egress-hsmda
+                    queue {{fc['egress-hsmda']['queue-id']}}
+                exit
+                {%- endif %}    
+            exit
+            {%- endif %}
+            {%- endfor %}
+        exit
+        {%- for port_scheduler  in  parsed_config[0]['configure']['qos'][0]['port-scheduler-policy']%}{%- if port_scheduler['name'] %}    
+        port-scheduler-policy "{{port_scheduler['name']}}" create
+            {%- if port_scheduler['max-rate'] %}
+            max-rate {{port_scheduler['max-rate']}}
+            {%- endif %}
+            {%- if port_scheduler['max-rate-percent'] %}
+            max-rate percent {{port_scheduler['max-rate-percent']}}
+            {%- endif %}
+            {%- for level  in  port_scheduler['level']%}{%- if level['level-id'] %}  
+            level {{level['level-id']}} rate max cir {{level['cir-max']}}
+            {%- endif %}  
+            {%- endfor %}
+        exit
+        {%- endif %}  
+        {%- endfor %}
+        queue-group-templates
+            egress
+                queue-group "{{parsed_config[0]['configure']['qos'][0]['queue-group-templates']['egress']['queue-group']['name']}}" create
+                    description "{{parsed_config[0]['configure']['qos'][0]['queue-group-templates']['egress']['queue-group']['description']}}"
+                    {%- for queue  in  parsed_config[0]['configure']['qos'][0]['queue-group-templates']['egress']['queue-group']['queue']%}{%- if queue['id'] %}
+                    queue {{queue['id']}} {{queue['type']}} create
+                        {%- if queue['port-parent-level'] %}
+                        port-parent level {{queue['port-parent-level']}} cir-level {{queue['port-parent-cir-level']}}
+                        {%- else %}
+                        port-parent cir-level {{queue['port-parent-cir-level']}}
+                        {%- endif %}
+                    exit
+                    {%- endif %}  
+                    {%- endfor %}
+                    {%- for fc  in  parsed_config[0]['configure']['qos'][0]['queue-group-templates']['egress']['queue-group']['fc']%}{%- if fc['tag'] %}
+                    fc {{fc['tag']}} create
+                        queue {{fc['queue-id']}}
+                    exit
+                    {%- endif %}  
+                    {%- endfor %}
+                exit
+            exit
+        exit
+        {%- for scheduler_policy  in  parsed_config[0]['configure']['qos'][0]['scheduler-policy']%}{%- if scheduler_policy['name'] %}  
+        scheduler-policy "{{scheduler_policy['name']}}" create
+            tier {{scheduler_policy['tier']['id']}}
+                scheduler "{{scheduler_policy['tier']['scheduler']['name']}}" create
+                    rate {{scheduler_policy['tier']['scheduler']['rate']}}
+                exit
+            exit
+        exit
+        {%- endif %}  
+        {%- endfor %}
+        policer-control-policy "{{parsed_config[0]['configure']['qos'][0]['policer-control-policy']['name']}}" create
+            description "{{parsed_config[0]['configure']['qos'][0]['policer-control-policy']['description']}}"
+        exit
+    exit

@@ -1,6 +1,6 @@
 #-------------------------------------------------- {{ ignore }}
 <group name="configure">
-echo "MPLS LSP Configuration" {{ ignore }}
+echo "MPLS LSP Configuration"{{ _start_ }}
 #-------------------------------------------------- {{ ignore }}
         <group name="mpls">
         mpls
@@ -23,7 +23,7 @@ echo "MPLS LSP Configuration" {{ ignore }}
             exit {{ _end_ }}
             </group>
             <group name="lsp">
-            lsp "TO_IOSXR"
+            lsp "name"
                 to {{ to }}
                 path-computation-method {{ path-computation-method }}
                 fast-reroute {{ fast-reroute }}

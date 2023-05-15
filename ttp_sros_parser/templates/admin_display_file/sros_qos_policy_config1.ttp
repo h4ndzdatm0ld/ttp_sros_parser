@@ -1,0 +1,104 @@
+<group name="configure.qos">
+#-------------------------------------------------- {{ignore}}
+echo "QoS Policy Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+    qos {{ignore}}
+        <group name="match-list">
+        match-list {{_start_}}
+            <group name="ip-prefix-list">
+            ip-prefix-list "{{name}}" create
+                description "{{description | ORPHRASE}}"
+                <group name="prefix">
+                prefix {{prefix | PREFIX}}
+                </group>
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="network-queue">
+        network-queue "{{name | _start_ }}" create 
+            <group name="queue">
+            queue {{id | DIGIT | _start_ }} {{ multipoint | WORD }} create
+            queue {{id | DIGIT | _start_ }} create
+                port-parent {{port-parent-level | set(1)}} {{port-parent-cir-level | set(1)}}
+                mbs {{mbs | DIGIT}}
+                port-parent level {{port-parent-level}} cir-level {{port-parent-cir-level}}
+                rate {{rate | DIGIT}} cir {{rate-cir | DIGIT}}
+                <group name="drop-tail">
+                drop-tail {{_start_}}
+                    <group name="low">
+                    low {{_start_}}
+                        percent-reduction-from-mbs {{percent-reduction-from-mbs | DIGIT}}
+                    exit {{_end_}}
+                    </group>
+                exit {{_end_}}
+                </group>
+            exit {{_end_}}
+            </group>
+            <group name="fc">
+            fc {{tag | WORD | _start_ }} create
+                multicast-queue {{multicast-queue}}
+                queue {{queue-id | DIGIT}}
+                <group name="egress-hsmda">
+                egress-hsmda {{_start_}}
+                    queue {{queue-id}}
+                exit {{_end_}}
+                </group>
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="port-scheduler-policy">
+        port-scheduler-policy "{{name | ORPHRASE | _start_}}" create
+            max-rate {{max-rate | DIGIT}}
+            max-rate percent {{max-rate-percent | ORPHRASE}}
+            <group name="level">
+            level {{level-id | DIGIT}} rate max cir {{cir-max | DIGIT}}
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="queue-group-templates.egress.queue-group">
+        queue-group-templates {{ignore}}
+            egress {{ignore}}
+                queue-group "{{name | _start_ }}" create
+                    description "{{description | ORPHRASE }}"
+                    <group name="queue">
+                    queue {{id | _start_}} {{ type | WORD }} create
+                        port-parent level {{port-parent-level | DIGIT }} cir-level {{port-parent-cir-level | DIGIT }}
+                        port-parent cir-level {{port-parent-cir-level | DIGIT }}
+                    exit {{_end_}}
+                    </group>
+                    <group name="fc">
+                    fc {{tag | WORD | _start_ }} create
+                        multicast-queue {{multicast-queue}}
+                        queue {{queue-id | DIGIT}}
+                        <group name="egress-hsmda">
+                        egress-hsmda {{_start_}}
+                            queue {{queue-id}}
+                        exit {{_end_}}
+                        </group>
+                    exit {{_end_}}
+                    </group>
+                exit {{ignore}}
+            exit {{ignore}}
+        exit {{_end_}}
+        </group>
+        <group name="scheduler-policy">
+        scheduler-policy "{{name}}" create
+            <group name="tier">
+            tier {{id |_start_}}
+                <group name="scheduler">
+                scheduler "{{name}}" create
+                    rate {{rate | DIGIT }}
+                exit {{_end_}}
+                </group>
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="policer-control-policy">
+        policer-control-policy "{{name | ORPHRASE | _start_ }}" create
+            description "{{description | ORPHRASE }}"
+        exit {{_end_}}
+        </group>
+    exit {{_end_}}
+</group>

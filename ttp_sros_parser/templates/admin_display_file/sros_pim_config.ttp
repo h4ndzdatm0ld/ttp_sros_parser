@@ -1,0 +1,39 @@
+#-------------------------------------------------- {{ ignore }}
+echo "PIM Configuration" {{_start_}}
+#-------------------------------------------------- {{ ignore }}
+        <group name="configure.router.pim">     
+        pim {{_start_}}
+            <group name="interface">
+            interface "{{name | ORPHRASE }}"
+                bfd-enable  {{bfd_enable | set(true)}}
+                no shutdown {{admin_state | set(true)}}
+                priority {{priority | DIGIT}}
+                sticky-dr {{sticky-dr | set(true)}}
+                exit {{_ignore_}}
+            </group>
+
+            <group name="rp">
+            rp {{_start_}}
+                
+                <group name="static">
+                static {{_start_}}
+                exit {{_ignore_}}
+                </group>
+                
+                <group name="bsr-candidate">
+                bsr-candidate {{_start_}}
+                    shutdown {{admin-state | set (false)}} 
+                exit {{_ignore_}}
+                </group>
+                
+                <group name="rp-candidate">
+                rp-candidate {{_start_}}
+                    shutdown {{admin-state | set (false)}} 
+                exit {{_ignore_}}
+                </group>
+            exit {{_ignore_}}
+            </group>
+            no shutdown {{admin_state | set (true)}}
+        exit {{_end_}}
+        </group>
+#--------------------------------------------------

@@ -9,8 +9,9 @@ echo "Router (Network Side) Configuration" {{ _start_ }}
             description {{description | strip('"')}}
             enable-ingress-stats {{ingress_stats | set(true)}}
             <group name="ipv4.primary">
-            address {{address}}/{{prefix_length}}
+            address {{address | IP}}/{{prefix_length}}
             </group>
+            loopback {{loopback | set(true)}}
             <group name="ipv4.bfd">
             bfd {{ipv4_bfd | re(r"\d.*")}}
             </group>
@@ -20,7 +21,7 @@ echo "Router (Network Side) Configuration" {{ _start_ }}
             <group name="ipv6">
             ipv6 {{_start_}}
                 <group name="address">
-                address {{ipv6_address}}/{{prefix-length}}
+                address {{ipv6_address | IPV6 }}/{{prefix_length}}
                 </group>
                 <group name="address">
                 bfd {{ipv6_bfd | re(r"\d.*")}}
@@ -31,8 +32,28 @@ echo "Router (Network Side) Configuration" {{ _start_ }}
             <group name="qos">
             qos {{network-policy}}
             </group>
+            <group name="ingress">
+            ingress {{_start_}}
+                filter ip {{filter-acl-id}}
+                filter ipv6 {{filter-acl-id-v6}}
+            exit {{_end_}}
+            </group>
+            <group name="egress">
+            egress {{_start_}}
+                filter ip {{filter-acl-id}}
+                filter ipv6 {{filter-acl-id-v6}}
+            exit {{_end_}}
+            </group>
+            <group name="cflowd-parameters">
+            cflowd-parameters {{_start_}}
+                sampling {{cast}} type {{sampling-type}}
+            exit {{_end_}}
+            </group>
+            local-dhcp-server  "{{local-dhcp-server-name}}"
             bfd {{ipv4_bfd | re(r"\d.*")}}
             no shutdown {{admin_state | set(true)}}
+        autonomous-system {{autonomous-system-id}}
+        ecmp {{ecmp-value}}
         exit {{_end_}}
     </group>
 </group>
