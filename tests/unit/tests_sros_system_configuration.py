@@ -1,7 +1,8 @@
 """Tests system configuration."""
 
-from ttp_templates import parse_output
 import pprint
+
+from ttp_templates import parse_output
 
 data = """
 

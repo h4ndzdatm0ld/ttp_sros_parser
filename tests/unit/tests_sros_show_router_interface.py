@@ -1,7 +1,8 @@
 """Tests show router interfaces."""
 
-from ttp_templates import parse_output
 import pprint
+
+from ttp_templates import parse_output
 
 data = """
 *A:TEMPE-AZ-HUB-EXAMPLE-7750-01>config>service>ies>if>ipv6>vrrp# show router interface

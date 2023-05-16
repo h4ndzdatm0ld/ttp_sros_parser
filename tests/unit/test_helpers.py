@@ -1,6 +1,7 @@
 """Test Helper Functions."""
-from ttp_sros_parser.helpers import globfindfile, check_file
 import pytest
+
+from ttp_sros_parser.helpers import check_file, globfindfile
 
 
 def test_globfindfile_no_match():
