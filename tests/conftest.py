@@ -175,3 +175,195 @@ def parsed_system_configuration():
 def parsed_connectors():
     with open(f"{FIXTURES}/parsed_results/admin_display/connectors.json") as f:
         return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_python_declaration():
+    with open(f"{FIXTURES}/parsed_results/admin_display/python_declaration.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_python_configuration():
+    with open(f"{FIXTURES}/parsed_results/admin_display/python_declaration.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_system_begin():
+    with open(f"{FIXTURES}/parsed_results/admin_display/system_begin.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_mgmt_router_config():
+    with open(f"{FIXTURES}/parsed_results/admin_display/mgmt_router_config.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_cflowd():
+    with open(f"{FIXTURES}/parsed_results/admin_display/cflowd.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_filter_log_configuration():
+    with open(f"{FIXTURES}/parsed_results/admin_display/filter_log_configuration.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_filter_match_list_configuration():
+    with open(f"{FIXTURES}/parsed_results/admin_display/filter_match_list_configuration.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_system_security_configuration():
+    with open(f"{FIXTURES}/parsed_results/admin_display/system_security_configuration.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_qos_policy_configuration():
+    with open(f"{FIXTURES}/parsed_results/admin_display/qos_policy_configuration.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_qos_policy_configuration1():
+    with open(f"{FIXTURES}/parsed_results/admin_display/qos_policy_configuration1.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_qos_policy_configuration2():
+    with open(f"{FIXTURES}/parsed_results/admin_display/qos_policy_configuration2.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_isis_configuration():
+    with open(f"{FIXTURES}/parsed_results/admin_display/isis_configuration.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_subscriber_mgmt_configuration():
+    with open(f"{FIXTURES}/parsed_results/admin_display/subscriber_mgmt_configuration.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_aaa_declarations_configuration():
+    with open(f"{FIXTURES}/parsed_results/admin_display/aaa_declarations_configuration.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_system_time_ntp_config():
+    with open(f"{FIXTURES}/parsed_results/admin_display/system_time_ntp_config.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_multicast_path_management_policy_configuration():
+    with open(f"{FIXTURES}/parsed_results/admin_display/multicast_path_management_policy_configuration.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_port_xc_configuration():
+    with open(f"{FIXTURES}/parsed_results/admin_display/port_xc_configuration.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_redundancy_configuration():
+    with open(f"{FIXTURES}/parsed_results/admin_display/redundancy_configuration.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_filter_configuration():
+    with open(f"{FIXTURES}/parsed_results/admin_display/filter_configuration.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_vrrp_configuration():
+    with open(f"{FIXTURES}/parsed_results/admin_display/vrrp_configuration.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_igmp_configuration():
+    with open(f"{FIXTURES}/parsed_results/admin_display/igmp_configuration.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_l2tp_configuration():
+    with open(f"{FIXTURES}/parsed_results/admin_display/l2tp_configuration.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_router_policy_configuration():
+    with open(f"{FIXTURES}/parsed_results/admin_display/router_policy_configuration.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_router_bgp_configuration():
+    with open(f"{FIXTURES}/parsed_results/admin_display/router_bgp_configuration.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_subscriber_mgmt_ss_configuration():
+    with open(f"{FIXTURES}/parsed_results/admin_display/subscriber_mgmt_ss_configuration.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_mirror_configuration():
+    with open(f"{FIXTURES}/parsed_results/admin_display/mirror_configuration.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_radius_configuration():
+    with open(f"{FIXTURES}/parsed_results/admin_display/radius_configuration.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_dhcp_configuration():
+    with open(f"{FIXTURES}/parsed_results/admin_display/dhcp_configuration.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_twamp_light_config():
+    with open(f"{FIXTURES}/parsed_results/admin_display/twamp_light_config.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_aaa_configuration():
+    with open(f"{FIXTURES}/parsed_results/admin_display/aaa_configuration.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_pim_configuration():
+    with open(f"{FIXTURES}/parsed_results/admin_display/pim_configuration.json") as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def parsed_ldp_configuration():
+    with open(f"{FIXTURES}/parsed_results/admin_display/ldp_configuration.json") as f:
+        return json.load(f)

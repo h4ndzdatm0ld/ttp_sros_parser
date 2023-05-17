@@ -1,3 +1,734 @@
+<group name="configure.qos">
+#-------------------------------------------------- {{ignore}}
+echo "QoS Policy Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+    qos
+        <group name="sap-ingress">
+        sap-ingress {{policy-id |DIGIT | _start_}} name "{{name | ORPHRASE}}" create
+            description "{{description | ORPHRASE}}"
+            <group name="queue">
+            queue {{id | DIGIT | _start_}} {{ type | WORD }} create
+            queue {{id | DIGIT | _start_}} create
+                rate {{rate | DIGIT}}
+                port-parent level {{port-parent-level | DIGIT }} cir-level {{port-parent-cir-level | DIGIT }}
+                port-parent cir-level {{port-parent-cir-level | DIGIT }}
+            exit {{_end_}}
+            </group>
+            <group name="policer">
+            policer {{id | DIGIT | _start_}} create
+                description "{{description | ORPHRASE}}"
+                parent "{{parent | ORPHRASE}}"
+                rate {{rate | DIGIT}}
+            exit {{_end_}}
+            </group>
+            <group name="fc">
+            fc {{fc | WORD | _start_ }} create
+                multicast-queue {{multicast-queue-id | DIGIT}}
+                queue {{queue-id | DIGIT}}
+                policer {{policer-id}}
+                unknown-policer {{unknown-policer-id}}
+                dot1p {{dot1p}}
+            exit {{_end_}}
+            </group>
+            default-fc "{{default-fc}}"
+            <group name="dot1p">
+            dot1p {{dot1p-priority | DIGIT}} fc "{{fc}}"
+            </group>
+            <group name="dscp">
+            dscp {{ dscp | ORPHRASE | split(' ') | join(',')}} fc "{{fc}}"
+            </group>
+            <group name="lsp-exp">
+            lsp-exp {{lsp-exp| DIGIT}} fc "{{fc}}"
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="sap-egress">
+        sap-egress {{policy-id |DIGIT | _start_}} name "{{name | ORPHRASE}}" create
+            description "{{description | ORPHRASE}}"
+            <group name="queue">
+            queue {{id | DIGIT | _start_}} {{ type | WORD }} create
+            queue {{id | DIGIT | _start_}} create
+                rate {{rate | DIGIT}}
+                port-parent level {{port-parent-level | DIGIT }} cir-level {{port-parent-cir-level | DIGIT }}
+                port-parent cir-level {{port-parent-cir-level | DIGIT }}
+            exit {{_end_}}
+            </group>
+            <group name="policer">
+            policer {{id | DIGIT | _start_}} create
+                description "{{description | ORPHRASE}}"
+                parent "{{parent | ORPHRASE}}"
+                rate {{rate | DIGIT}}
+            exit {{_end_}}
+            </group>
+            <group name="fc">
+            fc {{fc | WORD | _start_ }} create
+                multicast-queue {{multicast-queue-id | DIGIT}}
+                queue {{queue-id | DIGIT}}
+                policer {{policer-id}}
+                unknown-policer {{unknown-policer-id}}
+                dot1p {{dot1p}}
+            exit {{_end_}}
+            </group>
+            default-fc "{{default-fc}}"
+            <group name="dot1p">
+            dot1p {{dot1p-priority | DIGIT}} fc "{{fc}}"
+            </group>
+            <group name="dscp">
+            dscp {{ dscp | ORPHRASE | split(' ') | join(',')}} fc "{{fc}}"
+            </group>
+            <group name="lsp-exp">
+            lsp-exp {{lsp-exp| DIGIT}} fc "{{fc}}"
+            </group>
+            <group name="ip-criteria">
+            ip-criteria {{_start_}}
+                <group name="entry">
+                entry {{id}} create
+                    description "{{description | ORPHRASE}}"
+                    <group name="match-protocol">
+                    match protocol {{protocol | _start_ }}
+                        src-ip {{src-ip-address | PREFIX}}
+                        src-ip ip-prefix-list "{{src-ip-prefix-list}}"
+                        dst-ip {{dst-ip-address | PREFIX}}
+                        dst-ip ip-prefix-list "{{dst-ip-prefix-list}}"
+                        src-port {{ src-port | ORPHRASE | split(' ') | join(',')}}                            dst-port {{ dst-port | ORPHRASE | split(' ') | join(',')}}
+                        icmp-type {{icmp-type}}
+                    exit {{_end_}}
+                    </group>
+                    action fc "{{action-fc}}"
+                exit {{_end_}}
+                </group>
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="network">
+        network {{id | DIGIT }} name "{{name}}" create
+            description "{{description | ORPHRASE}}"
+            <group name="ingress">
+            ingress {{_start_}}
+                ler-use-dscp {{ler-use-dscp | set(true)}}
+                <group name="dscp">
+                dscp {{ dscp | WORD}} fc {{fc}} profile {{profile}}
+                </group>
+                <group name="lsp-exp">
+                lsp-exp {{lsp-exp| DIGIT}} fc {{fc}} profile {{profile}}
+                </group>
+            exit {{_end_}}
+            </group>
+            <group name="egress">
+            egress {{_start_}}
+                <group name="fc">
+                fc {{fc | WORD | _start_ }}
+                    dscp-in-profile {{dscp-in-profile | WORD}}
+                    dscp-out-profile {{dscp-out-profile | WORD}}
+                    lsp-exp-in-profile {{lsp-exp-in-profile | DIGIT}}
+                    lsp-exp-out-profile {{lsp-exp-out-profile | DIGIT}}
+                exit {{_end_}}
+                </group>
+            </group>
+        exit {{_end_}}
+        </group>
+    exit {{_end_}}
+</group>
+<group name="configure.router.radius-server">
+#-------------------------------------------------- {{ ignore }}
+echo "RADIUS Server Configuration" {{_start_}}
+#-------------------------------------------------- {{ ignore }}
+        radius-server {{_ignore_}}
+            <group name="server">
+            server "{{name | ORPHRASE | _start_}}" address {{address | IP }} secret "{{secret | ORPHRASE}}" {{hash-type | WORD}} create
+                description "{{description | ORPHRASE}}"
+                acct-port {{acct-port | DIGIT}}
+                accept-coa {{accept-coa | set (true)}}
+                auth-port {{auth-port | DIGIT}}
+                coa-script-policy "{{coa-script-policy | ORPHRASE}}"             
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+</group>
+<group name="configure.python">
+#-------------------------------------------------- {{ ignore }}
+echo "PYTHON (declaration) Configuration" {{_start_}}
+#-------------------------------------------------- {{ ignore }}
+    python {{ ignore }}
+        <group name="python-policy">
+        python-policy "{{name | ORPHRASE | _start_}}" create
+        exit {{_end_}}
+        </group>
+    exit {{_end_}}
+#-------------------------------------------------- {{ ignore }}
+</group><macro>
+def set_true(data):
+    if 'bfd-enable' in data:
+        return data, {"bfd-enable": True}
+    elif 'black-hole' in data:
+        return data, {"black-hole": True}
+</macro>
+
+<group name="configure.router">
+#-------------------------------------------------- {{ ignore }}
+echo "Management Router Configuration" {{ _start_ }}
+#-------------------------------------------------- {{ ignore }}
+    <group name="router-name.{{ router }}">
+    router {{ router }}
+        <group name="entry">
+        static-route {{ address | is_ip }}/{{ prefix }} next-hop {{ next-hop | is_ip }}
+        </group>
+    </group>
+    exit {{ _end_ }}
+</group>
+
+<group name="configure.router.static-route.ipv4">
+#-------------------------------------------------- {{ ignore }}
+echo "Static Route Configuration" {{ _start_ }}
+#-------------------------------------------------- {{ ignore }}
+        <group name="entry">
+        static-route {{ address | IPV4}}/{{ prefix }} next-hop {{ next-hop | is_ip }} {{ bfd | macro('set_true') | _start_ }}
+        static-route {{ address | IPV4 }}/{{ prefix }} next-hop {{ next-hop | is_ip }} preference {{ preference | DIGIT | _start_ }}
+        static-route {{ address | IPV4 }}/{{ prefix }} {{ black-hole | macro('set_true') | _start_ }}
+        </group>
+</group>
+#-------------------------------------------------- {{ _end_ }}
+echo "Static IPv6 Route Configuration" {{ _start_ }}
+<group name="configure.router.static-route.ipv6">
+#-------------------------------------------------- {{ ignore }}
+        <group name="entry">
+        static-route {{ address | IPV6 }}/{{ prefix }} next-hop {{ next-hop | is_ip }} {{ bfd | macro('set_true') | _start_ }}
+        static-route {{ address | IPV6 }}/{{ prefix }} next-hop {{ next-hop | is_ip }} preference {{ preference | DIGIT | _start_ }}
+        static-route {{ address | IPV6 }}/{{ prefix }} {{ black-hole | macro('set_true') | _start_ }}
+        </group>
+#-------------------------------------------------- {{ _end_ }}
+</group>
+<group name="configure.qos">
+#-------------------------------------------------- {{ignore}}
+echo "QoS Policy Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+    qos {{ignore}}
+        <group name="match-list">
+        match-list {{_start_}}
+            <group name="ip-prefix-list">
+            ip-prefix-list "{{name}}" create
+                description "{{description | ORPHRASE}}"
+                <group name="prefix">
+                prefix {{prefix | PREFIX}}
+                </group>
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="network-queue">
+        network-queue "{{name | _start_ }}" create 
+            <group name="queue">
+            queue {{id | DIGIT | _start_ }} {{ multipoint | WORD }} create
+            queue {{id | DIGIT | _start_ }} create
+                port-parent {{port-parent-level | set(1)}} {{port-parent-cir-level | set(1)}}
+                mbs {{mbs | DIGIT}}
+                port-parent level {{port-parent-level}} cir-level {{port-parent-cir-level}}
+                rate {{rate | DIGIT}} cir {{rate-cir | DIGIT}}
+                <group name="drop-tail">
+                drop-tail {{_start_}}
+                    <group name="low">
+                    low {{_start_}}
+                        percent-reduction-from-mbs {{percent-reduction-from-mbs | DIGIT}}
+                    exit {{_end_}}
+                    </group>
+                exit {{_end_}}
+                </group>
+            exit {{_end_}}
+            </group>
+            <group name="fc">
+            fc {{tag | WORD | _start_ }} create
+                multicast-queue {{multicast-queue}}
+                queue {{queue-id | DIGIT}}
+                <group name="egress-hsmda">
+                egress-hsmda {{_start_}}
+                    queue {{queue-id}}
+                exit {{_end_}}
+                </group>
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="port-scheduler-policy">
+        port-scheduler-policy "{{name | ORPHRASE | _start_}}" create
+            max-rate {{max-rate | DIGIT}}
+            max-rate percent {{max-rate-percent | ORPHRASE}}
+            <group name="level">
+            level {{level-id | DIGIT}} rate max cir {{cir-max | DIGIT}}
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="queue-group-templates.egress.queue-group">
+        queue-group-templates {{ignore}}
+            egress {{ignore}}
+                queue-group "{{name | _start_ }}" create
+                    description "{{description | ORPHRASE }}"
+                    <group name="queue">
+                    queue {{id | _start_}} {{ type | WORD }} create
+                        port-parent level {{port-parent-level | DIGIT }} cir-level {{port-parent-cir-level | DIGIT }}
+                        port-parent cir-level {{port-parent-cir-level | DIGIT }}
+                    exit {{_end_}}
+                    </group>
+                    <group name="fc">
+                    fc {{tag | WORD | _start_ }} create
+                        multicast-queue {{multicast-queue}}
+                        queue {{queue-id | DIGIT}}
+                        <group name="egress-hsmda">
+                        egress-hsmda {{_start_}}
+                            queue {{queue-id}}
+                        exit {{_end_}}
+                        </group>
+                    exit {{_end_}}
+                    </group>
+                exit {{ignore}}
+            exit {{ignore}}
+        exit {{_end_}}
+        </group>
+        <group name="scheduler-policy">
+        scheduler-policy "{{name}}" create
+            <group name="tier">
+            tier {{id |_start_}}
+                <group name="scheduler">
+                scheduler "{{name}}" create
+                    rate {{rate | DIGIT }}
+                exit {{_end_}}
+                </group>
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="policer-control-policy">
+        policer-control-policy "{{name | ORPHRASE | _start_ }}" create
+            description "{{description | ORPHRASE }}"
+        exit {{_end_}}
+        </group>
+    exit {{_end_}}
+</group>
+#-------------------------------------------------- {{ignore}}
+echo "Port Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+<group name="configure.port">
+    port {{port-id}}
+        shutdown {{admin_state | set(false)}}
+        description "{{description}}"
+        <group name="ethernet">
+        ethernet {{_start_}}
+            mode {{mode}}
+            encap-type {{encap-type}}
+            mtu {{mtu | DIGIT}}
+            loopback internal persistent {{loopback | set(true)}}
+            <group name="network">
+            network {{ignore}}
+                queue-policy "{{queue-policy | DIGIT}}"
+            exit {{_end_}}
+            </group>
+            <group name="hold-time">
+            hold-time down {{down}}
+            </group>
+            <group name="hold-time">
+            hold-time up {{up| DIGIT}} down {{down | DIGIT}}
+            </group>
+            no autonegotiate {{autonegotiate | set(false)}}
+            autonegotiate {{autonegotiate}}
+            egress-rate {{egress-rate | DIGIT}} 
+        exit {{_end_}}
+        </group>
+        no shutdown {{admin_state | set(true)}}
+    exit {{_end_}}
+    </group>
+#-------------------------------------------------- {{_end_}}
+<group name="configure.subscriber-mgmt">
+#--------------------------------------------------{{ignore}}
+echo "Subscriber-mgmt Configuration" {{_start_}}
+#--------------------------------------------------{{ignore}}
+        subscriber-mgmt {{ignore}}
+        <group name="auto-sub-id-key">
+        auto-sub-id-key {{_start_}}
+            ipoe-sub-id-key {{ipoe-sub-id-key}}
+        exit {{_end_}}
+        </group>
+        <group name="authentication-policy">
+        authentication-policy "{{name | ORPHRASE | _start_ }}" create
+            description "{{description | ORPHRASE}}"
+            password "{{paswword}}" {{hash}}
+            user-name-format {{user-name-format | WORD }}
+            fallback-action {{fallback-action}}
+            pppoe-access-method {{pppoe-access-method}}
+            <group name="include-radius-attribute">
+            include-radius-attribute {{_start_}}
+                circuit-id {{circuit-id | set(true)}}
+                remote-id {{remote-id | set(true)}}
+                nas-port-id {{nas-port-id | set(true)}}
+                nas-identifier {{nas-identifier | set(true)}}
+                dhcp-options {{dhcp-options | set(true)}}
+                dhcp6-options {{dhcp6-options | set(true)}}
+                access-loop-options {{access-loop-options | set(true)}}
+                mac-address {{mac-address | set(true)}}
+                called-station-id {{called-station-id  | set(true)}}
+                calling-station-id {{calling-station-id}}
+                user-name {{user-name | set(true)}}
+                acct-authentic {{acct-authentic | set(true)}}
+                delegated-ipv6-prefix {{delegated-ipv6-prefix | set(true)}}
+                framed-ip-addr {{framed-ip-addr | set(true)}}
+                framed-ipv6-prefix {{framed-ipv6-prefix | set(true)}}
+                sla-profile {{sla-profile | set(true)}}
+                sub-profile {{sub-profile | set(true)}}
+                subscriber-id {{subscriber-id | set(true)}}
+                no detailed-acct-attributes {{detailed-acct-attributes | set(false)}}
+                std-acct-attributes {{std-acct-attributes | set(true)}}
+            exit {{_end_}}
+            </group>
+            <group name="radius-authentication-server">
+            radius-authentication-server {{_start_}}
+                retry {{retry | DIGIT}}
+                source-address {{source-address | IP}}
+                timeout {{timeout | DIGIT }}
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="radius-accounting-policy">
+        radius-accounting-policy "{{name | ORPHRASE |_start_}}" create
+            description "{{description | ORPHRASE}}"
+            no queue-instance-accounting {{queue-instance-accounting | set(false)}}
+            session-accounting {{session-accounting}}
+            <group name="include-radius-attribute">
+            include-radius-attribute {{_start_}}
+                circuit-id {{circuit-id | set(true)}}
+                remote-id {{remote-id | set(true)}}
+                nas-port-id {{nas-port-id | set(true)}}
+                nas-identifier {{nas-identifier | set(true)}}
+                dhcp-options {{dhcp-options | set(true)}}
+                dhcp6-options {{dhcp6-options | set(true)}}
+                access-loop-options {{access-loop-options | set(true)}}
+                mac-address {{mac-address | set(true)}}
+                called-station-id {{called-station-id  | set(true)}}
+                calling-station-id {{calling-station-id}}
+                user-name {{user-name | set(true)}}
+                acct-authentic {{acct-authentic | set(true)}}
+                delegated-ipv6-prefix {{delegated-ipv6-prefix | set(true)}}
+                framed-ip-addr {{framed-ip-addr | set(true)}}
+                framed-ipv6-prefix {{framed-ipv6-prefix | set(true)}}
+                sla-profile {{sla-profile | set(true)}}
+                sub-profile {{sub-profile | set(true)}}
+                subscriber-id {{subscriber-id | set(true)}}
+                no detailed-acct-attributes {{detailed-acct-attributes | set(false)}}
+                std-acct-attributes {{std-acct-attributes | set(true)}}
+            exit {{_end_}}
+            </group>
+            session-id-format {{session-id-format}}
+            radius-server-policy "{{radius-server-policy | ORPHRASE}}"
+            <group name="radius-accounting-server">
+            radius-accounting-server {{_start_}}
+                source-address {{source-address | IP}}
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="ipoe-session-policy">
+        ipoe-session-policy "{{name | ORPHRASE |_start_}}" create
+            description "{{description | ORPHRASE}}"
+            session-key {{session-key | ORPHRASE | split(' ') | join(',') }}
+        exit {{_end_}}
+        </group>
+        <group name="sla-profile">
+        sla-profile "{{name | ORPHRASE |_start_}}" create
+            description "{{description | ORPHRASE}}"
+            <group name="ingress">
+            ingress {{_start_}}
+                qos {{qos | DIGIT }}
+                exit {{ingore}}
+                ip-filter {{ip-filter | DIGIT }}
+                ipv6-filter {{ipv6-filter | DIGIT }}
+                no qos-marking-from-sap {{qos-marking-from-sap | set(false)}}
+            exit {{_end_}}
+            </group>
+            <group name="egress">
+            egress {{_start_}}
+                qos {{qos | DIGIT }}
+                exit {{ingore}}
+                ip-filter {{ip-filter | DIGIT }}
+                ipv6-filter {{ipv6-filter | DIGIT }}
+                no qos-marking-from-sap {{qos-marking-from-sap | set(false)}}
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="sub-profile">
+        sub-profile "{{name | ORPHRASE |_start_}}" create
+            description "{{description | ORPHRASE}}"
+            <group name="radius-accounting">
+            radius-accounting {{_start_}}
+                policy "{{policy | ORPHRASE}}"
+            exit {{_end_}}
+            </group>
+            <group name="ingress">
+            ingress {{_start_}}
+                policer-control-policy "{{policer-control-policy | ORPHRASE}}"
+            exit {{_end_}}
+            </group>
+            <group name="egress">
+            egress {{_start_}}
+                policer-control-policy "{{policer-control-policy | ORPHRASE}}"
+                scheduler-policy "{{scheduler-policy | ORPHRASE}}"
+            exit {{_end_}}
+            </group>
+            <group name="sla-profile-map">
+            sla-profile-map {{_start_}}
+                use-direct-map-as-default {{use-direct-map-as-default | set(true)}}
+                <group name="entry">
+                entry key "{{key}}" sla-profile "{{sla-profile}}"
+                </group>
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="sub-ident-policy">
+        sub-ident-policy "{{name | ORPHRASE |_start_}}" create
+            description "{{description | ORPHRASE}}"
+            <group name="sub-profile-map">
+            sub-profile-map {{_start_}}
+                use-direct-map-as-default {{use-direct-map-as-default | set(true)}}
+            exit {{_end_}}
+            </group>
+            <group name="sla-profile-map">
+            sla-profile-map {{_start_}}
+                use-direct-map-as-default {{use-direct-map-as-default | set(true)}}
+            exit {{_end_}}
+            </group>
+            <group name="app-profile-map">
+            app-profile-map {{_start_}}
+                use-direct-map-as-default {{use-direct-map-as-default | set(true)}}
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="ppp-policy">
+        ppp-policy "{{name | ORPHRASE |_start_}}" create
+            description "{{description | ORPHRASE}}"
+            ppp-mtu {{ppp-mtu | DIGIT}}
+            max-sessions-per-mac {{max-sessions-per-mac | DIGIT}}
+            ppp-authentication {{ppp-authentication}}
+        exit {{_end_}}
+        </group>
+        <group name="local-user-db">
+        local-user-db "{{name | ORPHRASE |_start_}}" create
+        exit {{_end_}}
+        </group>
+#--------------------------------------------------{{ignore}}
+echo "Service Configuration" {{_end_}}
+</group><group name="configure.mcast-management">
+#-------------------------------------------------- {{ignore}}
+echo "Multicast Path Management Policy Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+    mcast-management {{ignore}}
+        <group name="bandwidth-policy">
+        bandwidth-policy "{{name | ORPHRASE | _start_}}" create
+            <group name="t2-paths">
+            t2-paths {{_start_}}
+                <group name="secondary-path">
+                secondary-path {{_start_}}
+                    number-paths {{number-paths | DIGIT}} redundant-sfm {{redundant-sfm | DIGIT}}
+                exit {{_end_}}
+                </group>
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+    exit {{ignore}}
+#-------------------------------------------------- {{ignore}}
+echo "Switch Fabric Configuration" {{_end_}}
+</group><group name="system.eth-cfm">
+    eth-cfm {{_start_}}
+    <group name="domain">
+        domain {{domain-id}} format {{format}} level {{level}}
+            <group name="associations">
+            association {{association-id}} format {{format}} name {{name | strip('"')}}
+                bridge-identifier {{bridge-id}}
+                exit {{ignore}}
+                remote-mepid {{remote-mepid}}
+            </group>
+    </group>
+#-------------------------------------------------- {{_end_}}
+</group>
+<group name="configure.router.bgp">
+#-------------------------------------------------- {{ignore}}
+echo "BGP Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+        bgp {{ignore}}
+            ibgp-multipath {{ibgp-multipath | set(true)}}   
+            enable-peer-tracking {{enable-peer-tracking | set(true)}}   
+            advertise-external {{advertise-external | ORPHRASE | split(" ") | to_list}}
+            backup-path {{backup-path | ORPHRASE | split(" ") | to_list}}
+            <group name="next-hop-resolution">
+            next-hop-resolution {{_start_}}
+                policy {{ policy | ORPHRASE }}
+                <group name="shortcut-tunnel">
+                shortcut-tunnel {{_start_}}
+                    <group name="family">
+                    family {{type}}
+                        <group name="resolution-filter">
+                        resolution-filter {{_start_}}
+                            {{type | ORPHRASE}}
+                        exit{{_end_}}
+                        </group>
+                        resolution filter {{_start_}}
+                    exit{{_end_}}
+                    </group>
+                exit{{_end_}}
+                </group>
+            exit{{_end_}}
+            </group>
+            peer-tracking-policy {{peer-tracking-policy | ORPHRASE}}
+
+            <group name="rib-management">
+            rib-management {{_start_}}
+                <group name="ipv6">
+                ipv6{{_start_}}{{_exact_}}
+                    route-table-import {{route-table-import | ORPHRASE}}
+                exit{{_end_}} 
+                </group>
+
+                <group name="label-ipv6">
+                label-ipv6{{_start_}}{{_exact_}}
+                    route-table-import {{route-table-import | ORPHRASE}}
+                exit{{_end_}} 
+                </group>
+
+            exit{{_end_}}
+            </group>
+            <group name="group">
+            group {{name | _start_ | ORPHRASE}}
+                shutdown {{admin-state | set(false)}}
+                description {{description | ORPHRASE}}
+                family {{family | ORPHRASE}}
+                loop-detect {{loop-detect | ORPHRASE }}
+                next-hop-self {{next-hop-self | set(true)}}
+                vpn-apply-import {{vpn-apply-import | set (true)}}
+                vpn-apply-export {{vpn-apply-export | set (true)}}
+                type {{type | ORPHRASE}}
+                multihop {{type | DIGIT}}
+                local-address {{ local-address | IP}}
+                min-route-advertisement {{min-route-advertisement | DIGIT}}
+                preference {{preference | DIGIT}}
+                path-mtu-discovery {{path-mtu-discovery | set(true)}}
+                import {{import | ORPHRASE | split (" ") }}
+                export {{export | ORPHRASE | split (" ") }}
+                peer-as {{peer-as | DIGIT}}
+                local-as {{local-as | DIGIT}}
+                ttl-security {{ttl-security | DIGIT}}
+                <group name="add-paths">
+                add-paths {{_start_}}
+                    {{config | ORPHRASE }}
+                exit{{_end_}}
+                </group>
+
+                prefix-limit ipv4 {{prefix-limit-ipv4 | _exact_ | DIGIT }} {{ post-importv4 | let (true) }}
+                prefix-limit ipv6 {{prefix-limit-ipv6 | _exact_ | DIGIT }} {{ post-importv6 | let (true) }} 
+
+                <group name="neighbor">
+                neighbor {{neighbor-id | IP}}
+                    description "{{description | ORPHRASE}}"
+                    peer-as {{peer-as | DIGIT}}
+                    
+                exit{{_end_}}
+                </group>
+            
+            exit{{_end_}}
+            </group>
+            shutdown {{admin-state | set(true)}}
+        exit{{_end_}}
+        </group><group name="configure.filter">
+#-------------------------------------------------- {{ignore}}
+echo "Filter Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+    filter {{ignore}}
+        <group name="ip-filter">
+        ip-filter {{id | DIGIT | _start_}} name "{{name | ORPHRASE}}" create
+            default-action {{default-action}}
+            description "{{description | ORPHRASE}}"
+            scope {{scope}}
+            <group name="embed-filter">
+            embed-filter flowspec router "{{router-instance | _start_}}"
+            embed-filter flowspec router "{{router-instance | _start_}}" offset {{offset | DIGIT}}
+            embed-filter {{id | DIGIT | _start_}}
+            </group>
+            <group name="entry">
+            entry {{entry | DIGIT | _start_}} create
+                description "{{description | ORPHRASE}}"
+                log {{log | DIGIT}}
+                <group name="match-protocol">
+                match protocol {{protocol}}
+                    src-ip {{src-ip-address | PREFIX}}
+                    src-ip ip-prefix-list "{{src-ip-prefix-list}}"
+                    dst-ip {{dst-ip-address | PREFIX}}
+                    dst-ip ip-prefix-list "{{dst-ip-prefix-list}}"
+                    src-port eq {{ src-port | ORPHRASE | split(' ') | join(',')}}
+                    dst-port eq {{ dst-port | ORPHRASE | split(' ') | join(',')}}
+                    icmp-type {{icmp-type}}
+                exit {{_end_}}
+                </group>
+                <group name="match">
+                match {{_start_}}
+                    src-ip {{src-ip-address | PREFIX}}
+                    src-ip ip-prefix-list "{{src-ip-prefix-list}}"
+                    dst-ip {{dst-ip-address | PREFIX}}
+                    dst-ip ip-prefix-list "{{dst-ip-prefix-list}}"
+                exit {{_end_}}
+                </group>  
+                <group name="action">
+                action {{_start_}}
+                    forward {{forward |set(true)}}
+                    drop {{drop |set(true)}}
+                exit {{_end_}} 
+                </group>
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="ipv6-filter">
+        ipv6-filter {{id | DIGIT | _start_}} name "{{name | ORPHRASE}}" create
+            scope {{scope}}
+            description "{{description | ORPHRASE}}"
+            <group name="embed-filter">
+            embed-filter flowspec router "{{router-instance | _start_}}"
+            embed-filter flowspec router "{{router-instance | _start_}}" offset {{offset | DIGIT}}
+            embed-filter {{id | DIGIT | _start_}}
+            </group>
+            <group name="entry">
+            entry {{entry-id | _start_ }} create
+                description "{{description | ORPHRASE}}"
+                log {{log-id}}
+                <group name="match">
+                match {{_start_}}
+                    src-ip {{src-ip-address | PREFIXV6}}
+                    src-ip ip-prefix-list "{{src-ip-prefix-list}}"
+                    dst-ip {{dst-ip-address | ORPHRASE}}
+                    dst-ip ip-prefix-list "{{dst-ip-prefix-list}}"
+                exit {{_end_}}
+                </group>  
+                <group name="match-next-header">
+                match next-header {{protocol | _start_}}
+                    src-ip {{src-ipv6-address | PREFIXV6 }}
+                    src-ip ipv6-prefix-list "{{src-ipv6-prefix-list}}"
+                    dst-ip {{dst-ipv6-address | ORPHRASE}}
+                    dst-ip ipv6-prefix-list "{{dst-ipv6-prefix-list}}"
+                    src-port eq {{ src-port | ORPHRASE | split(' ') | join(',')}}
+                    dst-port eq {{ dst-port | ORPHRASE | split(' ') | join(',')}}
+                    icmp-type {{icmp-type}}
+                exit {{_end_}}
+                </group>
+                <group name="action">
+                action {{_start_}}
+                    forward {{forward | set(true)}}
+                    drop {{drop | set(true)}}
+                    drop hop-limit {{ltgteq | WORD}} {{hop-limit-value | DIGIT}}
+                exit {{_end_}} 
+                </group>  
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+    exit {{_end_}}
+</group>
 <macro>
 def macro_gen(data):
 	if 'generate' in data:
@@ -56,6 +787,85 @@ echo "Log Configuration" <group name="configure.log"> {{_start_}}
         </group>
     exit {{_end_}}
 </group>
+<group name="configure.router.l2tp">
+#-------------------------------------------------- {{ignore}}
+echo "L2TP Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+        l2tp {{_start_}}
+            <group name="group">
+            group "{{group}}" protocol {{protocol}} create
+                <group name="tunnel">
+                tunnel "{{tunnel}}" create
+                    local-name "{{local-name}}"
+                    peer {{peer | IP}}
+                    no shutdown {{admin_state | set(true)}}
+                exit {{_end_}}
+                </group>
+                no shutdown {{admin_state | set(true)}}
+            exit {{_end_}}
+            </group>
+            no shutdown {{admin_state | set(true)}}
+        exit {{ignore}}
+#-------------------------------------------------- {{_end_}}
+</group><group name="configure.router.dhcp">
+#-------------------------------------------------- {{ ignore }}
+echo "Local DHCP Server (Base Router) Configuration" {{_start_}}
+#-------------------------------------------------- {{ ignore }}
+    router {{_ignore_}}
+        dhcp {{_ignore_}}
+            <group name="server">
+            local-dhcp-server "{{name | ORPHRASE | _start_}}" create
+                user-db "{{user-db | ORPHRASE}}"
+                <group name="pool">
+                pool "{{name | ORPHRASE | _start_}}" create
+                    min-lease-time {{min-lease-time | ORPHRASE}}
+                    max-lease-time {{max-lease-time | ORPHRASE}}
+                    <group name="options">
+                    options {{_start_}}
+                        dns-server {{dns-server | ORPHRASE | split(" ")}}
+                        <group name="custom-option">
+                        custom-option {{id | DIGIT}} address {{address | IP}}
+                        </group>
+                    exit {{_end_}}
+                    </group>
+                    <group name="subnet">
+                    subnet {{prefix | PREFIX}} create
+                        address-range {{address-range | ORPHRASE}}
+                    exit {{_end_}}
+                    </group>
+                exit {{_end_}}
+                </group>
+                no shutdown {{admin_state | set (true)}}
+            exit {{_end_}}
+            </group>
+        exit{{_ignore_}}
+    exit{{_ignore_}}
+</group>
+#-------------------------------------------------- {{_end_}}
+<macro>
+def set_true(data):
+    if 'bfd-enable' in data:
+        return data, {"bfd-enable": True}
+    elif 'black-hole' in data:
+        return data, {"black-hole": True}
+</macro>
+
+<group name="configure.router" contains_val="'router', 'management'"> 
+#-------------------------------------------------- {{ ignore }}
+echo "Management Router Configuration" {{ _start_ }}
+#-------------------------------------------------- {{ ignore }}
+    <group name="router-name.{{ router }}">
+    router {{ router | _start_ }}
+        <group name="entry">
+        static-route-entry {{ address | is_ip }}/{{ prefix }}
+            next-hop {{ next-hop | is_ip }}
+            exit {{_ignore_}}
+        </group>
+        exit {{ _ignore_ }}
+    exit {{ _end_ }}
+    </group>
+</group>
+#-------------------------------------------------- {{ _end_ }}
 <macro>
 def macro_true(data):
 	if 'prefer' in data:
@@ -69,6 +879,54 @@ def macro_true(data):
         <group name="rollback">
         rollback {{rollback | set(true)}}
             rollback-location {{cf_slot | strip('"') | to_str}}:\{{ directory | to_str | strip('"')}}
+            rescue-location {{rescue_cf_slot | strip('"') | to_str}}:\{{ rescue_directory | to_str | strip('"')}}
+            exit {{_end_}}
+        </group>
+        <group name="power-management">
+        power-management {{_start_}}
+            <group name="peq">
+            peq {{peq-id | _start_}}
+                peq-type {{peq-type}}
+                no shutdown {{ admin-state | set(true) }}
+                shutdown {{ admin-state | set(false) }}
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="dns">
+        dns {{_start_}}
+            address-pref {{address-pref | ORPHRASE }}
+        exit {{_end_}}
+        </group>
+        <group name="load-balancing">
+        load-balancing {{_start_}}
+            l4-load-balancing {{ l4-load-balancing | set(true) }}
+            lsr-load-balancing {{lsr-hashing}}
+        exit {{_end_}}
+        </group>
+        <group name="time" contains="time_zone">
+        time {{_start_}}
+            <group name="ntp" containsall="admin_state">
+            ntp {{_start_}}{{ _exact_ }}
+                no shutdown {{ admin_state | set(true) }}
+                shutdown {{ admin_state | set(false) }}
+                server {{server | IP}}
+            exit {{_end_}}
+            </group>
+            <group name="sntp">
+            sntp {{_start_}}{{ _exact_ }}
+                no shutdown {{ admin_state | set(true) }}
+                shutdown {{ admin_state | set(false) }}
+            exit {{_end_}}
+            </group>
+            <group name="dst-zone">
+            dst-zone {{ dst-zone | _start_}}
+                start last {{dst-zone-start | ORPHRASE }}
+                end last {{dst-zone-end | ORPHRASE }}
+            exit {{_end_}}
+            </group> 
+            zone {{time_zone}}
+        exit {{_end_}}
         </group>
         <group name="snmp">
             packet-size {{packet_size}}
@@ -102,165 +960,61 @@ def macro_true(data):
         <group name="zone.standard">
             zone {{name}}
         </group>
+        <group name="script-control">
+        script-control {{_start_}}
+            <group name="script">
+            script "{{name | _start_}}"
+                description "{{description | ORPHRASE}}"
+                location "{{location}}"
+                shutdown {{ admin-state | set(false) }}
+                no shutdown {{ admin-state | set(true) }}
+            exit {{_end_}}
+            </group>
+            <group name="script-policy">
+            script-policy "{{name | _start_}}"
+                results "{{results}}"
+                script "{{script-file}}"
+                shutdown {{ admin-state | set(false) }}
+                no shutdown {{ admin-state | set(true) }}
+            exit {{_end_}}       
+            </group>
+        exit {{_end_}}
+        </group>
                 </group>       
                 </group>
 #-------------------------------------------------- {{_end_}}
                 </group>
-<macro>
-def set_true(data):
-    if 'bfd-enable' in data:
-        return data, {"bfd-enable": True}
-    elif 'black-hole' in data:
-        return data, {"black-hole": True}
-</macro>
-
-<group name="configure.router">
-#-------------------------------------------------- {{ ignore }}
-echo "Management Router Configuration" {{ _start_ }}
-#-------------------------------------------------- {{ ignore }}
-    <group name="router-name.{{ router }}">
-    router {{ router }}
-        <group name="entry">
-        static-route {{ address | is_ip }}/{{ prefix }} next-hop {{ next-hop | is_ip }}
-        </group>
-    </group>
-    exit {{ _end_ }}
-</group>
-
-<group name="configure.router.static-route.ipv4">
-#-------------------------------------------------- {{ ignore }}
-echo "Static Route Configuration" {{ _start_ }}
-#-------------------------------------------------- {{ ignore }}
-        <group name="entry">
-        static-route {{ address | IPV4}}/{{ prefix }} next-hop {{ next-hop | is_ip }} {{ bfd | macro('set_true') | _start_ }}
-        static-route {{ address | IPV4 }}/{{ prefix }} next-hop {{ next-hop | is_ip }} preference {{ preference | DIGIT | _start_ }}
-        static-route {{ address | IPV4 }}/{{ prefix }} {{ black-hole | macro('set_true') | _start_ }}
-        </group>
-</group>
-#-------------------------------------------------- {{ _end_ }}
-echo "Static IPv6 Route Configuration" {{ _start_ }}
-<group name="configure.router.static-route.ipv6">
-#-------------------------------------------------- {{ ignore }}
-        <group name="entry">
-        static-route {{ address | IPV6 }}/{{ prefix }} next-hop {{ next-hop | is_ip }} {{ bfd | macro('set_true') | _start_ }}
-        static-route {{ address | IPV6 }}/{{ prefix }} next-hop {{ next-hop | is_ip }} preference {{ preference | DIGIT | _start_ }}
-        static-route {{ address | IPV6 }}/{{ prefix }} {{ black-hole | macro('set_true') | _start_ }}
-        </group>
-#-------------------------------------------------- {{ _end_ }}
-</group>
-<macro>
-def lag_info(data):
-    try:
-        int(data)
-        return data, {"lag-index": data}
-    except ValueError:
-        lag = data.split()
-        return data, {"lag-index": lag[0], "name": lag[2].strip('"')}
-</macro>
-
-#-------------------------------------------------- {{ ignore }}
-echo "LAG Configuration" {{ _start_ }}
-#-------------------------------------------------- {{ ignore }}
-<group name="configure">
-    <group name="lag">
-    lag {{ lag-index | ORPHRASE | macro(lag_info) }}
-        no shutdown {{ admin-state | set(false) }}
-        description {{ description | ORPHRASE | strip('"')}}
-        mode {{ mode }}
-        encap-type {{ encap-type }}
-        <group name="port">
-        port {{ port-id }}
-        </group>
-        <group name="lacp">
-        lacp {{ mode }} administrative-key {{ administrative-key | DIGIT}}
-        hold-time {{ hold-time | ORPHRASE }}
-        </group>
-        <group name="bfd.ipv4">
-            family {{ family | contains("ipv4") }}
-                shutdown {{ admin-state | set(false) }}
-                local-ip-address {{ local-ip }}
-                multiplier {{ multiplier }}
-                remote-ip-address {{ remote-ip-address }}
-                no shutdown {{ admin-state | set(true) }}
-        exit {{ _end_ }}
-        </group>            
-        no shutdown {{ admin-state | set(true) }}
-    </group>
-    exit {{ _end_ }}
-</group>
-#-------------------------------------------------- {{ _end_ }}<macro>
-def subscription_level(data):
-    data = data.replace('"','').split()
-    if len(data) >= 3:
-        return {"card-type": data[0], "subscription-level": data[2]}
-    return data[0]
-</macro>
-#-------------------------------------------------- {{ ignore }}
-echo "Card Configuration" {{ _start_ }}
-#-------------------------------------------------- {{ ignore }}
-    <group name="configure.card">
-    card {{slot-number | DIGIT }}
-        card-type {{ card-type | ORPHRASE  | macro('subscription_level') }}
-        fail-on-error {{fail-on-error | set(true)}}
-        <group name="mda">
-        mda {{mda-slot}}
-            shutdown {{admin-state | set(false)}}
-            mda-type {{mda-type | replace('"', '') }}
-            <group name="ingress-xpl">
-            ingress-xpl {{_start_}}
-                window {{window}}
-            exit {{_end_}}
-            </group>
-            <group name="egress-xpl">
-            egress-xpl {{_start_}}
-                window {{window}}
-            exit {{_end_}}
-            </group>
-            fail-on-error {{fail-on-error | set(true)}}
-            no shutdown {{admin-state | set(true)}}
-        </group>
-        exit {{ignore}}
-    </group>
-#-------------------------------------------------- {{ _end_ }}
-#-------------------------------------------------- {{ ignore}}
-echo "Router (Network Side) Configuration" {{ _start_ }}
-#-------------------------------------------------- {{ ignore}}
-<group name="router">
-    router {{ignore}}
-    <group name="interfaces">
-        interface {{interface_name | strip('"')}}
-            shutdown {{admin_state | set(false) }}
-            description {{description | strip('"')}}
-            enable-ingress-stats {{ingress_stats | set(true)}}
-            <group name="ipv4.primary">
-            address {{address}}/{{prefix_length}}
-            </group>
-            <group name="ipv4.bfd">
-            bfd {{ipv4_bfd | re(r"\d.*")}}
-            </group>
-            ldp_sync_timer {{ldp_sync_timer}}
-            cpu_protection {{cpu_protection}}
-            port {{port}}
-            <group name="ipv6">
-            ipv6 {{_start_}}
-                <group name="address">
-                address {{ipv6_address}}/{{prefix-length}}
+<group name="configure.router.igmp" >
+#-------------------------------------------------- {{ignore}}
+echo "IGMP Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+        igmp {{ignore}}
+            <group name="ssm-translate">
+            ssm-translate {{_start_}}
+                <group name="grp-range">
+                grp-range {{grp-range | ORPHRASE}}
+                    source {{source | IP}}
+                exit {{_end_}}
                 </group>
-                <group name="address">
-                bfd {{ipv6_bfd | re(r"\d.*")}}
-                </group>
-            exit {{ignore}}
+            exit {{_ignore_}}
             </group>
-            exit {{ignore}}
-            <group name="qos">
-            qos {{network-policy}}
+            <group name="interface">
+            interface "{{name | _start_}}"
+                no shutdown {{admin_state | set(true)}}
+            exit {{_end_}}    
             </group>
-            bfd {{ipv4_bfd | re(r"\d.*")}}
+            query-interval {{query_interval | DIGIT}}
+            query-last-member-interval {{query-last-member-interval | DIGIT}}
             no shutdown {{admin_state | set(true)}}
         exit {{_end_}}
-    </group>
-</group>
+        </group>
 #-------------------------------------------------- {{_end_}}
+<group name="configure.system">
+# TiMOS-C-{{version | _start_}} cpm/hops64 Nokia {{platform}} SR Copyright (c) {{year}} Nokia.
+# All rights reserved. All use subject to applicable license agreements. {{ ignore }}
+# Built on Wed Nov 13 11:34:50 PST 2019 by builder in /builds/c/160B/R10/panos/main {{ ignore }}
+</group>
+
 <group name="system.management-access-filter">
             management-access-filter {{_start_}}
                 <group name="ip-filter-params">
@@ -308,9 +1062,561 @@ echo "Router (Network Side) Configuration" {{ _start_ }}
                 </group>
                 </group>
 </group>
+<group name="configure.python">
+#-------------------------------------------------- {{ ignore }}
+echo "PYTHON Configuration" {{_start_}}
+#-------------------------------------------------- {{ ignore }}
+    python {{ ignore }}
+        <group name="python-script">
+        python-script "{{name | ORPHRASE | _start_}}" create
+            description "{{description | ORPHRASE}}"
+            primary-url "{{primary-url | ORPHRASE}}"
+            no shutdown {{admin_state | set(true)}}
+        exit {{_end_}}
+        </group>
+        <group name="python-policy">
+        python-policy "{{name | ORPHRASE | _start_}}" create
+            description "{{description | ORPHRASE}}"
+            <group name="dhcp">
+            dhcp {{message | WORD}} direction {{direction}} script "{{script | ORPHRASE}}"
+            </group>
+            <group name="dhcp6">
+            dhcp6 {{message | WORD}} direction {{direction}} script "{{script | ORPHRASE}}"
+            </group>
+        exit {{_end_}}
+        </group>
+    exit {{_end_}}
+#--------------------------------------------------
+</group><group name="configure.aaa_declarations">
+#-------------------------------------------------- {{ignore}}
+echo "AAA (Declarations) Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+    aaa {{ignore}}
+        <group name="radius-server-policy">
+        radius-server-policy "{{name | ORPHRASE | _start_}}" create
+        exit {{_end_}}
+        </group>
+        <group name="radius-script-policy">
+        radius-script-policy "{{name | ORPHRASE | _start_ }}" create
+        exit {{_end_}}
+        </group>
+    exit {{ignore}}
+#-------------------------------------------------- {{ignore}}
+echo "Multicast Path Management Policy Configuration" {{_end_}}
+</group><group name="configure.qos">
+#-------------------------------------------------- {{ignore}}
+echo "QoS Policy Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+    qos {{ignore}}
+        <group name="match-list">
+        match-list {{_start_}}
+            <group name="ip-prefix-list">
+            ip-prefix-list "{{name}}" create
+                description "{{description | ORPHRASE}}"
+                <group name="prefix">
+                prefix {{prefix | PREFIX}}
+                </group>
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="network-queue">
+        network-queue "{{name | _start_ }}" create 
+            <group name="queue">
+            queue {{id | DIGIT | _start_ }} {{ multipoint | WORD }} create
+            queue {{id | DIGIT | _start_ }} create
+                port-parent {{port-parent-level | set(1)}} {{port-parent-cir-level | set(1)}}
+                mbs {{mbs | DIGIT}}
+                port-parent level {{port-parent-level}} cir-level {{port-parent-cir-level}}
+                <group name="drop-tail">
+                drop-tail {{_start_}}
+                    <group name="low">
+                    low {{_start_}}
+                        percent-reduction-from-mbs {{percent-reduction-from-mbs | DIGIT}}
+                    exit {{_end_}}
+                    </group>
+                exit {{_end_}}
+                </group>
+            exit {{_end_}}
+            </group>
+            <group name="fc">
+            fc {{tag | WORD | _start_ }} create
+                multicast-queue {{multicast-queue}}
+                queue {{queue-id | DIGIT}}
+                <group name="egress-hsmda">
+                egress-hsmda {{_start_}}
+                    queue {{queue-id}}
+                exit {{_end_}}
+                </group>
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="port-scheduler-policy">
+        port-scheduler-policy "{{name | ORPHRASE | _start_}}" create
+            max-rate {{max-rate | DIGIT}}
+            level {{level-id | DIGIT}} rate max cir {{cir-max | DIGIT}}
+        exit {{_end_}}
+        </group>
+        <group name="queue-group-templates.egress.queue-group">
+        queue-group-templates {{_start_}}
+            egress {{_start_}}
+                queue-group "{{name | _start_ }}" create
+                    description "{{description | ORPHRASE }}"
+                    <group name="queue">
+                    queue {{id | _start_}} {{ type | WORD }} create
+                        port-parent level {{port-parent-level | DIGIT }} cir-level {{port-parent-cir-level | DIGIT }}
+                        port-parent cir-level {{port-parent-cir-level | DIGIT }}
+                    exit {{_end_}}
+                    </group>
+                    <group name="fc">
+                    fc {{tag | WORD | _start_ }} create
+                        multicast-queue {{multicast-queue}}
+                        queue {{queue-id | DIGIT}}
+                        <group name="egress-hsmda">
+                        egress-hsmda {{_start_}}
+                            queue {{queue-id}}
+                        exit {{_end_}}
+                        </group>
+                    exit {{_end_}}
+                    </group>
+                exit {{_end_}}
+            exit {{_end_}}
+        exit {{_end_}}
+        </group>
+        <group name="scheduler-policy">
+        scheduler-policy "{{name}}" create
+            <group name="tier">
+            tier {{id |_start_}}
+                <group name="scheduler">
+                scheduler "{{name}}" create
+                    rate {{rate | DIGIT }}
+                exit {{_end_}}
+                </group>
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="policer-control-policy">
+        policer-control-policy "{{name | ORPHRASE | _start_ }}" create
+            description "{{description | ORPHRASE }}"
+        exit {{_end_}}
+        </group>
+        <group name="sap-ingress">
+        sap-ingress {{policy-id |DIGIT | _start_}} name "{{name | ORPHRASE}}" create
+            description "{{description | ORPHRASE}}"
+            <group name="queue">
+            queue {{id | DIGIT | _start_}} {{ type | WORD }} create
+            queue {{id | DIGIT | _start_}} create
+                rate {{rate | DIGIT}}
+                port-parent level {{port-parent-level | DIGIT }} cir-level {{port-parent-cir-level | DIGIT }}
+                port-parent cir-level {{port-parent-cir-level | DIGIT }}
+            exit {{_end_}}
+            </group>
+            <group name="policer">
+            policer {{id | DIGIT | _start_}} create
+                description "{{description | ORPHRASE}}"
+                parent "{{parent | ORPHRASE}}"
+                rate {{rate | DIGIT}}
+            exit {{_end_}}
+            </group>
+            <group name="fc">
+            fc {{fc | WORD | _start_ }} create
+                multicast-queue {{multicast-queue-id | DIGIT}}
+                queue {{queue-id | DIGIT}}
+                policer {{policer-id}}
+                unknown-policer {{unknown-policer-id}}
+                dot1p {{dot1p}}
+            exit {{_end_}}
+            </group>
+            default-fc "{{default-fc}}"
+            <group name="dot1p">
+            dot1p {{dot1p-priority | DIGIT}} fc "{{fc}}"
+            </group>
+            <group name="dscp">
+            dscp {{ dscp | ORPHRASE | split(' ') | join(',')}} fc "{{fc}}"
+            </group>
+            <group name="lsp-exp">
+            lsp-exp {{lsp-exp| DIGIT}} fc "{{fc}}"
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="sap-egress">
+        sap-egress {{policy-id |DIGIT | _start_}} name "{{name | ORPHRASE}}" create
+            description "{{description | ORPHRASE}}"
+            <group name="queue">
+            queue {{id | DIGIT | _start_}} {{ type | WORD }} create
+            queue {{id | DIGIT | _start_}} create
+                rate {{rate | DIGIT}}
+                port-parent level {{port-parent-level | DIGIT }} cir-level {{port-parent-cir-level | DIGIT }}
+                port-parent cir-level {{port-parent-cir-level | DIGIT }}
+            exit {{_end_}}
+            </group>
+            <group name="policer">
+            policer {{id | DIGIT | _start_}} create
+                description "{{description | ORPHRASE}}"
+                parent "{{parent | ORPHRASE}}"
+                rate {{rate | DIGIT}}
+            exit {{_end_}}
+            </group>
+            <group name="fc">
+            fc {{fc | WORD | _start_ }} create
+                multicast-queue {{multicast-queue-id | DIGIT}}
+                queue {{queue-id | DIGIT}}
+                policer {{policer-id}}
+                unknown-policer {{unknown-policer-id}}
+                dot1p {{dot1p}}
+            exit {{_end_}}
+            </group>
+            default-fc "{{default-fc}}"
+            <group name="dot1p">
+            dot1p {{dot1p-priority | DIGIT}} fc "{{fc}}"
+            </group>
+            <group name="dscp">
+            dscp {{ dscp | ORPHRASE | split(' ') | join(',')}} fc "{{fc}}"
+            </group>
+            <group name="lsp-exp">
+            lsp-exp {{lsp-exp| DIGIT}} fc "{{fc}}"
+            </group>
+            <group name="ip-criteria">
+            ip-criteria {{_start_}}
+                <group name="entry">
+                entry {{id}} create
+                    description "{{description | ORPHRASE}}"
+                    <group name="match-protocol">
+                    match protocol {{protocol | _start_ }}
+                        src-ip {{src-ip-address | PREFIX}}
+                        src-ip ip-prefix-list "{{src-ip-prefix-list}}"
+                        dst-ip {{dst-ip-address | PREFIX}}
+                        dst-ip ip-prefix-list "{{dst-ip-prefix-list}}"
+                        src-port {{ src-port | ORPHRASE | split(' ') | join(',')}}                            dst-port {{ dst-port | ORPHRASE | split(' ') | join(',')}}
+                        icmp-type {{icmp-type}}
+                    exit {{_end_}}
+                    </group>
+                    action fc "{{action-fc}}"
+                exit {{_end_}}
+                </group>
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+        <group name="network">
+        network {{id | DIGIT }} name "{{name}}" create
+            description "{{description | ORPHRASE}}"
+            <group name="ingress">
+            ingress {{_start_}}
+                ler-use-dscp {{ler-use-dscp | set(true)}}
+                <group name="dscp">
+                dscp {{ dscp | WORD}} fc {{fc}} profile {{profile}}
+                </group>
+                <group name="lsp-exp">
+                lsp-exp {{lsp-exp| DIGIT}} fc {{fc}} profile {{profile}}
+                </group>
+            exit {{_end_}}
+            </group>
+            <group name="egress">
+            egress {{_start_}}
+                <group name="fc">
+                fc {{fc | WORD | _start_ }}
+                    dscp-in-profile {{dscp-in-profile | WORD}}
+                    dscp-out-profile {{dscp-out-profile | WORD}}
+                    lsp-exp-in-profile {{lsp-exp-in-profile | DIGIT}}
+                    lsp-exp-out-profile {{lsp-exp-out-profile | DIGIT}}
+                exit {{_end_}}
+                </group>
+            </group>
+        exit {{_end_}}
+        </group>
+    exit {{_end_}}
+</group>
+#-------------------------------------------------- {{ignore}}
+echo "Service Configuration" {{ignore}}
+#-------------------------------------------------- {{ignore}}
+    service {{_start_}}
+        <group name="system.service.customer">
+        customer {{customer-id}} name {{customer-name | strip('"')}} create
+            description {{description | strip('"')}}
+        exit {{_end_}}
+        </group>
+#-------------------------------------------------- {{_end_}}
+           <group name="system.profile">
+            profile {{user-profile-name | re(r".+") | strip('"')}}
+                default-action {{default-action}}
+                <group name="entry">
+                entry {{entry-id}} {{_start_}}
+                    match {{match | re(r"\W.*") | strip('"')}}
+                    action {{action}}
+                exit {{ignore}}
+                </group>
+            exit {{_end_}}
+            </group>
+<group name="configure.redundancy">
+#-------------------------------------------------- {{ignore}}
+echo "Redundancy Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+    redundancy {{ignore}}
+        <group name="multi-chassis">
+        multi-chassis {{_start_}}
+            <group name="peer">
+            peer {{peer-address | IP | _start_ }} create
+                description "{{description | ORPHRASE}}"
+                <group name="sync">
+                sync {{_start_}}
+                    igmp {{igmp | set(true)}}
+                    srrp {{srrp | set(true)}}
+                    sub-mgmt {{sub-mgmt | ORPHRASE}}
+                    <group name="port">
+                    port {{port | _start_}} create
+                        <group name="range">
+                        range {{range}} sync-tag "{{sync-tag | ORPHRASE }}"
+                        </group>
+                    exit {{_end_}}
+                    </group>
+                    no shutdown {{admin_state | set(true)}}
+                    shutdown {{admin_state | set(false)}}
+                exit {{_end_}}
+                </group>
+                no shutdown {{admin_state | set(true)}}
+                shutdown {{admin_state | set(false)}}
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+        synchronize {{synchronize}}
+    exit {{ignore}}
+#-------------------------------------------------- {{ignore}}
+echo "QoS Policy Configuration" {{_end_}}
+</group><group name="configure.filter">
+#-------------------------------------------------- {{ignore}}
+echo "Filter Log Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+    filter {{ignore}}
+        <group name="log">
+        log {{log-id}} create
+            description "{{description}}"
+        exit {{_end_}}  
+        </group>
+    exit {{_end_}}       
+</group>
+#-------------------------------------------------- {{ ignore }}
+echo "PIM Configuration" {{_start_}}
+#-------------------------------------------------- {{ ignore }}
+        <group name="configure.router.pim">     
+        pim {{_start_}}
+            <group name="interface">
+            interface "{{name | ORPHRASE }}"
+                bfd-enable  {{bfd_enable | set(true)}}
+                no shutdown {{admin_state | set(true)}}
+                priority {{priority | DIGIT}}
+                sticky-dr {{sticky-dr | set(true)}}
+                exit {{_ignore_}}
+            </group>
+
+            <group name="rp">
+            rp {{_start_}}
+                
+                <group name="static">
+                static {{_start_}}
+                exit {{_ignore_}}
+                </group>
+                
+                <group name="bsr-candidate">
+                bsr-candidate {{_start_}}
+                    shutdown {{admin-state | set (false)}} 
+                exit {{_ignore_}}
+                </group>
+                
+                <group name="rp-candidate">
+                rp-candidate {{_start_}}
+                    shutdown {{admin-state | set (false)}} 
+                exit {{_ignore_}}
+                </group>
+            exit {{_ignore_}}
+            </group>
+            no shutdown {{admin_state | set (true)}}
+        exit {{_end_}}
+        </group>
+#--------------------------------------------------
+<group name="configure.port-xc">
+#-------------------------------------------------- {{ignore}}
+echo "Port Cross-Connect Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+    port-xc {{ignore}}
+        <group name="pxc">
+        pxc {{number | DIGIT | _start_}} create
+            description "{{description | ORPHRASE}}"
+            port {{port}}
+            no shutdown {{admin_state | set(true)}}
+            shutdown {{admin_state | set(false)}}
+        exit {{_end_}}
+        </group>
+    exit {{ignore}}
+#-------------------------------------------------- {{ignore}}
+echo "Port Configuration" {{_end_}}
+</group><macro>
+def subscription_level(data):
+    data = data.replace('"','').split()
+    if len(data) >= 3:
+        return {"card-type": data[0], "subscription-level": data[2]}
+    return data[0]
+</macro>
+#-------------------------------------------------- {{ ignore }}
+echo "Card Configuration" {{ _start_ }}
+#-------------------------------------------------- {{ ignore }}
+    <group name="configure.card">
+    card {{slot-number | DIGIT }}
+        card-type {{ card-type | ORPHRASE  | macro('subscription_level') }}
+        fail-on-error {{fail-on-error | set(true)}}
+        <group name="virtual-scheduler-adjustment">
+        virtual-scheduler-adjustment {{ _start_ }}
+            sched-run-min-int {{sched-run-min-int}}
+            task-scheduling-int {{task-scheduling-int}}
+        exit {{ _end_ }}
+        </group>
+        <group name="mda">
+        mda {{mda-slot}}
+            shutdown {{admin-state | set(false)}}
+            mda-type {{mda-type | replace('"', '') }}
+            <group name="ingress-xpl">
+            ingress-xpl {{_start_}}
+                window {{window}}
+            exit {{_end_}}
+            </group>
+            <group name="egress-xpl">
+            egress-xpl {{_start_}}
+                window {{window}}
+            exit {{_end_}}
+            </group>
+            fail-on-error {{fail-on-error | set(true)}}
+            no shutdown {{admin-state | set(true)}}
+        </group>
+        <group name="fp">
+        fp {{fp-slot | DIGIT | _start_}} 
+            hi-bw-mcast-src group {{hi-bw-mcast-src-group-id | DIGIT }}
+            <group name="ingress">
+            ingress {{ _start_ }}
+                <group name="mcast-path-management">
+                mcast-path-management {{ _start_ }}
+                    bandwidth-policy {{bandwidth-policy-name | ORPHRASE | replace('"', '') }}
+                    no shutdown {{ admin-state | set(true) }}
+                exit {{_end_}}
+                </group>
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+        exit {{ignore}}
+    </group>
+#-------------------------------------------------- {{ _end_ }}
+<group name="configure.router.twamp_light">
+#--------------------------------------------------{{ignore}}
+echo "TWAMP Light Configuration" {{_start_}}
+#--------------------------------------------------{{ignore}}
+        twamp-light {{_ignore_}}
+            <group name="reflector">
+            reflector udp-port {{udp_port | DIGIT | _start_}} create
+                description "{{description | ORPHRASE}}"
+                <group name="prefix">
+                prefix {{prefix | PREFIX | _start_}} create
+                    description "{{description | ORPHRASE}}"
+                exit {{_end_}}
+                </group>
+                no shutdown {{admin_state | set(true)}}
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+</group><group name="configure.filter">
+#-------------------------------------------------- {{ignore}}
+echo "Filter Match lists Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+    filter {{ignore}}
+        <group name="match-list">
+        match-list {{_start_}}
+            <group name="ip-prefix-list">
+            ip-prefix-list "{{name | _start_}}" create
+                description "{{description | ORPHRASE}}"
+                {{ prefix | _line_ | contains ("prefix") | joinmatches | resub(old = '^prefix ', new = '') | to_list}}
+            exit{{_end_}}
+            </group>
+            <group name="ipv6-prefix-list">
+            ipv6-prefix-list "{{name | _start_}}" create
+                description "{{description | ORPHRASE}}"
+                {{ prefix | _line_ | contains ("prefix") | joinmatches | resub(old = '^prefix ', new = '') | to_list}}
+            exit{{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+    exit {{_end_}}
+#---{{_end_}}   
+</group>
+<group name="configure.aaa">
+#-------------------------------------------------- {{ ignore }}
+echo "AAA Configuration" {{_start_}}
+#-------------------------------------------------- {{ ignore }}
+
+
+    aaa {{_ignore_}}
+        <group name="radius-server-policy">
+        radius-server-policy {{name | _start_ | ORPHRASE}} create
+            description {{description | ORPHRASE}}
+            acct-request-script-policy {{acct-request-script-policy | ORPHRASE}}
+            auth-request-script-policy {{auth-request-script-policy | ORPHRASE}}
+            accept-script-policy {{accept-script-policy | ORPHRASE}}
+            <group name="servers">
+            servers {{_start_}}
+                retry {{retry | DIGIT}}
+                router {{router | ORPHRASE}}
+                timeout {{timeout | ORPHRASE}}
+                server {{server-id | DIGIT}} name {{server-name | ORPHRASE}}
+            exit {{_ignore_}}
+            </group>
+        exit {{_ignore_}}
+        </group>
+        <group name="radius-script-policy">
+        radius-script-policy {{name | _start_ | ORPHRASE}} create
+            description {{description | ORPHRASE}}
+            <group name="primary">
+            primary {{_start_}}
+                script-url {{script-url | ORPHRASE}}
+                no shutdown {{admin_state | set(true)}}
+            exit {{_ignore_}}
+            </group>
+        exit {{_ignore_}}
+        </group>
+    
+</group>#-------------------------------------------------- {{ ignore }}
+echo "LDP Configuration" {{_start_}}
+#-------------------------------------------------- {{ ignore }}
+        <group name="configure.router.ldp">     
+        ldp {{_start_}}
+            export-tunnel-table "{{export-tunnel-table}}"
+            fast-reroute {{fast-reroute | set(true)}}
+            fec-originate {{fec-originate | PREFIX}} {{pop | let(true)}}
+            <group name="interface_parameters">
+            interface-parameters {{_start_}}
+                <group name="interface">
+                interface "{{name | ORPHRASE}}" {{dual-stack | let(true)}}
+                    <group name="ipv4">
+                    ipv4 {{_start_}}
+                        no shutdown {{admin_state | set (true)}}
+                    exit {{_end_}}
+                    </group>
+                    no shutdown {{admin_state | set (true)}}
+                exit {{_end_}}
+                </group>
+            exit {{_end_}}
+            </group>
+            <group name="targeted-session">
+            targeted-session {{_start_}}
+                no shutdown {{admin_state | set (true)}}
+            exit {{_end_}}
+            </group>
+            no shutdown {{admin_state | set (true)}}
+        exit {{_end_}}
+        </group>
+
 #-------------------------------------------------- {{ ignore }}
 <group name="configure">
-echo "MPLS LSP Configuration" {{ ignore }}
+echo "MPLS LSP Configuration"{{ _start_ }}
 #-------------------------------------------------- {{ ignore }}
         <group name="mpls">
         mpls
@@ -333,7 +1639,7 @@ echo "MPLS LSP Configuration" {{ ignore }}
             exit {{ _end_ }}
             </group>
             <group name="lsp">
-            lsp "TO_IOSXR"
+            lsp "name"
                 to {{ to }}
                 path-computation-method {{ path-computation-method }}
                 fast-reroute {{ fast-reroute }}
@@ -354,7 +1660,613 @@ echo "MPLS LSP Configuration" {{ ignore }}
             no shutdown {{ admin-state | set('true') }}
         exit {{ _end_ }}
         </group>
-</group>#-------------------------------------------------- {{ ignore }}
+</group><group name="configure.router.isis">
+#-------------------------------------------------- {{ ignore }}
+echo "ISIS Configuration" {{_start_}}
+#-------------------------------------------------- {{ ignore }}
+        isis {{process}}
+            area-id {{area-id}}
+            lsp-lifetime {{lsp-lifetime | DIGIT }}
+            lsp-refresh-interval {{lsp-refresh-interval | DIGIT }} half-lifetime {{half-lifetime | WORD}}
+            overload-on-boot timeout {{overload-on-boot-timeout}}
+            export {{ export | ORPHRASE | replace('"', '') |split(' ') | join(',')}}
+            rib-priority {{rib-priority | WORD}} "{{rib-priority-name}}"
+            ipv6-routing {{ipv6-routing}}
+            <group name="multi-topology">
+            multi-topology {{_start_}}
+                ipv6-unicast {{ipv6-unicast | set(true)}}
+            exit {{_end_}}
+            </group>
+            <group name="timers">
+            timers {{_start_}}
+                spf-wait {{spf-wait | DIGIT}} spf-initial-wait {{spf-initial-wait | DIGIT}} spf-second-wait {{spf-second-wait | DIGIT}}
+            exit {{_end_}}
+            </group>
+            <group name="level">
+            level {{number | DIGIT | _start_}}
+                wide-metrics-only {{wide-metrics-only | set(true)}}
+            exit {{_end_}}
+            </group>
+            <group name="interface">
+            interface "{{name | ORPHRASE | _start_}}"
+                level-capability {{level-capability}}
+                hello-authentication-key "{{hello-authentication-key}}" {{hash-type}}
+                hello-authentication-type {{hello-authentication-type}}
+                passive {{passive | set(true)}}
+                tag {{tag | DIGIT }}
+                interface-type {{interface-type}}
+                <group name="level">
+                level {{number | DIGIT | _start_}}
+                    ipv6-unicast-metric {{ipv6-unicast-metric | DIGIT }}
+                    metric {{metric | DIGIT}}
+                exit {{_end_}}
+                </group>
+                no shutdown {{admin-state | set(true)}}
+            no shutdown {{admin-state | set(true)}}
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+#-------------------------------------------------- {{ ignore }}
+</group>#-------------------------------------------------- {{ignore}}
+echo "Cflowd Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+<group name="configure.cflowd">
+    cflowd {{_start_}}
+        active-timeout {{active-timeout}}
+        cache-size {{cache-size}}
+        inactive-timeout {{inactive-timeout}}
+        rate {{rate}}
+        template-retransmit {{template-retransmit}}
+        <group name="collector">
+        collector {{collector_ip_address | _start_}} version {{version_id}}
+            description "{{description | ORPHRASE}}"
+            template-set {{collector_template-set}}
+        exit {{_end_}}
+        </group>
+    exit {{_end_}}
+    </group>
+#-------------------------------------------------- {{_end_}}<group name="configure.mirror">
+#-------------------------------------------------- {{ ignore }}
+echo "Mirror Configuration" {{_start_}}
+#-------------------------------------------------- {{ ignore }}
+    
+    mirror {{_ignore_}}
+        <group name="mirror-conf">
+        mirror-dest {{ mirror-dest | _start_ | DIGIT }} name {{name | ORPHRASE}} type {{type | ORPHRASE}} create
+            description {{description | ORPHRASE}}
+            <group name="encap">
+            encap {{_start_}}
+                <group name="l3-encap">
+                {{encap-type | _start_ | ORPHRASE}} create
+                    <group name="gateway">
+                    gateway create {{_start_}}
+                        ip src {{src-ip | IP }} dest {{dest-ip | IP }}
+                        udp src {{src-udp | DIGIT }} dest {{dest-udp | DIGIT }}
+                    exit {{_ignore_}}
+                    </group>
+                exit {{_ignore_}}
+                </group>
+            exit {{_ignore_}}
+            </group>
+            no shutdown {{admin-state | set(true)}}
+        exit {{_end_}}
+        </group>
+        
+</group><group name="configure.system.ntp">
+#-------------------------------------------------- {{ignore}}
+echo "System Time NTP Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+    system {{_ignore_}}
+        time {{_ignore_}}
+            <group name="server">            
+            ntp {{_start_}}
+                server {{ address | _line_ | IP | to_list}}
+            exit {{_ignore_}}
+            </group>
+        exit {{_ignore_}}
+    exit {{_end_}}
+    </group>
+#-------------------------------------------------- {{ignore}}
+echo "Service Configuration" {{ignore}}
+#-------------------------------------------------- {{ignore}}
+    <group name="configure.system.service">
+    service {{_start_}}
+        <group name="sdp">
+        sdp {{sdp-id | _start_ |re(r"\d.*") | replaceall("","create","mpls") | strip()}}
+            description {{description | ORPHRASE}}
+            far-end {{far-end | IP}}
+            ldp {{ldp | set(true)}}
+            lsp {{lsp | ORPHRASE}}
+            path-mtu {{path-mtu}}
+            mixed-lsp-mode {{mixed-lsp-mode | set(true)}}
+            bgp-tunnel {{bgp-tunnel | set(true)}}
+            adv-mtu-override {{adv-mtu-override | set(true)}}
+            <group name="keep-alive">
+            keep-alive {{_start_}}
+                shutdown {{admin-state | set(false)}}
+            </group>
+            exit {{_end_}}
+            no shutdown {{admin-state | set(true)}}
+        exit {{_end_}}
+        </group>
+
+        <group name="customer">
+        customer {{customer-id}} name {{customer-name | _start_ | ORPHRASE}} create 
+            description {{ description | re(".*") }}
+        exit {{_end_}}
+        </group>
+
+        <group name="epipe">
+        epipe {{epipe-id}} name {{epipe-name | _start_ | ORPHRASE | ORPHRASE}} customer {{customer-id}} create
+            description {{ description | re(".*") }} 
+            service-mtu {{ service-mtu | DIGIT }}
+            <group name="sap">
+            sap {{ sap-id | _start_ | re(r".*-\d+:\d+") }} create
+                no shutdown {{admin_state | set(true)}}
+            exit {{_end_}}
+            </group>
+            <group name="spoke-sdp">
+            spoke-sdp {{ spoke-sdp-id | _start_ | re(r"\d+:\d+") }} vc-type {{vc-type | WORD }} create
+                no shutdown {{admin_state | set(true)}}
+            exit {{_end_}}
+            </group>
+            no shutdown {{admin_state | set(true)}}
+        exit {{_end_}}
+        </group>
+
+
+        <group name="ies">
+        ies {{ies-id}} name {{ies-name | _start_ | ORPHRASE}} customer {{customer-id}} create
+            description {{ description | re(".*") }}
+            <group name="redundant-interface">
+            redundant-interface {{redundant-interface-name | _start_ | ORPHRASE}} create
+                description {{ description | re(".*") }}
+                address {{ address | PREFIX }}
+                <group name="spoke-sdp">
+                spoke-sdp {{sdp-id | _start_ | re("\d+:\d+") }} create
+                    no shutdown {{admin_state | set(true)}}
+                exit {{_end_}}
+				</group>
+			exit {{_end_}}	
+            </group>
+
+            <group name="interface">
+            interface "{{interface-name | _start_ | ORPHRASE }}" create
+                description {{ description | re(".*") }}
+                enable-ingress-stats {{enable-ingress-stats | set(true)}}
+                address {{ address | PREFIX }}
+                address {{ address | PREFIXV6 }}
+                <group name="cflowd-parameters">
+                cflowd-parameters {{_start_}}
+                    sampling unicast type {{sampling-unicast-type | ORPHRASE}}
+                exit {{_end_}}
+                </group>
+                bfd {{bfd-transmit-interval | DIGIT }} receive {{bfd-receive-interval  | DIGIT }} multiplier {{bfd-multiplier | DIGIT }} type  {{ bfd-type | ORPHRASE }}
+                <group name="vrrp">
+                vrrp {{vrrp-id | _start_ | DIGIT }}
+                    backup {{ backup-address | IP }}
+                    priority {{ priority | DIGIT }}
+                    ping-reply {{ ping-reply | set(true) }}
+                    traceroute-reply {{ traceroute-reply | set(true) }}
+                    standby-forwarding {{ standby-forwarding | set(true) }}
+                    bfd-enable interface {{bfd-enable_interface | ORPHRASE }} dst-ip {{ bfd_dst-ip | IP }}
+                exit {{_end_}}
+                </group>
+
+
+                <group name="sap">
+                sap {{ sap-id | _start_ | re(r".*-\d+:\d+") }} create
+                    <group name="egress">
+                    egress {{_start_}}
+                        filter ip {{ filter-ip | DIGIT }}
+                    exit {{_end_}}
+                    </group>
+                    <group name="ingress">
+                    ingress {{_start_}}
+                        filter ip {{ filter-ip | DIGIT }}
+                    exit {{_end_}}
+                    </group>
+                exit {{_end_}}
+                </group>
+            exit {{_end_}}
+            </group>            
+
+			<group name="subscriber-interface">
+            subscriber-interface {{subscriber-interface-name| _start_ | ORPHRASE}} create
+                description {{ description | re(".*") }}
+                <group name="hold-time">
+                hold-time {{_start_}}
+                    down ip {{ down-ip | DIGIT }} {{init-only  | let(true)}}
+                    down ipv6 {{ down-ipv6 | DIGIT }} {{init-only6 | let(true)}}
+                exit {{_end_}}
+                </group>
+                allow-unmatching-subnets {{allow-unmatching-subnets | set (true)}}
+                <group name="address-list">    
+                address {{address | PREFIX}} gw-ip-address {{gw-ip-address | IP}} track-srrp {{track-srrp | DIGIT}}
+                </group>
+                <group name="dhcp"> 
+                dhcp {{_start_}}
+                    gi-address {{gi-address | IP }} {{src-ip-addr | let(true)}} 
+                exit {{_end_}}
+                </group>
+                <group name="ipv6"> 
+                ipv6 {{_start_}}
+                    <group name="subscriber-prefixes">
+                    delegated-prefix-len {{delegated-prefix-len | DIGIT }}
+                    subscriber-prefixes {{_ignore_}}
+                        prefix {{ipv6-prefix | PREFIXV6 }} {{wan-host | WORD | let(true)}} track-srrp {{track-srrp | DIGIT }}
+                    exit {{_ignore_}}
+                    </group>
+                exit {{_end_}}
+                </group>
+                <group name="group-interface">
+                group-interface "{{group-interface-name | _start_ | ORPHRASE}}" create
+                    shutdown {{admin-state | set(False)}}
+                    description {{ description | re(".*") }}
+                    arp-populate {{arp-populate  | set(True)}}
+                    tos-marking-state  {{ tos-marking-state | ORPHRASE }}
+                    <group name="ipv6"> 
+                    ipv6 {{_start_}}
+                        <group name="router-advertisements"> 
+                        router-advertisements {{_start_}}
+                            managed-configuration {{managed-configuration | set (true)}}
+                            mtu {{mtu | DIGIT }}
+                            <group name="prefix-options"> 
+                            prefix-options {{_start_}}
+                                preferred-lifetime {{preferred-lifetime | DIGIT }}
+                                valid-lifetime {{valid-lifetime | DIGIT }}
+                            exit {{_end_}}
+                            </group>
+                            router-lifetime {{router-lifetime | DIGIT }}
+                            no shutdown {{admin-state | set(true)}}
+                        exit {{_end_}}
+                        </group>       
+
+                        <group name="dhcp6"> 
+                        dhcp6 {{_start_}}
+                            python-policy {{python-policy | ORPHRASE}}
+                            <group name="proxy-server"> 
+                            proxy-server {{_start_}}
+                                renew-timer {{renew-timer | PHRASE}}
+                                rebind-timer {{rebind-timer  | PHRASE}}
+                                valid-lifetime {{valid-lifetime | PHRASE}}
+                                preferred-lifetime {{preferred-lifetime | PHRASE}}
+                                no shutdown {{admin-state | set(true)}}
+                            exit {{_end_}}
+                            </group>
+                        exit {{_end_}}
+                        </group>
+                    exit {{_end_}}
+                    </group>                    
+
+                    <group name="dhcp"> 
+                    dhcp {{_start_}}
+                        description {{ description | re(".*") }}
+                        python-policy "{{ python-policy | ORPHRASE }}"
+                        <group name="proxy-server"> 
+                        proxy-server {{_start_}}
+                            emulated-server {{emulated-server | IP}}
+                            lease-time {{lease-time | PHRASE}}
+                            no shutdown {{admin-state | set(true)}}
+                        exit {{_end_}}
+                        </group>
+                        server {{server-list | ORPHRASE | split (" ") | to_list }}
+                        trusted {{trusted  | set(True)}}
+                        lease-populate {{ lease-populate  | DIGIT }}
+                        user-db "{{ user-db | ORPHRASE }}"
+                        no shutdown {{admin-state | set(true)}}
+                    exit {{_end_}}
+                    </group>
+                    ip-mtu {{ip-mtu | DIGIT}}
+                    host-connectivity-verify interval {{ host-connectivity-verify-interval | DIGIT }}
+                    redundant-interface "{{ redundant-interface | ORPHRASE }}"
+
+                    <group name="ipoe-session">
+                    ipoe-session {{_start_}}
+                        force-auth {{ force-auth | ORPHRASE }}
+                        ipoe-session-policy "{{ ipoe-session-policy | ORPHRASE }}"
+                        min-auth-interval {{min-auth-interval | PHRASE}}
+                        sap-session-limit {{sap-session-limit | PHRASE}}
+                        no shutdown {{admin-state | set(true)}}
+                    exit {{_end_}}
+                    </group>
+
+                    <group name="srrp">
+                    srrp {{srrp-id | _start_ | DIGIT }} create
+                        description {{ description | re(".*") }}
+                        keep-alive-interval {{keep-alive-interval | DIGIT }}
+                        message-path {{ message-path | ORPHRASE }}
+                        policy {{policy | DIGIT }}
+                        priority {{priority | DIGIT }}
+                        no shutdown {{admin-state | set(true)}}
+                    exit {{_end_}}
+                    </group>
+
+                    <group name="pppoe">
+                    pppoe {{_start_}}
+                        policy "{{policy |ORPHRASE}}"
+                        session-limit {{session-limit}}
+                        sap-session-limit {{sap-session-limit}}
+                        user-db "{{user-db}}"
+                        no shutdown {{admin-state | set(true)}}
+                    exit {{_end_}}
+                    </group>
+
+                    <group name="sap">
+                    sap {{ sap-id | _start_ | re(r".*-\d+.+:\d+.+") }} create
+                        description {{ description | re(".*") }}
+                        cpu-protection {{cpu-protection | DIGIT }} mac-monitoring
+                        <group name="egress">
+                        egress {{_start_}}
+                            filter ip {{ filter-ip | DIGIT }}
+                            filter ipv6 {{ filter-ipv6 | DIGIT }}
+                            qos {{ qos | DIGIT }}
+                        exit {{_end_}}
+                        </group>
+                        <group name="ingress">
+                        ingress {{_start_}}
+                            filter ip {{ filter-ip | DIGIT }}
+                            filter ipv6 {{ filter-ipv6 | DIGIT }}
+                            qos {{ qos | DIGIT }}
+                        exit {{_end_}}
+                        </group>
+                        <group name="sub-sla-mgmt">
+                        sub-sla-mgmt  {{_start_}}
+                            def-sub-id {{def-sub-id | WORD }}
+                            def-sub-profile "{{ def-sub-profile | ORPHRASE }}"
+                            def-sla-profile "{{ def-sla-profile | ORPHRASE }}"
+                            sub-ident-policy "{{ sub-ident-policy | ORPHRASE }}"
+                            multi-sub-sap {{ multi-sub-sap | DIGIT }}
+                            no shutdown {{admin-state | set(true)}}
+                        exit {{_end_}}
+                        </group>
+                    exit {{_end_}}
+                    </group>
+                exit {{_end_}}
+                </group>
+            exit {{_end_}}
+            </group>
+        exit {{_end_}} 
+        </group>
+
+        <group name="vprn">
+        vprn {{vprn-id}} name {{vprn-name | _start_ | ORPHRASE}} customer {{customer-id}} create
+            vrf-import {{vrf-import-list | ORPHRASE}}
+            vrf-export {{vrf-export-list | ORPHRASE}}
+            autonomous-system {{autonomous-system | DIGIT}}
+            route-distinguisher {{route-distinguisher | ORPHRASE}}
+            <group name="auto-bind-tunnel">
+            auto-bind-tunnel {{_start_}}
+                <group name="resolution-filter">
+                resolution-filter {{_start_}}
+                    ldp {{filter | ORPHRASE}}
+                exit {{_end_}}
+                </group>
+            exit{{_end_}}
+            </group>
+            enable-bgp-vpn-backup {{enable-bgp-vpn-backup | ORPHRASE}}
+            <group name="interface">
+            interface {{interface-name | _start_ | ORPHRASE}} create
+                description {{ description | re(".*") }}
+                address {{ address | PREFIX }}
+                address {{ address | PREFIXV6 }}
+                <group name="cflowd-parameters">
+                cflowd-parameters {{_start_}}
+                    sampling unicast type {{sampling-unicast-type | ORPHRASE}}
+                exit {{_end_}}
+                </group>
+                <group name="sap">
+                sap {{sap-name | _start_ | ORPHRASE}} create
+                    <group name="egress">
+                    egress {{_start_}}
+                        qos {{ qos | DIGIT }}
+                    exit {{_end_}}
+                    </group>
+                    <group name="ingress">
+                    ingress {{_start_}}
+                        qos {{ qos | DIGIT }}
+                    exit {{_end_}}
+                    </group>
+                exit {{_end_}}
+                </group>
+            exit {{_end_}}
+            </group>
+            <group name="bgp">
+            bgp {{_start_}}
+                backup-path {{ backup-path | ORPHRASE }}
+                <group name="group">
+                group {{group-name | _start_ | ORPHRASE}}
+                    min-route-advertisement {{min-route-advertisement | DIGIT}}
+                    type {{type | ORPHRASE}}
+                    <group name="neighbor">
+                    neighbor {{10.70.12.183 | _start_ | IP}}
+                        description {{ description | re(".*") }}
+                        family {{ family | ORPHRASE }}
+                        import {{ import | ORPHRASE }}
+                        export {{ export | ORPHRASE }}
+                        peer-as {{ peer-as | DIGIT }}
+                    exit {{_end_}}
+                    </group>
+                exit {{_end_}}
+                </group>
+                no shutdown {{admin_state | set(true)}}
+            exit {{_end_}}
+            </group>
+
+            export-inactive-bgp {{export-inactive-bgp | set(true)}}
+            no shutdown {{admin_state | set(true)}}
+        exit {{_end_}}
+        </group>
+
+
+        <group name="vpls">
+        vpls {{vpls-id}} name {{vprn-name | _start_ | ORPHRASE}} customer {{customer-id}} create
+            description {{ description | re(".*") }}
+            fdb-table-size {{ fdb-table-size | DIGIT }}
+            send-flush-on-failure {{send-flush-on-failure | set(true)}}
+            <group name="split-horizon-group">
+            split-horizon-group {{ split-horizon-group | _start_ | ORPHRASE }} create
+            exit {{_end_}}
+            </group>
+            <group name="stp">
+            stp {{_start_}}
+                shutdown {{admin_state | set(false)}}
+            exit {{_end_}}
+            </group>
+            <group name="sap">
+            sap {{sap-name | _start_ | ORPHRASE}} split-horizon-group {{ split-horizon-group | ORPHRASE }} create
+                description {{ description | re(".*") }}
+                <group name="ingress">
+                ingress {{_start_}}
+                    qos {{ qos | DIGIT }}
+                exit {{_end_}}
+                </group>
+                <group name="egress">
+                egress {{_start_}}
+                    qos {{ qos | DIGIT }}
+                exit {{_end_}}
+                </group>
+                no shutdown {{admin_state | set(true)}}
+            exit {{_end_}}
+            </group>
+            <group name="spoke-sdp">
+            spoke-sdp {{spoke-sdp | _start_ | ORPHRASE}} create
+                description {{ description | re(".*") }}
+                no shutdown {{admin_state | set(true)}}
+            exit {{_end_}}
+            </group>
+            no shutdown {{admin_state | set(true)}}
+        exit {{_end_}}
+        </group>
+
+
+    exit {{_end_}} 
+    </group>
+#-------------------------------------------------- {{_end_}}
+<group name="configure.vrrp">
+#-------------------------------------------------- {{ignore}}
+echo "Vrrp Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+    vrrp {{_start_}}
+        <group name="policy">
+        policy {{id | DIGIT}}
+            delta-in-use-limit {{delta-in-use-limit | DIGIT}}
+            <group name="priority-event">
+            priority-event {{_start_}}
+                <group name="lag-port-down">
+                lag-port-down {{id | DIGIT }}
+                    hold-clear {{hold-clear | DIGIT}}
+                    <group name="number-down">
+                    number-down {{id | DIGIT}}
+                        priority {{priority | DIGIT}} delta
+                    exit {{_end_}}
+                    </group>
+                exit {{_end_}}
+                </group>
+            exit {{_end_}}
+            </group>
+        exit {{_end_}}
+        </group>
+    exit {{_end_}}
+    </group>
+#-------------------------------------------------- {{_end_}}<group name="configure.router.policy">
+#-------------------------------------------------- {{ignore}}
+echo "Policy Configuration" {{_start_}}
+#-------------------------------------------------- {{ignore}}
+        policy-options {{ignore}}
+            begin {{ignore}}
+            <group name="prefix-list">
+            prefix-list {{ name | re(r'.*') }}     
+                {{ prefix-list_cfg | _line_ | contains("prefix") | joinmatches }}
+            exit {{_end_}}
+            </group>
+
+            <group name="community">
+            community {{ name | re(r'.*') }}   
+                members "{{ members | WORD }}"
+                expression {{ expression | PHRASE }}
+            exit {{_end_}}
+            </group>
+
+            <group name="policy-statement">
+            policy-statement {{ name | re(r'.*') }}
+                <group name="entry-list">
+                entry {{entry-id | DIGIT}}
+                    description "{{description | re(r'.*')}}"
+                    <group name="from">
+                    from {{_start_}}
+                        {{ from | ORPHRASE | joinmatches }}
+                    exit {{_end_}}
+                    </group>
+                    <group name="to">
+                    to {{_start_}}
+                        {{ to | ORPHRASE | joinmatches }}
+                    exit {{_end_}}
+                    </group>
+                    
+                    <group name="action">
+                    action {{type | re (r'.*')}} {{_start_}}
+                        {{ addons | ORPHRASE | joinmatches }}
+                    exit {{_end_}}
+                    </group>                
+                    
+                    exit {{_end_}}
+                </group>
+                default-action {{default-action | re (r'.*')}}
+            exit {{_end_}}    
+            </group>        
+                
+            exit {{_end_}}
+
+</group><macro>
+def lag_info(data):
+    try:
+        int(data)
+        return data, {"lag-index": data}
+    except ValueError:
+        lag = data.split()
+        return data, {"lag-index": lag[0], "name": lag[2].strip('"')}
+</macro>
+
+#-------------------------------------------------- {{ ignore }}
+echo "LAG Configuration" {{ _start_ }}
+#-------------------------------------------------- {{ ignore }}
+<group name="configure">
+    <group name="lag">
+    lag {{ lag-index | ORPHRASE | macro(lag_info) }}
+        no shutdown {{ admin-state | set(false) }}
+        description {{ description | ORPHRASE | strip('"')}}
+        mode {{ mode }}
+        encap-type {{ encap-type }}
+        <group name="access">
+        access {{ _start_ }}
+            adapt-qos {{adapt-qos}}
+            bandwidth {{bandwidth}}
+            booking-factor {{booking-factor}}
+            per-fp{{per-fp-queuing}}
+        exit {{_end_}}
+        </group>
+        <group name="port" itemize="id">
+        port {{id}}
+        </group>
+        <group name="lacp">
+        lacp {{ mode }} administrative-key {{ administrative-key | DIGIT}}
+        hold-time {{ hold-time | ORPHRASE }}
+        </group>
+        <group name="bfd.ipv4">
+            family {{ family | contains("ipv4") }}
+                shutdown {{ admin-state | set(false) }}
+                local-ip-address {{ local-ip }}
+                multiplier {{ multiplier }}
+                remote-ip-address {{ remote-ip-address }}
+                no shutdown {{ admin-state | set(true) }}
+        exit {{ _end_ }}
+        </group>            
+        no shutdown {{ admin-state | set(true) }}
+    </group>
+    exit {{ _end_ }}
+</group>
+#-------------------------------------------------- {{ _end_ }}#-------------------------------------------------- {{ ignore }}
 echo "Connector Configuration" {{ _start_ }}
 #-------------------------------------------------- {{ ignore }}
 <group name="configure.connector">
@@ -367,81 +2279,214 @@ echo "Connector Configuration" {{ _start_ }}
     </group>
     exit {{ _end_ }}
 </group>
-#-------------------------------------------------- {{ _end_ }}#-------------------------------------------------- {{ignore}}
-echo "Service Configuration" {{ignore}}
-#-------------------------------------------------- {{ignore}}
-    service {{_start_}}
-        <group name="system.service.sdp">
-        sdp {{sdp-id | re(r"\d.*") | replaceall("","create","mpls") | strip()}}
+#-------------------------------------------------- {{ _end_ }}<vars>
+PROTOCOL_TYPE = r"ppp|ipoe"
+</vars>
+
+
+<group name="configure.subscriber-mgmt">
+#-------------------------------------------------- {{ ignore }}
+echo "Subscriber-mgmt (Service Side) Configuration" {{_start_}}
+#-------------------------------------------------- {{ ignore }}
+    
+    subscriber-mgmt {{_ignore_}}
+
+        <group name="authentication-policy">
+        authentication-policy {{name | _start_ | ORPHRASE}}
+            <group name="radius-authentication-server">
+            radius-authentication-server {{_start_}}
+                router {{router | ORPHRASE }}
+                server {{server-id | DIGIT }} address {{address | IP }} secret {{ secret | re(r'".*"') }} {{hashing-scheme | WORD }} port {{ port | DIGIT }} 
+
+            exit {{_ignore_}}
+            </group>
+        exit {{_ignore_}}
+        </group>
+
+        <group name="radius-accounting-policy">
+        radius-accounting-policy {{name| _start_ | ORPHRASE}}
+            <group name="radius-accounting-server">
+            radius-accounting-server {{_start_}}
+                router {{router | ORPHRASE }}
+                server {{server-id | DIGIT }} address {{address | IP }} secret {{ secret | re(r'".*"') }} {{hashing-scheme | WORD }} port {{ port | DIGIT }} 
+            exit {{_ignore_}}
+            </group>
+        exit {{_ignore_}}       
+        </group>
+
+
+        <group name="local-user-db"> 
+        local-user-db {{ name | _start_ | ORPHRASE}} create
+            <group name="protocol"> 
+            {{ type | _start_ | re(r"PROTOCOL_TYPE")}}
+                match-list {{ match-list | ORPHRASE}}
+                <group name="host"> 
+                host {{host-name |  _start_ | ORPHRASE}} create
+                    auth-policy {{auth-policy | ORPHRASE }}
+                    pre-auth-policy {{pre-auth-policy | ORPHRASE }}
+                    server {{server | IP }}
+                    no shutdown {{admin-state | set(true)}}
+                    <group name="host-identification"> 
+                    host-identification {{_start_}}
+                        username {{ username | WORD}} {{ domain-only | let(true)}}
+                        username {{ username | WORD}}
+                        option60 string {{option60-string | ORPHRASE}}
+                    </group>
+
+                    exit {{_ignore_}}
+                    address pool {{address-pool | ORPHRASE }}
+                    auth-policy {{auth-policy | ORPHRASE }}
+                    password {{password | ORPHRASE }}
+                    <group name="identification-strings"> 
+                    identification-strings {{string-id | _start_ | DIGIT }} create
+                        subscriber-id {{subscriber-id | ORPHRASE }}
+                        sla-profile-string {{sla-profile-string | ORPHRASE }}
+                        sub-profile-string {{sub-profile-string | ORPHRASE }}
+                    </group>
+                    exit {{_ignore_}} 
+                    pre-auth-policy {{pre-auth-policy | ORPHRASE }}
+                    server {{server | IP }}
+                    <group name="l2tp"> 
+                    l2tp {{_start_}}
+                        group {{group | ORPHRASE }}
+                    </group>
+                    exit {{_ignore_}}
+                    no shutdown {{admin-state | set(true)}}
+                </group>
+                exit {{_ignore_}}
+            </group>
+            exit {{_ignore_}}
+        </group>
+        exit {{_ignore_}}
+    exit {{_ignore_}} 
+
+
+</group>#-------------------------------------------------- {{ ignore}}
+echo "Router (Network Side) Configuration" {{ _start_ }}
+#-------------------------------------------------- {{ ignore}}
+<group name="router">
+    router {{ignore}}
+    <group name="interfaces">
+        interface {{interface_name | strip('"')}}
+            shutdown {{admin_state | set(false) }}
             description {{description | strip('"')}}
-            far-end {{far-end | IP}}
-            ldp {{ldp | set(true)}}
-            lsp {{lsp | strip('"')}}
-            path-mtu {{path-mtu}}
-            adv-mtu-override {{adv-mtu-override | set(true)}}
-            <group name="keep-alive">
-            keep-alive {{_start_}}
-                shutdown {{admin-state | set(false)}}
+            enable-ingress-stats {{ingress_stats | set(true)}}
+            <group name="ipv4.primary">
+            address {{address | IP}}/{{prefix_length}}
+            </group>
+            loopback {{loopback | set(true)}}
+            <group name="ipv4.bfd">
+            bfd {{ipv4_bfd | re(r"\d.*")}}
+            </group>
+            ldp_sync_timer {{ldp_sync_timer}}
+            cpu_protection {{cpu_protection}}
+            port {{port}}
+            <group name="ipv6">
+            ipv6 {{_start_}}
+                <group name="address">
+                address {{ipv6_address | IPV6 }}/{{prefix_length}}
+                </group>
+                <group name="address">
+                bfd {{ipv6_bfd | re(r"\d.*")}}
+                </group>
+            exit {{ignore}}
             </group>
             exit {{ignore}}
-            no shutdown {{admin-state | set(true)}}
-        exit {{_end_}}
-        </group>
-#-------------------------------------------------- {{_end_}}
-#-------------------------------------------------- {{ignore}}
-echo "Port Configuration" {{_start_}}
-#-------------------------------------------------- {{ignore}}
-<group name="configure.port">
-    port {{port-id}}
-        shutdown {{admin_state | set(false)}}
-        description "{{description}}"
-        <group name="ethernet">
-        ethernet {{_start_}}
-            mode {{mode}}
-            encap-type {{encap-type}}
-            mtu {{mtu | DIGIT}}
-            loopback internal persistent {{loopback | set(true)}}
-            <group name="network">
-            network {{ignore}}
-                queue-policy "{{queue-policy | DIGIT}}"
+            <group name="qos">
+            qos {{network-policy}}
+            </group>
+            <group name="ingress">
+            ingress {{_start_}}
+                filter ip {{filter-acl-id}}
+                filter ipv6 {{filter-acl-id-v6}}
             exit {{_end_}}
             </group>
-            <group name="hold-time">
-            hold-time down {{down}}
+            <group name="egress">
+            egress {{_start_}}
+                filter ip {{filter-acl-id}}
+                filter ipv6 {{filter-acl-id-v6}}
+            exit {{_end_}}
             </group>
-            <group name="hold-time">
-            hold-time up {{up| DIGIT}} down {{down | DIGIT}}
+            <group name="cflowd-parameters">
+            cflowd-parameters {{_start_}}
+                sampling {{cast}} type {{sampling-type}}
+            exit {{_end_}}
             </group>
-            no autonegotiate {{autonegotiate | set(false)}}
-            autonegotiate {{autonegotiate}}
-            egress-rate {{egress-rate | DIGIT}} 
+            local-dhcp-server  "{{local-dhcp-server-name}}"
+            bfd {{ipv4_bfd | re(r"\d.*")}}
+            no shutdown {{admin_state | set(true)}}
+        autonomous-system {{autonomous-system-id}}
+        ecmp {{ecmp-value}}
         exit {{_end_}}
-        </group>
-        no shutdown {{admin_state | set(true)}}
-    exit {{_end_}}
     </group>
+</group>
 #-------------------------------------------------- {{_end_}}
-           <group name="system.profile">
-            profile {{user-profile-name | re(r".+") | strip('"')}}
-                default-action {{default-action}}
-                <group name="entry">
-                entry {{entry-id}} {{_start_}}
-                    match {{match | re(r"\W.*") | strip('"')}}
-                    action {{action}}
-                exit {{ignore}}
+<group name="configure.system.security.cpm-filter">
+#--------------------------------------------------{{ignore}}
+echo "System Security Cpm Hw Filters, PKI, TLS and LDAP Configuration" {{_start_}}
+#--------------------------------------------------{{ignore}}
+    system {{_start_}}
+        security {{_start_}}
+            cpm-filter {{_start_}}
+                default-action drop {{default-action | set(drop)}}
+                <group name="ip-filter">
+                ip-filter {{_start_}}
+                    no shutdown{{admin_state | _exact_ | set(true)}}
+                    shutdown{{admin_state | _exact_ | set(false)}}
+                    <group name="entry">
+                    entry {{entry-id | _start_ }} create
+                        action {{action | ORPHRASE}}
+                        description "{{description | ORPHRASE}}"
+                        log {{log-id}}
+                        <group name="match-protocol">
+                        match protocol {{protocol | _start_}}
+                            src-ip {{src-ip-address | PREFIX}}
+                            src-ip ip-prefix-list "{{src-ip-prefix-list}}"
+                            dst-ip {{dst-ip-address | PREFIX}}
+                            dst-ip ip-prefix-list "{{dst-ip-prefix-list}}"
+                            src-port {{ src-port | ORPHRASE | split(' ')}}
+                            dst-port {{ dst-port | ORPHRASE | split(' ')}}
+                            icmp-type {{icmp-type}}
+                        exit {{_end_}}
+                        </group>
+                        <group name="match">
+                        match {{_start_}}
+                            src-ip {{src-ip-address | PREFIX}}
+                            src-ip ip-prefix-list "{{src-ip-prefix-list}}"
+                            dst-ip {{dst-ip-address | PREFIX}}
+                            dst-ip ip-prefix-list "{{dst-ip-prefix-list}}"
+                        exit {{_end_}}
+                        </group>                        
+                    exit {{_end_}}
+                    </group>
+                exit {{_end_}}
+                </group>
+                <group name="ipv6-filter">
+                ipv6-filter {{_start_}}
+                    no shutdown{{admin_state | _exact_ | set(true)}}
+                    shutdown{{admin_state | _exact_ | set(false)}}
+                    <group name="entry">
+                    entry {{entry-id | _start_ }} create
+                        action {{action | ORPHRASE}}
+                        description "{{description | ORPHRASE}}"
+                        log {{log-id}}
+                        <group name="match-next-header">
+                        match next-header {{protocol | _start_}}
+                            src-ip {{src-ipv6-address | PREFIXV6 }}
+                            src-ip ipv6-prefix-list "{{src-ipv6-prefix-list}}"
+                            dst-ip {{dst-ipv6-address | PREFIXV6}}
+                            dst-ip ipv6-prefix-list "{{dst-ipv6-prefix-list}}"
+                            src-port {{ src-port | ORPHRASE | split(' ')}}
+                            dst-port {{ dst-port | ORPHRASE | split(' ')}}
+                        exit {{_end_}}
+                        </group>  
+                    exit {{_end_}}
+                    </group>
+                exit {{_end_}}
                 </group>
             exit {{_end_}}
-            </group>
-<group name="system.eth-cfm">
-    eth-cfm {{_start_}}
-    <group name="domain">
-        domain {{domain-id}} format {{format}} level {{level}}
-            <group name="associations">
-            association {{association-id}} format {{format}} name {{name | strip('"')}}
-                bridge-identifier {{bridge-id}}
-                exit {{ignore}}
-                remote-mepid {{remote-mepid}}
-            </group>
-    </group>
-#-------------------------------------------------- {{_end_}}
+        exit {{_end_}}
+    exit {{_end_}}
+#-------------------------------------------------- {{ignore}}
+echo "System Login Control Configuration" {{_end_}}
 </group>

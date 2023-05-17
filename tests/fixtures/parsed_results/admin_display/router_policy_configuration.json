@@ -1,0 +1,1 @@
+[{"configure": {"router": {"policy": {"policy-statement": {"entry-list": [{"action": {}, "entry-id": "10"}, {"action": {}, "entry-id": "20"}, {"action": {}, "entry-id": "10"}, {"action": {}, "entry-id": "20"}, {"action": {}, "entry-id": "10"}, {"action": {"addons": "ccm-enable\nno shutdown"}, "entry-id": "20"}]}}}}}]

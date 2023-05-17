@@ -1,0 +1,1 @@
+[{"configure": {"system": {"ntp": {"server": [{"address": ["8.8.8.8 prefer", "8.8.4.4"]}, {}]}}}}]

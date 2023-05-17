@@ -12,4 +12,4 @@ def test_methods(sros_parser_7750):
             methd.write(f"{x}\n")
         methd.write("```" + "\n")
 
-    assert len(methods) == 24
+    assert len(methods) == 56
