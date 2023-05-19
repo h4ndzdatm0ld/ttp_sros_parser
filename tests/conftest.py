@@ -1,7 +1,9 @@
 """Contest."""
-import pytest
-import os
 import json
+import os
+
+import pytest
+
 from ttp_sros_parser.srosparser import SrosParser
 
 FIXTURES = os.environ.get("FIXTURE_DIR", "./tests/fixtures")

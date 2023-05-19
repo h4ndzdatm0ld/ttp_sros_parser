@@ -1,29 +1,30 @@
 """TTP SROS Parser."""
-import logging
-import json
 import datetime
+import json
+import logging
 import os
+from dataclasses import dataclass
 from typing import Optional
+
 from ttp import ttp
-from .helpers import globfindfile, check_file
+
+from .helpers import check_file, globfindfile
 
 
+@dataclass
 class SrosParser:  # pylint: disable=R0904
     """SrosParser."""
 
     x = datetime.datetime.now()
     date = x.strftime("%b-%d-%Y")
+    templates_path = f"{os.path.dirname(os.path.realpath(__file__))}/templates"
+    config_file: str
 
-    # Establish the local install dir of templates for the SrosParser package.
-    templates = f"{os.path.dirname(os.path.realpath(__file__))}/templates"
-
-    def __init__(self, config_file):
+    def __post_init__(self):
         """Init."""
-        self.config_file = check_file(config_file)
-        self.templates_path = SrosParser.templates
-        self.templates = globfindfile(f"{self.templates_path}/admin_display_file/*.ttp")
+        check_file(self.config_file)
         logging.info("Loading all templates from 'templates/admin_display_file'")
-        self.date = SrosParser.date
+        self.templates = globfindfile(f"{self.templates_path}/admin_display_file/*.ttp")
 
     def _parse(self, template: str, json_format=True):
         """General Parser Private Method."""
