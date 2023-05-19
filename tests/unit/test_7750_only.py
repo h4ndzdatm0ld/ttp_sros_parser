@@ -33,3 +33,21 @@ def test_get_lags_group2(sros_parser_7750_R2, parsed_lags_1):
     assert result == parsed_lags_1
     assert len(result[0]["configure"]["lag"]) == 6
     assert result[0]["configure"]["lag"][5]["name"] == "myLag105"
+
+
+# add testting for get_python_declaration_configuration
+def test_get_python_declaration_configuration(sros_parser_7750, parsed_python_declaration):
+    """
+    Test extracting python declaration configuration.
+    """
+    result = sros_parser_7750.get_python_declaration_configuration()
+    assert result == parsed_python_declaration
+
+
+# add testting for get_python_configuration
+def test_get_python_configuration(sros_parser_7750, parsed_python_configuration):
+    """
+    Test extracting python configuration.
+    """
+    result = sros_parser_7750.get_python_configuration()
+    assert result == parsed_python_configuration

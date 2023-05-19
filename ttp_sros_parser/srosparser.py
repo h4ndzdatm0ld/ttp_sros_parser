@@ -56,6 +56,11 @@ class SrosParser:  # pylint: disable=R0904
         template = f"{self.templates_path}/admin_display_file/sros_system_configuration.ttp"
         return self._parse(template, json_format=json_format)
 
+    def get_system_begin(self, json_format: bool = True):
+        """Extract system configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_system_begin.ttp"
+        return self._parse(template, json_format=json_format)
+
     def get_system_hostname(self, json_format: bool = True):
         """Extract system hostname."""
         template = f"{self.templates_path}/helpers/sros_system_hostname.ttp"
@@ -131,6 +136,11 @@ class SrosParser:  # pylint: disable=R0904
         template = f"{self.templates_path}/admin_display_file/sros_router_static_routes.ttp"
         return self._parse(template, json_format=json_format)
 
+    def get_mgmt_router_config(self, json_format: bool = True):
+        """Extract Static Route Configuration (v4/v6)."""
+        template = f"{self.templates_path}/admin_display_file/sros_mgmt_router_config.ttp"
+        return self._parse(template, json_format=json_format)
+
     def get_lsps(self, json_format: bool = True):
         """Extract MPLS LSP Configuration."""
         template = f"{self.templates_path}/admin_display_file/sros_7750_mpls_lsp.ttp"
@@ -139,6 +149,151 @@ class SrosParser:  # pylint: disable=R0904
     def get_ports(self, json_format: bool = True):
         """Extract Port Configuration."""
         template = f"{self.templates_path}/admin_display_file/sros_port_config.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_cflowd(self, json_format: bool = True):
+        """Extract Cflowd Configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_cflowd_config.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_python_declaration_configuration(self, json_format: bool = True):
+        """Parse Python declaration Configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_7750_python_declaration_configuration.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_filter_log_configuration(self, json_format: bool = True):
+        """Parse filter logConfiguration."""
+        template = f"{self.templates_path}/admin_display_file/sros_filter_log_configuration.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_filter_match_list_configuration(self, json_format: bool = True):
+        """Parse filter logConfiguration."""
+        template = f"{self.templates_path}/admin_display_file/sros_filter_match_list_configuration.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_system_security_configuration(self, json_format: bool = True):
+        """System Security logConfiguration."""
+        template = f"{self.templates_path}/admin_display_file/sros_system_security_config.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_qos_policy_configuration(self, json_format: bool = True):
+        """QOS Policy Configuration ."""
+        template = f"{self.templates_path}/admin_display_file/sros_qos_policy_config.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_qos_policy_configuration1(self, json_format: bool = True):
+        """QOS Policy Configuration 1."""
+        template = f"{self.templates_path}/admin_display_file/sros_qos_policy_config1.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_qos_policy_configuration2(self, json_format: bool = True):
+        """QOS Policy Configuration 2."""
+        template = f"{self.templates_path}/admin_display_file/sros_qos_policy_config2.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_python_configuration(self, json_format: bool = True):
+        """Python Configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_7750_python_configuration.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_isis_configuration(self, json_format: bool = True):
+        """ISIS Configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_isis_configuration.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_subscriber_mgmt_configuration(self, json_format: bool = True):
+        """Subscriber Management Configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_subscriber_mgmt_configuration.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_aaa_declarations_configuration(self, json_format: bool = True):
+        """AAA Declarations Configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_aaa_declaration_config.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_multicast_path_management_policy_configuration(self, json_format: bool = True):
+        """Multicast Path Management Policy Configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_multicast_path_management_policy_config.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_port_xc_configuration(self, json_format: bool = True):
+        """Port XC Configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_port_cross-connect_config.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_redundancy_configuration(self, json_format: bool = True):
+        """Redundancy Configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_redundancy_config.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_filter_configuration(self, json_format: bool = True):
+        """Filter Configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_filter_configuration.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_vrrp_configuration(self, json_format: bool = True):
+        """VRRP Configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_vrrp_config.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_igmp_configuration(self, json_format: bool = True):
+        """IGMP Configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_igmp_config.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_l2tp_configuration(self, json_format: bool = True):
+        """L2TP Configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_l2tp_config.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_router_policy_configuration(self, json_format: bool = True):
+        """Policy Configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_router_policy_config.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_router_bgp_configuration(self, json_format: bool = True):
+        """BGP Configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_router_bgp_config.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_subscriber_mgmt_ss_configuration(self, json_format: bool = True):
+        """Subscriber Management Service Side Configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_subscriber_mgmt_ss_config.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_mirror_configuration(self, json_format: bool = True):
+        """Mirror Configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_mirror_config.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_radius_configuration(self, json_format: bool = True):
+        """RADIUS Configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_radius_config.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_dhcp_configuration(self, json_format: bool = True):
+        """DHCP Configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_dhcp_config.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_twamp_light_config(self, json_format: bool = True):
+        """Mirror Configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_twamp_light_config.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_aaa_configuration(self, json_format: bool = True):
+        """AAA Configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_aaa_config.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_pim_configuration(self, json_format: bool = True):
+        """PIM Configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_pim_config.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_ldp_configuration(self, json_format: bool = True):
+        """LDP Configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_ldp_config.ttp"
         return self._parse(template, json_format=json_format)
 
     def show_file_dir(self, json_format: bool = True):
@@ -154,6 +309,11 @@ class SrosParser:  # pylint: disable=R0904
     def get_log_configuration(self, json_format: bool = True):
         """Parse Log Configuration."""
         template = f"{self.templates_path}/admin_display_file/sros_log_configuration.ttp"
+        return self._parse(template, json_format=json_format)
+
+    def get_system_time_ntp_config(self, json_format: bool = True):
+        """Parse NTP Configuration."""
+        template = f"{self.templates_path}/admin_display_file/sros_system_time_ntp.ttp"
         return self._parse(template, json_format=json_format)
 
     def show_router_static_route(self, protocol: Optional[str] = "ipv4"):

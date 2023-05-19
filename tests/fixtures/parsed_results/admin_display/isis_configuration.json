@@ -1,0 +1,1 @@
+[{"configure": {"router": {"isis": {"interface": [{"name": "TO-7750-02"}, {"name": "to-BTS0415-7705-HUB-02-1"}, {"name": "to-BTS0415-7705-HUB-01-1"}, {"admin-state": true, "name": "system"}, {"admin-state": true, "name": "system"}, {"admin-state": true, "name": "L3-Telecom-CSR0215"}, {"admin-state": true, "name": "L3-Telecom-5G-CSR024215"}]}}}}]
