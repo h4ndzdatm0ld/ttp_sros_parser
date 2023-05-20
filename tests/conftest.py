@@ -1,11 +1,15 @@
 """Contest."""
 import json
 import os
+from typing import Any, Dict, Optional
 
 import pytest
+import yaml
+from jinja2 import Environment, FileSystemLoader
 
 from ttp_sros_parser.srosparser import SrosParser
 
+SRC = os.path.dirname(os.path.realpath(__file__))
 FIXTURES = os.environ.get("FIXTURE_DIR", "./tests/fixtures")
 
 ############################
@@ -369,3 +373,39 @@ def parsed_pim_configuration():
 def parsed_ldp_configuration():
     with open(f"{FIXTURES}/parsed_results/admin_display/ldp_configuration.json") as f:
         return json.load(f)
+
+
+def confgen(
+    directory_path: str,
+    config_data: str,
+    output_file: Optional[str] = None,
+    template_name: str = "main.j2",
+) -> str:
+    """
+    Load templates from a directory, generate a config based on YAML data, and optionally write the result to a file.
+
+    :param directory_path: Path of the directory containing Jinja templates
+    :param config_data: YAML string or path to YAML file containing configuration data
+    :param output_file: Optional path to the output file
+    :return: The generated config
+    """
+    # Check if config_data is a file
+    if os.path.isfile(config_data):
+        with open(config_data, "r") as file:
+            config = yaml.safe_load(file)
+    else:
+        config = yaml.safe_load(config_data)
+
+    # Load templates from the specified directory
+    env = Environment(loader=FileSystemLoader(directory_path))
+
+    # Load the template
+    template = env.get_template(template_name)
+    # Render the template with the configuration data
+    rendered_config = template.render(data=config)
+    # If an output file was specified, write the generated config to the file
+    if output_file is not None:
+        with open(output_file, "w") as file:
+            file.write(str(rendered_config))
+
+    return rendered_config

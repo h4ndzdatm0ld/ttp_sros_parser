@@ -1,0 +1,8 @@
+---
+mcast-management:
+  bandwidth-policy:
+    name: "policy1"
+    t2-paths:
+      secondary-path:
+        number-paths: 10
+        redundant-sfm: 5
