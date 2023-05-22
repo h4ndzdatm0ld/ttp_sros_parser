@@ -1,1 +1,1 @@
-[{}]
+[{"configure": {"router": {"twamp_light": {"reflector": {"admin_state": true, "description": "Reflecteur TWAMP", "prefix": [{"description": "sonde twamp sur zip intf eth5", "prefix": "10.185.13.74/32"}, {"description": "sonde twamp sur zip intf eth6", "prefix": "10.185.13.78/32"}], "udp_port": "64364"}}}}}]

@@ -5460,6 +5460,9 @@ echo "LDP Configuration"
 #--------------------------------------------------
 /configure router
         ldp
+            export-tunnel-table "EXPORT"
+            fast-reroute
+            fec-originate 218.152.120.207/32 pop
             interface-parameters
                 ipv4
                     hello 15 3
@@ -5598,5 +5601,2118 @@ echo "Policy Configuration"
                 default-action reject
             exit
             commit
+        exit
+    exit
+#--------------------------------------------------
+echo "AAA Configuration"
+#--------------------------------------------------
+    aaa
+        radius-server-policy "RADIUS-ACCT-COLL-ETH-RED" create
+            description "Radius Accounting pour Collecte Ethernet"
+            acct-request-script-policy "RADIUS-REQUEST-BITSTREAM-RED"
+            servers
+                retry 1
+                router "Base"
+                server 1 name "RADIUS-ACCT"
+            exit
+        exit
+        radius-server-policy "RADIUS-AUTH-TIMEOUT" create
+            description "But est de dropper les paquets pour utiliser le fallback accept"
+            auth-request-script-policy "RADIUS-REQUEST-DROP"
+            servers
+                retry 1
+                router "Base"
+                timeout sec 59
+                server 1 name "RADIUS-AUTH"
+            exit
+        exit
+        radius-script-policy "RADIUS-IN-DEF" create
+            primary
+                script-url "cf3:/SCRIPT_PYTHON/RADIUS-IN-DEF-v2.0.py"
+                no shutdown
+            exit
+        exit
+        radius-script-policy "RADIUS-OUT-DEF" create
+            primary
+                script-url "cf3:/SCRIPT_PYTHON/RADIUS-OUT-DEF-v2.0.py"
+                no shutdown
+            exit
+        exit
+        radius-script-policy "RADIUS-OUT-DSL-TES" create
+            primary
+                script-url "cf3:/SCRIPT_PYTHON/RADIUS-OUT-DSL-TES-v1.0.py"
+                no shutdown
+            exit
+        exit
+#--------------------------------------------------
+echo "AAA (Declarations) Configuration"
+#--------------------------------------------------
+    aaa
+        radius-server-policy "RADIUS-ACCT-COLL-ETH-RED" create
+        exit
+        radius-server-policy "RADIUS-ACCT-DEF" create
+        exit
+        radius-server-policy "RADIUS-ACCT-DSL-TES" create
+        exit
+        radius-server-policy "RADIUS-ACCT-MIGR-SRR-RED" create
+        exit
+        radius-server-policy "RADIUS-AUTH-COLL-ETH-RED" create
+        exit
+        radius-server-policy "RADIUS-AUTH-DEF" create
+        exit
+        radius-server-policy "RADIUS-AUTH-DSL-TES" create
+        exit
+        radius-server-policy "RADIUS-AUTH-MIGR-SRR-RED" create
+        exit
+        radius-server-policy "RADIUS-AUTH-TIMEOUT" create
+        exit
+        radius-script-policy "RADIUS-IN-DEF" create
+        exit
+        radius-script-policy "RADIUS-OUT-DEF" create
+        exit
+        radius-script-policy "RADIUS-OUT-DSL-TES" create
+        exit
+        radius-script-policy "RADIUS-REQUEST-DROP" create
+        exit
+        radius-script-policy "RADIUS-ACCEPT-BITSTREAM-RED" create
+        exit
+        radius-script-policy "RADIUS-REQUEST-MIGR-SRR-RED" create
+        exit
+        radius-script-policy "RADIUS-REQUEST-BITSTREAM-RED" create
+        exit
+    exit
+#--------------------------------------------------
+echo "Cflowd Configuration"
+#--------------------------------------------------
+    cflowd
+        active-timeout 1
+        cache-size 128000
+        inactive-timeout 30
+        rate 2000
+        template-retransmit 120
+        collector 10.61.221.151:3000 version 9
+            description "vers Route Explorer"
+            template-set mpls-ip
+        exit
+        collector 218.152.120.60 version 10
+            description "Collecteur Peakflow"
+            template-set mpls-ip
+        exit
+    exit
+#--------------------------------------------------
+echo "Local DHCP Server (Base Router) Configuration"
+#--------------------------------------------------
+    router
+        dhcp
+            local-dhcp-server "SERVEUR-DHCP-GENERIQUE" create
+                user-db "SRV-DHCP-LOCAL"
+                pool "POOL-LOCAL-MIGRATION-3P" create
+                    min-lease-time hrs 4
+                    max-lease-time hrs 4
+                    options
+                        dns-server 195.85.40.10 195.85.40.15
+                        custom-option 42 address 195.85.32.97
+                        custom-option 72 address 195.85.32.97
+                    exit
+                    subnet 10.98.115.0/20 create
+                        address-range 10.98.115.2 10.98.123.254
+                    exit
+                exit
+                no shutdown
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "Filter Configuration"
+#--------------------------------------------------
+    filter
+        ip-filter 1000 name "1000" create
+            default-action forward
+            description " Filtre de boucle generique-Ne pas modifier sans accord prealable"
+            entry 1000 create
+                match
+                    src-ip 79.91.72.62/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1001 create
+                match
+                    dst-ip 79.91.72.62/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1002 create
+                match
+                    src-ip 29.89.54.148/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1003 create
+                match
+                    dst-ip 29.89.54.148/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1008 create
+                match
+                    src-ip 189.112.71.249/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1009 create
+                match
+                    dst-ip 189.112.71.249/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1010 create
+                match
+                    src-ip 2.17.207.74/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1011 create
+                match
+                    dst-ip 2.17.207.74/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1018 create
+                match
+                    src-ip 29.89.72.71/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1019 create
+                match
+                    dst-ip 29.89.72.71/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1028 create
+                match
+                    src-ip 29.93.190.77/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1029 create
+                match
+                    dst-ip 29.93.190.77/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1030 create
+                match
+                    src-ip 67.216.114.151/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1031 create
+                match
+                    dst-ip 67.216.114.151/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1033 create
+                match
+                    dst-ip 189.109.118.77/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1036 create
+                match
+                    src-ip 79.82.45.195/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1037 create
+                match
+                    dst-ip 79.82.45.195/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1040 create
+                match
+                    src-ip 79.92.187.220/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1041 create
+                match
+                    dst-ip 79.92.187.220/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1046 create
+                match
+                    src-ip 67.218.208.95/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1047 create
+                match
+                    dst-ip 67.218.208.95/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1048 create
+                match
+                    src-ip 189.73.107.53/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1049 create
+                match
+                    dst-ip 189.73.107.53/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1062 create
+                match
+                    src-ip 29.95.34.215/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1063 create
+                match
+                    dst-ip 29.95.34.215/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1069 create
+                match
+                    dst-ip 189.75.57.39/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1074 create
+                match
+                    src-ip 189.90.220.12/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1075 create
+                match
+                    dst-ip 189.90.220.12/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1078 create
+                match
+                    src-ip 189.107.80.25/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1079 create
+                match
+                    dst-ip 189.107.80.25/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1080 create
+                match
+                    src-ip 29.92.39.221/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1081 create
+                match
+                    dst-ip 29.92.39.221/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1082 create
+                match
+                    src-ip 189.92.237.60/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1083 create
+                match
+                    dst-ip 189.92.237.60/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1084 create
+                match
+                    src-ip 189.86.221.90/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1085 create
+                match
+                    dst-ip 189.86.221.90/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1095 create
+                match
+                    dst-ip 79.85.89.17/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1096 create
+                match
+                    src-ip 74.203.56.242/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1097 create
+                match
+                    dst-ip 74.203.56.242/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1098 create
+                match
+                    src-ip 189.71.180.238/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1099 create
+                match
+                    dst-ip 189.71.180.238/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1100 create
+                match
+                    src-ip 189.101.126.50/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1101 create
+                match
+                    dst-ip 189.101.126.50/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1104 create
+                match
+                    src-ip 79.85.89.17/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1105 create
+                match
+                    dst-ip 79.85.89.17/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1106 create
+                match
+                    src-ip 74.203.102.244/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1107 create
+                match
+                    dst-ip 74.203.102.244/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1116 create
+                match
+                    src-ip 29.89.35.249/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1117 create
+                match
+                    dst-ip 29.89.35.249/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1118 create
+                match
+                    src-ip 189.86.97.222/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1119 create
+                match
+                    dst-ip 189.86.97.222/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1122 create
+                match
+                    src-ip 189.111.223.97/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1123 create
+                match
+                    dst-ip 189.111.223.97/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1124 create
+                match
+                    src-ip 2.17.169.190/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1125 create
+                match
+                    dst-ip 2.17.169.190/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1126 create
+                match
+                    src-ip 74.203.29.2/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1127 create
+                match
+                    dst-ip 74.203.29.2/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1128 create
+                match
+                    src-ip 189.117.27.44/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1129 create
+                match
+                    dst-ip 189.117.27.44/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1150 create
+                match
+                    src-ip 189.109.24.7/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1151 create
+                match
+                    dst-ip 189.109.24.7/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1155 create
+                match
+                    dst-ip 189.117.27.44/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1146 create
+                match
+                    src-ip 189.97.99.10/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1147 create
+                match
+                    dst-ip 189.97.99.10/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1152 create
+                match
+                    src-ip 79.94.118.174/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1153 create
+                match
+                    dst-ip 79.94.118.174/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1158 create
+                match
+                    src-ip 189.71.184.44/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1159 create
+                match
+                    dst-ip 189.71.184.44/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1172 create
+                match
+                    src-ip 189.111.223.97/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1173 create
+                match
+                    dst-ip 189.111.223.97/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1184 create
+                match
+                    src-ip 189.106.104.57/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1185 create
+                match
+                    dst-ip 189.106.104.57/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1186 create
+                match
+                    src-ip 37.15.187.223/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1187 create
+                match
+                    dst-ip 37.15.187.223/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1192 create
+                match
+                    src-ip 189.78.172.247/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1193 create
+                match
+                    dst-ip 189.78.172.247/32
+                exit
+                action
+                    forward
+                exit
+            exit
+        exit
+        ip-filter 1001 name "1001" create
+            default-action forward
+            description " Filtre de boucle generique-Ne pas modifier sans accord prealable"
+            entry 1002 create
+                match
+                    src-ip 29.89.54.148/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1003 create
+                match
+                    dst-ip 29.89.54.148/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1008 create
+                match
+                    src-ip 189.112.71.249/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1009 create
+                match
+                    dst-ip 189.112.71.249/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1010 create
+                match
+                    src-ip 2.17.207.74/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1011 create
+                match
+                    dst-ip 2.17.207.74/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1018 create
+                match
+                    src-ip 29.89.80.192/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1019 create
+                match
+                    dst-ip 29.89.80.192/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1028 create
+                match
+                    src-ip 29.91.159.100/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1029 create
+                match
+                    dst-ip 29.91.159.100/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1030 create
+                match
+                    src-ip 67.216.114.151/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1031 create
+                match
+                    dst-ip 67.216.114.151/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1032 create
+                match
+                    src-ip 189.109.118.77/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1036 create
+                match
+                    src-ip 79.82.45.195/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1037 create
+                match
+                    dst-ip 79.82.45.195/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1040 create
+                match
+                    src-ip 79.82.46.152/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1041 create
+                match
+                    dst-ip 79.82.46.152/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1046 create
+                match
+                    src-ip 67.218.208.95/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1047 create
+                match
+                    dst-ip 67.218.208.95/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1048 create
+                match
+                    src-ip 189.73.107.53/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1049 create
+                match
+                    dst-ip 189.73.107.53/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1062 create
+                match
+                    src-ip 29.95.34.215/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1063 create
+                match
+                    dst-ip 29.95.34.215/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1068 create
+                match
+                    src-ip 189.75.57.39/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1080 create
+                match
+                    src-ip 2.17.205.32/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1081 create
+                match
+                    dst-ip 2.17.205.32/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1082 create
+                match
+                    src-ip 189.92.237.60/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1083 create
+                match
+                    dst-ip 189.92.237.60/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1084 create
+                match
+                    src-ip 189.86.221.90/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1085 create
+                match
+                    dst-ip 189.86.221.90/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1094 create
+                match
+                    src-ip 79.85.89.17/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1096 create
+                match
+                    src-ip 74.203.56.242/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1097 create
+                match
+                    dst-ip 74.203.56.242/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1098 create
+                match
+                    src-ip 189.71.180.238/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1099 create
+                match
+                    dst-ip 189.71.180.238/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1100 create
+                match
+                    src-ip 189.101.126.50/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1101 create
+                match
+                    dst-ip 189.101.126.50/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1104 create
+                match
+                    src-ip 79.85.89.17/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1105 create
+                match
+                    dst-ip 79.85.89.17/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1106 create
+                match
+                    src-ip 74.203.102.244/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1107 create
+                match
+                    dst-ip 74.203.102.244/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1116 create
+                match
+                    src-ip 67.219.153.92/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1117 create
+                match
+                    dst-ip 67.219.153.92/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1118 create
+                match
+                    src-ip 189.86.97.222/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1119 create
+                match
+                    dst-ip 189.86.97.222/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1122 create
+                match
+                    src-ip 189.111.223.97/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1123 create
+                match
+                    dst-ip 189.111.223.97/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1124 create
+                match
+                    src-ip 2.17.169.190/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1125 create
+                match
+                    dst-ip 2.17.169.190/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1126 create
+                match
+                    src-ip 74.203.29.2/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1127 create
+                match
+                    dst-ip 74.203.29.2/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1128 create
+                match
+                    src-ip 189.117.27.44/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1129 create
+                match
+                    dst-ip 189.117.27.44/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1150 create
+                match
+                    src-ip 189.109.24.7/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1151 create
+                match
+                    dst-ip 189.109.24.7/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1154 create
+                match
+                    src-ip 189.117.27.44/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1146 create
+                match
+                    src-ip 189.97.99.10/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1147 create
+                match
+                    dst-ip 189.97.99.10/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1152 create
+                match
+                    src-ip 2.16.245.70/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1153 create
+                match
+                    dst-ip 2.16.245.70/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1158 create
+                match
+                    src-ip 189.71.184.44/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1159 create
+                match
+                    dst-ip 189.71.184.44/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1172 create
+                match
+                    src-ip 189.111.223.97/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1173 create
+                match
+                    dst-ip 189.111.223.97/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1184 create
+                match
+                    src-ip 189.106.104.57/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1185 create
+                match
+                    dst-ip 189.106.104.57/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1192 create
+                match
+                    src-ip 189.78.172.247/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1193 create
+                match
+                    dst-ip 189.78.172.247/32
+                exit
+                action
+                    forward
+                exit
+            exit
+        exit
+        ip-filter 1002 name "1002" create
+            default-action forward
+            description "Filtre  suspension  "
+        exit
+        ip-filter 1003 name "1003" create
+            default-action forward
+            description "Filtre  suspension  "
+        exit
+        ip-filter 2000 name "2000" create
+            default-action forward
+            description "Filtre pour securite collectes"
+            scope embedded
+        exit
+        ip-filter 2001 name "2001" create
+            description "Filtre"
+            scope embedded
+            entry 12000 create
+                match protocol tcp
+                    dst-port eq 179
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 12001 create
+                match protocol udp
+                    dst-port eq 67
+                exit
+                action
+                    forward
+                exit
+            exit
+        exit
+        ip-filter 2100 name "2100" create
+            description "Filtre pour suspension  ONLY"
+            scope embedded
+        exit
+        ip-filter 2101 name "2101" create
+            description "Filtre pour suspension ONLY"
+            scope embedded
+            entry 21000 create
+                match
+                    dst-ip 79.87.191.0/24
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21001 create
+                match
+                    dst-ip 195.185.47.0/24
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21002 create
+                match
+                    dst-ip 10.187.145.0/16
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21003 create
+                match
+                    dst-ip 67.218.54.0/24
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21004 create
+                match
+                    dst-ip 10.158.76.0/23
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21005 create
+                match
+                    dst-ip 10.145.93.0/19
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21006 create
+                match
+                    dst-ip 194.169.49.0/21
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21007 create
+                match
+                    dst-ip 218.93.227.34/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21008 create
+                match
+                    dst-ip 37.229.181.0/24
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21009 create
+                match
+                    dst-ip 172.30.151.96/28
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21010 create
+                match
+                    dst-ip 194.195.71.0/24
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21011 create
+                match
+                    dst-ip 195.85.43.0/21
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21012 create
+                match
+                    dst-ip 195.85.32.0/24
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21015 create
+                match
+                    dst-ip 79.95.6.1/24
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21014 create
+                match
+                    dst-ip 79.87.242.32/28
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21015 create
+                match
+                    dst-ip 79.91.33.0/24
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21016 create
+                match
+                    dst-ip 195.185.34.0/24
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21017 create
+                match
+                    dst-ip 194.169.104.0/24
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21018 create
+                match
+                    dst-ip 195.185.39.0/24
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21019 create
+                match
+                    dst-ip 67.218.51.0/24
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21020 create
+                match
+                    dst-ip 192.168.46.0/21
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21021 create
+                match
+                    dst-ip 195.85.39.0/23
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21022 create
+                match
+                    dst-ip 192.168.149.0/24
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21023 create
+                match
+                    dst-ip 10.145.54.0/19
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21024 create
+                match
+                    dst-ip 37.229.178.0/22
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21025 create
+                match
+                    dst-ip 37.229.162.0/24
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21026 create
+                match
+                    dst-ip 79.91.42.0/24
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21027 create
+                match
+                    dst-ip 172.28.176.0/24
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21028 create
+                match
+                    dst-ip 37.229.165.0/24
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21029 create
+                match
+                    dst-ip 194.169.50.89/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21030 create
+                match
+                    dst-ip 218.153.121.45/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21031 create
+                match
+                    dst-ip 218.153.121.46/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21032 create
+                match
+                    dst-ip 194.169.62.129/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21033 create
+                match
+                    dst-ip 79.91.39.16/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21034 create
+                match
+                    dst-ip 79.91.39.20/32
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 21035 create
+                match
+                    dst-ip 37.15.244.128/29
+                exit
+                action
+                    forward
+                exit
+            exit
+        exit
+        ipv6-filter 1005 name "1005" create
+            default-action forward
+            description "Filtre"
+        exit
+        ipv6-filter 2000 name "2000" create
+            description "Filtres"
+            scope embedded
+            entry 12501 create
+                description "Accept ICMPv6 Packet-too-big type 2"
+                match next-header ipv6-icmp
+                    icmp-type packet-too-big
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 12504 create
+                description "Accept ICMPv6 Echo Request type 128"
+                match next-header ipv6-icmp
+                    icmp-type echo-request
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 12505 create
+                description "Accept ICMPv6 Echo Reply type 129"
+                match next-header ipv6-icmp
+                    icmp-type echo-reply
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 12506 create
+                description "Accept ICMPv6 Router Solicitation type 153"
+                match next-header ipv6-icmp
+                    icmp-type router-solicitation
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 12507 create
+                description "Accept ICMPv6 Router Advertisement type 154"
+                match next-header ipv6-icmp
+                    icmp-type router-advt
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 12508 create
+                description "Accept ICMPv6 Neighbor Solicitation type 155"
+                match next-header ipv6-icmp
+                    icmp-type neighbor-solicitation
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 12509 create
+                description "Accept ICMPv6 Neighbor Advertisment type 156"
+                match next-header ipv6-icmp
+                    icmp-type neighbor-advertisement
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 12900 create
+                description "Drop ICMPv6 non-accepte avant"
+                match next-header ipv6-icmp
+                exit
+                action
+                    drop
+                exit
+            exit
+        exit
+#--------------------------------------------------
+echo "Filter Log Configuration"
+#--------------------------------------------------
+    filter
+        log 104 create
+            description "IPV4-FILTER-LOG"
+        exit
+        log 106 create
+            description "IPV6-FILTER-LOG"
+        exit
+    exit
+#--------------------------------------------------
+echo "Filter Match lists Configuration"
+#--------------------------------------------------
+    filter
+        match-list
+            ip-prefix-list "DEEPFIELD" create
+                description "DEEPFIELD"
+                prefix 10.61.29.241/32
+                prefix 10.61.29.242/32
+            exit
+            ip-prefix-list "EQUIPEMENTS" create
+                description "EQUIPMENTS"
+                prefix 172.26.101.3/32
+                prefix 172.26.42.48/32
+                prefix 172.26.15.65/32
+                prefix 172.25.100.108/32
+                prefix 172.24.49.17/32
+                prefix 172.24.48.5/32
+            exit
+            ip-prefix-list "TOTO1" create
+                description "TOTO1"
+                prefix 218.152.120.58/32
+                prefix 218.152.120.60/32
+                prefix 218.152.144.6/32
+                prefix 218.141.22.128/25
+            exit
+            ip-prefix-list "FLOW" create
+                description "FLOW"
+                prefix 10.48.122.153/32
+                prefix 10.48.122.169/32
+                prefix 218.152.120.58/32
+                prefix 218.152.120.59/32
+                prefix 218.152.120.60/32
+                prefix 218.152.144.6/32
+            exit
+            ipv6-prefix-list "PAR" create
+                prefix d910:f180:2a7f:358f:6f50:4084:75d5:101/128
+                prefix d910:f180:2a7f:358e:985c:15ea:6a75:4401/128
+                prefix d910:f180:2a7f:3589:75b5:7f9e:9b85:7001/128
+                prefix d910:f180:2a7f:3588:885c:1fdb:fce8:4f01/128
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "L2TP Configuration"
+#--------------------------------------------------
+        l2tp
+            group "LNS" protocol v2 create
+                tunnel "LNS" create
+                    local-name "BNG-ATHENA"
+                    peer 195.185.47.234
+                    no shutdown
+                exit
+                no shutdown
+            exit
+            no shutdown
+        exit
+#--------------------------------------------------
+echo "Management Router Configuration"
+#--------------------------------------------------
+    router management
+        static-route-entry 10.205.205.66/32
+            next-hop 10.60.228.254
+            exit
+        exit
+        static-route-entry 10.205.204.0/24
+            next-hop 10.60.228.254
+            exit
+        exit
+        static-route-entry 10.53.105.241/32
+            next-hop 10.60.228.254
+            exit
+        exit
+        static-route-entry 10.61.221.151/32
+            next-hop 10.60.228.254
+            exit
+        exit
+        static-route-entry 172.26.15.65/32
+            next-hop 10.60.228.254
+            exit
+        exit
+        static-route-entry 172.29.80.0/24
+            next-hop 10.60.228.254
+            exit
+        exit
+        static-route-entry 172.17.110.238/32
+            next-hop 10.60.228.254
+            exit
+        exit
+        static-route-entry 172.17.110.249/32
+            next-hop 10.60.228.254
+            exit
+        exit
+        static-route-entry 172.17.110.252/32
+            next-hop 10.60.228.254
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "Mirror Configuration"
+#--------------------------------------------------
+    mirror
+        mirror-dest 19001 name "19001" type ip-only create
+            description "TPLALIS-d01-1"
+            encap
+                layer-3-encap ip-udp-shim create
+                    gateway create
+                        ip src 218.152.120.74 dest 218.141.22.146
+                        udp src 23457 dest 23000
+                    exit
+                exit
+            exit
+            no shutdown
+        exit
+    exit
+#--------------------------------------------------
+echo "Multicast Path Management Policy Configuration"
+#--------------------------------------------------
+    mcast-management
+        bandwidth-policy "14-SEC-PATHS" create
+            t2-paths
+                secondary-path
+                    number-paths 14 redundant-sfm 14
+                exit
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "RADIUS Server Configuration"
+#--------------------------------------------------
+        radius-server
+            server "RADIUS-ACCT" address 195.85.40.21 secret "netconanRemoved16" hash2 create
+                description "Radius serveR"
+                acct-port 1646
+            exit
+            server "RADIUS-AUTH" address 195.85.40.20 secret "netconanRemoved17" hash2 create
+                description "Radius server"
+                accept-coa
+                auth-port 1645
+                coa-script-policy "RADIUS-IN-DEF"
+            exit
+        exit
+#--------------------------------------------------
+echo "Redundancy Configuration"
+#--------------------------------------------------
+    redundancy
+        multi-chassis
+            peer 218.152.120.75 create
+                description "BNG02-PAR"
+                sync
+                    igmp
+                    srrp
+                    sub-mgmt ipoe pppoe
+                    port lag-30 create
+                        range 100.1-100.499 sync-tag "tag1110"
+                        range 100.1000-100.1000 sync-tag "tag1110"
+                        range 835.1-835.24 sync-tag "tag1310"
+                        range 835.1000-835.1000 sync-tag "tag1310"
+                        range 836.1-836.24 sync-tag "tag1410"
+                        range 836.1000-836.1000 sync-tag "tag1410"
+                        range 1000.1-1000.499 sync-tag "tag1010"
+                        range 1000.1000-1000.1000 sync-tag "tag1510"
+                        range 1001.1-1001.499 sync-tag "tag1510"
+                    exit
+                    port lag-36 create
+                        range 100.1-100.499 sync-tag "tag1106"
+                        range 100.1000-100.1000 sync-tag "tag1106"
+                        range 1000.1-1000.499 sync-tag "tag1006"
+                        range 1000.1000-1000.1000 sync-tag "tag1006"
+                        range 1001.1-1001.499 sync-tag "tag1506"
+                        range 1001.1000-1001.1000 sync-tag "tag1506"
+                    exit
+                    no shutdown
+                exit
+                no shutdown
+            exit
+        exit
+        synchronize boot-env
+    exit
+#--------------------------------------------------
+echo "BGP Configuration"
+#--------------------------------------------------
+        bgp
+            ibgp-multipath
+            enable-peer-tracking
+            advertise-external ipv4 ipv6 label-ipv4 label-ipv6
+            backup-path ipv4 ipv6 label-ipv4 label-ipv6
+            next-hop-resolution
+                policy "NEXT-HOP-TRACKING"
+                shortcut-tunnel
+                    family ipv4
+                        resolution-filter
+                            ldp
+                        exit
+                        resolution filter
+                    exit
+                exit
+            exit
+            peer-tracking-policy "PEER-TRACKING"
+            rib-management
+                ipv6
+                    route-table-import "RIB_LEAK"
+                exit
+                label-ipv6
+                    route-table-import "RIB_LEAK"
+                exit
+            exit
+            group "IP"
+                description "Interco eBGP pour extension domaine PIM"
+                family ipv4
+                loop-detect discard-route
+                prefix-limit ipv4 1
+                prefix-limit ipv6 1
+                type external
+                multihop 255
+                import "default-reject"
+                export "EXPORT-ALL-MULTICAST-SOURCES" "default-reject"
+                peer-as 65500
+                ttl-security 255
+                neighbor 79.92.218.245
+                    description "PTN00115_IP"
+                exit
+            exit
+            group "EBGP"
+                description "acces pour Flux"
+                family ipv4
+                loop-detect discard-route
+                type external
+                multihop 255
+                preference 9
+                import "COLLECTE-IPv4-IMPORT" "default-accept-bgp"
+                export "EXPORT-ALL-SOURCES" "default-reject"
+                peer-as 65500
+                ttl-security 255
+                neighbor 78.197.9.157
+                    description "PAR38-W01-AGR-IP"
+                    peer-as 65510
+                exit
+            exit
+            no shutdown
+        exit
+    exit
+#--------------------------------------------------
+echo "Subscriber-mgmt Configuration"
+#--------------------------------------------------
+    subscriber-mgmt
+        auto-sub-id-key
+            ipoe-sub-id-key mac
+        exit
+        authentication-policy "AUTH-DEF" create
+            description "Radius Authentification par defaut"
+            password "netconanRemoved7" hash2
+            user-name-format circuit-id
+            pppoe-access-method none
+            include-radius-attribute
+                circuit-id
+                remote-id
+                nas-port-id
+                nas-identifier
+                dhcp-options
+                dhcp6-options
+                access-loop-options
+                mac-address
+            exit
+            radius-server-policy "RADIUS-AUTH-DEF"
+        exit
+        radius-accounting-policy "ACCT-DEF" create
+            description "Radius"
+            no queue-instance-accounting
+            session-accounting interim-update
+            include-radius-attribute
+                acct-authentic
+                circuit-id
+                delegated-ipv6-prefix
+                framed-ip-addr
+                mac-address
+                nas-identifier
+                nas-port-id
+                remote-id
+                sla-profile
+                sub-profile
+                subscriber-id
+                user-name
+                access-loop-options
+                no detailed-acct-attributes
+                std-acct-attributes
+            exit
+            session-id-format number
+            radius-server-policy "RADIUS-ACCT-DEF"
+        exit
+        ipoe-session-policy "IPOE-DEF" create
+            description "IPoE Session policy par defaut"
+            session-key sap mac cid
+        exit
+        sla-profile "QOS-DEFAUT-PROF" create
+            inPARss
+                qos 128
+                exit
+            exit
+            ePARss
+                qos 128
+                exit
+            exit
+        exit
+        sub-profile "MIGR" create
+            radius-accounting
+                policy "ACCT-RED"
+            exit
+            inPARss
+                policer-control-policy "POLICER-SUB-MGMT-DEFAULT"
+                exit
+            exit
+            ePARss
+                policer-control-policy "POLICER-SUB-MGMT-DEFAULT"
+                exit
+            exit
+        exit
+        sub-ident-policy "COLLECTE" create
+            sub-profile-map
+                use-direct-map-as-default
+            exit
+            sla-profile-map
+                use-direct-map-as-default
+            exit
+        exit
+        ppp-policy "PPP" create
+            description "PPPoE"
+            ppp-mtu 1492
+            max-sessions-per-mac 2
+            ppp-authentication chap
+        exit
+        local-user-db "AAA-DHCP-RED" create
+        exit
+        local-user-db "AAA-PPP-RED" create
+        exit
+        local-user-db "SRV-DHCP-LOCAL" create
+        exit
+    exit
+#--------------------------------------------------
+echo "Subscriber-mgmt (Service Side) Configuration"
+#--------------------------------------------------
+    subscriber-mgmt
+        authentication-policy "RADIUS"
+            radius-authentication-server
+                router "Base"
+                server 1 address 195.85.40.20 secret "netconanRemoved18" hash2 port 1645
+            exit
+        exit
+        local-user-db "AAA-DHCP" create
+            ipoe
+                match-list option60
+                host "default" create
+                    auth-policy "AUTH-COLL-ETH-RED"
+                    server 195.85.40.22
+                    no shutdown
+                exit
+                host "IAD-Profil" create
+                    host-identification
+                        option60 string "toto"
+                    exit
+                    auth-policy "AUTH-MIGR"
+                    server 218.152.120.74
+                    no shutdown
+                exit
+            exit
+            no shutdown
+        exit
+    exit
+#--------------------------------------------------
+echo "TWAMP Light Configuration"
+#--------------------------------------------------
+        twamp-light
+            reflector udp-port 64364 create
+                description "Reflecteur TWAMP"
+                prefix 10.185.13.74/32 create
+                    description "sonde twamp sur zip intf eth5"
+                exit
+                prefix 10.185.13.78/32 create
+                    description "sonde twamp sur zip intf eth6"
+                exit
+                no shutdown
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "Vrrp Configuration"
+#--------------------------------------------------
+    vrrp
+        policy 1106
+            delta-in-use-limit 100
+            priority-event
+                lag-port-down 36
+                    hold-clear 180
+                    number-down 1
+                        priority 100 delta
+                    exit
+                exit
+            exit
+        exit
+        policy 4065
+            delta-in-use-limit 100
+            priority-event
+                lag-port-down 243
+                    hold-clear 180
+                    number-down 1
+                        priority 100 delta
+                    exit
+                exit
+            exit
         exit
     exit

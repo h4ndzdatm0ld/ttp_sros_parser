@@ -136,235 +136,235 @@ def test_get_system_begin(sros_parser, parsed_system_begin):
     assert result == parsed_system_begin
 
 
-def test_get_mgmt_router_config(sros_parser, parsed_mgmt_router_config):
+def test_get_mgmt_router_config(sros_parser_7750, parsed_mgmt_router_config):
     """
     Test to retrieve the management router configuration.
     """
-    result = sros_parser.get_mgmt_router_config()
+    result = sros_parser_7750.get_mgmt_router_config()
     assert result == parsed_mgmt_router_config
 
 
-def test_get_cflowd(sros_parser, parsed_cflowd):
+def test_get_cflowd(sros_parser_7750, parsed_cflowd):
     """
     Test to retrieve the cflowd configuration.
     """
-    result = sros_parser.get_cflowd()
+    result = sros_parser_7750.get_cflowd()
     assert result == parsed_cflowd
 
 
-def test_get_filter_log_configuration(sros_parser, parsed_filter_log_configuration):
+def test_get_filter_log_configuration(sros_parser_7750, parsed_filter_log_configuration):
     """
     Test to retrieve the filter log configuration.
     """
-    result = sros_parser.get_filter_log_configuration()
+    result = sros_parser_7750.get_filter_log_configuration()
     assert result == parsed_filter_log_configuration
 
 
-def test_get_filter_match_list_configuration(sros_parser, parsed_filter_match_list_configuration):
+def test_get_filter_match_list_configuration(sros_parser_7750, parsed_filter_match_list_configuration):
     """
     Test to retrieve the filter match list configuration.
     """
-    result = sros_parser.get_filter_match_list_configuration()
+    result = sros_parser_7750.get_filter_match_list_configuration()
     assert result == parsed_filter_match_list_configuration
 
 
-def test_get_system_security_configuration(sros_parser, parsed_system_security_configuration):
+def test_get_system_security_configuration(sros_parser_7750, parsed_system_security_configuration):
     """
     Test to retrieve the system security configuration.
     """
-    result = sros_parser.get_system_security_configuration()
+    result = sros_parser_7750.get_system_security_configuration()
     assert result == parsed_system_security_configuration
 
 
-def test_get_qos_policy_configuration(sros_parser, parsed_qos_policy_configuration):
+def test_get_qos_policy_configuration(sros_parser_7750, parsed_qos_policy_configuration):
     """
     Test to retrieve the qos policy configuration.
     """
-    result = sros_parser.get_qos_policy_configuration()
+    result = sros_parser_7750.get_qos_policy_configuration()
     assert result == parsed_qos_policy_configuration
 
 
-def test_get_qos_policy_configuration1(sros_parser, parsed_qos_policy_configuration1):
+def test_get_qos_policy_configuration1(sros_parser_7750, parsed_qos_policy_configuration1):
     """
     Test to retrieve the qos policy configuration 1.
     """
-    result = sros_parser.get_qos_policy_configuration1()
+    result = sros_parser_7750.get_qos_policy_configuration1()
     assert result == parsed_qos_policy_configuration1
 
 
-def test_get_qos_policy_configuration2(sros_parser, parsed_qos_policy_configuration2):
+def test_get_qos_policy_configuration2(sros_parser_7750, parsed_qos_policy_configuration2):
     """
     Test to retrieve the qos policy configuration 2.
     """
-    result = sros_parser.get_qos_policy_configuration2()
+    result = sros_parser_7750.get_qos_policy_configuration2()
     assert result == parsed_qos_policy_configuration2
 
 
-def test_get_isis_configuration(sros_parser, parsed_isis_configuration):
+def test_get_isis_configuration(sros_parser_7750, parsed_isis_configuration):
     """
     Test to retrieve the ISIS configuration.
     """
-    result = sros_parser.get_isis_configuration()
+    result = sros_parser_7750.get_isis_configuration()
     assert result == parsed_isis_configuration
 
 
-def test_get_subscriber_mgmt_configuration(sros_parser, parsed_subscriber_mgmt_configuration):
+def test_get_subscriber_mgmt_configuration(sros_parser_7750, parsed_subscriber_mgmt_configuration):
     """
     Test to retrieve the subscriber management configuration.
     """
-    result = sros_parser.get_subscriber_mgmt_configuration()
+    result = sros_parser_7750.get_subscriber_mgmt_configuration()
     assert result == parsed_subscriber_mgmt_configuration
 
 
-def test_get_aaa_declarations_configuration(sros_parser, parsed_aaa_declarations_configuration):
+def test_get_aaa_declarations_configuration(sros_parser_7750, parsed_aaa_declarations_configuration):
     """
     Test to retrieve the AAA declarations configuration.
     """
-    result = sros_parser.get_aaa_declarations_configuration()
+    result = sros_parser_7750.get_aaa_declarations_configuration()
     assert result == parsed_aaa_declarations_configuration
 
 
 def test_get_multicast_path_management_policy_configuration(
-    sros_parser, parsed_multicast_path_management_policy_configuration
+    sros_parser_7750, parsed_multicast_path_management_policy_configuration
 ):
     """
     Test to retrieve the multicast path management policy configuration.
     """
-    result = sros_parser.get_multicast_path_management_policy_configuration()
+    result = sros_parser_7750.get_multicast_path_management_policy_configuration()
     assert result == parsed_multicast_path_management_policy_configuration
 
 
-def test_get_port_xc_configuration(sros_parser, parsed_port_xc_configuration):
+def test_get_port_xc_configuration(sros_parser_7750, parsed_port_xc_configuration):
     """
     Test to retrieve the port xc configuration.
     """
-    result = sros_parser.get_port_xc_configuration()
+    result = sros_parser_7750.get_port_xc_configuration()
     assert result == parsed_port_xc_configuration
 
 
-def test_get_redundancy_configuration(sros_parser, parsed_redundancy_configuration):
+def test_get_redundancy_configuration(sros_parser_7750, parsed_redundancy_configuration):
     """
     Test to retrieve the redundancy configuration.
     """
-    result = sros_parser.get_redundancy_configuration()
+    result = sros_parser_7750.get_redundancy_configuration()
     assert result == parsed_redundancy_configuration
 
 
-def test_get_filter_configuration(sros_parser, parsed_filter_configuration):
+def test_get_filter_configuration(sros_parser_7750, parsed_filter_configuration):
     """
     Test to retrieve the filter configuration.
     """
-    result = sros_parser.get_filter_configuration()
+    result = sros_parser_7750.get_filter_configuration()
     assert result == parsed_filter_configuration
 
 
-def test_get_vrrp_configuration(sros_parser, parsed_vrrp_configuration):
+def test_get_vrrp_configuration(sros_parser_7750, parsed_vrrp_configuration):
     """
     Test to retrieve the VRRP configuration.
     """
-    result = sros_parser.get_vrrp_configuration()
+    result = sros_parser_7750.get_vrrp_configuration()
     assert result == parsed_vrrp_configuration
 
 
-def test_get_igmp_configuration(sros_parser, parsed_igmp_configuration):
+def test_get_igmp_configuration(sros_parser_7750, parsed_igmp_configuration):
     """
     Test to retrieve the IGMP configuration.
     """
-    result = sros_parser.get_igmp_configuration()
+    result = sros_parser_7750.get_igmp_configuration()
     assert result == parsed_igmp_configuration
 
 
-def test_get_l2tp_configuration(sros_parser, parsed_l2tp_configuration):
+def test_get_l2tp_configuration(sros_parser_7750, parsed_l2tp_configuration):
     """
     Test to retrieve the L2TP configuration.
     """
-    result = sros_parser.get_l2tp_configuration()
+    result = sros_parser_7750.get_l2tp_configuration()
     assert result == parsed_l2tp_configuration
 
 
-def test_get_router_policy_configuration(sros_parser, parsed_router_policy_configuration):
+def test_get_router_policy_configuration(sros_parser_7750, parsed_router_policy_configuration):
     """
     Test to retrieve the router policy configuration.
     """
-    result = sros_parser.get_router_policy_configuration()
+    result = sros_parser_7750.get_router_policy_configuration()
     assert result == parsed_router_policy_configuration
 
 
-def test_get_router_bgp_configuration(sros_parser, parsed_router_bgp_configuration):
+def test_get_router_bgp_configuration(sros_parser_7750, parsed_router_bgp_configuration):
     """
     Test to retrieve the router BGP configuration.
     """
-    result = sros_parser.get_router_bgp_configuration()
+    result = sros_parser_7750.get_router_bgp_configuration()
     assert result == parsed_router_bgp_configuration
 
 
-def test_get_subscriber_mgmt_ss_configuration(sros_parser, parsed_subscriber_mgmt_ss_configuration):
+def test_get_subscriber_mgmt_ss_configuration(sros_parser_7750, parsed_subscriber_mgmt_ss_configuration):
     """
     Test to retrieve the subscriber management SS configuration.
     """
-    result = sros_parser.get_subscriber_mgmt_ss_configuration()
+    result = sros_parser_7750.get_subscriber_mgmt_ss_configuration()
     assert result == parsed_subscriber_mgmt_ss_configuration
 
 
-def test_get_mirror_configuration(sros_parser, parsed_mirror_configuration):
+def test_get_mirror_configuration(sros_parser_7750, parsed_mirror_configuration):
     """
     Test to retrieve the mirror configuration.
     """
-    result = sros_parser.get_mirror_configuration()
+    result = sros_parser_7750.get_mirror_configuration()
     assert result == parsed_mirror_configuration
 
 
-def test_get_radius_configuration(sros_parser, parsed_radius_configuration):
+def test_get_radius_configuration(sros_parser_7750, parsed_radius_configuration):
     """
     Test to retrieve the RADIUS configuration.
     """
-    result = sros_parser.get_radius_configuration()
+    result = sros_parser_7750.get_radius_configuration()
     assert result == parsed_radius_configuration
 
 
-def test_get_dhcp_configuration(sros_parser, parsed_dhcp_configuration):
+def test_get_dhcp_configuration(sros_parser_7750, parsed_dhcp_configuration):
     """
     Test to retrieve the DHCP configuration.
     """
-    result = sros_parser.get_dhcp_configuration()
+    result = sros_parser_7750.get_dhcp_configuration()
     assert result == parsed_dhcp_configuration
 
 
-def test_get_twamp_light_config(sros_parser, parsed_twamp_light_config):
+def test_get_twamp_light_config(sros_parser_7750, parsed_twamp_light_config):
     """
     Test to retrieve the TWAMP light configuration.
     """
-    result = sros_parser.get_twamp_light_config()
+    result = sros_parser_7750.get_twamp_light_config()
     assert result == parsed_twamp_light_config
 
 
-def test_get_aaa_configuration(sros_parser, parsed_aaa_configuration):
+def test_get_aaa_configuration(sros_parser_7750, parsed_aaa_configuration):
     """
     Test to retrieve the AAA configuration.
     """
-    result = sros_parser.get_aaa_configuration()
+    result = sros_parser_7750.get_aaa_configuration()
     assert result == parsed_aaa_configuration
 
 
-def test_get_pim_configuration(sros_parser, parsed_pim_configuration):
+def test_get_pim_configuration(sros_parser_7750, parsed_pim_configuration):
     """
     Test to retrieve the PIM configuration.
     """
-    result = sros_parser.get_pim_configuration()
+    result = sros_parser_7750.get_pim_configuration()
     assert result == parsed_pim_configuration
 
 
-def test_get_ldp_configuration(sros_parser, parsed_ldp_configuration):
+def test_get_ldp_configuration(sros_parser_7750, parsed_ldp_configuration):
     """
     Test to retrieve the LDP configuration.
     """
-    result = sros_parser.get_ldp_configuration()
+    result = sros_parser_7750.get_ldp_configuration()
     assert result == parsed_ldp_configuration
 
 
-def test_get_system_time_ntp_config(sros_parser, parsed_system_time_ntp_config):
+def test_get_system_time_ntp_config(sros_parser_7750, parsed_system_time_ntp_config):
     """
     Test to retrieve the system time NTP configuration.
     """
-    result = sros_parser.get_system_time_ntp_config()
+    result = sros_parser_7750.get_system_time_ntp_config()
     assert result == parsed_system_time_ntp_config

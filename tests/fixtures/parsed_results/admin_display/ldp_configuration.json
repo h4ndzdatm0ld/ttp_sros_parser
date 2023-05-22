@@ -1,1 +1,1 @@
-[{"configure": {"router": {"ldp": {"admin_state": true, "interface_parameters": {}, "targeted-session": {}}}}}]
+[{"configure": {"router": {"ldp": {"export-tunnel-table": "EXPORT", "fast-reroute": true, "fec-originate": "218.152.120.207/32", "interface_parameters": {"interface": [{"dual-stack": true, "ipv4": {}, "name": "to-7750-01"}, {"dual-stack": true, "ipv4": {}, "name": "to-BTS0475-7750-H2"}]}, "pop": true, "targeted-session": {}}}}}]

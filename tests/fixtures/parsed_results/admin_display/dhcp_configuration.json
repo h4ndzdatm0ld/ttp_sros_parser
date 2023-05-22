@@ -1,1 +1,1 @@
-[{}]
+[{"configure": {"router": {"dhcp": {"_ignore_": "management", "server": {"admin_state": true, "name": "SERVEUR-DHCP-GENERIQUE", "pool": {"max-lease-time": "hrs 4", "min-lease-time": "hrs 4", "name": "POOL-LOCAL-MIGRATION-3P", "options": {"custom-option": [{"address": "195.85.32.97", "id": "42"}, {"address": "195.85.32.97", "id": "72"}], "dns-server": ["195.85.40.10", "195.85.40.15"]}, "subnet": {"address-range": "10.98.115.2 10.98.123.254", "prefix": "10.98.115.0/20"}}, "user-db": "SRV-DHCP-LOCAL"}}}}}]
