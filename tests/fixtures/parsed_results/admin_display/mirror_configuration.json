@@ -1,1 +1,1 @@
-[{}]
+[{"configure": {"mirror": {"mirror-conf": {"admin-state": true, "description": "\"TPLALIS-d01-1\"", "encap": {"l3-encap": {"encap-type": "layer-3-encap ip-udp-shim", "gateway": {"dest-ip": "218.141.22.146", "dest-udp": "23000", "src-ip": "218.152.120.74", "src-udp": "23457"}}}, "mirror-dest": "19001", "name": "\"19001\"", "type": "ip-only"}}}}]

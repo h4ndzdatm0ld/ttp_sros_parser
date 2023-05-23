@@ -1,1 +1,1 @@
-[{}]
+[{"configure": {"filter": {"log": [{"description": "IPV4-FILTER-LOG", "log-id": "104"}, {"description": "IPV6-FILTER-LOG", "log-id": "106"}]}}}]

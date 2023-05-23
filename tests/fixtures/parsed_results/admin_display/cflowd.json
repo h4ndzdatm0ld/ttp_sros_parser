@@ -1,1 +1,1 @@
-[{}]
+[{"configure": {"cflowd": {"active-timeout": "1", "cache-size": "128000", "collector": [{"collector_ip_address": "10.61.221.151:3000", "collector_template-set": "mpls-ip", "description": "vers Route Explorer", "version_id": "9"}, {"collector_ip_address": "218.152.120.60", "collector_template-set": "mpls-ip", "description": "Collecteur Peakflow", "version_id": "10"}], "inactive-timeout": "30", "rate": "2000", "template-retransmit": "120"}}}]
