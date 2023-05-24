@@ -7,31 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2023-XX-XX
 
 ### Added
-    - Contributions from @Jeremy-Coder76. Test / parsing changes + additional parsers. PR#33
-        - AAA Config/Declaration
-        - CFLOWD
-        - DHCP
-        - Filters
-        - IGMP
-        - ISIS
-        - L2TP
-        - LDP
-        - Mirror
-        - Mmgt Router
-        - PIM
-        - Multicast
-        - Qos
-        - Port Cross XC
-        - VRRP
-        - TWAMP
-        - System /
-        - Suubscriber
-        - Router Policy
-        - BGP
-        - Redundancy
-        - Radius
     - Introduced Dataclasses and simplified the main class object SrosParser
-
+    - Contributions from @Jeremy-Coder76. Test / parsing changes + additional parsers. PR#33
     Methods
     - get_system_begin
     - get_mgmt_router_config
@@ -67,6 +44,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - get_system_time_ntp_config
 ### Changed
     - Several parsing changes happened, which will break previously working parsers. PR#33
+    - Private `_parse` method always returns Dict now
+    - All unit tests reflect the above changes
 
 ## [0.1.6] - 2022-22-05
 

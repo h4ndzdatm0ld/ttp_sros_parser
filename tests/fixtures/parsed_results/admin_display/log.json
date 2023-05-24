@@ -1,147 +1,134 @@
-[
-   {
-      "configure":{
-         "log":[
-            {
-               "file":[
-                  {
-                     "file-id":"10"
-                  },
-                  {
-                     "compact-flash-location":{
-                        "primary":"cf3"
-                     },
-                     "description":"Syslog-storage",
-                     "file-id":"20",
-                     "retention":"350",
-                     "rollover":"1440"
-                  },
-                  {
-                     "compact-flash-location":{
-                        "primary":"cf3"
-                     },
-                     "description":"Change-storage",
-                     "file-id":"30",
-                     "retention":"350",
-                     "rollover":"1440"
-                  }
-               ],
-               "log-events":{
-                  "chassis":[
-                     {
-                        "event":"system",
-                        "event-id":"2103",
-                        "generate":true
-                     },
-                     {
-                        "event":"system",
-                        "event-id":"2104",
-                        "generate":true
-                     },
-                     {
-                        "event":"vrtr",
-                        "event-id":"2034",
-                        "generate":true
-                     }
-                  ]
-               },
-               "snmp-trap-group":[
-                  {
-                     "log-id":"10"
-                  },
-                  {
-                     "log-id":"7",
-                     "trap-target":{
-                        "address":"10.141.128.78",
-                        "name":"SW_INC",
-                        "notify-community":"2Y2LHTZP31",
-                        "snmp-version":"snmpv2c"
-                     }
-                  },
-                  {
-                     "description":"5620sam",
-                     "log-id":"98",
-                     "trap-target":[
-                        {
-                           "address":"99.194.69.164",
-                           "name":"0017A4770C06:main1",
-                           "notify-community":"snmpuser3",
-                           "security-level":"privacy",
-                           "snmp-version":"snmpv3"
-                        },
-                        {
-                           "address":"99.215.238.164",
-                           "name":"0017A4770C06:main2",
-                           "notify-community":"snmpuser3",
-                           "security-level":"privacy",
-                           "snmp-version":"snmpv3"
-                        },
-                        {
-                           "address":"99.194.69.164",
-                           "name":"99.194.69.164:162",
-                           "notify-community":"snmpuser3",
-                           "security-level":"privacy",
-                           "snmp-version":"snmpv3"
-                        },
-                        {
-                           "address":"99.215.238.164",
-                           "name":"99.215.238.164:162",
-                           "notify-community":"snmpuser3",
-                           "security-level":"privacy",
-                           "snmp-version":"snmpv3"
-                        }
-                     ]
-                  }
-               ],
-               "syslog":{
-                  "address":"10.215.141.147",
-                  "description":"Syslog Server",
-                  "syslog-id":"5"
-               }
+{
+  "configure": {
+    "log": [
+      {
+        "file": [
+          {
+            "file-id": "10"
+          }, {
+            "compact-flash-location": {
+              "primary": "cf3"
             },
-            {
-               "log-id":"5",
-               "source":{
-                  "change":true,
-                  "main":true,
-                  "security":true,
-                  "source":"main"
-               }
+            "description": "Syslog-storage",
+            "file-id": "20",
+            "retention": "350",
+            "rollover": "1440"
+          }, {
+            "compact-flash-location": {
+              "primary": "cf3"
             },
+            "description": "Change-storage",
+            "file-id": "30",
+            "retention": "350",
+            "rollover": "1440"
+          }
+        ],
+        "log-events": {
+          "chassis": [
             {
-               "description":"SW_INC",
-               "destination":"snmp",
-               "log-id":"7",
-               "source":{
-                  "main":true,
-                  "security":true,
-                  "source":"main"
-               }
-            },
-            {
-               "log-id":"20",
-               "source":{
-                  "main":true,
-                  "security":true,
-                  "source":"main"
-               }
-            },
-            {
-               "log-id":"30",
-               "source":{
-                  "change":true,
-                  "source":"change"
-               }
-            },
-            {
-               "log-id":"98",
-               "source":{
-                  "main":true,
-                  "security":true,
-                  "source":"main"
-               }
+              "event": "system",
+              "event-id": "2103",
+              "generate": true
+            }, {
+              "event": "system",
+              "event-id": "2104",
+              "generate": true
+            }, {
+              "event": "vrtr",
+              "event-id": "2034",
+              "generate": true
             }
-         ]
+          ]
+        },
+        "snmp-trap-group": [
+          {
+            "log-id": "10"
+          }, {
+            "log-id": "7",
+            "trap-target": {
+              "address": "10.141.128.78",
+              "name": "SW_INC",
+              "notify-community": "2Y2LHTZP31",
+              "snmp-version": "snmpv2c"
+            }
+          }, {
+            "description": "5620sam",
+            "log-id": "98",
+            "trap-target": [
+              {
+                "address": "99.194.69.164",
+                "name": "0017A4770C06:main1",
+                "notify-community": "snmpuser3",
+                "security-level": "privacy",
+                "snmp-version": "snmpv3"
+              }, {
+                "address": "99.215.238.164",
+                "name": "0017A4770C06:main2",
+                "notify-community": "snmpuser3",
+                "security-level": "privacy",
+                "snmp-version": "snmpv3"
+              }, {
+                "address": "99.194.69.164",
+                "name": "99.194.69.164:162",
+                "notify-community": "snmpuser3",
+                "security-level": "privacy",
+                "snmp-version": "snmpv3"
+              }, {
+                "address": "99.215.238.164",
+                "name": "99.215.238.164:162",
+                "notify-community": "snmpuser3",
+                "security-level": "privacy",
+                "snmp-version": "snmpv3"
+              }
+            ]
+          }
+        ],
+        "syslog": {
+          "address": "10.215.141.147",
+          "description": "Syslog Server",
+          "syslog-id": "5"
+        }
+      },
+      {
+        "log-id": "5",
+        "source": {
+          "change": true,
+          "main": true,
+          "security": true,
+          "source": "main"
+        }
+      },
+      {
+        "description": "SW_INC",
+        "destination": "snmp",
+        "log-id": "7",
+        "source": {
+          "main": true,
+          "security": true,
+          "source": "main"
+        }
+      },
+      {
+        "log-id": "20",
+        "source": {
+          "main": true,
+          "security": true,
+          "source": "main"
+        }
+      }, {
+        "log-id": "30",
+        "source": {
+          "change": true,
+          "source": "change"
+        }
+      }, {
+        "log-id": "98",
+        "source": {
+          "main": true,
+          "security": true,
+          "source": "main"
+        }
       }
-   }
-]
+    ]
+  }
+}

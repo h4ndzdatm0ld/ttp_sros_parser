@@ -1,37 +1,33 @@
-[
-   {
-      "static_route":{
-         "ipv4":{
-            "count":{
-               "total_routes":"3"
-            },
-            "entry":[
-               {
-                  "active":"Y",
-                  "ipaddress":"10.115.5.0/24",
-                  "metric":"1",
-                  "preference":"5",
-                  "tag":"1000",
-                  "type":"BH"
-               },
-               {
-                  "active":"Y",
-                  "ipaddress":"10.115.46.0/24",
-                  "metric":"1",
-                  "preference":"5",
-                  "tag":"1000",
-                  "type":"BH"
-               },
-               {
-                  "active":"Y",
-                  "ipaddress":"10.119.238.0/24",
-                  "metric":"1",
-                  "preference":"5",
-                  "tag":"1000",
-                  "type":"BH"
-               }
-            ]
-         }
-      }
-   }
-]
+{
+  "static_route": {
+    "ipv4": {
+      "count": {
+        "total_routes": "3"
+      },
+      "entry": [
+        {
+          "active": "Y",
+          "ipaddress": "10.115.5.0/24",
+          "metric": "1",
+          "preference": "5",
+          "tag": "1000",
+          "type": "BH"
+        }, {
+          "active": "Y",
+          "ipaddress": "10.115.46.0/24",
+          "metric": "1",
+          "preference": "5",
+          "tag": "1000",
+          "type": "BH"
+        }, {
+          "active": "Y",
+          "ipaddress": "10.119.238.0/24",
+          "metric": "1",
+          "preference": "5",
+          "tag": "1000",
+          "type": "BH"
+        }
+      ]
+    }
+  }
+}

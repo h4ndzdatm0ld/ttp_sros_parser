@@ -1,147 +1,133 @@
-[
-   {
-      "configure":{
-         "router":{
-            "router-name":{
-               "management":{
-                  "entry":[
-                     {
-                        "address":"10.132.8.144",
-                        "next-hop":"10.203.3.174",
-                        "prefix":"28"
-                     },
-                     {
-                        "address":"10.132.192.0",
-                        "next-hop":"10.203.3.174",
-                        "prefix":"20"
-                     },
-                     {
-                        "address":"10.132.208.0",
-                        "next-hop":"10.203.3.174",
-                        "prefix":"22"
-                     },
-                     {
-                        "address":"1001:1000:a600::",
-                        "next-hop":"1001:1000:2a6a:30f6:645:2a0::",
-                        "prefix":"40"
-                     }
-                  ]
-               }
-            },
-            "static-route":{
-               "ipv4":{
-                  "entry":[
-                     {
-                        "address":"0.0.0.0",
-                        "bfd":"bfd-enable",
-                        "bfd-enable":true,
-                        "next-hop":"192.168.0.1",
-                        "prefix":"0"
-                     },
-                     {
-                        "address":"0.0.0.0",
-                        "next-hop":"192.168.10.1",
-                        "preference":"10",
-                        "prefix":"0"
-                     },
-                     {
-                        "address":"10.115.69.65",
-                        "bfd":"bfd-enable",
-                        "bfd-enable":true,
-                        "next-hop":"172.25.69.88",
-                        "prefix":"32"
-                     },
-                     {
-                        "address":"10.115.69.65",
-                        "next-hop":"172.25.69.88",
-                        "preference":"10",
-                        "prefix":"32"
-                     },
-                     {
-                        "address":"10.115.69.101",
-                        "black-hole":true,
-                        "prefix":"32"
-                     },
-                     {
-                        "address":"::",
-                        "bfd":"bfd-enable",
-                        "bfd-enable":true,
-                        "next-hop":"1001:1000:206a:31cd:645:400::/64",
-                        "prefix":"0"
-                     },
-                     {
-                        "address":"::",
-                        "next-hop":"1001:1000:206a:31cc:645:400::/64",
-                        "preference":"10",
-                        "prefix":"0"
-                     },
-                     {
-                        "address":"1001:1000:2000:0:645:2a0::",
-                        "bfd":"bfd-enable",
-                        "bfd-enable":true,
-                        "next-hop":"1001:1000:206a:31cd:645:400::",
-                        "prefix":"128"
-                     },
-                     {
-                        "address":"1001:1000:2000:0:645:2a0:0:1",
-                        "next-hop":"1001:1000:206a:31cd:645:400::",
-                        "preference":"10",
-                        "prefix":"128"
-                     },
-                     {
-                        "address":"1001:1000:2062:30cf::",
-                        "black-hole":true,
-                        "prefix":"64"
-                     },
-                     {
-                        "address":"1001:1000:2062:3634::",
-                        "black-hole":true,
-                        "prefix":"64"
-                     }
-                  ]
-               },
-               "ipv6":{
-                  "entry":[
-                     {
-                        "address":"::",
-                        "bfd":"bfd-enable",
-                        "bfd-enable":true,
-                        "next-hop":"1001:1000:206a:31cd:645:400::/64",
-                        "prefix":"0"
-                     },
-                     {
-                        "address":"::",
-                        "next-hop":"1001:1000:206a:31cc:645:400::/64",
-                        "preference":"10",
-                        "prefix":"0"
-                     },
-                     {
-                        "address":"1001:1000:2000:0:645:2a0::",
-                        "bfd":"bfd-enable",
-                        "bfd-enable":true,
-                        "next-hop":"1001:1000:206a:31cd:645:400::",
-                        "prefix":"128"
-                     },
-                     {
-                        "address":"1001:1000:2000:0:645:2a0:0:1",
-                        "next-hop":"1001:1000:206a:31cd:645:400::",
-                        "preference":"10",
-                        "prefix":"128"
-                     },
-                     {
-                        "address":"1001:1000:2062:30cf::",
-                        "black-hole":true,
-                        "prefix":"64"
-                     },
-                     {
-                        "address":"1001:1000:2062:3634::",
-                        "black-hole":true,
-                        "prefix":"64"
-                     }
-                  ]
-               }
+{
+  "configure": {
+    "router": {
+      "router-name": {
+        "management": {
+          "entry": [
+            {
+              "address": "10.132.8.144",
+              "next-hop": "10.203.3.174",
+              "prefix": "28"
+            }, {
+              "address": "10.132.192.0",
+              "next-hop": "10.203.3.174",
+              "prefix": "20"
+            }, {
+              "address": "10.132.208.0",
+              "next-hop": "10.203.3.174",
+              "prefix": "22"
+            }, {
+              "address": "1001:1000:a600::",
+              "next-hop": "1001:1000:2a6a:30f6:645:2a0::",
+              "prefix": "40"
             }
-         }
+          ]
+        }
+      },
+      "static-route": {
+        "ipv4": {
+          "entry": [
+            {
+              "address": "0.0.0.0",
+              "bfd": "bfd-enable",
+              "bfd-enable": true,
+              "next-hop": "192.168.0.1",
+              "prefix": "0"
+            },
+            {
+              "address": "0.0.0.0",
+              "next-hop": "192.168.10.1",
+              "preference": "10",
+              "prefix": "0"
+            },
+            {
+              "address": "10.115.69.65",
+              "bfd": "bfd-enable",
+              "bfd-enable": true,
+              "next-hop": "172.25.69.88",
+              "prefix": "32"
+            },
+            {
+              "address": "10.115.69.65",
+              "next-hop": "172.25.69.88",
+              "preference": "10",
+              "prefix": "32"
+            }, {
+              "address": "10.115.69.101",
+              "black-hole": true,
+              "prefix": "32"
+            }, {
+              "address": "::",
+              "bfd": "bfd-enable",
+              "bfd-enable": true,
+              "next-hop": "1001:1000:206a:31cd:645:400::/64",
+              "prefix": "0"
+            }, {
+              "address": "::",
+              "next-hop": "1001:1000:206a:31cc:645:400::/64",
+              "preference": "10",
+              "prefix": "0"
+            }, {
+              "address": "1001:1000:2000:0:645:2a0::",
+              "bfd": "bfd-enable",
+              "bfd-enable": true,
+              "next-hop": "1001:1000:206a:31cd:645:400::",
+              "prefix": "128"
+            }, {
+              "address": "1001:1000:2000:0:645:2a0:0:1",
+              "next-hop": "1001:1000:206a:31cd:645:400::",
+              "preference": "10",
+              "prefix": "128"
+            }, {
+              "address": "1001:1000:2062:30cf::",
+              "black-hole": true,
+              "prefix": "64"
+            }, {
+              "address": "1001:1000:2062:3634::",
+              "black-hole": true,
+              "prefix": "64"
+            }
+          ]
+        },
+        "ipv6": {
+          "entry": [
+            {
+              "address": "::",
+              "bfd": "bfd-enable",
+              "bfd-enable": true,
+              "next-hop": "1001:1000:206a:31cd:645:400::/64",
+              "prefix": "0"
+            },
+            {
+              "address": "::",
+              "next-hop": "1001:1000:206a:31cc:645:400::/64",
+              "preference": "10",
+              "prefix": "0"
+            },
+            {
+              "address": "1001:1000:2000:0:645:2a0::",
+              "bfd": "bfd-enable",
+              "bfd-enable": true,
+              "next-hop": "1001:1000:206a:31cd:645:400::",
+              "prefix": "128"
+            },
+            {
+              "address": "1001:1000:2000:0:645:2a0:0:1",
+              "next-hop": "1001:1000:206a:31cd:645:400::",
+              "preference": "10",
+              "prefix": "128"
+            }, {
+              "address": "1001:1000:2062:30cf::",
+              "black-hole": true,
+              "prefix": "64"
+            }, {
+              "address": "1001:1000:2062:3634::",
+              "black-hole": true,
+              "prefix": "64"
+            }
+          ]
+        }
       }
-   }
-]
+    }
+  }
+}

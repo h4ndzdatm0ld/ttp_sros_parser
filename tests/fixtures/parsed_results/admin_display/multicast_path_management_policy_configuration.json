@@ -1,1 +1,15 @@
-[{"configure": {"mcast-management": {"bandwidth-policy": {"name": "14-SEC-PATHS", "t2-paths": {"secondary-path": {"number-paths": "14", "redundant-sfm": "14"}}}}}}]
+{
+  "configure": {
+    "mcast-management": {
+      "bandwidth-policy": {
+        "name": "14-SEC-PATHS",
+        "t2-paths": {
+          "secondary-path": {
+            "number-paths": "14",
+            "redundant-sfm": "14"
+          }
+        }
+      }
+    }
+  }
+}

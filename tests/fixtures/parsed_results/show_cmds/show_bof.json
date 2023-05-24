@@ -1,51 +1,45 @@
-[
-   {
-      "bof":{
-         "address":[
-            {
-               "address":"192.168.1.1",
-               "prefix-length":"23"
-            },
-            {
-               "address":"1001:1000:2a65:2000:0FA:413::6",
-               "prefix-length":"64"
-            }
-         ],
-         "autonegotiate":true,
-         "console-speed":"115200",
-         "dns-domain":"admin-save.com",
-         "duplex":"full",
-         "image":{
-            "cf-card":"cf3",
-            "primary-image":"7705-TiMOS-9.0.R9"
-         },
-         "persist":"off",
-         "primary-config":{
-            "cf-card":"cf3",
-            "primary-config":"EXAMPLEPHX-P-AL-7705-01.txt.cfg"
-         },
-         "primary-dns":"192.168.1.1",
-         "secondary-dns":"8.8.8.8",
-         "speed":"100",
-         "static-route":[
-            {
-               "network":"0.0.0.0/1",
-               "next-hop":"192.168.100.1"
-            },
-            {
-               "network":"128.0.0.0/1",
-               "next-hop":"192.168.100.1"
-            },
-            {
-               "network":"1001:1000:0A00::/40",
-               "next-hop":"1001:1000:2a69:2000:0FA:420::FFFF"
-            },
-            {
-               "network":"1001:1000:2A00::/40",
-               "next-hop":"1001:1000:2a69:2000:0FA:420::FFFF"
-            }
-         ],
-         "wait":"3"
+{
+  "bof": {
+    "address": [
+      {
+        "address": "192.168.1.1",
+        "prefix-length": "23"
+      }, {
+        "address": "1001:1000:2a65:2000:0FA:413::6",
+        "prefix-length": "64"
       }
-   }
-]
+    ],
+    "autonegotiate": true,
+    "console-speed": "115200",
+    "dns-domain": "admin-save.com",
+    "duplex": "full",
+    "image": {
+      "cf-card": "cf3",
+      "primary-image": "7705-TiMOS-9.0.R9"
+    },
+    "persist": "off",
+    "primary-config": {
+      "cf-card": "cf3",
+      "primary-config": "EXAMPLEPHX-P-AL-7705-01.txt.cfg"
+    },
+    "primary-dns": "192.168.1.1",
+    "secondary-dns": "8.8.8.8",
+    "speed": "100",
+    "static-route": [
+      {
+        "network": "0.0.0.0/1",
+        "next-hop": "192.168.100.1"
+      }, {
+        "network": "128.0.0.0/1",
+        "next-hop": "192.168.100.1"
+      }, {
+        "network": "1001:1000:0A00::/40",
+        "next-hop": "1001:1000:2a69:2000:0FA:420::FFFF"
+      }, {
+        "network": "1001:1000:2A00::/40",
+        "next-hop": "1001:1000:2a69:2000:0FA:420::FFFF"
+      }
+    ],
+    "wait": "3"
+  }
+}

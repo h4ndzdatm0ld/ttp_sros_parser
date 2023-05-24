@@ -1,31 +1,29 @@
-[
-   {
-      "configure":{
-         "connector":{
-            "port":{
-               "1/1/c1":{
-                  "admin-state":true,
-                  "breakout":"c4-10g"
-               },
-               "1/1/c1/1":{
-                  "admin-state":true
-               },
-               "1/1/c1/3":{
-                  "admin-state":true
-               },
-               "1/1/c1/4":{
-                  "admin-state":true
-               },
-               "1/1/c2":{
-                  "admin-state":true,
-                  "breakout":"c4-10g"
-               },
-               "1/1/c3":{
-                  "admin-state":true,
-                  "breakout":"c4-10g"
-               }
-            }
-         }
+{
+  "configure": {
+    "connector": {
+      "port": {
+        "1/1/c1": {
+          "admin-state": true,
+          "breakout": "c4-10g"
+        },
+        "1/1/c1/1": {
+          "admin-state": true
+        },
+        "1/1/c1/3": {
+          "admin-state": true
+        },
+        "1/1/c1/4": {
+          "admin-state": true
+        },
+        "1/1/c2": {
+          "admin-state": true,
+          "breakout": "c4-10g"
+        },
+        "1/1/c3": {
+          "admin-state": true,
+          "breakout": "c4-10g"
+        }
       }
-   }
-]
+    }
+  }
+}

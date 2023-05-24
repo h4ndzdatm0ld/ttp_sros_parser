@@ -33,7 +33,6 @@ def test_show_router_interface(parsed_show_router_int):
 
 
 def test_show_service_service_using(parsed_show_service_using):
-
     """
     Test parsing show service service using show command
     """

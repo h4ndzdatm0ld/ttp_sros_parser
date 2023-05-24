@@ -11,7 +11,8 @@ keywords = ["sros", "ttp", "ttp-templates", "network automation", "nokia", "7750
 python = "^3.8"
 ttp = "0.7.2"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
+mypy = "*"
 flake8 = "*"
 pylint = "*"
 pydocstyle = "*"
@@ -61,3 +62,35 @@ exclude = '''
         | dist
         )/
     '''
+
+
+[tool.mypy]
+namespace_packages = true
+explicit_package_bases = true
+show_error_codes = true
+enable_error_code = [
+  "ignore-without-code",
+  "truthy-bool",
+]
+check_untyped_defs = true
+ignore_errors = false
+ignore_missing_imports = true
+strict_optional = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unused_configs = true
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+disallow_untyped_decorators = true
+disallow_any_generics = true
+warn_return_any = false
+python_version = 3.8
+disallow_subclassing_any = true
+no_implicit_optional = true
+implicit_reexport = true
+strict_equality = true
+exclude = "tests/"
+
+[tool.bandit]
+exclude_dirs = ["tests"]

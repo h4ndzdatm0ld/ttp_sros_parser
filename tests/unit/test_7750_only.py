@@ -31,8 +31,8 @@ def test_get_lags_group2(sros_parser_7750_R2, parsed_lags_1):
     """
     result = sros_parser_7750_R2.get_lags()
     assert result == parsed_lags_1
-    assert len(result[0]["configure"]["lag"]) == 6
-    assert result[0]["configure"]["lag"][5]["name"] == "myLag105"
+    assert len(result["configure"]["lag"]) == 6
+    assert result["configure"]["lag"][5]["name"] == "myLag105"
 
 
 # add testting for get_python_declaration_configuration

@@ -1,1 +1,18 @@
-[{"configure": {"system": {"security": {"cpm-filter": [{"ip-filter": {"admin_state": false}, "ipv6-filter": {"admin_state": false}}, {}]}}}}]
+{
+  "configure": {
+    "system": {
+      "security": {
+        "cpm-filter": [
+          {
+            "ip-filter": {
+              "admin_state": false
+            },
+            "ipv6-filter": {
+              "admin_state": false
+            }
+          }, {}
+        ]
+      }
+    }
+  }
+}
