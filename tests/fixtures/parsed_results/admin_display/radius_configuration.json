@@ -1,1 +1,27 @@
-[{"configure": {"router": {"radius-server": {"server": [{"acct-port": "1646", "address": "195.85.40.21", "description": "Radius serveR", "hash-type": "hash2", "name": "RADIUS-ACCT", "secret": "netconanRemoved16"}, {"accept-coa": true, "address": "195.85.40.20", "auth-port": "1645", "coa-script-policy": "RADIUS-IN-DEF", "description": "Radius server", "hash-type": "hash2", "name": "RADIUS-AUTH", "secret": "netconanRemoved17"}]}}}}]
+{
+  "configure": {
+    "router": {
+      "radius-server": {
+        "server": [
+          {
+            "acct-port": "1646",
+            "address": "195.85.40.21",
+            "description": "Radius serveR",
+            "hash-type": "hash2",
+            "name": "RADIUS-ACCT",
+            "secret": "netconanRemoved16"
+          }, {
+            "accept-coa": true,
+            "address": "195.85.40.20",
+            "auth-port": "1645",
+            "coa-script-policy": "RADIUS-IN-DEF",
+            "description": "Radius server",
+            "hash-type": "hash2",
+            "name": "RADIUS-AUTH",
+            "secret": "netconanRemoved17"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -40,7 +40,9 @@ def test_get_system_configuration(sros_parser, parsed_system_configuration):
 def test_get_full_config(sros_parser):
     """A full config top level keys."""
     result = sros_parser.get_full_config()
-    assert [keys for keys in result[0].keys()] == ["configure", "router", "system"]
+    assert [keys for keys in result.keys()] == ["configure", "router", "system"]
+    # assert result["configure"]["router"]["twamp_light"]
+    # assert "10.114.45.1" in result["configure"]["system"]["ntp"]["server"]["address"]
 
 
 def test_get_system_hostname(sros_parser):
@@ -83,7 +85,7 @@ def test_get_custom_template(sros_parser):
     """
     template = "ttp_sros_parser/templates/custom/sros_custom_hostname_asn.ttp"
     result = sros_parser.get_custom_template(template_path=template)
-    custom = [{"asn": {"router": {"autonomous-system": "64500"}}, "system": {"hostname": "EXAMPLEPHX-P-AL-7750-01"}}]
+    custom = {"asn": {"router": {"autonomous-system": "64500"}}, "system": {"hostname": "EXAMPLEPHX-P-AL-7750-01"}}
     assert result == custom
 
 
@@ -92,7 +94,7 @@ def test_get_system_service_sdp(sros_parser, parsed_system_sdp):
     Test extracting system SDPs
     """
     result = sros_parser.get_system_service_sdp()
-    assert result, parsed_system_sdp
+    assert result == parsed_system_sdp
 
 
 def test_get_router_static_routes(sros_parser, parsed_static_routes):
@@ -120,7 +122,6 @@ def test_get_ports(sros_parser, parsed_ports):
 
 
 def test_get_log_configuration(sros_parser, parsed_log):
-
     """
     Test parsing log configuration
     """

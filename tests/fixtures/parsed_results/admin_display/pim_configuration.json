@@ -1,1 +1,15 @@
-[{"configure": {"router": {"pim": {"interface": [{"name": "to-7750-01"}, {"name": "to-BTS0475-7750-H2"}]}}}}]
+{
+  "configure": {
+    "router": {
+      "pim": {
+        "interface": [
+          {
+            "name": "to-7750-01"
+          }, {
+            "name": "to-BTS0475-7750-H2"
+          }
+        ]
+      }
+    }
+  }
+}

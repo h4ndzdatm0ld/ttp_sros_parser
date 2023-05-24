@@ -1,1 +1,35 @@
-[{"configure": {"vrrp": {"policy": [{"delta-in-use-limit": "100", "id": "1106", "priority-event": {"lag-port-down": {"hold-clear": "180", "id": "36", "number-down": {"id": "1", "priority": "100"}}}}, {"delta-in-use-limit": "100", "id": "4065", "priority-event": {"lag-port-down": {"hold-clear": "180", "id": "243", "number-down": {"id": "1", "priority": "100"}}}}]}}}]
+{
+  "configure": {
+    "vrrp": {
+      "policy": [
+        {
+          "delta-in-use-limit": "100",
+          "id": "1106",
+          "priority-event": {
+            "lag-port-down": {
+              "hold-clear": "180",
+              "id": "36",
+              "number-down": {
+                "id": "1",
+                "priority": "100"
+              }
+            }
+          }
+        }, {
+          "delta-in-use-limit": "100",
+          "id": "4065",
+          "priority-event": {
+            "lag-port-down": {
+              "hold-clear": "180",
+              "id": "243",
+              "number-down": {
+                "id": "1",
+                "priority": "100"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

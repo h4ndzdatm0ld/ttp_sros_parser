@@ -1,1 +1,17 @@
-[{"configure": {"system": {"ntp": {"server": {"address": ["10.114.45.0 prefer", "10.114.45.1", "1 name \"RADIUS-ACCT\"", "1 name \"RADIUS-AUTH\"", "1 address 195.85.40.20 secret \"netconanRemoved18\" hash2 port 1645"]}}}}}]
+{
+  "configure": {
+    "system": {
+      "ntp": {
+        "server": {
+          "address": [
+            "10.114.45.0 prefer",
+            "10.114.45.1",
+            "1 name \"RADIUS-ACCT\"",
+            "1 name \"RADIUS-AUTH\"",
+            "1 address 195.85.40.20 secret \"netconanRemoved18\" hash2 port 1645"
+          ]
+        }
+      }
+    }
+  }
+}

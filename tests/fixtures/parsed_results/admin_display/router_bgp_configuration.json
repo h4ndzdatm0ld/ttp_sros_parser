@@ -1,1 +1,77 @@
-[{"configure": {"router": {"bgp": {"advertise-external": [["ipv4", "ipv6", "label-ipv4", "label-ipv6"]], "backup-path": [["ipv4", "ipv6", "label-ipv4", "label-ipv6"]], "enable-peer-tracking": true, "group": [{"description": "\"Interco eBGP pour extension domaine PIM\"", "export": ["\"EXPORT-ALL-MULTICAST-SOURCES\"", "\"default-reject\""], "family": "ipv4", "import": ["\"default-reject\""], "loop-detect": "discard-route", "name": "\"IP\"", "neighbor": {"description": "PTN00115_IP", "neighbor-id": "79.92.218.245"}, "peer-as": "65500", "ttl-security": "255", "type": "external"}, {"description": "\"acces pour Flux\"", "export": ["\"EXPORT-ALL-SOURCES\"", "\"default-reject\""], "family": "ipv4", "import": ["\"COLLECTE-IPv4-IMPORT\"", "\"default-accept-bgp\""], "loop-detect": "discard-route", "name": "\"EBGP\"", "neighbor": {"description": "PAR38-W01-AGR-IP", "neighbor-id": "78.197.9.157", "peer-as": "65510"}, "peer-as": "65500", "preference": "9", "ttl-security": "255", "type": "external"}], "ibgp-multipath": true, "next-hop-resolution": {"policy": "\"NEXT-HOP-TRACKING\"", "shortcut-tunnel": {"family": [{"resolution-filter": {"type": "ldp"}, "type": "ipv4"}, {}]}}, "peer-tracking-policy": "\"PEER-TRACKING\"", "rib-management": {"ipv6": {"route-table-import": "\"RIB_LEAK\""}, "label-ipv6": {"route-table-import": "\"RIB_LEAK\""}}}}}}]
+{
+  "configure": {
+    "router": {
+      "bgp": {
+        "advertise-external": [
+          ["ipv4", "ipv6", "label-ipv4", "label-ipv6"]
+        ],
+        "backup-path": [
+          ["ipv4", "ipv6", "label-ipv4", "label-ipv6"]
+        ],
+        "enable-peer-tracking": true,
+        "group": [
+          {
+            "description": "\"Interco eBGP pour extension domaine PIM\"",
+            "export": [
+              "\"EXPORT-ALL-MULTICAST-SOURCES\"", "\"default-reject\""
+            ],
+            "family": "ipv4",
+            "import": ["\"default-reject\""],
+            "loop-detect": "discard-route",
+            "name": "\"IP\"",
+            "neighbor": {
+              "description": "PTN00115_IP",
+              "neighbor-id": "79.92.218.245"
+            },
+            "peer-as": "65500",
+            "ttl-security": "255",
+            "type": "external"
+          }, {
+            "description": "\"acces pour Flux\"",
+            "export": [
+              "\"EXPORT-ALL-SOURCES\"", "\"default-reject\""
+            ],
+            "family": "ipv4",
+            "import": [
+              "\"COLLECTE-IPv4-IMPORT\"", "\"default-accept-bgp\""
+            ],
+            "loop-detect": "discard-route",
+            "name": "\"EBGP\"",
+            "neighbor": {
+              "description": "PAR38-W01-AGR-IP",
+              "neighbor-id": "78.197.9.157",
+              "peer-as": "65510"
+            },
+            "peer-as": "65500",
+            "preference": "9",
+            "ttl-security": "255",
+            "type": "external"
+          }
+        ],
+        "ibgp-multipath": true,
+        "next-hop-resolution": {
+          "policy": "\"NEXT-HOP-TRACKING\"",
+          "shortcut-tunnel": {
+            "family": [
+              {
+                "resolution-filter": {
+                  "type": "ldp"
+                },
+                "type": "ipv4"
+              }, {}
+            ]
+          }
+        },
+        "peer-tracking-policy": "\"PEER-TRACKING\"",
+        "rib-management": {
+          "ipv6": {
+            "route-table-import": "\"RIB_LEAK\""
+          },
+          "label-ipv6": {
+            "route-table-import": "\"RIB_LEAK\""
+          }
+        }
+      }
+    }
+  }
+}

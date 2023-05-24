@@ -1,1 +1,20 @@
-[{"configure": {"router": {"l2tp": {"admin_state": true, "group": {"admin_state": true, "group": "LNS", "protocol": "v2", "tunnel": {"admin_state": true, "local-name": "BNG-ATHENA", "peer": "195.185.47.234", "tunnel": "LNS"}}}}}}]
+{
+  "configure": {
+    "router": {
+      "l2tp": {
+        "admin_state": true,
+        "group": {
+          "admin_state": true,
+          "group": "LNS",
+          "protocol": "v2",
+          "tunnel": {
+            "admin_state": true,
+            "local-name": "BNG-ATHENA",
+            "peer": "195.185.47.234",
+            "tunnel": "LNS"
+          }
+        }
+      }
+    }
+  }
+}

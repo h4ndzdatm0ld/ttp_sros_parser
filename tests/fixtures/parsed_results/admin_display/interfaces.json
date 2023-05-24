@@ -1,54 +1,50 @@
-[
-   {
-      "router":{
-         "interfaces":[
+{
+  "router": {
+    "interfaces": [
+      {
+        "admin_state": true,
+        "ingress_stats": true,
+        "interface_name": "system",
+        "ipv4": {
+          "primary": {
+            "address": "199.199.9.1",
+            "prefix_length": "32"
+          }
+        },
+        "ipv6": {
+          "address": {
+            "ipv6_address": "2001:1111:3333:0:420:2a0::",
+            "prefix_length": "128"
+          }
+        }
+      }, {
+        "admin_state": true,
+        "description": "LINK-TO-EXAMPLEPHX-P-AL-0420-01",
+        "interface_name": "TO-42069-7705",
+        "ipv4": {
+          "bfd": {
+            "ipv4_bfd": "500 receive 500 multiplier 3"
+          },
+          "primary": {
+            "address": "172.25.199.132",
+            "prefix_length": "31"
+          }
+        },
+        "ipv6": {
+          "address": [
             {
-               "admin_state":true,
-               "ingress_stats":true,
-               "interface_name":"system",
-               "ipv4":{
-                  "primary":{
-                     "address":"199.199.9.1",
-                     "prefix_length":"32"
-                  }
-               },
-               "ipv6":{
-                  "address":{
-                     "ipv6_address":"2001:1111:3333:0:420:2a0::",
-                     "prefix_length":"128"
-                  }
-               }
-            },
-            {
-               "admin_state":true,
-               "description":"LINK-TO-EXAMPLEPHX-P-AL-0420-01",
-               "interface_name":"TO-42069-7705",
-               "ipv4":{
-                  "bfd":{
-                     "ipv4_bfd":"500 receive 500 multiplier 3"
-                  },
-                  "primary":{
-                     "address":"172.25.199.132",
-                     "prefix_length":"31"
-                  }
-               },
-               "ipv6":{
-                  "address":[
-                     {
-                        "ipv6_address":"2001:2222:3333:33e3:645:4a0::",
-                        "prefix_length":"64"
-                     },
-                     {
-                        "ipv6_bfd":"500 receive 500 multiplier 3 type cpm-np"
-                     }
-                  ]
-               },
-               "port":"lag-92:3482",
-               "qos":{
-                  "network-policy":"10120"
-               }
+              "ipv6_address": "2001:2222:3333:33e3:645:4a0::",
+              "prefix_length": "64"
+            }, {
+              "ipv6_bfd": "500 receive 500 multiplier 3 type cpm-np"
             }
-         ]
+          ]
+        },
+        "port": "lag-92:3482",
+        "qos": {
+          "network-policy": "10120"
+        }
       }
-   }
-]
+    ]
+  }
+}

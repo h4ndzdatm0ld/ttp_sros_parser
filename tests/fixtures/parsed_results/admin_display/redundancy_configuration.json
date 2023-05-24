@@ -1,1 +1,84 @@
-[{"configure": {"redundancy": {"multi-chassis": {"peer": {"admin_state": true, "description": "BNG02-PAR", "peer-address": "218.152.120.75", "sync": {"admin_state": true, "igmp": true, "port": [{"port": "lag-30", "range": [{"range": "100.1-100.499", "sync-tag": "tag1110"}, {"range": "100.1000-100.1000", "sync-tag": "tag1110"}, {"range": "835.1-835.24", "sync-tag": "tag1310"}, {"range": "835.1000-835.1000", "sync-tag": "tag1310"}, {"range": "836.1-836.24", "sync-tag": "tag1410"}, {"range": "836.1000-836.1000", "sync-tag": "tag1410"}, {"range": "1000.1-1000.499", "sync-tag": "tag1010"}, {"range": "1000.1000-1000.1000", "sync-tag": "tag1510"}, {"range": "1001.1-1001.499", "sync-tag": "tag1510"}]}, {"port": "lag-36", "range": [{"range": "100.1-100.499", "sync-tag": "tag1106"}, {"range": "100.1000-100.1000", "sync-tag": "tag1106"}, {"range": "1000.1-1000.499", "sync-tag": "tag1006"}, {"range": "1000.1000-1000.1000", "sync-tag": "tag1006"}, {"range": "1001.1-1001.499", "sync-tag": "tag1506"}, {"range": "1001.1000-1001.1000", "sync-tag": "tag1506"}]}], "srrp": true, "sub-mgmt": "ipoe pppoe"}}}, "synchronize": "boot-env"}}}]
+{
+  "configure": {
+    "redundancy": {
+      "multi-chassis": {
+        "peer": {
+          "admin_state": true,
+          "description": "BNG02-PAR",
+          "peer-address": "218.152.120.75",
+          "sync": {
+            "admin_state": true,
+            "igmp": true,
+            "port": [
+              {
+                "port": "lag-30",
+                "range": [
+                  {
+                    "range": "100.1-100.499",
+                    "sync-tag": "tag1110"
+                  },
+                  {
+                    "range": "100.1000-100.1000",
+                    "sync-tag": "tag1110"
+                  },
+                  {
+                    "range": "835.1-835.24",
+                    "sync-tag": "tag1310"
+                  },
+                  {
+                    "range": "835.1000-835.1000",
+                    "sync-tag": "tag1310"
+                  }, {
+                    "range": "836.1-836.24",
+                    "sync-tag": "tag1410"
+                  }, {
+                    "range": "836.1000-836.1000",
+                    "sync-tag": "tag1410"
+                  }, {
+                    "range": "1000.1-1000.499",
+                    "sync-tag": "tag1010"
+                  }, {
+                    "range": "1000.1000-1000.1000",
+                    "sync-tag": "tag1510"
+                  }, {
+                    "range": "1001.1-1001.499",
+                    "sync-tag": "tag1510"
+                  }
+                ]
+              }, {
+                "port": "lag-36",
+                "range": [
+                  {
+                    "range": "100.1-100.499",
+                    "sync-tag": "tag1106"
+                  },
+                  {
+                    "range": "100.1000-100.1000",
+                    "sync-tag": "tag1106"
+                  },
+                  {
+                    "range": "1000.1-1000.499",
+                    "sync-tag": "tag1006"
+                  },
+                  {
+                    "range": "1000.1000-1000.1000",
+                    "sync-tag": "tag1006"
+                  }, {
+                    "range": "1001.1-1001.499",
+                    "sync-tag": "tag1506"
+                  }, {
+                    "range": "1001.1000-1001.1000",
+                    "sync-tag": "tag1506"
+                  }
+                ]
+              }
+            ],
+            "srrp": true,
+            "sub-mgmt": "ipoe pppoe"
+          }
+        }
+      },
+      "synchronize": "boot-env"
+    }
+  }
+}

@@ -1,35 +1,32 @@
-[
-   {
-      "configure":{
-         "card":[
-            {
-               "card-type":"imm-2pac-fp3",
-               "fail-on-error":true,
-               "mda":{
-                  "admin-state":true,
-                  "egress-xpl":{
-                     "window":"10"
-                  },
-                  "fail-on-error":true,
-                  "ingress-xpl":{
-                     "window":"10"
-                  },
-                  "mda-slot":"1",
-                  "mda-type":"p10-10g-sfp"
-               },
-               "slot-number":"2"
-            },
-            {
-               "card-type":"imm5-10gb-xfp",
-               "fail-on-error":true,
-               "mda":{
-                  "admin-state":false,
-                  "fail-on-error":true,
-                  "mda-slot":"1"
-               },
-               "slot-number":"4"
-            }
-         ]
+{
+  "configure": {
+    "card": [
+      {
+        "card-type": "imm-2pac-fp3",
+        "fail-on-error": true,
+        "mda": {
+          "admin-state": true,
+          "egress-xpl": {
+            "window": "10"
+          },
+          "fail-on-error": true,
+          "ingress-xpl": {
+            "window": "10"
+          },
+          "mda-slot": "1",
+          "mda-type": "p10-10g-sfp"
+        },
+        "slot-number": "2"
+      }, {
+        "card-type": "imm5-10gb-xfp",
+        "fail-on-error": true,
+        "mda": {
+          "admin-state": false,
+          "fail-on-error": true,
+          "mda-slot": "1"
+        },
+        "slot-number": "4"
       }
-   }
-]
+    ]
+  }
+}

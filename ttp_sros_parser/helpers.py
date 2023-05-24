@@ -2,9 +2,10 @@
 import glob
 import sys
 from pathlib import Path
+from typing import List
 
 
-def globfindfile(regex):
+def globfindfile(regex: str) -> List[str]:
     """Locate a file in the DIR by passing the regex value (ie:(*.log)).
 
     The returned value by calling the function is the file. If the path is passed in, the full path is returned back -
@@ -19,7 +20,7 @@ def globfindfile(regex):
     return files
 
 
-def check_file(file: str):
+def check_file(file: str) -> str:
     """Check file exists."""
     file_path = Path(file)
 
