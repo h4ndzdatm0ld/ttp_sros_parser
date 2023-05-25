@@ -3,86 +3,86 @@
     "aaa": {
       "radius-script-policy": [
         {
-          "name": "\"RADIUS-IN-DEF\"",
+          "name": "RADIUS-IN-DEF",
           "primary": {
             "admin_state": true,
-            "script-url": "\"cf3:/SCRIPT_PYTHON/RADIUS-IN-DEF-v2.0.py\""
+            "script-url": "cf3:/SCRIPT_PYTHON/RADIUS-IN-DEF-v2.0.py"
           }
         },
         {
-          "name": "\"RADIUS-OUT-DEF\"",
+          "name": "RADIUS-OUT-DEF",
           "primary": {
             "admin_state": true,
-            "script-url": "\"cf3:/SCRIPT_PYTHON/RADIUS-OUT-DEF-v2.0.py\""
+            "script-url": "cf3:/SCRIPT_PYTHON/RADIUS-OUT-DEF-v2.0.py"
           }
         },
         {
-          "name": "\"RADIUS-OUT-DSL-TES\"",
+          "name": "RADIUS-OUT-DSL-TES",
           "primary": {
             "admin_state": true,
-            "script-url": "\"cf3:/SCRIPT_PYTHON/RADIUS-OUT-DSL-TES-v1.0.py\""
+            "script-url": "cf3:/SCRIPT_PYTHON/RADIUS-OUT-DSL-TES-v1.0.py"
           }
         },
         {
-          "name": "\"RADIUS-IN-DEF\""
+          "name": "RADIUS-IN-DEF"
         }, {
-          "name": "\"RADIUS-OUT-DEF\""
+          "name": "RADIUS-OUT-DEF"
         }, {
-          "name": "\"RADIUS-OUT-DSL-TES\""
+          "name": "RADIUS-OUT-DSL-TES"
         }, {
-          "name": "\"RADIUS-REQUEST-DROP\""
+          "name": "RADIUS-REQUEST-DROP"
         }, {
-          "name": "\"RADIUS-ACCEPT-BITSTREAM-RED\""
+          "name": "RADIUS-ACCEPT-BITSTREAM-RED"
         }, {
-          "name": "\"RADIUS-REQUEST-MIGR-SRR-RED\""
+          "name": "RADIUS-REQUEST-MIGR-SRR-RED"
         }, {
-          "description": "\"vers Route Explorer\"",
-          "name": "\"RADIUS-REQUEST-BITSTREAM-RED\""
+          "description": "vers Route Explorer",
+          "name": "RADIUS-REQUEST-BITSTREAM-RED"
         }
       ],
       "radius-server-policy": [
         {
-          "acct-request-script-policy": "\"RADIUS-REQUEST-BITSTREAM-RED\"",
-          "description": "\"Radius Accounting pour Collecte Ethernet\"",
-          "name": "\"RADIUS-ACCT-COLL-ETH-RED\"",
+          "acct-request-script-policy": "RADIUS-REQUEST-BITSTREAM-RED",
+          "description": "Radius Accounting pour Collecte Ethernet",
+          "name": "RADIUS-ACCT-COLL-ETH-RED",
           "servers": {
             "retry": "1",
-            "router": "\"Base\"",
+            "router": "Base",
             "server-id": "1",
-            "server-name": "\"RADIUS-ACCT\""
+            "server-name": "RADIUS-ACCT"
           }
         },
         {
-          "auth-request-script-policy": "\"RADIUS-REQUEST-DROP\"",
-          "description": "\"But est de dropper les paquets pour utiliser le fallback accept\"",
-          "name": "\"RADIUS-AUTH-TIMEOUT\"",
+          "auth-request-script-policy": "RADIUS-REQUEST-DROP",
+          "description": "But est de dropper les paquets pour utiliser le fallback accept",
+          "name": "RADIUS-AUTH-TIMEOUT",
           "servers": {
             "retry": "1",
-            "router": "\"Base\"",
+            "router": "Base",
             "server-id": "1",
-            "server-name": "\"RADIUS-AUTH\"",
+            "server-name": "RADIUS-AUTH",
             "timeout": "sec 59"
           }
         },
         {
-          "name": "\"RADIUS-ACCT-COLL-ETH-RED\""
+          "name": "RADIUS-ACCT-COLL-ETH-RED"
         },
         {
-          "name": "\"RADIUS-ACCT-DEF\""
+          "name": "RADIUS-ACCT-DEF"
         }, {
-          "name": "\"RADIUS-ACCT-DSL-TES\""
+          "name": "RADIUS-ACCT-DSL-TES"
         }, {
-          "name": "\"RADIUS-ACCT-MIGR-SRR-RED\""
+          "name": "RADIUS-ACCT-MIGR-SRR-RED"
         }, {
-          "name": "\"RADIUS-AUTH-COLL-ETH-RED\""
+          "name": "RADIUS-AUTH-COLL-ETH-RED"
         }, {
-          "name": "\"RADIUS-AUTH-DEF\""
+          "name": "RADIUS-AUTH-DEF"
         }, {
-          "name": "\"RADIUS-AUTH-DSL-TES\""
+          "name": "RADIUS-AUTH-DSL-TES"
         }, {
-          "name": "\"RADIUS-AUTH-MIGR-SRR-RED\""
+          "name": "RADIUS-AUTH-MIGR-SRR-RED"
         }, {
-          "name": "\"RADIUS-AUTH-TIMEOUT\""
+          "name": "RADIUS-AUTH-TIMEOUT"
         }
       ]
     }

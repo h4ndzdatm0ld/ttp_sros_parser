@@ -2,32 +2,32 @@
   "configure": {
     "subscriber-mgmt": {
       "authentication-policy": {
-        "name": "\"RADIUS\"",
+        "name": "RADIUS",
         "radius-authentication-server": {
           "address": "195.85.40.20",
           "hashing-scheme": "hash2",
           "port": "1645",
-          "router": "\"Base\"",
-          "secret": "\"netconanRemoved18\"",
+          "router": "Base",
+          "secret": "netconanRemoved18",
           "server-id": "1"
         }
       },
       "local-user-db": {
-        "name": "\"AAA-DHCP\"",
+        "name": "AAA-DHCP",
         "protocol": {
           "host": [
             {
               "admin-state": true,
-              "auth-policy": "\"AUTH-COLL-ETH-RED\"",
-              "host-name": "\"default\"",
+              "auth-policy": "AUTH-COLL-ETH-RED",
+              "host-name": "default",
               "server": "195.85.40.22"
             }, {
               "admin-state": true,
-              "auth-policy": "\"AUTH-MIGR\"",
+              "auth-policy": "AUTH-MIGR",
               "host-identification": {
-                "option60-string": "\"toto\""
+                "option60-string": "toto"
               },
-              "host-name": "\"IAD-Profil\"",
+              "host-name": "IAD-Profil",
               "server": "218.152.120.74"
             }
           ],

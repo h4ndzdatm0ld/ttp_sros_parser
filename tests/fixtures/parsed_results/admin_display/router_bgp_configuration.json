@@ -11,14 +11,14 @@
         "enable-peer-tracking": true,
         "group": [
           {
-            "description": "\"Interco eBGP pour extension domaine PIM\"",
+            "description": "Interco eBGP pour extension domaine PIM",
             "export": [
-              "\"EXPORT-ALL-MULTICAST-SOURCES\"", "\"default-reject\""
+              "EXPORT-ALL-MULTICAST-SOURCES", "default-reject"
             ],
             "family": "ipv4",
-            "import": ["\"default-reject\""],
+            "import": ["default-reject"],
             "loop-detect": "discard-route",
-            "name": "\"IP\"",
+            "name": "IP",
             "neighbor": {
               "description": "PTN00115_IP",
               "neighbor-id": "79.92.218.245"
@@ -27,16 +27,16 @@
             "ttl-security": "255",
             "type": "external"
           }, {
-            "description": "\"acces pour Flux\"",
+            "description": "acces pour Flux",
             "export": [
-              "\"EXPORT-ALL-SOURCES\"", "\"default-reject\""
+              "EXPORT-ALL-SOURCES", "default-reject"
             ],
             "family": "ipv4",
             "import": [
-              "\"COLLECTE-IPv4-IMPORT\"", "\"default-accept-bgp\""
+              "COLLECTE-IPv4-IMPORT", "default-accept-bgp"
             ],
             "loop-detect": "discard-route",
-            "name": "\"EBGP\"",
+            "name": "EBGP",
             "neighbor": {
               "description": "PAR38-W01-AGR-IP",
               "neighbor-id": "78.197.9.157",
@@ -50,7 +50,7 @@
         ],
         "ibgp-multipath": true,
         "next-hop-resolution": {
-          "policy": "\"NEXT-HOP-TRACKING\"",
+          "policy": "NEXT-HOP-TRACKING",
           "shortcut-tunnel": {
             "family": [
               {
@@ -62,13 +62,13 @@
             ]
           }
         },
-        "peer-tracking-policy": "\"PEER-TRACKING\"",
+        "peer-tracking-policy": "PEER-TRACKING",
         "rib-management": {
           "ipv6": {
-            "route-table-import": "\"RIB_LEAK\""
+            "route-table-import": "RIB_LEAK"
           },
           "label-ipv6": {
-            "route-table-import": "\"RIB_LEAK\""
+            "route-table-import": "RIB_LEAK"
           }
         }
       }
