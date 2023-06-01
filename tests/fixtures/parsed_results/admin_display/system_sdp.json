@@ -1,157 +1,251 @@
 {
   "configure": {
-    "system": {
-      "service": {
-        "ies": {
-          "subscriber-interface": {
-            "ipv6": {}
-          }
-        },
-        "sdp": [
-          {
-            "adv-mtu-override": true,
-            "description": "\"MPLS-LABEL-TO-7750-01\"",
-            "far-end": "10.100.69.0",
-            "keep-alive": {
-              "admin-state": false
-            },
-            "ldp": true,
-            "sdp-id": "215"
-          }, {
-            "adv-mtu-override": true,
-            "description": "\"MPLS-LABEL-TO-7750-02\"",
-            "far-end": "10.100.69.1",
-            "keep-alive": {
-              "admin-state": false
-            },
-            "ldp": true,
-            "sdp-id": "1215"
-          }, {
-            "far-end": "10.10.10.4",
-            "keep-alive": {
-              "admin-state": false
-            },
-            "lsp": "\"TO_R4\"",
-            "path-mtu": "9100",
-            "sdp-id": "14"
-          }
-        ],
-        "vpls": {
-          "sap": {
-            "egress": [
-              {
-                "qos": "21140"
-              }, {
-                "qos": "21140"
-              }, {
-                "qos": "21140"
+      "system": {
+          "service": {
+              "epipe": [
+                  {
+                      "customer-id": "2",
+                      "description": "CELL0215-1X-URC01-EPIPE-OVER-SDP-215",
+                      "epipe-id": "1121501",
+                      "service-name": "epipe service-14791 TEMPE-AZ-EXAMPLE-P-AL-0215-01 (10.115.69.200)"
+                  },
+                  {
+                      "customer-id": "2",
+                      "description": "CELL0215-1X-URC02-EPIPE-OVER-SDP-215",
+                      "epipe-id": "1121502",
+                      "service-name": "epipe service-14792 TEMPE-AZ-EXAMPLE-P-AL-0215-01 (10.115.69.200)"
+                  },
+                  {
+                      "customer-id": "3",
+                      "description": "CELL0215-DO-URC03-EPIPE-OVER-SDP-215",
+                      "epipe-id": "2121503",
+                      "service-name": "epipe service-14793 TEMPE-AZ-EXAMPLE-P-AL-0215-01 (10.115.69.200)"
+                  },
+                  {
+                      "customer-id": "4",
+                      "description": "CELL0215-CSM-A-EPIPE-OVER-SDP-215",
+                      "epipe-id": "41215001",
+                      "service-name": "epipe service-14795 TEMPE-AZ-EXAMPLE-P-AL-0215-01 (10.115.69.200)"
+                  },
+                  {
+                      "customer-id": "4",
+                      "description": "CELL0215-CSM-B-EPIPE-OVER-SDP-215",
+                      "epipe-id": "41215002",
+                      "service-name": "epipe service-14796 TEMPE-AZ-EXAMPLE-P-AL-0215-01 (10.115.69.200)"
+                  },
+                  {
+                      "admin_state": true,
+                      "customer-id": "4",
+                      "description": "eNodeB0215-OAM-Port157",
+                      "epipe-id": "43215157",
+                      "service-name": "epipe service-6200 TEMPE-AZ-EXAMPLE-P-AL-0215-01 (10.115.69.200)",
+                      "spoke-sdp": [
+                          {
+                              "admin_state": true,
+                              "endpoint": "Epipe 43215157",
+                              "spoke-sdp-id": "215:43215157"
+                          },
+                          {
+                              "admin_state": true,
+                              "endpoint": "Epipe 43215157",
+                              "spoke-sdp-id": "1215:43215157"
+                          }
+                      ]
+                  },
+                  {
+                      "admin_state": true,
+                      "customer-id": "4",
+                      "description": "eNodeB324215-OAM-Port167",
+                      "epipe-id": "43215167",
+                      "service-name": "epipe:162847:43215167:TEMPE-AZ-EXAMPLE-P-AL-0215-S1(10.115.69.200)",
+                      "spoke-sdp": [
+                          {
+                              "admin_state": true,
+                              "endpoint": "Epipe 43215167",
+                              "spoke-sdp-id": "215:43215167"
+                          },
+                          {
+                              "admin_state": true,
+                              "endpoint": "Epipe 43215167",
+                              "spoke-sdp-id": "1215:43215167"
+                          }
+                      ]
+                  },
+                  {
+                      "customer-id": "4",
+                      "description": "CELL0215-EXFO-TEST-EPIPE-OVER-SDP-0215",
+                      "epipe-id": "45215001",
+                      "service-mtu": "1970",
+                      "service-name": "epipe service-57962 TEMPE-AZ-EXAMPLE-P-AL-0215-01 (10.115.69.200)"
+                  },
+                  {
+                      "customer-id": "4",
+                      "description": "CELL0215-EXFO-TEST-EPIPE-OVER-SDP-1215",
+                      "epipe-id": "45215002",
+                      "service-mtu": "1970",
+                      "service-name": "epipe service-57961 TEMPE-AZ-EXAMPLE-P-AL-0215-01 (10.115.69.200)"
+                  }
+              ],
+              "ies": {
+                  "subscriber-interface": {
+                      "ipv6": {}
+                  }
+              },
+              "sdp": [
+                  {
+                      "adv-mtu-override": true,
+                      "description": "MPLS-LABEL-TO-7750-01",
+                      "far-end": "10.100.69.0",
+                      "keep-alive": {
+                          "admin-state": false
+                      },
+                      "ldp": true,
+                      "sdp-id": "215"
+                  },
+                  {
+                      "adv-mtu-override": true,
+                      "description": "MPLS-LABEL-TO-7750-02",
+                      "far-end": "10.100.69.1",
+                      "keep-alive": {
+                          "admin-state": false
+                      },
+                      "ldp": true,
+                      "sdp-id": "1215"
+                  },
+                  {
+                      "far-end": "10.10.10.4",
+                      "keep-alive": {
+                          "admin-state": false
+                      },
+                      "lsp": "TO_R4",
+                      "path-mtu": "9100",
+                      "sdp-id": "14"
+                  }
+              ],
+              "vpls": {
+                  "sap": {
+                      "egress": [
+                          {
+                              "qos": "21140"
+                          },
+                          {
+                              "qos": "21140"
+                          },
+                          {
+                              "qos": "21140"
+                          }
+                      ],
+                      "ingress": [
+                          {
+                              "qos": "21130"
+                          },
+                          {
+                              "qos": "21130"
+                          },
+                          {
+                              "qos": "21130"
+                          },
+                          {
+                              "qos": "22130"
+                          },
+                          {
+                              "qos": "22130"
+                          },
+                          {
+                              "qos": "23130"
+                          },
+                          {
+                              "qos": "10"
+                          },
+                          {
+                              "qos": "10"
+                          },
+                          {
+                              "qos": "20030"
+                          },
+                          {
+                              "qos": "20030"
+                          }
+                      ]
+                  },
+                  "spoke-sdp": [
+                      {
+                          "admin_state": true,
+                          "spoke-sdp": "215:1121501 endpoint Epipe_215_1"
+                      },
+                      {
+                          "admin_state": true,
+                          "spoke-sdp": "1215:1121501 endpoint Epipe_215_1"
+                      },
+                      {
+                          "admin_state": true,
+                          "spoke-sdp": "215:1121502 endpoint Epipe_215_2"
+                      },
+                      {
+                          "admin_state": true,
+                          "spoke-sdp": "1215:1121502 endpoint Epipe_215_2"
+                      },
+                      {
+                          "admin_state": true,
+                          "spoke-sdp": "215:2121503 endpoint Epipe_215_3"
+                      },
+                      {
+                          "admin_state": true,
+                          "spoke-sdp": "1215:2121503 endpoint Epipe_215_3"
+                      },
+                      {
+                          "admin_state": true,
+                          "spoke-sdp": "215:41215001 endpoint Epipe_215_A"
+                      },
+                      {
+                          "admin_state": true,
+                          "spoke-sdp": "1215:41215001 endpoint Epipe_215_A"
+                      },
+                      {
+                          "admin_state": true,
+                          "spoke-sdp": "215:41215002 endpoint Epipe_215_B"
+                      },
+                      {
+                          "admin_state": true,
+                          "spoke-sdp": "1215:41215002 endpoint Epipe_215_B"
+                      },
+                      {
+                          "admin_state": true,
+                          "spoke-sdp": "215:45215001 vc-type vlan"
+                      },
+                      {
+                          "admin_state": true,
+                          "spoke-sdp": "1215:45215002 vc-type vlan"
+                      }
+                  ],
+                  "stp": [
+                      {
+                          "admin_state": false
+                      },
+                      {
+                          "admin_state": false
+                      }
+                  ]
+              },
+              "vprn": {
+                  "interface": [
+                      {
+                          "interface-name": "L3-Telecom-CSR0215"
+                      },
+                      {
+                          "interface-name": "L3-Telecom-5G-CSR024215"
+                      },
+                      {
+                          "description": "CSR0215-Telecom-rVPLS100",
+                          "interface-name": "L3-Telecom-CSR0215"
+                      },
+                      {
+                          "description": "CSR024215-Telecom-rVPLS310-gNB",
+                          "interface-name": "L3-Telecom-5G-CSR024215"
+                      }
+                  ]
               }
-            ],
-            "ingress": [
-              {
-                "qos": "21130"
-              },
-              {
-                "qos": "21130"
-              },
-              {
-                "qos": "21130"
-              },
-              {
-                "qos": "22130"
-              }, {
-                "qos": "22130"
-              }, {
-                "qos": "23130"
-              }, {
-                "qos": "10"
-              }, {
-                "qos": "10"
-              }, {
-                "qos": "20030"
-              }, {
-                "qos": "20030"
-              }
-            ]
-          },
-          "spoke-sdp": [
-            {
-              "admin_state": true,
-              "spoke-sdp": "215:1121501 endpoint \"Epipe_215_1\""
-            },
-            {
-              "admin_state": true,
-              "spoke-sdp": "1215:1121501 endpoint \"Epipe_215_1\""
-            },
-            {
-              "admin_state": true,
-              "spoke-sdp": "215:1121502 endpoint \"Epipe_215_2\""
-            },
-            {
-              "admin_state": true,
-              "spoke-sdp": "1215:1121502 endpoint \"Epipe_215_2\""
-            }, {
-              "admin_state": true,
-              "spoke-sdp": "215:2121503 endpoint \"Epipe_215_3\""
-            }, {
-              "admin_state": true,
-              "spoke-sdp": "1215:2121503 endpoint \"Epipe_215_3\""
-            }, {
-              "admin_state": true,
-              "spoke-sdp": "215:41215001 endpoint \"Epipe_215_A\""
-            }, {
-              "admin_state": true,
-              "spoke-sdp": "1215:41215001 endpoint \"Epipe_215_A\""
-            }, {
-              "admin_state": true,
-              "spoke-sdp": "215:41215002 endpoint \"Epipe_215_B\""
-            }, {
-              "admin_state": true,
-              "spoke-sdp": "1215:41215002 endpoint \"Epipe_215_B\""
-            }, {
-              "admin_state": true,
-              "spoke-sdp": "215:43215157 endpoint \"Epipe 43215157\""
-            }, {
-              "admin_state": true,
-              "spoke-sdp": "1215:43215157 endpoint \"Epipe 43215157\""
-            }, {
-              "admin_state": true,
-              "spoke-sdp": "215:43215167 endpoint \"Epipe 43215167\""
-            }, {
-              "admin_state": true,
-              "spoke-sdp": "1215:43215167 endpoint \"Epipe 43215167\""
-            }, {
-              "admin_state": true,
-              "spoke-sdp": "215:45215001 vc-type vlan"
-            }, {
-              "admin_state": true,
-              "spoke-sdp": "1215:45215002 vc-type vlan"
-            }
-          ],
-          "stp": [
-            {
-              "admin_state": false
-            }, {
-              "admin_state": false
-            }
-          ]
-        },
-        "vprn": {
-          "interface": [
-            {
-              "interface-name": "\"L3-Telecom-CSR0215\""
-            }, {
-              "interface-name": "\"L3-Telecom-5G-CSR024215\""
-            }, {
-              "description": "\"CSR0215-Telecom-rVPLS100\"",
-              "interface-name": "\"L3-Telecom-CSR0215\""
-            }, {
-              "description": "\"CSR024215-Telecom-rVPLS310-gNB\"",
-              "interface-name": "\"L3-Telecom-5G-CSR024215\""
-            }
-          ]
-        }
+          }
       }
-    }
   }
 }

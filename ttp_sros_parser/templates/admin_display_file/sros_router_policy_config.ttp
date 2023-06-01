@@ -5,7 +5,7 @@ echo "Policy Configuration" {{_start_}}
         policy-options {{ignore}}
             begin {{ignore}}
             <group name="prefix-list">
-            prefix-list {{ name | re(r'.*') }}     
+            prefix-list "{{ name | re(r'.*') }}"
                 {{ prefix-list_cfg | _line_ | contains("prefix") | joinmatches }}
             exit {{_end_}}
             </group>
@@ -18,13 +18,13 @@ echo "Policy Configuration" {{_start_}}
             </group>
 
             <group name="policy-statement">
-            policy-statement {{ name | re(r'.*') }}
+            policy-statement "{{ name | re(r'.*') }}"
                 <group name="entry-list">
                 entry {{entry-id | DIGIT}}
                     description "{{description | re(r'.*')}}"
                     <group name="from">
                     from {{_start_}}
-                        {{ from | ORPHRASE | joinmatches }}
+                        {{ from | replace('"', '') | ORPHRASE | joinmatches }}
                     exit {{_end_}}
                     </group>
                     <group name="to">

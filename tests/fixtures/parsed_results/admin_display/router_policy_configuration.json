@@ -9,10 +9,10 @@
               "action": {},
               "entry-id": "10",
               "from": {
-                "from": "prefix-list \"accept-7750-SR\""
+                "from": "prefix-list accept-7750-SR"
               }
             },
-            "name": "\"ldp-accept\""
+            "name": "ldp-accept"
           }, {
             "default-action": "reject",
             "entry-list": [
@@ -42,7 +42,7 @@
                 }
               }
             ],
-            "name": "\"br-ospf-export\""
+            "name": "br-ospf-export"
           }, {
             "default-action": "reject",
             "entry-list": [
@@ -72,11 +72,11 @@
                 }
               }
             ],
-            "name": "\"br-ospf3-export\""
+            "name": "br-ospf3-export"
           }
         ],
         "prefix-list": {
-          "name": "\"accept-7750-SR\"",
+          "name": "accept-7750-SR",
           "prefix-list_cfg": "prefix 10.114.45.0/32 exact\nprefix 10.114.45.1/32 exact"
         }
       }

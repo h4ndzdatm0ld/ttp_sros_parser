@@ -5,10 +5,10 @@ echo "Service Configuration" {{ignore}}
     service {{_start_}}
         <group name="sdp">
         sdp {{sdp-id | _start_ |re(r"\d.*") | replaceall("","create","mpls") | strip()}}
-            description {{description | ORPHRASE}}
+            description "{{description | ORPHRASE}}"
             far-end {{far-end | IP}}
             ldp {{ldp | set(true)}}
-            lsp {{lsp | ORPHRASE}}
+            lsp "{{lsp | ORPHRASE}}"
             path-mtu {{path-mtu}}
             mixed-lsp-mode {{mixed-lsp-mode | set(true)}}
             bgp-tunnel {{bgp-tunnel | set(true)}}
@@ -29,8 +29,9 @@ echo "Service Configuration" {{ignore}}
         </group>
 
         <group name="epipe">
-        epipe {{epipe-id}} name {{epipe-name | _start_ | ORPHRASE | ORPHRASE}} customer {{customer-id}} create
-            description {{ description | re(".*") }} 
+        epipe {{epipe-id | DIGIT}} customer {{customer-id | DIGIT}} create
+            description "{{ description | re(".*") }}"
+            service-name "{{ service-name | re(".*") }}"
             service-mtu {{ service-mtu | DIGIT }}
             <group name="sap">
             sap {{ sap-id | _start_ | re(r".*-\d+:\d+") }} create
@@ -38,7 +39,7 @@ echo "Service Configuration" {{ignore}}
             exit {{_end_}}
             </group>
             <group name="spoke-sdp">
-            spoke-sdp {{ spoke-sdp-id | _start_ | re(r"\d+:\d+") }} vc-type {{vc-type | WORD }} create
+            spoke-sdp {{ spoke-sdp-id | _start_ | re(r"\d+:\d+") }} endpoint "{{endpoint | ORPHRASE }}" create
                 no shutdown {{admin_state | set(true)}}
             exit {{_end_}}
             </group>
@@ -278,8 +279,8 @@ echo "Service Configuration" {{ignore}}
             </group>
             enable-bgp-vpn-backup {{enable-bgp-vpn-backup | ORPHRASE}}
             <group name="interface">
-            interface {{interface-name | _start_ | ORPHRASE}} create
-                description {{ description | re(".*") }}
+            interface "{{interface-name | _start_ | ORPHRASE}}" create
+                description "{{ description | re(".*") }}"
                 address {{ address | PREFIX }}
                 address {{ address | PREFIXV6 }}
                 <group name="cflowd-parameters">
@@ -362,8 +363,8 @@ echo "Service Configuration" {{ignore}}
             exit {{_end_}}
             </group>
             <group name="spoke-sdp">
-            spoke-sdp {{spoke-sdp | _start_ | ORPHRASE}} create
-                description {{ description | re(".*") }}
+            spoke-sdp {{spoke-sdp | replace('"', '') | _start_ | ORPHRASE}} create
+                description "{{ description | re(".*") }}"
                 no shutdown {{admin_state | set(true)}}
             exit {{_end_}}
             </group>
